@@ -1,0 +1,144 @@
+/* Animations & Keyframes */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatNode {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 38px rgba(255, 107, 0, 0.45);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Continuous 3D Orbital Rotation Keyframes */
+@keyframes orbitRotate3D {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counterRotateCard {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+/* Hero 3D Stage Subtle Floating & Stable Micro-Sway (No full upside down spin) */
+@keyframes subtle3DFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-6px) rotate(2deg) scale(1.01);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0deg) scale(1.015);
+  }
+  75% {
+    transform: translateY(-6px) rotate(-2deg) scale(1.01);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+.spin-3d-stage-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+  animation: subtle3DFloat 6.5s ease-in-out infinite;
+}
+
+.spin-orbit-3d {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  animation: orbitRotate3D 28s linear infinite;
+}
+
+.counter-orbit-card {
+  animation: counterRotateCard 28s linear infinite;
+}
+
+/* Pause rotation smoothly on hover so user can easily click any service node */
+.ecosystem-graphic:hover .spin-orbit-3d,
+.ecosystem-graphic:hover .counter-orbit-card {
+  animation-play-state: paused;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.float-anim {
+  animation: floatNode 3.5s ease-in-out infinite;
+}
+
+.glow-pulse {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.spin-ring {
+  transform-origin: 250px 250px;
+  animation: spinSlow 40s linear infinite;
+}
+
+.glow-box {
+  filter: drop-shadow(0 0 12px rgba(255, 107, 0, 0.25));
+}
