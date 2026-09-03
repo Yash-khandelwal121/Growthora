@@ -426,7 +426,9 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: #52627A;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
   transition: color 0.25s ease;
 }
 
@@ -440,6 +442,7 @@
   align-items: center;
   color: #CBD5E1;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .step-connector.active-connector {
@@ -464,10 +467,16 @@
   gap: 0.6rem;
   background: #FFF7F2;
   border: 1px solid rgba(255, 114, 0, 0.25);
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   border-radius: 12px;
   font-size: 0.85rem;
   color: #071A3D;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
 }
 
 .phase-indicator-dot {
@@ -477,6 +486,15 @@
   background: #FF7200;
   box-shadow: 0 0 8px #FF7200;
   animation: pulseGlow 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.phase-text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
 }
 
 /* Blueprint Table Footer Ticks */
@@ -492,6 +510,11 @@
   font-weight: 700;
   color: #64748B;
   letter-spacing: 0.05em;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Blueprint Paper Panels Grid Below 3D Canvas */
@@ -499,6 +522,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .blueprint-paper-card {
@@ -507,6 +533,10 @@
   border: 1px solid #E6E9EF;
   padding: 1.75rem;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .panel-header {
@@ -516,22 +546,27 @@
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid #E6E9EF;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .panel-title-wrap {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  max-width: 100%;
 }
 
-.panel-icon.orange { color: #FF7200; }
-.panel-icon.purple { color: #6366F1; }
+.panel-icon.orange { color: #FF7200; flex-shrink: 0; }
+.panel-icon.purple { color: #6366F1; flex-shrink: 0; }
 
 .panel-title {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.05rem;
   color: #071A3D;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .panel-sheet-num {
@@ -542,12 +577,16 @@
   background: #FAF8F5;
   padding: 0.2rem 0.5rem;
   border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .included-pills-wrap {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .blueprint-pill {
@@ -561,6 +600,17 @@
   font-size: 0.88rem;
   font-weight: 600;
   color: #071A3D;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+}
+
+.blueprint-pill span {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
 }
 
 .pill-orange-dot {
@@ -568,6 +618,7 @@
   height: 7px;
   border-radius: 50%;
   background: #FF7200;
+  flex-shrink: 0;
 }
 
 .blueprint-list {
@@ -575,6 +626,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .blueprint-list-item {
@@ -584,6 +638,19 @@
   font-size: 0.92rem;
   color: #52627A;
   line-height: 1.45;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.blueprint-list-item span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
 }
 
 .item-icon.purple { color: #6366F1; flex-shrink: 0; margin-top: 3px; }
@@ -595,6 +662,9 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .timeline-label {
@@ -610,6 +680,8 @@
   font-size: 0.92rem;
   color: #52627A;
   line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .btn-blueprint-cta {
@@ -618,6 +690,8 @@
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 0.85rem;
   border-radius: var(--radius-md);
   background: #071A3D;
@@ -625,6 +699,9 @@
   font-size: 0.92rem;
   font-weight: 700;
   transition: all 0.25s ease;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
 }
 
 .btn-blueprint-cta:hover {
@@ -634,16 +711,22 @@
 
 /* RESPONSIVE BLUEPRINT BREAKPOINTS */
 
-/* Tablet */
+/* Tablet (max-width: 1024px) */
 @media (max-width: 1024px) {
   .blueprint-layout-container {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-sidebar-sticky {
     position: relative;
     top: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-nav-list {
@@ -654,6 +737,9 @@
     scrollbar-width: none;
     gap: 0.5rem;
     padding-bottom: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-nav-list::-webkit-scrollbar {
@@ -669,30 +755,46 @@
 
   .blueprint-paper-panels-grid {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
-/* Mobile */
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   .services-master-section.blueprint-mode {
     padding: 3rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-section-title {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .blueprint-section-desc {
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .blueprint-section-header {
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Sidebar becomes horizontal scroll chip bar */
   .blueprint-sidebar-sticky {
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-sidebar-header {
@@ -706,8 +808,11 @@
 
   /* Blueprint Canvas */
   .blueprint-table-container {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     border-radius: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-table-header {
@@ -715,22 +820,35 @@
     align-items: flex-start;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-plaque-primary {
     font-size: 0.72rem;
     padding: 0.35rem 0.7rem;
+    max-width: 100%;
+    white-space: normal;
   }
 
   .blueprint-plaque-tagline {
     font-size: 0.75rem;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: normal;
   }
 
   .blueprint-tooltip-banner {
     font-size: 0.8rem;
     padding: 0.5rem 0.75rem;
     white-space: normal;
-    word-break: break-word;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Blueprint image — ensure it doesn't overflow */
@@ -738,34 +856,53 @@
     padding: 0.25rem;
     border-radius: 14px;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-3d-render-img {
     width: 100%;
+    max-width: 100%;
     max-height: 240px;
     object-fit: cover;
   }
 
-  /* Execution Path — vertical on mobile */
+  /* Execution Path — STACK VERTICALLY ON MOBILE */
   .execution-steps-track {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .path-step-node {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.85rem;
+    white-space: normal;
+  }
+
+  .path-step-node .step-label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    flex: 1;
+    min-width: 0;
+    font-size: 0.82rem;
   }
 
   .step-connector {
     transform: rotate(90deg);
-    margin-left: 0.75rem;
-    margin-top: -0.25rem;
-    margin-bottom: -0.25rem;
+    align-self: center;
+    margin: -0.1rem 0;
   }
 
-  .path-step-node {
-    padding: 0.45rem 0.75rem;
-  }
-
-  .step-label {
-    font-size: 0.8rem;
+  .pulse-line {
+    width: 16px;
   }
 
   /* Table footer — wrap tightly */
@@ -774,49 +911,94 @@
     gap: 0.25rem;
     font-size: 0.65rem;
     justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
-  /* Paper panels — single column */
+  /* Paper panels — single column with mobile padding 20px */
   .blueprint-paper-panels-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-paper-card {
     padding: 1.25rem;
-    border-radius: 14px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .panel-title {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .included-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .blueprint-pill {
-    font-size: 0.8rem;
-    padding: 0.35rem 0.7rem;
+    font-size: 0.82rem;
+    padding: 0.4rem 0.75rem;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    box-sizing: border-box;
   }
 
   .blueprint-list-item {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .active-phase-bar {
-    font-size: 0.78rem;
-    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.85rem;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .phase-text {
+    flex: 1;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .path-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 
-/* Small phones */
-@media (max-width: 430px) {
+/* Small phones (375px, 390px, 430px) */
+@media (max-width: 480px) {
   .services-master-section.blueprint-mode {
-    padding: 2.5rem 0.75rem;
+    padding: 2.25rem 0.75rem;
   }
 
   .blueprint-section-title {
@@ -833,12 +1015,19 @@
   }
 
   .blueprint-table-container {
-    padding: 0.75rem;
-    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    border-radius: 14px;
   }
 
   .blueprint-paper-card {
     padding: 1rem;
+    border-radius: 14px;
+  }
+
+  .blueprint-pill {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.65rem;
   }
 }
+
 

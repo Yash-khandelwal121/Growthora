@@ -2677,3 +2677,57 @@ html, body, .services-page-root {
     gap: 0.5rem;
   }
 }
+
+/* ─────────────────────────────────────────
+   UNIVERSAL MOBILE RESPONSIVE AUDIT & FIXES
+   Enforces width: 100%, max-width: 100%, box-sizing: border-box,
+   natural text wrapping, and zero horizontal scrolling on 375px, 390px, 430px, 768px
+───────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  html, body, .services-page-root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Universal container & card constraints */
+  .hero-container,
+  .blueprint-layout-container,
+  .header-container,
+  .footer-container,
+  .finder-container,
+  .cta-container,
+  .service-detail-card,
+  .blueprint-paper-card,
+  .blueprint-table-container,
+  .hero-metrics-grid,
+  .hero-quote-card,
+  .blueprint-execution-path-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Universal text wrapping rules — no text overflows */
+  h1, h2, h3, h4, h5, h6, p, span, li, a, div, button {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* Universal button scaling */
+  button, .btn, input, select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
