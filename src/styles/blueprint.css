@@ -633,6 +633,8 @@
 }
 
 /* RESPONSIVE BLUEPRINT BREAKPOINTS */
+
+/* Tablet */
 @media (max-width: 1024px) {
   .blueprint-layout-container {
     grid-template-columns: 1fr;
@@ -648,13 +650,21 @@
     display: flex;
     flex-direction: row;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     gap: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+
+  .blueprint-nav-list::-webkit-scrollbar {
+    display: none;
   }
 
   .blueprint-nav-item {
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
   }
 
   .blueprint-paper-panels-grid {
@@ -662,29 +672,173 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
+  .services-master-section.blueprint-mode {
+    padding: 3rem 1rem;
+  }
+
+  .blueprint-section-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .blueprint-section-desc {
+    font-size: 0.95rem;
+  }
+
+  .blueprint-section-header {
+    margin-bottom: 2rem;
+  }
+
+  /* Sidebar becomes horizontal scroll chip bar */
+  .blueprint-sidebar-sticky {
+    padding: 1rem;
+  }
+
+  .blueprint-sidebar-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.78rem;
+  }
+
+  /* Blueprint Canvas */
+  .blueprint-table-container {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .blueprint-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .blueprint-plaque-primary {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .blueprint-plaque-tagline {
+    font-size: 0.75rem;
+  }
+
+  .blueprint-tooltip-banner {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* Blueprint image — ensure it doesn't overflow */
+  .blueprint-model-wrapper {
+    padding: 0.25rem;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .blueprint-3d-render-img {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+  }
+
+  /* Execution Path — vertical on mobile */
   .execution-steps-track {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .step-connector {
     transform: rotate(90deg);
     margin-left: 0.75rem;
+    margin-top: -0.25rem;
+    margin-bottom: -0.25rem;
   }
 
-  .blueprint-table-container {
+  .path-step-node {
+    padding: 0.45rem 0.75rem;
+  }
+
+  .step-label {
+    font-size: 0.8rem;
+  }
+
+  /* Table footer — wrap tightly */
+  .blueprint-table-footer {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-size: 0.65rem;
+    justify-content: flex-start;
+  }
+
+  /* Paper panels — single column */
+  .blueprint-paper-panels-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .blueprint-paper-card {
     padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .panel-title {
+    font-size: 0.95rem;
+  }
+
+  .blueprint-pill {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .blueprint-list-item {
+    font-size: 0.85rem;
+  }
+
+  .active-phase-bar {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .path-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 
+/* Small phones */
 @media (max-width: 430px) {
   .services-master-section.blueprint-mode {
-    padding: 3.5rem 1.25rem;
+    padding: 2.5rem 0.75rem;
   }
 
   .blueprint-section-title {
-    font-size: 1.9rem;
+    font-size: 1.6rem;
+  }
+
+  .blueprint-3d-render-img {
+    max-height: 200px;
+  }
+
+  .blueprint-nav-item {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.82rem;
+  }
+
+  .blueprint-table-container {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .blueprint-paper-card {
+    padding: 1rem;
   }
 }
+
