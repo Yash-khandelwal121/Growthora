@@ -169,14 +169,13 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
               <button
                 key={node.id}
                 type="button"
-                className="hero-stage-hotspot-pill svc-pill"
+                className="hero-stage-hotspot-pill"
                 style={node.style}
                 onClick={() => handleHotspotClick(node.id)}
                 title={`Click to view ${node.label}`}
                 aria-label={`Jump to ${node.label}`}
               >
-                <span style={{fontWeight: 'bold', marginRight: '6px', color: '#FF7200'}}>{node.label.split(' ')[0]}</span>
-                <span style={{fontWeight: '600', color: '#0F172A', whiteSpace: 'nowrap'}}>{node.label.substring(node.label.indexOf(' ') + 1)}</span>
+                <span className="sr-only">{node.label}</span>
               </button>
             ))}
           </div>
