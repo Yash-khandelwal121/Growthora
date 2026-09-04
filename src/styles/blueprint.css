@@ -542,6 +542,8 @@
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-header {
@@ -666,7 +668,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 1.5rem;
-  height: 100%;
+  flex: 1;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
