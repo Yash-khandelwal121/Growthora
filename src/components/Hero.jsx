@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp, ShieldCheck, Zap, Users, Award, TrendingUp, Compass } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Clickable transparent hotspots aligned over the printed labels in growthora_hero_ecosystem.jpg
   const ecosystemNodes = [
@@ -28,6 +30,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
   ];
 
   const handleHotspotClick = (nodeId) => {
+    if (nodeId === "01") {
+      navigate('/services/registration');
+      return;
+    }
     if (onSelectCategory) {
       onSelectCategory(nodeId);
     }
