@@ -115,7 +115,7 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
                         className="dropdown-service-item"
                         onClick={() => {
                           setIsDropdownOpen(false);
-                          onSelectCategory(item.id);
+                          handleHotspotClick(item.id);
                         }}
                       >
                         <span className="dropdown-item-num">{item.id}</span>
