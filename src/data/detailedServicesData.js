@@ -5,7 +5,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Protect Your Personal Assets with a Flexible Corporate Structure",
     description: "An LLP offers the perfect balance of a traditional partnership and a private limited company. Enjoy limited liability protection for your partners without complex corporate compliances.",
     heroImage: "/services/reg_llp_hero.jpg",
-    cardImage: "/services/reg_llp.png",
+    cardImage: "/services/card_reg_llp.jpg",
     overview: {
       whatItIs: "A corporate business vehicle that enables professional expertise and entrepreneurial initiative to combine and operate in flexible, innovative and efficient manner, providing benefits of limited liability while allowing its members the flexibility for organizing their internal structure as a partnership.",
       whyImportant: "It separates personal assets from business liabilities, protecting partners from debts the business incurs.",
@@ -60,7 +60,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "The Simplest Way to Start Your Business Journey",
     description: "Launch your solo venture effortlessly. A sole proprietorship is the easiest, fastest, and most cost-effective business structure for independent founders and small traders.",
     heroImage: "/services/reg_prop_hero.jpg",
-    cardImage: "/services/reg_prop_hero.jpg",
+    cardImage: "/services/card_reg_proprietorship.jpg",
     overview: {
       whatItIs: "A business structure owned, managed, and controlled by a single individual.",
       whyImportant: "It requires minimal legal formalities and is the fastest way to start operating a formal business.",
@@ -112,7 +112,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "The Gold Standard Structure for Scaling and Fundraising",
     description: "Incorporate a Private Limited Company to build credibility, raise venture capital, and protect your personal assets with a robust corporate structure designed for growth.",
     heroImage: "/services/reg_pvt_hero.jpg",
-    cardImage: "/services/reg_pvt_hero.jpg",
+    cardImage: "/services/card_reg_pvt_ltd.jpg",
     overview: {
       whatItIs: "A privately held business entity recognized by law as separate from its founders, with limited liability and restricted share transferability.",
       whyImportant: "It's the preferred structure for investors and offers the most professional image in the market.",
@@ -168,7 +168,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Formalize Your Business Alliance with a Solid Foundation",
     description: "Start a business with your trusted partners. A registered partnership firm clearly defines roles, profit-sharing, and operational guidelines, preventing future disputes.",
     heroImage: "/services/reg_partner_hero.jpg",
-    cardImage: "/services/reg_partner_hero.jpg",
+    cardImage: "/services/card_reg_partnership.jpg",
     overview: {
       whatItIs: "A business structure where two or more individuals manage and operate a business according to the terms set out in a Partnership Deed.",
       whyImportant: "Registering the firm gives it legal recognition, the right to file suits, and clarifies the relationship between partners.",
@@ -220,7 +220,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Protect Your Brand Identity and Intellectual Property",
     description: "Safeguard your business name, logo, or slogan from copycats. A registered trademark gives you exclusive legal rights and builds immense brand value over time.",
     heroImage: "/services/reg_tm_hero.jpg",
-    cardImage: "/services/reg_trademark_card.jpg",
+    cardImage: "/services/card_reg_trademark.jpg",
     overview: {
       whatItIs: "A recognizable insignia, phrase, word, or symbol that denotes a specific product or service and legally differentiates it from others.",
       whyImportant: "It prevents unauthorized use of your brand, provides legal recourse against infringement, and creates an intangible asset.",
@@ -273,7 +273,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Ensure Tax Compliance and Expand Your Market Reach",
     description: "Navigate indirect taxation smoothly. GST registration is essential for claiming input tax credit, selling interstate, and operating on e-commerce platforms.",
     heroImage: "/services/reg_gst_hero.jpg",
-    cardImage: "/services/reg_gst_hero.jpg",
+    cardImage: "/services/card_reg_gst.jpg",
     overview: {
       whatItIs: "A mandatory tax registration for businesses whose turnover exceeds the threshold limit or who engage in specific taxable activities.",
       whyImportant: "It legalizes your business for tax collection, allows input tax credit claims, and enables pan-India sales.",
@@ -326,7 +326,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Unlock Government Subsidies, Lower Interest Rates, and Growth",
     description: "Get recognized by the Ministry of MSME. Udyam registration is a zero-cost gateway to a multitude of government schemes, priority sector lending, and protection against delayed payments.",
     heroImage: "/services/reg_msme_hero.jpg",
-    cardImage: "/services/reg_msme_hero.jpg",
+    cardImage: "/services/card_reg_msme.jpg",
     overview: {
       whatItIs: "A government registration that provides a unique identity and recognition to micro, small, and medium enterprises.",
       whyImportant: "It opens doors to collateral-free bank loans, lower interest rates, and trademark fee subsidies.",
@@ -350,7 +350,7 @@ export const DETAILED_SERVICES_DATA = {
     ],
     process: [
       { step: "01", title: "Information Gathering", desc: "Collecting basic Aadhaar, PAN, and business details." },
-      { step: "02", title: "Aadhaar OTP", desc: "Verifying identity through Aadhaar OTP." },
+      { step: "02", title: "Aadhaar OTP", desc: "Validating identity through Aadhaar OTP." },
       { step: "03", title: "Data Entry", desc: "Selecting correct NIC codes and entering investment data." },
       { step: "04", title: "Submission", desc: "Final submission on the Udyam portal." },
       { step: "05", title: "Certificate", desc: "Instant generation of the Udyam Registration Certificate." }
@@ -377,7 +377,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Become an Authorized Supplier to the Government of India",
     description: "The Government e-Marketplace (GeM) is the national public procurement portal. Registering enables your business to sell goods and services directly to government departments and PSUs.",
     heroImage: "/services/reg_gem_hero.jpg",
-    cardImage: "/services/reg_gem_hero.jpg",
+    cardImage: "/services/card_reg_gem.jpg",
     overview: {
       whatItIs: "A digital marketplace registration that allows businesses to participate in government tenders and procurement.",
       whyImportant: "Government departments are mandated to procure through GeM, offering a massive market opportunity for private sellers.",
@@ -430,7 +430,7 @@ export const DETAILED_SERVICES_DATA = {
     subtitle: "Establish a Powerful Corporate Presence",
     description: "Whether you need a Section 8 NGO, an OPC (One Person Company), or a Public Limited Company, our end-to-end company registration services lay the foundation for your enterprise.",
     heroImage: "/services/reg_company_hero.jpg",
-    cardImage: "/services/reg_company_hero.jpg",
+    cardImage: "/services/card_reg_company.jpg",
     overview: {
       whatItIs: "The legal process of incorporating a business entity under the Companies Act, providing it with a distinct legal identity.",
       whyImportant: "It provides legal recognition, limits personal liability, and establishes the formal structure required to operate at scale.",
