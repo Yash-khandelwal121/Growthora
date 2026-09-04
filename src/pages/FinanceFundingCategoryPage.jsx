@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { LineChart, Wallet, PieChart, Landmark, TrendingUp, ArrowRight, ArrowLeft, CheckCircle, ChevronDown, ChevronUp, FileText, Settings, ShieldCheck, Briefcase } from 'lucide-react';
+import { LineChart, Wallet, PieChart, Landmark, TrendingUp, ArrowRight, ArrowLeft, CheckCircle, ChevronDown, ChevronUp, FileText, Settings, ShieldCheck, Briefcase, Compass } from 'lucide-react';
 import { FINANCE_FUNDING_DATA } from '../data/financeFundingData';
 
 export default function FinanceFundingCategoryPage() {
