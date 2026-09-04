@@ -9,7 +9,7 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
   const ecosystemNodes = [
     { label: "Registration",   ariaLabel: "Registration services",   id: "01",
       style: { top: "3%",  left: "48%",  width: "27%", height: "10%" } },
-    { label: "Finance",        ariaLabel: "Finance services",         id: "02",
+    { label: "Finance & Funding", ariaLabel: "Finance & Funding services", id: "02",
       style: { top: "14%", left: "74%",  width: "24%", height: "9%"  } },
     { label: "Certifications", ariaLabel: "Certifications services",  id: "03",
       style: { top: "32%", left: "77%",  width: "25%", height: "9%"  } },

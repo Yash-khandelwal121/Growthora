@@ -22,7 +22,7 @@ export const BLUEPRINT_DATA = {
     ]
   },
   "02": {
-    category: "FINANCE",
+    category: "FINANCE & FUNDING",
     title: "Capital Advisory & Funding Blueprint",
     tagline: "ANALYSIS → DOCUMENTATION → DISBURSEMENT",
     image: "/blueprints/02_finance.png",

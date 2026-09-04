@@ -33,8 +33,8 @@ export const SERVICES_DATA = [
   {
     id: "02",
     num: "02",
-    navLabel: "Finance",
-    category: "FINANCE",
+    navLabel: "Finance & Funding",
+    category: "FINANCE & FUNDING",
     title: "Capital & Advisory Financing",
     description:
       "We map your business to the right capital — grants, debt, or equity — prepare lender-ready documentation, and drive the process through to disbursement.",
@@ -56,7 +56,7 @@ export const SERVICES_DATA = [
     ],
     timeline:
       "Typical lender-readiness work starts immediately; sanction timelines depend on scheme and bank review.",
-    cta: "Explore Finance →",
+    cta: "Explore Finance & Funding →",
     badge: "Capital Advisory",
     accentColor: "rgba(99, 102, 241, 0.15)",
     glowColor: "#6366F1"
