@@ -5,6 +5,8 @@ import RegistrationCategoryPage from './pages/RegistrationCategoryPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import FinanceFundingCategoryPage from './pages/FinanceFundingCategoryPage';
 import FinanceFundingDetailPage from './pages/FinanceFundingDetailPage';
+import CertificationCategoryPage from './pages/CertificationCategoryPage';
+import CertificationDetailPage from './pages/CertificationDetailPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -25,6 +27,10 @@ export function App() {
         <Route path="/services/finance-funding" element={<FinanceFundingCategoryPage />} />
         <Route path="/services/finance-funding/:categoryId" element={<FinanceFundingDetailPage />} />
         <Route path="/services/finance-funding/grants/:grantId" element={<FinanceFundingDetailPage />} />
+
+        {/* Certifications Routes */}
+        <Route path="/services/certifications" element={<CertificationCategoryPage />} />
+        <Route path="/services/certifications/:serviceSlug" element={<CertificationDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
