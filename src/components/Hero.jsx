@@ -34,6 +34,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
       navigate('/services/registration');
       return;
     }
+    if (nodeId === "02") {
+      navigate('/services/finance-funding');
+      return;
+    }
     if (onSelectCategory) {
       onSelectCategory(nodeId);
     }

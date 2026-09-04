@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import RegistrationCategoryPage from './pages/RegistrationCategoryPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
+import FinanceFundingCategoryPage from './pages/FinanceFundingCategoryPage';
+import FinanceFundingDetailPage from './pages/FinanceFundingDetailPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -18,6 +20,11 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />
+        
+        {/* Finance & Funding Routes */}
+        <Route path="/services/finance-funding" element={<FinanceFundingCategoryPage />} />
+        <Route path="/services/finance-funding/:categoryId" element={<FinanceFundingDetailPage />} />
+        <Route path="/services/finance-funding/grants/:grantId" element={<FinanceFundingDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
