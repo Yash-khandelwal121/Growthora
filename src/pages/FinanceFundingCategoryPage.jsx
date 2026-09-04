@@ -97,12 +97,17 @@ export default function FinanceFundingCategoryPage() {
 
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
-              {/* Premium conceptual placeholder for Hero */}
-              <div className="placeholder-hero-graphic" style={{ boxShadow: '0 0 40px rgba(15,23,42,0.1) inset' }}>
-                <LineChart size={80} color="#FF7200" opacity={0.8} />
-                <div className="floating-doc-1"><Wallet size={24} /></div>
-                <div className="floating-doc-2"><Landmark size={24} /></div>
-              </div>
+              <img 
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Finance and Funding" 
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '20px',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                  display: 'block'
+                }}
+              />
             </div>
           </div>
         </div>
@@ -132,26 +137,30 @@ export default function FinanceFundingCategoryPage() {
                   <div 
                     key={item.id} 
                     className="service-card-premium"
-                    style={{ gridTemplateColumns: '1fr' }} /* Reverting to column for grants since there's 5 */
                     onClick={() => navigate(`/services/finance-funding/grants/${item.slug}`)}
                   >
-                    <div className="card-content-left" style={{ padding: '24px' }}>
+                    <div className="card-content-left" style={{ padding: '32px' }}>
                       <div className="card-top-row">
                         <span className="card-number">{item.id}</span>
                         <div className="card-icon-wrap" style={{ height: '36px', width: '36px' }}>
                           <Landmark size={18} color="#FF7200" />
                         </div>
                       </div>
-                      <h3 className="card-title" style={{ fontSize: '1.1rem' }}>{grantData.title}</h3>
-                      <p className="card-desc" style={{ fontSize: '0.85rem' }}>{grantData.description.substring(0, 80)}...</p>
+                      <h3 className="card-title" style={{ fontSize: '1.25rem', marginBottom: '12px' }}>{grantData.title}</h3>
+                      <p className="card-desc" style={{ fontSize: '0.95rem', marginBottom: '20px' }}>{grantData.description}</p>
                       
-                      <div style={{ padding: '10px', background: '#F8FAFC', borderRadius: '8px', marginBottom: '16px', fontSize: '0.85rem', color: '#334155' }}>
-                        <strong>Eligibility:</strong> {grantData.overview.whoNeedsIt.substring(0, 60)}...
+                      <div style={{ padding: '12px 16px', background: '#F8FAFC', borderRadius: '8px', marginBottom: '24px', fontSize: '0.9rem', color: '#334155', borderLeft: '4px solid #FF7200' }}>
+                        <strong>Eligibility:</strong> {grantData.overview.whoNeedsIt.substring(0, 70)}...
                       </div>
 
                       <button className="card-explore-btn">
                         Explore Grant <ArrowRight size={16} />
                       </button>
+                    </div>
+                    
+                    <div className="card-image-right">
+                      <img src={grantData.cardImage} alt={grantData.title} />
+                      <div className="card-image-overlay"></div>
                     </div>
                   </div>
                 );
@@ -162,33 +171,45 @@ export default function FinanceFundingCategoryPage() {
             </p>
           </div>
 
-          {/* OTHER FUNDING CATEGORIES */}
-          <div className="info-grid-2" style={{ marginTop: '30px' }}>
+          <div className="section-header text-center" style={{ marginTop: '80px' }}>
+            <h2 className="section-title">Major Funding Categories</h2>
+            <p className="section-subtitle">
+              Comprehensive advisory across all major capital pathways.
+            </p>
+          </div>
+
+          <div className="services-grid-wrapper">
             {fundingCategories.map((cat, idx) => {
               const Icon = cat.icon;
+              const catData = FINANCE_FUNDING_DATA[`${cat.slug}Funding`] || FINANCE_FUNDING_DATA.vcAngelFunding;
+              
               return (
                 <div 
                   key={idx} 
-                  className="info-card-premium" 
-                  style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                  className="service-card-premium" 
                   onClick={() => navigate(`/services/finance-funding/${cat.slug}`)}
-                  onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                  onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#0F172A', margin: 0 }}>
-                      0{idx + 2} {cat.title}
-                    </h3>
-                    <div className="card-icon-wrap">
-                      <Icon size={24} color="#FF7200" />
+                  <div className="card-content-left" style={{ padding: '32px' }}>
+                    <div className="card-top-row">
+                      <span className="card-number">0{idx + 2}</span>
+                      <div className="card-icon-wrap">
+                        <Icon size={20} color="#FF7200" />
+                      </div>
                     </div>
+                    <h3 className="card-title" style={{ fontSize: '1.5rem', marginBottom: '16px' }}>
+                      {cat.title}
+                    </h3>
+                    <p className="card-desc" style={{ fontSize: '1.05rem', marginBottom: '24px' }}>
+                      {cat.desc}
+                    </p>
+                    <button className="card-explore-btn">
+                      Explore {cat.title} <ArrowRight size={16} />
+                    </button>
                   </div>
-                  <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.6', marginBottom: '24px' }}>
-                    {cat.desc}
-                  </p>
-                  <button className="card-explore-btn">
-                    Explore {cat.title} <ArrowRight size={16} />
-                  </button>
+                  <div className="card-image-right">
+                    <img src={catData.cardImage} alt={cat.title} />
+                    <div className="card-image-overlay"></div>
+                  </div>
                 </div>
               );
             })}
