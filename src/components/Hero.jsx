@@ -26,7 +26,7 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
     { label: "08 IPO",            ariaLabel: "IPO services",             id: "08",
       style: { top: "31%", left: "0%",   width: "20%", height: "9%"  } },
     { label: "09 Valuation",      ariaLabel: "Valuation services",       id: "09",
-      style: { top: "8%",  left: "11%",  width: "26%", height: "9%"  } },
+      style: { top: "14%", left: "7%",   width: "25%", height: "9%"  } },
   ];
 
   const handleHotspotClick = (nodeId) => {
