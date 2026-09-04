@@ -27,11 +27,15 @@ export const BLUEPRINT_DATA = {
     tagline: "ANALYSIS → DOCUMENTATION → DISBURSEMENT",
     image: "/blueprints/02_finance.png",
     executionPath: [
-      { step: "01", label: "Funding Assessment" },
-      { step: "02", label: "Documentation" },
-      { step: "03", label: "Application" },
-      { step: "04", label: "Review" },
-      { step: "05", label: "Disbursement" }
+      { step: "01", label: "IVP (TN)" },
+      { step: "02", label: "Global AI Innovation Challenge" },
+      { step: "03", label: "Growth Grant" },
+      { step: "04", label: "Spark Grant" },
+      { step: "05", label: "Grant for Textile Industry" },
+      { step: "06", label: "Debt Funding" },
+      { step: "07", label: "Equity" },
+      { step: "08", label: "MSME" },
+      { step: "09", label: "VC / Angel" }
     ],
     interactiveNodes: [
       { id: "graph", title: "Financial Trajectory", desc: "Lender-Ready Project Report", icon: "chart" },
