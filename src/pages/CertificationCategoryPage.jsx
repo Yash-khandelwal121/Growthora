@@ -6,6 +6,7 @@ import {
   Award, CheckCircle, ArrowRight, ArrowLeft, ChevronDown, ChevronUp,
   FileText, ShieldCheck, Briefcase, Zap, Building2, Globe, Star, Cpu, UtensilsCrossed, BadgeCheck, Settings, Users, Clock
 } from 'lucide-react';
+import { CERTIFICATION_DATA } from '../data/certificationData';
 
 export default function CertificationCategoryPage() {
   const navigate = useNavigate();
@@ -14,47 +15,47 @@ export default function CertificationCategoryPage() {
   const certificationServices = [
     {
       id: '01', slug: 'startup-india', title: 'Startup India Certificate',
-      icon: Zap,
+      icon: Zap, cardImage: CERTIFICATION_DATA.startupIndia.cardImage,
       desc: 'Get DPIIT recognition for your startup and unlock tax exemptions, self-certification benefits, fast-track IP, and exclusive government schemes.'
     },
     {
       id: '02', slug: 'section-80-iac', title: 'Section 80-IAC',
-      icon: Star,
+      icon: Star, cardImage: CERTIFICATION_DATA.section80IAC.cardImage,
       desc: '100% income tax deduction on profits for 3 years for eligible DPIIT-recognized startups — a significant tax advantage during critical growth years.'
     },
     {
       id: '03', slug: 'seed-funding', title: 'SEED Funding',
-      icon: Briefcase,
+      icon: Briefcase, cardImage: CERTIFICATION_DATA.seedFunding.cardImage,
       desc: 'Access the Startup India Seed Fund Scheme (SISFS) for early-stage proof of concept, prototype, and commercialization support through empanelled incubators.'
     },
     {
       id: '04', slug: 'shram-suvidha', title: 'Shram Suvidha',
-      icon: Users,
+      icon: Users, cardImage: CERTIFICATION_DATA.shramSuvidha.cardImage,
       desc: 'Register and comply on the Government\'s unified labour compliance portal — simplifying multi-law compliance for your workforce into one platform.'
     },
     {
       id: '05', slug: 'gem-registration', title: 'GeM Registration',
-      icon: Globe,
+      icon: Globe, cardImage: CERTIFICATION_DATA.gemRegistration.cardImage,
       desc: 'Register as a seller on Government e-Marketplace and supply goods and services directly to central and state government departments and PSUs.'
     },
     {
       id: '06', slug: 'iso', title: 'ISO Certificate',
-      icon: BadgeCheck,
+      icon: BadgeCheck, cardImage: CERTIFICATION_DATA.iso.cardImage,
       desc: 'Obtain internationally recognized ISO certification for Quality (9001), Environmental (14001), Food Safety (22000), or other applicable standards.'
     },
     {
       id: '07', slug: 'duns', title: 'DUNS Number',
-      icon: Building2,
+      icon: Building2, cardImage: CERTIFICATION_DATA.duns.cardImage,
       desc: 'Register your global business identity with a Dun & Bradstreet DUNS Number — required for international contracts, US government procurement, and global credibility.'
     },
     {
       id: '08', slug: 'zed', title: 'ZED Certification',
-      icon: Cpu,
+      icon: Cpu, cardImage: CERTIFICATION_DATA.zed.cardImage,
       desc: 'Achieve Zero Defect Zero Effect certification for your manufacturing MSME — unlocking quality recognition, government subsidies, and export opportunities.'
     },
     {
       id: '09', slug: 'fssai', title: 'FSSAI',
-      icon: UtensilsCrossed,
+      icon: UtensilsCrossed, cardImage: CERTIFICATION_DATA.fssai.cardImage,
       desc: 'Obtain your mandatory FSSAI registration or licence to legally operate any food manufacturing, processing, distribution, or food service business.'
     }
   ];
@@ -229,6 +230,15 @@ export default function CertificationCategoryPage() {
                     <button className="card-explore-btn">
                       Explore Service <ArrowRight size={16} />
                     </button>
+                  </div>
+
+                  <div className="card-image-right">
+                    <img
+                      src={svc.cardImage}
+                      alt={svc.title}
+                      loading="lazy"
+                    />
+                    <div className="card-image-overlay"></div>
                   </div>
                 </div>
               );
