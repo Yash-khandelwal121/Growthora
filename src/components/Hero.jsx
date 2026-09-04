@@ -7,26 +7,26 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  // Clickable transparent hotspots aligned over the printed labels in growthora_hero_ecosystem.jpg
+  // Clickable transparent hotspots aligned over the 9 service stations in growthora_hero_ecosystem.jpg
   const ecosystemNodes = [
     { label: "01 Registration",   ariaLabel: "Registration services",   id: "01",
-      style: { top: "3%",  left: "48%",  width: "27%", height: "10%" } },
+      style: { top: "3%",  left: "38%", height: "auto" } },
     { label: "02 Finance & Funding", ariaLabel: "Finance & Funding services", id: "02",
-      style: { top: "14%", left: "74%",  width: "24%", height: "9%"  } },
+      style: { top: "14%", left: "64%", height: "auto" } },
     { label: "03 Certifications", ariaLabel: "Certifications services",  id: "03",
-      style: { top: "32%", left: "77%",  width: "25%", height: "9%"  } },
+      style: { top: "33%", left: "69%", height: "auto" } },
     { label: "04 Branding",       ariaLabel: "Branding services",        id: "04",
-      style: { top: "59%", left: "75%",  width: "23%", height: "9%"  } },
+      style: { top: "58%", left: "67%", height: "auto" } },
     { label: "05 Legal & CA",     ariaLabel: "Legal and CA services",    id: "05",
-      style: { top: "74%", left: "40%",  width: "24%", height: "9%"  } },
+      style: { top: "75%", left: "28%", height: "auto" } },
     { label: "06 Operations",     ariaLabel: "Operations services",      id: "06",
-      style: { top: "70%", left: "56%",  width: "23%", height: "9%"  } },
+      style: { top: "72%", left: "60%", height: "auto" } },
     { label: "07 MSME Benefits",  ariaLabel: "MSME Benefits services",   id: "07",
-      style: { top: "56%", left: "0%",   width: "30%", height: "9%"  } },
+      style: { top: "56%", left: "3%",  height: "auto" } },
     { label: "08 IPO",            ariaLabel: "IPO services",             id: "08",
-      style: { top: "31%", left: "0%",   width: "20%", height: "9%"  } },
+      style: { top: "33%", left: "4%",  height: "auto" } },
     { label: "09 Valuation",      ariaLabel: "Valuation services",       id: "09",
-      style: { top: "14%", left: "7%",   width: "25%", height: "9%"  } },
+      style: { top: "13%", left: "11%", height: "auto" } },
   ];
 
   const handleHotspotClick = (nodeId) => {

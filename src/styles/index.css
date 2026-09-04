@@ -510,10 +510,12 @@ a {
 .hero-3d-ecosystem-wrapper {
   position: relative;
   width: 100%;
-  max-width: 580px;
+  max-width: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 14px;
+  box-sizing: border-box;
 }
 
 .hero-3d-ecosystem-img {
@@ -573,10 +575,11 @@ a {
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
+  height: 32px;
   padding: 0 12px 0 10px;
   border-radius: 30px;
   /* White frosted pill exactly matching image label style */
-  background: rgba(255, 255, 255, 0.93);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.98);
   box-shadow:
@@ -589,9 +592,8 @@ a {
     box-shadow 0.20s ease,
     border-color 0.20s ease;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   font-family: var(--font-body, 'Inter', sans-serif);
-  /* Ensure the pill fills the area specified in style */
   box-sizing: border-box;
 }
 
