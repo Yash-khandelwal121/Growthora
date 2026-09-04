@@ -42,6 +42,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
       navigate('/services/certifications');
       return;
     }
+    if (nodeId === "04") {
+      navigate('/services/branding');
+      return;
+    }
     if (onSelectCategory) {
       onSelectCategory(nodeId);
     }

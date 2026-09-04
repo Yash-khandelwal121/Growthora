@@ -1,0 +1,603 @@
+/* ==================================================
+   BRANDING & GROWTH MARKETING PAGE STYLES
+   ================================================== */
+
+/* ─── Page Root ─────────────────────────────────── */
+.branding-root {
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
+
+/* ─── Page Header ────────────────────────────────── */
+.branding-page-header {
+  padding: 120px 0 48px;
+  background: linear-gradient(180deg, #ffffff 0%, #FAF9F6 100%);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.branding-page-header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.branding-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-bottom: 24px;
+}
+
+.branding-breadcrumb span { cursor: pointer; }
+.branding-breadcrumb span:hover { color: #FF7200; }
+.branding-breadcrumb .bc-sep { color: #CBD5E1; }
+.branding-breadcrumb .bc-active { color: #0F172A; font-weight: 500; }
+
+.branding-page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 16px;
+  font-family: var(--font-heading);
+  line-height: 1.15;
+}
+
+.branding-title-divider {
+  width: 56px;
+  height: 4px;
+  background: #FF7200;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.branding-page-desc {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+/* ─── Layout ─────────────────────────────────────── */
+.branding-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ─── Sidebar ────────────────────────────────────── */
+.branding-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.branding-sidebar-nav {
+  background: #FAF8F4;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.branding-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #475569;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+}
+
+.branding-sidebar-item:last-child { margin-bottom: 0; }
+
+.branding-sidebar-item:hover {
+  background: rgba(255, 114, 0, 0.06);
+  color: #0F172A;
+}
+
+.branding-sidebar-item.active {
+  background: rgba(255, 114, 0, 0.12);
+  color: #FF7200;
+  font-weight: 600;
+}
+
+.branding-sidebar-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FF7200;
+  background: rgba(255, 114, 0, 0.12);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.branding-sidebar-item.active .branding-sidebar-num {
+  background: #FF7200;
+  color: white;
+}
+
+.branding-sidebar-cta {
+  background: #0F172A;
+  border-radius: 16px;
+  padding: 28px 24px;
+  color: white;
+}
+
+.branding-sidebar-cta p {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.branding-sidebar-cta-btn {
+  width: 100%;
+  background: #FF7200;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s ease;
+}
+
+.branding-sidebar-cta-btn:hover {
+  background: #E05600;
+}
+
+/* ─── Content Panel ──────────────────────────────── */
+.branding-content {
+  min-width: 0;
+}
+
+/* ─── Service Hero ───────────────────────────────── */
+.branding-service-hero {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 340px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.branding-service-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.branding-service-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,23,42,0.55) 0%, transparent 60%);
+}
+
+.branding-hero-badge {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  padding: 8px 16px;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Section headings inside content ───────────── */
+.branding-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FF7200;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.branding-content h2 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+.branding-service-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #FF7200;
+  margin-bottom: 16px;
+}
+
+.branding-content-desc {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+/* ─── Section Divider ────────────────────────────── */
+.branding-section-divider {
+  height: 1px;
+  background: rgba(15,23,42,0.07);
+  margin: 36px 0;
+}
+
+/* ─── Key Benefits Card ──────────────────────────── */
+.branding-benefits-card {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFFBF5 100%);
+  border: 1px solid rgba(255, 114, 0, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 36px;
+}
+
+.branding-benefits-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.branding-benefits-card-badge {
+  background: #FF7200;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.branding-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.branding-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.branding-benefit-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FF7200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.branding-benefit-icon svg {
+  color: white;
+}
+
+.branding-benefit-text strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 2px;
+}
+
+.branding-benefit-text span {
+  font-size: 0.88rem;
+  color: #64748B;
+  line-height: 1.5;
+}
+
+/* ─── What You Get Grid ──────────────────────────── */
+.branding-wyg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.branding-wyg-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #F8FAFC;
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid #E2E8F0;
+}
+
+.branding-wyg-item svg { flex-shrink: 0; margin-top: 2px; }
+
+.branding-wyg-item span {
+  font-size: 0.92rem;
+  color: #334155;
+  line-height: 1.45;
+}
+
+/* ─── Process Steps ──────────────────────────────── */
+.branding-process-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.branding-process-step {
+  display: flex;
+  gap: 18px;
+  background: #FAFAFA;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: border-color 0.2s;
+}
+
+.branding-process-step:hover {
+  border-color: #FF7200;
+}
+
+.branding-process-num {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FF7200;
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.branding-process-step h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.branding-process-step p {
+  font-size: 0.9rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ─── Who Is This For ────────────────────────────── */
+.branding-audience-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.branding-audience-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F8FAFC;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.branding-audience-item svg { flex-shrink: 0; }
+
+/* ─── Timeline ───────────────────────────────────── */
+.branding-timeline-box {
+  background: #FFF7ED;
+  border: 1px solid rgba(255, 114, 0, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.branding-timeline-icon {
+  color: #FF7200;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.branding-timeline-box p {
+  font-size: 0.95rem;
+  color: #9A3412;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Why Growthora ──────────────────────────────── */
+.branding-wg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.branding-wg-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.branding-wg-card svg { color: #FF7200; }
+
+.branding-wg-card h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0;
+}
+
+/* ─── FAQ ────────────────────────────────────────── */
+.branding-faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Final CTA ──────────────────────────────────── */
+.branding-final-cta {
+  background: #0F172A;
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.branding-final-cta h3 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+}
+
+.branding-final-cta p {
+  font-size: 1rem;
+  color: #94A3B8;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.branding-cta-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ─── Mobile — Horizontal Pill Nav ──────────────── */
+.branding-mobile-nav {
+  display: none;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .branding-layout {
+    grid-template-columns: 240px 1fr;
+    gap: 28px;
+    padding: 40px 20px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .branding-page-header {
+    padding: 90px 0 36px;
+  }
+
+  .branding-layout {
+    grid-template-columns: 1fr;
+    padding: 0 16px 60px;
+  }
+
+  /* Hide sticky sidebar, show horizontal pill nav */
+  .branding-sidebar {
+    display: none;
+  }
+
+  .branding-mobile-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 16px 16px 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: white;
+    border-bottom: 1px solid rgba(15,23,42,0.07);
+    position: sticky;
+    top: 70px;
+    z-index: 10;
+  }
+
+  .branding-mobile-nav::-webkit-scrollbar { display: none; }
+
+  .branding-mobile-pill {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748B;
+    background: #F1F5F9;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    margin-bottom: 16px;
+  }
+
+  .branding-mobile-pill.active {
+    background: rgba(255, 114, 0, 0.12);
+    color: #FF7200;
+  }
+
+  .branding-service-hero {
+    height: 220px;
+    border-radius: 14px;
+  }
+
+  .branding-wyg-grid,
+  .branding-audience-list,
+  .branding-wg-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .branding-final-cta {
+    padding: 32px 24px;
+    border-radius: 14px;
+  }
+
+  .branding-final-cta h3 {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .branding-page-title {
+    font-size: 1.8rem;
+  }
+
+  .branding-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .branding-benefits-card {
+    padding: 22px;
+  }
+}
