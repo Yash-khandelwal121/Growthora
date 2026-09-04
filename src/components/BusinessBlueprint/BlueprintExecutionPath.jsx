@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 export const BlueprintExecutionPath = ({ executionPath }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const trackRef = useRef(null);
+  const stepRefs = useRef([]);
 
   if (!executionPath || executionPath.length === 0) return null;
 
@@ -19,6 +21,21 @@ export const BlueprintExecutionPath = ({ executionPath }) => {
     return () => clearInterval(interval);
   }, [executionPath.length]);
 
+  // Auto-scroll to active step
+  useEffect(() => {
+    if (stepRefs.current[activeStep] && trackRef.current) {
+      const activeEl = stepRefs.current[activeStep];
+      const trackEl = trackRef.current;
+      
+      const scrollLeft = activeEl.offsetLeft - (trackEl.clientWidth / 2) + (activeEl.clientWidth / 2);
+      
+      trackEl.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  }, [activeStep]);
+
   const currentItem = executionPath[activeStep] || executionPath[0];
 
   return (
@@ -32,7 +49,7 @@ export const BlueprintExecutionPath = ({ executionPath }) => {
       </div>
 
       {/* Automatic Step Track */}
-      <div className="execution-steps-track">
+      <div className="execution-steps-track" ref={trackRef}>
         {executionPath.map((stepItem, index) => {
           const isActive = index === activeStep;
           const isPassed = index < activeStep;
@@ -40,6 +57,7 @@ export const BlueprintExecutionPath = ({ executionPath }) => {
           return (
             <React.Fragment key={stepItem.step}>
               <div 
+                ref={(el) => (stepRefs.current[index] = el)}
                 className={`path-step-node ${isActive ? 'active-step' : ''} ${isPassed ? 'passed-step' : ''}`}
                 onClick={() => setActiveStep(index)}
               >
