@@ -5,10 +5,14 @@ export const BLUEPRINT_DATA = {
     tagline: "FOUNDATION → COMPLIANCE → READY TO GROW",
     image: "/blueprints/01_registration.png",
     executionPath: [
-      { step: "01", label: "Company Registration" },
-      { step: "02", label: "GST Registration" },
-      { step: "03", label: "MSME / Udyam" },
-      { step: "04", label: "GeM Registration" }
+      { step: "01", label: "Limited Liability Partnership (LLP)" },
+      { step: "02", label: "Proprietorship Registration" },
+      { step: "03", label: "Private Limited Company" },
+      { step: "04", label: "Partnership Firm Registration" },
+      { step: "05", label: "Trademark Registration" },
+      { step: "06", label: "GST Registration" },
+      { step: "07", label: "MSME / Udyam Registration" },
+      { step: "08", label: "GeM Registration" }
     ],
     interactiveNodes: [
       { id: "building", title: "Corporate Entity Model", desc: "Private Limited / LLP Setup", icon: "building" },
