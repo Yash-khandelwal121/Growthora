@@ -10,23 +10,23 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
   // Clickable transparent hotspots aligned over the 9 service stations in growthora_hero_ecosystem.jpg
   const ecosystemNodes = [
     { label: "01 Registration",   ariaLabel: "Registration services",   id: "01",
-      style: { top: "3%",  left: "38%", height: "auto" } },
+      style: { top: "2%",  left: "38%", height: "auto" } },
     { label: "02 Finance & Funding", ariaLabel: "Finance & Funding services", id: "02",
-      style: { top: "14%", left: "64%", height: "auto" } },
+      style: { top: "14%", right: "2%", height: "auto" } },
     { label: "03 Certifications", ariaLabel: "Certifications services",  id: "03",
-      style: { top: "33%", left: "69%", height: "auto" } },
+      style: { top: "33%", right: "1%", height: "auto" } },
     { label: "04 Branding",       ariaLabel: "Branding services",        id: "04",
-      style: { top: "58%", left: "67%", height: "auto" } },
+      style: { top: "56%", right: "4%", height: "auto" } },
     { label: "05 Legal & CA",     ariaLabel: "Legal and CA services",    id: "05",
-      style: { top: "75%", left: "28%", height: "auto" } },
+      style: { top: "74%", left: "16%", height: "auto" } },
     { label: "06 Operations",     ariaLabel: "Operations services",      id: "06",
-      style: { top: "72%", left: "60%", height: "auto" } },
+      style: { top: "74%", right: "12%", height: "auto" } },
     { label: "07 MSME Benefits",  ariaLabel: "MSME Benefits services",   id: "07",
-      style: { top: "56%", left: "3%",  height: "auto" } },
+      style: { top: "56%", left: "1%",  height: "auto" } },
     { label: "08 IPO",            ariaLabel: "IPO services",             id: "08",
-      style: { top: "33%", left: "4%",  height: "auto" } },
+      style: { top: "33%", left: "1%",  height: "auto" } },
     { label: "09 Valuation",      ariaLabel: "Valuation services",       id: "09",
-      style: { top: "13%", left: "11%", height: "auto" } },
+      style: { top: "13%", left: "8%", height: "auto" } },
   ];
 
   const handleHotspotClick = (nodeId) => {
@@ -158,7 +158,7 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
         <div className="hero-visual-container">
           <div className="hero-3d-ecosystem-wrapper float-3d-motion">
             <img 
-              src="/growthora_hero_ecosystem.jpg?v=2" 
+              src="/growthora_hero_ecosystem.jpg?v=3" 
               alt="Growthora business services ecosystem showing Registration, Finance, Certifications, Branding, Operations, Legal and CA, MSME Benefits, IPO and Valuation services." 
               className="hero-3d-ecosystem-img"
               loading="eager"
