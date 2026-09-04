@@ -4,7 +4,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Limited Liability Partnership (LLP)",
     subtitle: "Protect Your Personal Assets with a Flexible Corporate Structure",
     description: "An LLP offers the perfect balance of a traditional partnership and a private limited company. Enjoy limited liability protection for your partners without complex corporate compliances.",
-    heroImage: "/services/reg_llp_hero.jpg",
+    heroImage: "/services/card_reg_llp.jpg",
     cardImage: "/services/card_reg_llp.jpg",
     overview: {
       whatItIs: "A corporate business vehicle that enables professional expertise and entrepreneurial initiative to combine and operate in flexible, innovative and efficient manner, providing benefits of limited liability while allowing its members the flexibility for organizing their internal structure as a partnership.",
@@ -59,7 +59,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Proprietorship Registration",
     subtitle: "The Simplest Way to Start Your Business Journey",
     description: "Launch your solo venture effortlessly. A sole proprietorship is the easiest, fastest, and most cost-effective business structure for independent founders and small traders.",
-    heroImage: "/services/reg_prop_hero.jpg",
+    heroImage: "/services/card_reg_proprietorship.jpg",
     cardImage: "/services/card_reg_proprietorship.jpg",
     overview: {
       whatItIs: "A business structure owned, managed, and controlled by a single individual.",
@@ -111,7 +111,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Private Limited Company",
     subtitle: "The Gold Standard Structure for Scaling and Fundraising",
     description: "Incorporate a Private Limited Company to build credibility, raise venture capital, and protect your personal assets with a robust corporate structure designed for growth.",
-    heroImage: "/services/reg_pvt_hero.jpg",
+    heroImage: "/services/card_reg_pvt_ltd.jpg",
     cardImage: "/services/card_reg_pvt_ltd.jpg",
     overview: {
       whatItIs: "A privately held business entity recognized by law as separate from its founders, with limited liability and restricted share transferability.",
@@ -167,7 +167,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Partnership Firm Registration",
     subtitle: "Formalize Your Business Alliance with a Solid Foundation",
     description: "Start a business with your trusted partners. A registered partnership firm clearly defines roles, profit-sharing, and operational guidelines, preventing future disputes.",
-    heroImage: "/services/reg_partner_hero.jpg",
+    heroImage: "/services/card_reg_partnership.jpg",
     cardImage: "/services/card_reg_partnership.jpg",
     overview: {
       whatItIs: "A business structure where two or more individuals manage and operate a business according to the terms set out in a Partnership Deed.",
@@ -219,7 +219,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Trademark Registration",
     subtitle: "Protect Your Brand Identity and Intellectual Property",
     description: "Safeguard your business name, logo, or slogan from copycats. A registered trademark gives you exclusive legal rights and builds immense brand value over time.",
-    heroImage: "/services/reg_tm_hero.jpg",
+    heroImage: "/services/card_reg_trademark.jpg",
     cardImage: "/services/card_reg_trademark.jpg",
     overview: {
       whatItIs: "A recognizable insignia, phrase, word, or symbol that denotes a specific product or service and legally differentiates it from others.",
@@ -272,7 +272,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "GST Registration",
     subtitle: "Ensure Tax Compliance and Expand Your Market Reach",
     description: "Navigate indirect taxation smoothly. GST registration is essential for claiming input tax credit, selling interstate, and operating on e-commerce platforms.",
-    heroImage: "/services/reg_gst_hero.jpg",
+    heroImage: "/services/card_reg_gst.jpg",
     cardImage: "/services/card_reg_gst.jpg",
     overview: {
       whatItIs: "A mandatory tax registration for businesses whose turnover exceeds the threshold limit or who engage in specific taxable activities.",
@@ -325,7 +325,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "MSME / Udyam Registration",
     subtitle: "Unlock Government Subsidies, Lower Interest Rates, and Growth",
     description: "Get recognized by the Ministry of MSME. Udyam registration is a zero-cost gateway to a multitude of government schemes, priority sector lending, and protection against delayed payments.",
-    heroImage: "/services/reg_msme_hero.jpg",
+    heroImage: "/services/card_reg_msme.jpg",
     cardImage: "/services/card_reg_msme.jpg",
     overview: {
       whatItIs: "A government registration that provides a unique identity and recognition to micro, small, and medium enterprises.",
@@ -376,7 +376,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "GeM Registration",
     subtitle: "Become an Authorized Supplier to the Government of India",
     description: "The Government e-Marketplace (GeM) is the national public procurement portal. Registering enables your business to sell goods and services directly to government departments and PSUs.",
-    heroImage: "/services/reg_gem_hero.jpg",
+    heroImage: "/services/card_reg_gem.jpg",
     cardImage: "/services/card_reg_gem.jpg",
     overview: {
       whatItIs: "A digital marketplace registration that allows businesses to participate in government tenders and procurement.",
@@ -429,7 +429,7 @@ export const DETAILED_SERVICES_DATA = {
     title: "Company Registration",
     subtitle: "Establish a Powerful Corporate Presence",
     description: "Whether you need a Section 8 NGO, an OPC (One Person Company), or a Public Limited Company, our end-to-end company registration services lay the foundation for your enterprise.",
-    heroImage: "/services/reg_company_hero.jpg",
+    heroImage: "/services/card_reg_company.jpg",
     cardImage: "/services/card_reg_company.jpg",
     overview: {
       whatItIs: "The legal process of incorporating a business entity under the Companies Act, providing it with a distinct legal identity.",
