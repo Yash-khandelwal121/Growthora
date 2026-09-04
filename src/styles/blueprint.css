@@ -372,10 +372,28 @@
 .execution-steps-track {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  flex-wrap: nowrap;
   margin-bottom: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+.execution-steps-track::-webkit-scrollbar {
+  height: 6px;
+}
+.execution-steps-track::-webkit-scrollbar-track {
+  background: #f1f5f9; 
+  border-radius: 10px;
+}
+.execution-steps-track::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 10px;
+}
+.execution-steps-track::-webkit-scrollbar-thumb:hover {
+  background: #FF7200; 
 }
 
 .path-step-node {
@@ -388,6 +406,7 @@
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
 }
 
 .path-step-node:hover {
