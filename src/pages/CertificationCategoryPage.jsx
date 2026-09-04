@@ -7,10 +7,14 @@ import {
   FileText, ShieldCheck, Briefcase, Zap, Building2, Globe, Star, Cpu, UtensilsCrossed, BadgeCheck, Settings, Users, Clock
 } from 'lucide-react';
 import { CERTIFICATION_DATA } from '../data/certificationData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function CertificationCategoryPage() {
   const navigate = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   const certificationServices = [
     {
@@ -140,7 +144,10 @@ export default function CertificationCategoryPage() {
 
   return (
     <div className="services-page-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
 
       {/* 1. HERO SECTION */}
       <section className="category-hero-section">
@@ -166,11 +173,17 @@ export default function CertificationCategoryPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary">
+              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
-              <button className="btn-hero-secondary">
+              <button 
+                className="btn-hero-secondary" 
+                onClick={() => {
+                  const el = document.getElementById('certification-services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <span>Explore Certifications</span>
               </button>
             </div>
@@ -196,7 +209,7 @@ export default function CertificationCategoryPage() {
       </section>
 
       {/* 2. CERTIFICATION SERVICES */}
-      <section className="category-services-section">
+      <section className="category-services-section" id="certification-services">
         <div className="container">
           <div className="section-header text-center">
             <h2 className="section-title">Choose Your Certification</h2>
@@ -213,6 +226,7 @@ export default function CertificationCategoryPage() {
                   key={svc.id}
                   className="service-card-premium"
                   onClick={() => navigate(`/services/certifications/${svc.slug}`)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <div className="card-content-left" style={{ padding: '32px' }}>
                     <div className="card-top-row">
@@ -227,7 +241,14 @@ export default function CertificationCategoryPage() {
                     <p className="card-desc" style={{ fontSize: '1rem', marginBottom: '24px' }}>
                       {svc.desc}
                     </p>
-                    <button className="card-explore-btn">
+                    <button 
+                      type="button" 
+                      className="card-explore-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/services/certifications/${svc.slug}`);
+                      }}
+                    >
                       Explore Service <ArrowRight size={16} />
                     </button>
                   </div>
@@ -418,10 +439,10 @@ export default function CertificationCategoryPage() {
             Tell us what your business needs. Growthora will help you identify the relevant certification and guide you through the process.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>
               Book a Free Consultation
             </button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>
               Talk to an Expert
             </button>
           </div>
@@ -429,6 +450,17 @@ export default function CertificationCategoryPage() {
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: 'Certifications Advisory', category: 'CERTIFICATIONS' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

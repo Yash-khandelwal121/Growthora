@@ -4,11 +4,15 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ArrowLeft, CheckCircle, ArrowRight, Award, ChevronDown, ChevronUp, FileText, ShieldCheck, Users, Globe, Briefcase } from 'lucide-react';
 import { CERTIFICATION_DATA } from '../data/certificationData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function CertificationDetailPage() {
   const { serviceSlug } = useParams();
   const navigate = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,7 +24,10 @@ export default function CertificationDetailPage() {
   if (!detailData) {
     return (
       <div className="services-page-root">
-        <Header />
+        <Header 
+          onOpenConsultation={() => setIsConsultationOpen(true)}
+          onOpenAskGrowthora={() => setIsAskOpen(true)}
+        />
         <div style={{ padding: '200px 20px', textAlign: 'center', minHeight: '60vh' }}>
           <h2>Certification Service Not Found</h2>
           <p>The certification service you are looking for does not exist.</p>
@@ -35,7 +42,10 @@ export default function CertificationDetailPage() {
 
   return (
     <div className="service-detail-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
 
       {/* 1. HERO SECTION */}
       <section className="sd-hero">
@@ -61,7 +71,7 @@ export default function CertificationDetailPage() {
               </p>
 
               <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-                <button className="btn-hero-primary">
+                <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
                   <span>Book a Free Consultation</span>
                   <ArrowRight size={18} />
                 </button>
@@ -98,28 +108,36 @@ export default function CertificationDetailPage() {
               <ul className="sd-check-list">
                 {detailData.whatYouGet.map((item, idx) => (
                   <li key={idx}>
-                    <CheckCircle className="sd-check-icon" size={20} />
+                    <CheckCircle size={18} className="sd-check-icon" />
                     {item}
                   </li>
                 ))}
               </ul>
 
               {/* 4. ELIGIBILITY */}
-              <h2>Eligibility</h2>
+              <h2>Eligibility Criteria</h2>
               <ul className="sd-check-list">
                 {detailData.eligibility.map((item, idx) => (
                   <li key={idx}>
-                    <CheckCircle className="sd-check-icon" size={20} />
+                    <ShieldCheck size={18} className="sd-check-icon" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <p style={{ marginTop: '10px', fontSize: '0.9rem', color: '#64748B' }}>
-                *Eligibility depends on the specific nature of your business and the current guidelines of the respective authority.
-              </p>
 
-              {/* 5. PROCESS */}
-              <h2>The Process</h2>
+              {/* 5. DOCUMENTS REQUIRED */}
+              <h2>Documents Required</h2>
+              <ul className="sd-check-list">
+                {detailData.documents.map((doc, idx) => (
+                  <li key={idx}>
+                    <FileText size={18} className="sd-check-icon" />
+                    {doc}
+                  </li>
+                ))}
+              </ul>
+
+              {/* 6. PROCESS */}
+              <h2>Certification Process</h2>
               <div className="sd-process-steps">
                 {detailData.process.map((step, idx) => (
                   <div className="sd-step" key={idx}>
@@ -132,25 +150,25 @@ export default function CertificationDetailPage() {
                 ))}
               </div>
 
-              {/* 9. FAQs */}
+              {/* 7. FAQS */}
               <div className="sd-faqs">
                 <h2>Frequently Asked Questions</h2>
-                <div className="faq-accordion-wrapper">
-                  {detailData.faqs.map((faq, idx) => (
-                    <div className="sd-faq-item" key={idx}>
-                      <div
-                        className="sd-faq-q"
-                        onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
-                      >
-                        {faq.q}
-                        {openFaqIndex === idx ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                      </div>
-                      {openFaqIndex === idx && (
-                        <div className="sd-faq-a">{faq.a}</div>
-                      )}
+                {detailData.faqs.map((faq, idx) => (
+                  <div className="sd-faq-item" key={idx}>
+                    <div
+                      className="sd-faq-q"
+                      onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
+                    >
+                      {faq.q}
+                      {openFaqIndex === idx ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                     </div>
-                  ))}
-                </div>
+                    {openFaqIndex === idx && (
+                      <div className="sd-faq-a">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
             </div>
@@ -158,41 +176,24 @@ export default function CertificationDetailPage() {
             {/* RIGHT COLUMN: SIDEBAR */}
             <div className="sd-sidebar">
               <div className="sd-sidebar-card">
+                <h3>Certification Summary</h3>
 
-                {/* 6. DOCUMENTS REQUIRED */}
-                <h3>Documents Required</h3>
-                <p style={{ fontSize: '0.9rem', color: '#CBD5E1', marginBottom: '20px' }}>
-                  Required documents vary depending on the certification authority. Commonly required items:
-                </p>
-                <ul className="custom-check-list white-list" style={{ marginBottom: '40px' }}>
-                  {detailData.documents.map((doc, idx) => (
-                    <li key={idx} style={{ fontSize: '0.95rem', marginBottom: '12px' }}>
-                      <FileText size={16} color="#FF7200" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      {doc}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* 7. EXPECTED TIMELINE */}
-                <h3>Expected Timeline</h3>
-                <div className="sd-timeline" style={{ background: 'rgba(255,114,0,0.1)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,114,0,0.2)' }}>
-                  <p style={{ fontSize: '0.95rem', margin: 0, color: '#FFEDD5', lineHeight: '1.5' }}>
-                    {detailData.timeline}
-                  </p>
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '8px' }}>Timeline &amp; Processing</div>
+                  <div style={{ fontSize: '0.95rem', color: 'white', lineHeight: '1.5' }}>{detailData.timeline}</div>
                 </div>
 
-                <div style={{ marginTop: '16px', padding: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                   <p style={{ fontSize: '0.85rem', color: '#94A3B8', fontStyle: 'italic', margin: 0 }}>
-                    *Growthora provides advisory and execution support but cannot guarantee approval. Approval depends entirely on the respective authority.
+                    *Growthora provides advisory and execution support but cannot guarantee approval. Approval depends entirely on the respective certification authority.
                   </p>
                 </div>
 
-                {/* CTA */}
                 <div style={{ marginTop: '40px' }}>
-                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }}>
+                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }} onClick={() => setIsConsultationOpen(true)}>
                     Book a Free Consultation
                   </button>
-                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}>
+                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>
                     Talk to an Expert
                   </button>
                 </div>
@@ -233,10 +234,10 @@ export default function CertificationDetailPage() {
             Tell us what your business needs. Growthora will help you identify the relevant certification and guide you through the process.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>
               Book a Free Consultation
             </button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>
               Talk to an Expert
             </button>
           </div>
@@ -244,6 +245,17 @@ export default function CertificationDetailPage() {
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: detailData.title, category: 'CERTIFICATIONS' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

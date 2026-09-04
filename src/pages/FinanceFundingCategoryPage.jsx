@@ -4,10 +4,14 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { LineChart, Wallet, PieChart, Landmark, TrendingUp, ArrowRight, ArrowLeft, CheckCircle, ChevronDown, ChevronUp, FileText, Settings, ShieldCheck, Briefcase, Compass } from 'lucide-react';
 import { FINANCE_FUNDING_DATA } from '../data/financeFundingData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function FinanceFundingCategoryPage() {
   const navigate = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   const grantsList = [
     { id: '01', slug: 'ivp-tn' },
@@ -56,7 +60,10 @@ export default function FinanceFundingCategoryPage() {
 
   return (
     <div className="services-page-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
       
       {/* 1. HERO SECTION */}
       <section className="category-hero-section">
@@ -85,11 +92,17 @@ export default function FinanceFundingCategoryPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary">
+              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
-              <button className="btn-hero-secondary">
+              <button 
+                className="btn-hero-secondary" 
+                onClick={() => {
+                  const el = document.getElementById('funding-services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <span>Explore Funding Options</span>
               </button>
             </div>
@@ -114,7 +127,7 @@ export default function FinanceFundingCategoryPage() {
       </section>
 
       {/* 2. FUNDING OPTIONS */}
-      <section className="category-services-section">
+      <section className="category-services-section" id="funding-services">
         <div className="container">
           <div className="section-header text-center">
             <h2 className="section-title">Explore Your Funding Options</h2>
@@ -138,6 +151,7 @@ export default function FinanceFundingCategoryPage() {
                     key={item.id} 
                     className="service-card-premium"
                     onClick={() => navigate(`/services/finance-funding/grants/${item.slug}`)}
+                    style={{ cursor: 'pointer' }}
                   >
                     <div className="card-content-left" style={{ padding: '32px' }}>
                       <div className="card-top-row">
@@ -153,7 +167,14 @@ export default function FinanceFundingCategoryPage() {
                         <strong>Eligibility:</strong> {grantData.overview.whoNeedsIt.substring(0, 70)}...
                       </div>
 
-                      <button className="card-explore-btn">
+                      <button 
+                        type="button" 
+                        className="card-explore-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/services/finance-funding/grants/${item.slug}`);
+                        }}
+                      >
                         Explore Grant <ArrowRight size={16} />
                       </button>
                     </div>
@@ -188,6 +209,7 @@ export default function FinanceFundingCategoryPage() {
                   key={idx} 
                   className="service-card-premium" 
                   onClick={() => navigate(`/services/finance-funding/${cat.slug}`)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <div className="card-content-left" style={{ padding: '32px' }}>
                     <div className="card-top-row">
@@ -202,7 +224,14 @@ export default function FinanceFundingCategoryPage() {
                     <p className="card-desc" style={{ fontSize: '1.05rem', marginBottom: '24px' }}>
                       {cat.desc}
                     </p>
-                    <button className="card-explore-btn">
+                    <button 
+                      type="button" 
+                      className="card-explore-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/services/finance-funding/${cat.slug}`);
+                      }}
+                    >
                       Explore {cat.title} <ArrowRight size={16} />
                     </button>
                   </div>
@@ -379,13 +408,24 @@ export default function FinanceFundingCategoryPage() {
             Tell us where your business is today. We'll help you understand the funding routes that may fit your goals.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>Book a Free Consultation</button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>Talk to an Expert</button>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>Book a Free Consultation</button>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>Talk to an Expert</button>
           </div>
         </div>
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: 'Finance & Funding Advisory', category: 'FINANCE & FUNDING' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

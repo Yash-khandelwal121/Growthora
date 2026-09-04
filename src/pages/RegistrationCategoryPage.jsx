@@ -4,10 +4,14 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ShieldCheck, FileText, Settings, Briefcase, Zap, Compass, Users, MapPin, Building, ArrowRight, ArrowLeft, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { DETAILED_SERVICES_DATA } from '../data/detailedServicesData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function RegistrationCategoryPage() {
   const navigate = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   const servicesList = [
     { id: '01', slug: 'llp', icon: Users },
@@ -33,7 +37,10 @@ export default function RegistrationCategoryPage() {
 
   return (
     <div className="services-page-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
       
       {/* 1. REGISTRATION PAGE HERO */}
       <section className="category-hero-section">
@@ -62,11 +69,17 @@ export default function RegistrationCategoryPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary">
+              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
-              <button className="btn-hero-secondary">
+              <button 
+                className="btn-hero-secondary" 
+                onClick={() => {
+                  const el = document.getElementById('registration-services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <span>Explore Registrations</span>
               </button>
             </div>
@@ -85,7 +98,7 @@ export default function RegistrationCategoryPage() {
       </section>
 
       {/* 2. REGISTRATION SERVICES */}
-      <section className="category-services-section">
+      <section className="category-services-section" id="registration-services">
         <div className="container">
           <div className="section-header text-center">
             <h2 className="section-title">Choose Your Registration</h2>
@@ -103,6 +116,7 @@ export default function RegistrationCategoryPage() {
                   key={item.id} 
                   className="service-card-premium"
                   onClick={() => navigate(`/services/registration/${item.slug}`)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <div className="card-content-left">
                     <div className="card-top-row">
@@ -110,7 +124,14 @@ export default function RegistrationCategoryPage() {
                     </div>
                     <h3 className="card-title">{serviceData.title}</h3>
                     <p className="card-desc">{serviceData.description.substring(0, 75)}...</p>
-                    <button className="card-explore-btn">
+                    <button 
+                      type="button" 
+                      className="card-explore-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/services/registration/${item.slug}`);
+                      }}
+                    >
                       View Details <ArrowRight size={16} />
                     </button>
                   </div>
@@ -277,13 +298,24 @@ export default function RegistrationCategoryPage() {
             Choose the right registration, complete your documentation, and build your business foundation with Growthora.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>Book a Free Consultation</button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>Talk to an Expert</button>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>Book a Free Consultation</button>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>Talk to an Expert</button>
           </div>
         </div>
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: 'Business Registration & Setup', category: 'REGISTRATION' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

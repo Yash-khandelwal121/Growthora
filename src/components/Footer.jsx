@@ -1,8 +1,58 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
 
 export const Footer = ({ onSelectCategory }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleCategoryClick = (srv) => {
+    if (srv.id === '01') {
+      navigate('/services/registration');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (srv.id === '02') {
+      navigate('/services/finance-funding');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (srv.id === '03') {
+      navigate('/services/certifications');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (srv.id === '04') {
+      navigate('/services/branding');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (location.pathname === '/') {
+      if (onSelectCategory) {
+        onSelectCategory(srv.id);
+      } else {
+        const el = document.getElementById('services-master');
+        if (el) {
+          const yOffset = -90;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById('services-master');
+        if (el) {
+          const yOffset = -90;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <footer className="compact-footer">
       <div className="footer-container">
@@ -14,6 +64,11 @@ export const Footer = ({ onSelectCategory }) => {
               src="/growthora_logo.jpg" 
               alt="Growthora Advisory Private Limited" 
               className="footer-brand-logo-img"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                navigate('/');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
           </div>
 
@@ -45,7 +100,7 @@ export const Footer = ({ onSelectCategory }) => {
                 <button
                   type="button"
                   className="footer-srv-link"
-                  onClick={() => onSelectCategory(srv.id)}
+                  onClick={() => handleCategoryClick(srv)}
                 >
                   {srv.navLabel}
                 </button>

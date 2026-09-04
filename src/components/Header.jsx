@@ -1,14 +1,49 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight, Sparkles, Menu, X } from 'lucide-react';
 
 export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleServicesClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      const el = document.getElementById('services-master');
+      if (el) {
+        const yOffset = -90;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById('services-master');
+        if (el) {
+          const yOffset = -90;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <header className="sticky-header">
       <div className="header-container">
         {/* Logo */}
-        <a href="#services-top" className="brand-logo" aria-label="Growthora Advisory Home">
+        <a href="/" className="brand-logo" onClick={handleLogoClick} aria-label="Growthora Advisory Home">
           <img 
             src="/growthora_logo.jpg" 
             alt="Growthora Advisory Private Limited" 
@@ -18,7 +53,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
 
         {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Main Navigation">
-          <a href="#services-master" className="nav-link active">
+          <a href="#services-master" className="nav-link active" onClick={handleServicesClick}>
             Services
             <span className="active-dot" />
           </a>

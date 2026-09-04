@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle2, Calendar, Clock, Building, User, Mail, Phone, Send } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
 
@@ -8,12 +8,21 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
     phone: '',
     email: '',
     companyName: '',
-    serviceId: selectedService ? selectedService.id : '01',
+    serviceId: selectedService && selectedService.id ? selectedService.id : '01',
     businessStage: 'Early Stage / Startup',
     notes: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+      if (selectedService && selectedService.id) {
+        setFormData((prev) => ({ ...prev, serviceId: selectedService.id }));
+      }
+    }
+  }, [isOpen, selectedService]);
 
   if (!isOpen) return null;
 

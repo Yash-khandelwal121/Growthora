@@ -4,11 +4,15 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, ChevronDown, ChevronUp } from 'lucide-react';
 import { FINANCE_FUNDING_DATA } from '../data/financeFundingData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function FinanceFundingDetailPage() {
   const { categoryId, grantId } = useParams();
   const navigate = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,7 +49,10 @@ export default function FinanceFundingDetailPage() {
 
   return (
     <div className="service-detail-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
 
       {/* 1. HERO SECTION */}
       <section className="sd-hero">
@@ -71,7 +78,7 @@ export default function FinanceFundingDetailPage() {
               </p>
               
               <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-                <button className="btn-hero-primary">
+                <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
                   <span>Start Your Application</span>
                   <ArrowRight size={18} />
                 </button>
@@ -127,8 +134,19 @@ export default function FinanceFundingDetailPage() {
                 *Eligibility depends heavily on the specific nature of your business and the current guidelines of the respective funding body.
               </p>
 
+              {/* 5. DOCUMENTS REQUIRED */}
+              <h2>Documents Required</h2>
+              <ul className="sd-check-list">
+                {detailData.documents.map((doc, idx) => (
+                  <li key={idx}>
+                    <ArrowRight className="sd-check-icon" size={20} />
+                    {doc}
+                  </li>
+                ))}
+              </ul>
+
               {/* 6. PROCESS */}
-              <h2>The Application Process</h2>
+              <h2>Funding Process</h2>
               <div className="sd-process-steps">
                 {detailData.process.map((step, idx) => (
                   <div className="sd-step" key={idx}>
@@ -141,27 +159,25 @@ export default function FinanceFundingDetailPage() {
                 ))}
               </div>
 
-              {/* 9. FAQs */}
+              {/* 7. FAQS */}
               <div className="sd-faqs">
                 <h2>Frequently Asked Questions</h2>
-                <div className="faq-accordion-wrapper">
-                  {detailData.faqs.map((faq, idx) => (
-                    <div className="sd-faq-item" key={idx}>
-                      <div 
-                        className="sd-faq-q" 
-                        onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
-                      >
-                        {faq.q}
-                        {openFaqIndex === idx ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                      </div>
-                      {openFaqIndex === idx && (
-                        <div className="sd-faq-a">
-                          {faq.a}
-                        </div>
-                      )}
+                {detailData.faqs.map((faq, idx) => (
+                  <div className="sd-faq-item" key={idx}>
+                    <div 
+                      className="sd-faq-q" 
+                      onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
+                    >
+                      {faq.q}
+                      {openFaqIndex === idx ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                     </div>
-                  ))}
-                </div>
+                    {openFaqIndex === idx && (
+                      <div className="sd-faq-a">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
             </div>
@@ -169,40 +185,44 @@ export default function FinanceFundingDetailPage() {
             {/* RIGHT COLUMN: SIDEBAR */}
             <div className="sd-sidebar">
               <div className="sd-sidebar-card">
+                <h3>Pathway Details</h3>
                 
-                {/* 5. DOCUMENTS / READINESS */}
-                <h3>Required Documents</h3>
-                <p style={{ fontSize: '0.9rem', color: '#CBD5E1', marginBottom: '20px' }}>
-                  The exact documents required vary depending on the funding route, but commonly include:
-                </p>
-                <ul className="custom-check-list white-list" style={{ marginBottom: '40px' }}>
-                  {detailData.documents.map((doc, idx) => (
-                    <li key={idx} style={{ fontSize: '0.95rem', marginBottom: '12px' }}>
-                      <CheckCircle size={16} color="#FF7200" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      {doc}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* 7. EXPECTED TIMELINE */}
-                <h3>Expected Timeline</h3>
-                <div className="sd-timeline" style={{ background: 'rgba(255,114,0,0.1)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,114,0,0.2)' }}>
-                  <p style={{ fontSize: '0.95rem', margin: 0, color: '#FFEDD5', lineHeight: '1.5' }}>
-                    {detailData.timeline}
-                  </p>
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '8px' }}>Timeline & Processing</div>
+                  <div style={{ fontSize: '0.95rem', color: 'white', lineHeight: '1.5' }}>{detailData.timeline}</div>
                 </div>
-                
-                <div style={{ marginTop: '20px', padding: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '12px' }}>Ideal For:</div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#CBD5E1' }}>
+                    {detailData.idealFor.map((item, idx) => (
+                      <li key={idx} style={{ marginBottom: '8px', paddingLeft: '16px', position: 'relative' }}>
+                        <span style={{ position: 'absolute', left: 0, top: '6px', width: '4px', height: '4px', borderRadius: '50%', background: '#FF7200' }}></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                   <p style={{ fontSize: '0.85rem', color: '#94A3B8', fontStyle: 'italic', margin: 0 }}>
                     *Growthora provides advisory and execution support but cannot guarantee approval. Approval depends entirely on the respective authority or investor.
                   </p>
                 </div>
 
                 <div style={{ marginTop: '40px' }}>
-                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }}>
+                  <button 
+                    className="btn-primary" 
+                    style={{ width: '100%', marginBottom: '12px' }}
+                    onClick={() => setIsConsultationOpen(true)}
+                  >
                     Book a Free Consultation
                   </button>
-                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}>
+                  <button 
+                    className="btn-secondary" 
+                    style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}
+                    onClick={() => setIsConsultationOpen(true)}
+                  >
                     Talk to an Expert
                   </button>
                 </div>
@@ -234,13 +254,24 @@ export default function FinanceFundingDetailPage() {
             Let us handle the complexity of investor readiness, documentation, and applications so you can focus on building your business.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>Start Process</button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>Talk to an Expert</button>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>Start Process</button>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>Talk to an Expert</button>
           </div>
         </div>
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: detailData.title, category: 'FINANCE & FUNDING' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

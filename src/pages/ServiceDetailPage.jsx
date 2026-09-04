@@ -4,6 +4,8 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, FileText, Settings, HelpCircle, ChevronDown, ChevronUp, Building } from 'lucide-react';
 import { DETAILED_SERVICES_DATA } from '../data/detailedServicesData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 
 export default function ServiceDetailPage() {
   const { serviceId } = useParams();
@@ -11,6 +13,8 @@ export default function ServiceDetailPage() {
   const serviceData = DETAILED_SERVICES_DATA[serviceId];
   
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   // If URL is invalid, redirect back to category
   useEffect(() => {
@@ -23,7 +27,10 @@ export default function ServiceDetailPage() {
 
   return (
     <div className="service-detail-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
       
       {/* Service Hero */}
       <section className="sd-hero">
@@ -44,7 +51,9 @@ export default function ServiceDetailPage() {
                 {serviceData.description}
               </p>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button className="btn-primary">Book Free Consultation</button>
+                <button className="btn-primary" onClick={() => setIsConsultationOpen(true)}>
+                  Book Free Consultation
+                </button>
               </div>
             </div>
             <div className="sd-hero-visual">
@@ -167,10 +176,18 @@ export default function ServiceDetailPage() {
                   </ul>
                 </div>
 
-                <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }}>
+                <button 
+                  className="btn-primary" 
+                  style={{ width: '100%', marginBottom: '12px' }}
+                  onClick={() => setIsConsultationOpen(true)}
+                >
                   Proceed with Registration
                 </button>
-                <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>
+                <button 
+                  className="btn-secondary" 
+                  style={{ width: '100%', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
+                  onClick={() => setIsConsultationOpen(true)}
+                >
                   Request Callback
                 </button>
               </div>
@@ -181,6 +198,17 @@ export default function ServiceDetailPage() {
       </section>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: serviceData.title, category: 'REGISTRATION' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }

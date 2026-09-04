@@ -7,6 +7,8 @@ import {
   Clock, Award, FileText, ShieldCheck, Users, Globe, Zap, Star
 } from 'lucide-react';
 import { BRANDING_DATA } from '../data/brandingData';
+import { ConsultationModal } from '../components/ConsultationModal';
+import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 import '../styles/branding.css';
 
 const WHY_GROWTHORA = [
@@ -31,6 +33,8 @@ export default function BrandingPage() {
   const navigate = useNavigate();
   const [activeKey, setActiveKey] = useState('logoDesign');
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAskOpen, setIsAskOpen] = useState(false);
 
   const handleSelect = (key) => {
     setActiveKey(key);
@@ -41,7 +45,10 @@ export default function BrandingPage() {
 
   return (
     <div className="branding-root">
-      <Header />
+      <Header 
+        onOpenConsultation={() => setIsConsultationOpen(true)}
+        onOpenAskGrowthora={() => setIsAskOpen(true)}
+      />
 
       {/* ── Mobile Pill Nav ─────────────────────── */}
       <nav className="branding-mobile-nav" aria-label="Branding services">
@@ -102,7 +109,10 @@ export default function BrandingPage() {
 
           <div className="branding-sidebar-cta">
             <p>Not sure which branding service fits your business?</p>
-            <button className="branding-sidebar-cta-btn">
+            <button 
+              className="branding-sidebar-cta-btn"
+              onClick={() => setIsConsultationOpen(true)}
+            >
               Book a consultation <ArrowRight size={16} />
             </button>
           </div>
@@ -256,10 +266,18 @@ export default function BrandingPage() {
               Tell us about your business. Growthora will put together the right branding strategy and execution plan to help you stand out, attract customers, and grow.
             </p>
             <div className="branding-cta-btns">
-              <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1rem' }}>
+              <button 
+                className="btn-primary" 
+                style={{ padding: '14px 28px', fontSize: '1rem' }}
+                onClick={() => setIsConsultationOpen(true)}
+              >
                 Book a Free Consultation
               </button>
-              <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}>
+              <button 
+                className="btn-secondary" 
+                style={{ padding: '14px 28px', fontSize: '1rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
+                onClick={() => setIsConsultationOpen(true)}
+              >
                 Talk to an Expert
               </button>
             </div>
@@ -269,6 +287,17 @@ export default function BrandingPage() {
       </div>
 
       <Footer />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        selectedService={{ title: svc ? svc.title : 'Branding & Growth Marketing', category: 'BRANDING' }}
+      />
+
+      <AskGrowthoraModal
+        isOpen={isAskOpen}
+        onClose={() => setIsAskOpen(false)}
+      />
     </div>
   );
 }
