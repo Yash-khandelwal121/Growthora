@@ -98,7 +98,7 @@ export default function FinanceFundingCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img 
-                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                src="/services/ff_chart.jpg" 
                 alt="Finance and Funding" 
                 style={{
                   width: '100%',
