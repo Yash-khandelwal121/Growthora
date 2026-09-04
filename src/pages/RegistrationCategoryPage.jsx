@@ -74,12 +74,11 @@ export default function RegistrationCategoryPage() {
 
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
-              {/* Premium generic image for the category hero */}
-              <div className="placeholder-hero-graphic registration-graphic">
-                <ShieldCheck size={80} color="#FF7200" opacity={0.8} />
-                <div className="floating-doc-1"><FileText size={24} /></div>
-                <div className="floating-doc-2"><Building size={24} /></div>
-              </div>
+              <img 
+                src="/services/reg_hero.png" 
+                alt="Business Registration Setup" 
+                style={{ width: '100%', height: 'auto', borderRadius: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} 
+              />
             </div>
           </div>
         </div>
@@ -105,17 +104,18 @@ export default function RegistrationCategoryPage() {
                   className="service-card-premium"
                   onClick={() => navigate(`/services/registration/${item.slug}`)}
                 >
-                  <div className="card-top-row">
-                    <span className="card-number">{item.id}</span>
-                    <div className="card-icon-wrap">
-                      <Icon size={24} color="#FF7200" />
+                  <div className="card-content-left">
+                    <div className="card-top-row">
+                      <span className="card-number">{item.id}</span>
                     </div>
+                    <h3 className="card-title">{serviceData.title}</h3>
+                    <p className="card-desc">{serviceData.description.substring(0, 75)}...</p>
+                    <button className="card-explore-btn">
+                      View Details <ArrowRight size={16} />
+                    </button>
                   </div>
-                  <h3 className="card-title">{serviceData.title}</h3>
-                  <p className="card-desc">{serviceData.description.substring(0, 110)}...</p>
-                  <button className="card-explore-btn">
-                    Explore Service <ArrowRight size={16} />
-                  </button>
+                  <div className="card-image-right" style={{ backgroundImage: `url(${serviceData.cardImage})` }}>
+                  </div>
                 </div>
               );
             })}
