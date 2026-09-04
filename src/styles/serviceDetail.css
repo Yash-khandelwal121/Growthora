@@ -184,72 +184,149 @@
   color: #FF7200;
 }
 
-/* Why Section */
-.why-section {
+/* Foundation Section */
+.foundation-section {
   padding: 80px 0;
   background: #F8FAFC;
 }
-
-.two-col-layout {
+.foundation-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 60px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.foundation-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.foundation-card .f-num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  display: block;
+  margin-bottom: 16px;
+}
+.foundation-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0F172A;
+}
+.foundation-card p {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-.benefits-list {
-  display: flex;
-  flex-direction: column;
+/* Process Timeline */
+.process-section {
+  padding: 80px 0;
+  background: white;
+}
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  margin-top: 40px;
 }
-
-.benefit-item {
+.process-step-item {
   display: flex;
   gap: 20px;
+  background: #F8FAFC;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
 }
-
-.benefit-icon {
-  flex-shrink: 0;
+.process-step-item:hover {
+  border-color: #FF7200;
+}
+.ps-num {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #FF7200;
 }
-
-.benefit-item h4 {
+.ps-content h4 {
   font-size: 1.1rem;
   font-weight: 600;
   color: #0F172A;
   margin-bottom: 8px;
 }
-
-.benefit-item p {
-  color: #475569;
+.ps-content p {
+  margin: 0;
   font-size: 0.95rem;
-  line-height: 1.6;
+  color: #475569;
 }
 
-.info-box-premium {
-  background: #0F172A;
+/* Two Col Info Section */
+.two-col-info-section {
+  padding: 80px 0;
+  background: #F8FAFC;
+}
+.info-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.info-card-premium {
+  background: white;
   border-radius: 20px;
   padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+.info-card-premium.dark-card {
+  background: #0F172A;
   color: white;
 }
+.text-white { color: white !important; }
 
-.info-box-premium h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+.custom-check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.custom-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 16px;
-  line-height: 1.3;
+  color: #334155;
+  font-size: 1.05rem;
 }
-
-.info-box-premium p {
+.custom-check-list li svg {
+  color: #FF7200;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.white-list li {
   color: #CBD5E1;
-  margin-bottom: 30px;
-  line-height: 1.6;
 }
 
-.btn-group-vertical {
+/* Why Growthora Cards */
+.why-growthora-cards {
+  padding: 80px 0;
+  background: white;
+}
+.wg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.wg-card {
+  background: #F8FAFC;
+  padding: 30px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  border: 1px solid #E2E8F0;
+  align-items: center;
+  text-align: center;
+}
+.wg-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0F172A;
 }
 
 /* Specific Service Detail Page */
@@ -436,18 +513,25 @@
 @media (max-width: 1024px) {
   .category-hero-section .hero-container,
   .sd-hero-grid,
-  .two-col-layout,
-  .sd-content-grid {
+  .sd-content-grid,
+  .foundation-grid,
+  .info-grid-2 {
     grid-template-columns: 1fr;
   }
   
   .services-grid-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .wg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .services-grid-wrapper {
+  .services-grid-wrapper,
+  .process-timeline,
+  .wg-grid {
     grid-template-columns: 1fr;
   }
   
