@@ -35,7 +35,6 @@ export default function BrandingPage() {
   const handleSelect = (key) => {
     setActiveKey(key);
     setOpenFaqIndex(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const svc = BRANDING_DATA[activeKey];
