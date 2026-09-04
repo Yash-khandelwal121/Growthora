@@ -55,8 +55,13 @@ export const FINANCE_FUNDING_DATA = {
       title: "Global AI Innovation Challenge",
       subtitle: "Funding for Disruptive Artificial Intelligence Solutions",
       description: "A premier international grant and incubator program aimed at early-stage AI startups building scalable, transformative technologies.",
-      heroImage: "/services/ff_laptop.jpg",
-      cardImage: "/services/ff_laptop.jpg",
+      heroImage: "/services/ff_ai_challenge.png",
+      cardImage: "/services/ff_ai_challenge.png",
+      heroHighlights: [
+        { icon: "Rocket", title: "Innovate", desc: "Build the Next Gen AI Solutions" },
+        { icon: "Users", title: "Get Funded", desc: "Access Global Opportunities" },
+        { icon: "TrendingUp", title: "Scale", desc: "Turn Ideas into Real Impact" }
+      ],
       overview: {
         whatItIs: "An equity-free grant and mentorship program offered by global tech consortiums to support the development of ethical, high-impact AI.",
         whyImportant: "Provides crucial early-stage capital and access to top-tier cloud credits and AI compute resources.",

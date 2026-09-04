@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, ChevronDown, ChevronUp, Rocket, Users, TrendingUp } from 'lucide-react';
 import { FINANCE_FUNDING_DATA } from '../data/financeFundingData';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
@@ -83,6 +83,22 @@ export default function FinanceFundingDetailPage() {
                   <ArrowRight size={18} />
                 </button>
               </div>
+
+              {detailData.heroHighlights && (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                  {detailData.heroHighlights.map((hh, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                      {hh.icon === 'Rocket' && <Rocket size={20} color="#FF7200" style={{ flexShrink: 0, marginTop: '2px' }} />}
+                      {hh.icon === 'Users' && <Users size={20} color="#FF7200" style={{ flexShrink: 0, marginTop: '2px' }} />}
+                      {hh.icon === 'TrendingUp' && <TrendingUp size={20} color="#FF7200" style={{ flexShrink: 0, marginTop: '2px' }} />}
+                      <div>
+                        <div style={{ fontWeight: '700', fontSize: '0.92rem', color: '#0F172A' }}>{hh.title}</div>
+                        <div style={{ fontSize: '0.8rem', color: '#64748B', lineHeight: '1.4' }}>{hh.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             
             <div className="sd-hero-img-wrapper" style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
