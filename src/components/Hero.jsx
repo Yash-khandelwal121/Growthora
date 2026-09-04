@@ -158,7 +158,7 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
         <div className="hero-visual-container">
           <div className="hero-3d-ecosystem-wrapper float-3d-motion">
             <img 
-              src="/growthora_hero_ecosystem.jpg" 
+              src="/growthora_hero_ecosystem.jpg?v=2" 
               alt="Growthora business services ecosystem showing Registration, Finance, Certifications, Branding, Operations, Legal and CA, MSME Benefits, IPO and Valuation services." 
               className="hero-3d-ecosystem-img"
               loading="eager"
