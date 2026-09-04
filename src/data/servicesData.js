@@ -126,37 +126,6 @@ export const SERVICES_DATA = [
   {
     id: "05",
     num: "05",
-    navLabel: "Operations",
-    category: "OPERATIONS",
-    title: "Business & HR Operations",
-    description:
-      "We set up the operational systems — HR, CRM, and sales infrastructure — that a growing business needs to run without constant firefighting.",
-    idealFor: [
-      "Funded or stable businesses ready to build out operational infrastructure",
-      "Founders who need HR, CRM, and sales tied to a clear growth plan",
-      "Teams that need better handoff between onboarding, sales, and customer management"
-    ],
-    included: [
-      "HR Support",
-      "CRM Solutions",
-      "Business Strategy",
-      "Sales Support"
-    ],
-    whatYouGet: [
-      "Operational systems set up for current scale and the next stage",
-      "Sales and CRM infrastructure that keeps leads from falling through",
-      "HR and compliance practices that protect the business as headcount grows"
-    ],
-    timeline:
-      "The first phase focuses on audit and system prioritisation before building or migrating tools.",
-    cta: "Explore Operations →",
-    badge: "Scale Architecture",
-    accentColor: "rgba(14, 165, 233, 0.15)",
-    glowColor: "#0EA5E9"
-  },
-  {
-    id: "06",
-    num: "06",
     navLabel: "Legal & CA",
     category: "LEGAL & CA",
     title: "Legal, CA & Corporate Compliance",
@@ -184,6 +153,37 @@ export const SERVICES_DATA = [
     badge: "Statutory Governance",
     accentColor: "rgba(139, 92, 246, 0.15)",
     glowColor: "#8B5CF6"
+  },
+  {
+    id: "06",
+    num: "06",
+    navLabel: "Operations",
+    category: "OPERATIONS",
+    title: "Business & HR Operations",
+    description:
+      "We set up the operational systems — HR, CRM, and sales infrastructure — that a growing business needs to run without constant firefighting.",
+    idealFor: [
+      "Funded or stable businesses ready to build out operational infrastructure",
+      "Founders who need HR, CRM, and sales tied to a clear growth plan",
+      "Teams that need better handoff between onboarding, sales, and customer management"
+    ],
+    included: [
+      "HR Support",
+      "CRM Solutions",
+      "Business Strategy",
+      "Sales Support"
+    ],
+    whatYouGet: [
+      "Operational systems set up for current scale and the next stage",
+      "Sales and CRM infrastructure that keeps leads from falling through",
+      "HR and compliance practices that protect the business as headcount grows"
+    ],
+    timeline:
+      "The first phase focuses on audit and system prioritisation before building or migrating tools.",
+    cta: "Explore Operations →",
+    badge: "Scale Architecture",
+    accentColor: "rgba(14, 165, 233, 0.15)",
+    glowColor: "#0EA5E9"
   },
   {
     id: "07",
@@ -285,8 +285,8 @@ export const SERVICE_FINDER_OPTIONS = [
   { label: "I need funding", targetId: "02" },
   { label: "I need certification", targetId: "03" },
   { label: "I need branding / website", targetId: "04" },
-  { label: "I need operational support", targetId: "05" },
-  { label: "I need compliance support", targetId: "06" },
+  { label: "I need compliance support", targetId: "05" },
+  { label: "I need operational support", targetId: "06" },
   { label: "I need a government scheme", targetId: "07" },
   { label: "I am preparing for IPO", targetId: "08" },
   { label: "I need business valuation", targetId: "09" }

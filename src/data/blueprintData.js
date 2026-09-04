@@ -82,29 +82,10 @@ export const BLUEPRINT_DATA = {
     ]
   },
   "05": {
-    category: "OPERATIONS",
-    title: "Operational Infrastructure & HR Blueprint",
-    tagline: "AUDIT → INFRASTRUCTURE → SCALABLE WORKFLOW",
-    image: "/blueprints/05_operations.png",
-    executionPath: [
-      { step: "01", label: "Audit" },
-      { step: "02", label: "Systems" },
-      { step: "03", label: "CRM" },
-      { step: "04", label: "Sales" },
-      { step: "05", label: "Optimization" }
-    ],
-    interactiveNodes: [
-      { id: "crm", title: "CRM Lead Control Center", desc: "Automated Lead Pipeline Node", icon: "layers" },
-      { id: "hr", title: "HR Infrastructure Engine", desc: "Payroll, Policy & Onboarding", icon: "users" },
-      { id: "gears", title: "Process Gear Sync", desc: "Operational Handoff Rules", icon: "cog" },
-      { id: "strategy", title: "Scale Roadmap", desc: "Strategy & Performance Model", icon: "target" }
-    ]
-  },
-  "06": {
     category: "LEGAL & CA",
     title: "Statutory Governance & IP Blueprint",
     tagline: "REVIEW → AGREEMENTS → AUDIT COMPLIANT",
-    image: "/blueprints/06_legal.png",
+    image: "/blueprints/05_legal.png",
     executionPath: [
       { step: "01", label: "Review" },
       { step: "02", label: "Documentation" },
@@ -117,6 +98,25 @@ export const BLUEPRINT_DATA = {
       { id: "patent", title: "Intellectual Property Vault", desc: "Trademark, Patent & Copyright", icon: "lock" },
       { id: "ca", title: "CA Audit & Statutory Filing", desc: "ROC & Post-Reg Compliance", icon: "book" },
       { id: "shield", title: "Corporate Governance", desc: "Risk & Legal Shielding", icon: "shield" }
+    ]
+  },
+  "06": {
+    category: "OPERATIONS",
+    title: "Operational Infrastructure & HR Blueprint",
+    tagline: "AUDIT → INFRASTRUCTURE → SCALABLE WORKFLOW",
+    image: "/blueprints/06_operations.png",
+    executionPath: [
+      { step: "01", label: "Audit" },
+      { step: "02", label: "Systems" },
+      { step: "03", label: "CRM" },
+      { step: "04", label: "Sales" },
+      { step: "05", label: "Optimization" }
+    ],
+    interactiveNodes: [
+      { id: "crm", title: "CRM Lead Control Center", desc: "Automated Lead Pipeline Node", icon: "layers" },
+      { id: "hr", title: "HR Infrastructure Engine", desc: "Payroll, Policy & Onboarding", icon: "users" },
+      { id: "gears", title: "Process Gear Sync", desc: "Operational Handoff Rules", icon: "cog" },
+      { id: "strategy", title: "Scale Roadmap", desc: "Strategy & Performance Model", icon: "target" }
     ]
   },
   "07": {
