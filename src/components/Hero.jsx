@@ -7,23 +7,23 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
 
   // Clickable transparent hotspots aligned over the printed labels in growthora_hero_ecosystem.jpg
   const ecosystemNodes = [
-    { label: "Registration",   ariaLabel: "Registration services",   id: "01",
+    { label: "01 Registration",   ariaLabel: "Registration services",   id: "01",
       style: { top: "3%",  left: "48%",  width: "27%", height: "10%" } },
-    { label: "Finance & Funding", ariaLabel: "Finance & Funding services", id: "02",
+    { label: "02 Finance & Funding", ariaLabel: "Finance & Funding services", id: "02",
       style: { top: "14%", left: "74%",  width: "24%", height: "9%"  } },
-    { label: "Certifications", ariaLabel: "Certifications services",  id: "03",
+    { label: "03 Certifications", ariaLabel: "Certifications services",  id: "03",
       style: { top: "32%", left: "77%",  width: "25%", height: "9%"  } },
-    { label: "Branding",       ariaLabel: "Branding services",        id: "04",
+    { label: "04 Branding",       ariaLabel: "Branding services",        id: "04",
       style: { top: "59%", left: "75%",  width: "23%", height: "9%"  } },
-    { label: "Legal & CA",     ariaLabel: "Legal and CA services",    id: "05",
+    { label: "05 Legal & CA",     ariaLabel: "Legal and CA services",    id: "05",
       style: { top: "74%", left: "40%",  width: "24%", height: "9%"  } },
-    { label: "Operations",     ariaLabel: "Operations services",      id: "06",
+    { label: "06 Operations",     ariaLabel: "Operations services",      id: "06",
       style: { top: "70%", left: "56%",  width: "23%", height: "9%"  } },
-    { label: "MSME Benefits",  ariaLabel: "MSME Benefits services",   id: "07",
+    { label: "07 MSME Benefits",  ariaLabel: "MSME Benefits services",   id: "07",
       style: { top: "56%", left: "0%",   width: "30%", height: "9%"  } },
-    { label: "IPO",            ariaLabel: "IPO services",             id: "08",
+    { label: "08 IPO",            ariaLabel: "IPO services",             id: "08",
       style: { top: "31%", left: "0%",   width: "20%", height: "9%"  } },
-    { label: "Valuation",      ariaLabel: "Valuation services",       id: "09",
+    { label: "09 Valuation",      ariaLabel: "Valuation services",       id: "09",
       style: { top: "8%",  left: "11%",  width: "26%", height: "9%"  } },
   ];
 
@@ -151,12 +151,15 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
               <button
                 key={node.id}
                 type="button"
-                className="hero-stage-hotspot-pill"
+                className="hero-stage-hotspot-pill svc-pill"
                 style={node.style}
                 onClick={() => handleHotspotClick(node.id)}
                 title={`Click to view ${node.label}`}
                 aria-label={`Jump to ${node.label}`}
-              />
+              >
+                <span style={{fontWeight: 'bold', marginRight: '6px', color: '#FF7200'}}>{node.label.split(' ')[0]}</span>
+                <span style={{fontWeight: '600', color: '#0F172A', whiteSpace: 'nowrap'}}>{node.label.substring(node.label.indexOf(' ') + 1)}</span>
+              </button>
             ))}
           </div>
         </div>
