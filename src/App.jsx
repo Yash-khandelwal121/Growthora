@@ -15,6 +15,7 @@ import LegalCaDetailPage from './pages/LegalCaDetailPage';
 import MsmeCategoryPage from './pages/MsmeCategoryPage';
 import MsmeDetailPage from './pages/MsmeDetailPage';
 import IpoPage from './pages/IpoPage';
+import ValuationPage from './pages/ValuationPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -58,6 +59,10 @@ export function App() {
         {/* IPO Routes */}
         <Route path="/services/ipo" element={<IpoPage />} />
         <Route path="/services/ipo/:serviceSlug" element={<IpoPage />} />
+
+        {/* Valuation Routes */}
+        <Route path="/services/valuation" element={<ValuationPage />} />
+        <Route path="/services/valuation/:serviceSlug" element={<ValuationPage />} />
       </Routes>
     </BrowserRouter>
   );

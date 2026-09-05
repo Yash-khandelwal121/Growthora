@@ -62,6 +62,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
       navigate('/services/ipo');
       return;
     }
+    if (nodeId === "09") {
+      navigate('/services/valuation');
+      return;
+    }
     if (onSelectCategory) {
       onSelectCategory(nodeId);
     }

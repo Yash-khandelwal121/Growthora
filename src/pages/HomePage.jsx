@@ -55,6 +55,10 @@ export default function HomePage() {
       navigate('/services/ipo');
       return;
     }
+    if (service && service.id === '09') {
+      navigate('/services/valuation');
+      return;
+    }
     setSelectedServiceForModal(service);
     setIsConsultationOpen(true);
   };
@@ -68,6 +72,7 @@ export default function HomePage() {
     if (id === '06') { navigate('/services/operations'); return; }
     if (id === '07') { navigate('/services/msme-benefits'); return; }
     if (id === '08') { navigate('/services/ipo'); return; }
+    if (id === '09') { navigate('/services/valuation'); return; }
     setActiveId(id);
     const element = document.getElementById('services-master');
     if (element) {
