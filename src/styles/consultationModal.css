@@ -28,15 +28,15 @@
 .growthora-modal-container {
   position: relative;
   width: 100%;
-  max-width: 1060px;
+  max-width: 1080px;
   background: #FFFFFF;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.45), 0 0 50px rgba(255, 114, 0, 0.08);
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 30px 90px -15px rgba(0, 0, 0, 0.4), 0 0 50px rgba(107, 59, 167, 0.1);
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 410px 1fr;
   overflow: hidden;
-  max-height: 90vh;
+  max-height: 92vh;
   margin: auto;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   animation: modalBoxPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -48,18 +48,326 @@
 }
 
 /* -------------------------------------------------------------
-   LEFT BRANDING & VISUAL ARTWORK PANEL (Dynamic per Step)
+   LEFT BRANDING & VISUAL ARTWORK PANEL (IMAGE 1 EXACT DESIGN MATCH)
 ------------------------------------------------------------- */
-.growthora-modal-left {
-  background: linear-gradient(155deg, #0A0D18 0%, #131728 50%, #201335 100%);
-  padding: 2.25rem 2rem;
-  color: #FFFFFF;
+.growthora-modal-left.light-theme {
+  background: linear-gradient(180deg, #FBF9F4 0%, #F4ECE1 100%);
+  padding: 1.75rem 1.6rem 0rem 1.6rem;
+  color: #1A102F;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  overflow-y: auto;
+  border-right: 1px solid #E5DDCF;
+}
+
+.modal-brand-logo-img.light-bg {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D2;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  padding: 4px;
+  border-radius: 10px;
+  height: 38px;
+  width: auto;
+}
+
+.modal-brand-name.dark-text {
+  color: #1E1035;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+
+.modal-brand-tagline.dark-sub {
+  color: #71717A;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.img1-hero-header {
+  margin-top: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.img1-main-headline {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #1A102F;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.img1-purple-text {
+  color: #6B3BA7;
+  display: block;
+}
+
+.img1-main-subhead {
+  font-size: 0.84rem;
+  color: #52525B;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+/* Timeline + Winding Path Split Container */
+.img1-journey-split-container {
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Left Vertical Timeline */
+.img1-vertical-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding-left: 2px;
+}
+
+.img1-timeline-line {
+  position: absolute;
+  left: 17px;
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  background: #CBD5E1;
+  z-index: 1;
+}
+
+.img1-timeline-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  position: relative;
+  z-index: 2;
+}
+
+.img1-step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.img1-step-badge.done {
+  background: #1F1138;
+  color: #FFFFFF;
+}
+
+.img1-step-badge.active-orange {
+  background: #FF7200;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(255, 114, 0, 0.4);
+}
+
+.img1-step-badge.upcoming {
+  background: #E2E8F0;
+  color: #64748B;
+  border: 1px solid #CBD5E1;
+}
+
+.img1-step-content-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #1A102F;
+  line-height: 1.1;
+}
+
+.img1-step-content-sub {
+  font-size: 0.7rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Right 3D Winding Pathway Artwork */
+.img1-winding-artwork {
+  position: relative;
+  background: linear-gradient(180deg, #F3EBE0 0%, #EADECF 100%);
+  border-radius: 16px;
+  padding: 10px 8px;
+  border: 1px solid #E2D5C3;
   overflow: hidden;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.img1-archway-header {
+  background: linear-gradient(180deg, #FDF4E3 0%, #F5C97A 60%, #D97706 100%);
+  border-radius: 45px 45px 0 0;
+  padding: 10px 6px 6px 6px;
+  text-align: center;
+  border: 1px solid #F59E0B;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.15);
+}
+
+.img1-archway-title {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #451A03;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Winding 3D Road Blocks Stack */
+.img1-road-blocks-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 8px;
+  position: relative;
+}
+
+.img1-road-card {
+  background: #FFFFFF;
+  border-radius: 9px;
+  padding: 5px 8px;
+  box-shadow: 0 4px 10px rgba(26, 16, 47, 0.06);
+  border: 1px solid #EAE2D5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.img1-road-card:hover {
+  transform: translateY(-2px);
+}
+
+.img1-road-card-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.img1-road-card-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #1A102F;
+  line-height: 1;
+}
+
+.img1-road-card-sub {
+  font-size: 0.58rem;
+  color: #64748B;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Cursive Handwritten Tag */
+.img1-cursive-tag-container {
+  text-align: right;
+  margin-top: 0.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.img1-cursive-text {
+  font-family: 'Caveat', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1A102F;
+  position: relative;
+  display: inline-block;
+}
+
+.img1-cursive-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: #FF7200;
+  border-radius: 2px;
+}
+
+/* Bottom Trust Features List */
+.img1-trust-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.75rem;
+  border-top: 1px dashed #E2D7C7;
+  padding-top: 0.85rem;
+}
+
+.img1-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.img1-trust-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FDF0ED;
+  color: #991B1B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.img1-trust-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #1A102F;
+  line-height: 1.2;
+}
+
+.img1-trust-sub {
+  font-size: 0.7rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+/* Dark Security Footer Bar */
+.img1-dark-bottom-bar {
+  background: #1C0F35;
+  color: #FFFFFF;
+  margin-left: -1.6rem;
+  margin-right: -1.6rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.img1-dark-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #F3E8FF;
+}
+
+.img1-dark-bar-divider {
+  opacity: 0.3;
+  color: #A78BFA;
 }
 
 .growthora-modal-left::before {

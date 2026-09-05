@@ -135,161 +135,188 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
           <X size={18} />
         </button>
 
-        {/* LEFT PANEL: DYNAMIC BRANDING & ARTWORK PER STEP */}
-        <div className="growthora-modal-left">
+        {/* LEFT PANEL: IMAGE 1 EXACT MATCH WARM LUXURY CREAM VISUAL DESIGN */}
+        <div className="growthora-modal-left light-theme">
           
-          <div className="modal-brand-header-group">
+          {/* Top Logo Header */}
+          <div className="modal-brand-header-group" style={{ marginBottom: '0.75rem' }}>
             <div className="modal-brand-logo-row">
-              <img src="/growthora_logo.jpg" alt="Growthora Advisory" className="modal-brand-logo-img" />
+              <img src="/growthora_logo.jpg" alt="Growthora Advisory" className="modal-brand-logo-img light-bg" />
               <div>
-                <div className="modal-brand-name">GROWTHORA</div>
-                <div className="modal-brand-tagline">Guiding Growth. Empowering Futures.</div>
+                <div className="modal-brand-name dark-text">GROWTHORA ADVISORY</div>
+                <div className="modal-brand-tagline dark-sub">Guiding Growth. Empowering Futures.</div>
               </div>
             </div>
           </div>
 
-          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 1 */}
-          {step === 1 && (
-            <div className="modal-left-main-content">
-              <h2 className="modal-left-headline">Big Goals Need the Right Partner.</h2>
-              <p className="modal-left-subhead">From startup to scale, we're with you at every step.</p>
+          {/* Main Hero Title */}
+          <div className="img1-hero-header">
+            <h2 className="img1-main-headline">
+              Your Growth <span className="img1-purple-text">Journey</span> Starts Here
+            </h2>
+            <p className="img1-main-subhead">
+              From ideas to impact, we're with you at every step.
+            </p>
+          </div>
 
-              {/* 4-Block Staircase Visual */}
-              <div className="staircase-visual-container">
-                <div className="stair-block-item active">
-                  <span className="stair-num-badge">01</span>
-                  <div>
-                    <div className="stair-label-title">START</div>
-                  </div>
-                  <span className="stair-label-sub">Business Setup</span>
-                </div>
-                <div className="stair-block-item">
-                  <span className="stair-num-badge">02</span>
-                  <div>
-                    <div className="stair-label-title">BUILD</div>
-                  </div>
-                  <span className="stair-label-sub">Compliance</span>
-                </div>
-                <div className="stair-block-item">
-                  <span className="stair-num-badge">03</span>
-                  <div>
-                    <div className="stair-label-title">GROW</div>
-                  </div>
-                  <span className="stair-label-sub">Funding</span>
-                </div>
-                <div className="stair-block-item">
-                  <span className="stair-num-badge">04</span>
-                  <div>
-                    <div className="stair-label-title">SCALE</div>
-                  </div>
-                  <span className="stair-label-sub">Growth</span>
-                </div>
-              </div>
-
-              <span className="cursive-highlight-tag">"Your Growth, Our Commitment."</span>
-            </div>
-          )}
-
-          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 2 */}
-          {step === 2 && (
-            <div className="modal-left-main-content">
-              <h2 className="modal-left-headline">Every Business Stage Has an Opportunity.</h2>
-              <p className="modal-left-subhead">Tell us about your business so we can guide you better.</p>
-
-              <div className="workstation-visual-card">
-                <div className="notepad-art-box">
-                  <div className="notepad-title">Strategic Roadmap</div>
-                  <div className="notepad-check-list">
-                    <div>✓ Ideas & Entity Setup</div>
-                    <div>✓ Compliance & Taxation</div>
-                    <div>✓ Operational Architecture</div>
-                    <div>✓ Capital & Scale ✓</div>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '16px', textCenter: 'center' }}>
-                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#FF7200' }}>2,500+</div>
-                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Advised</div>
-                </div>
-                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#8B5CF6' }}>12+</div>
-                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Industries</div>
-                </div>
-                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#10B981' }}>9</div>
-                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Practices</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 3 */}
-          {step === 3 && (
-            <div className="modal-left-main-content">
-              <h2 className="modal-left-headline">Turn Your Vision Into Real Progress.</h2>
-              <p className="modal-left-subhead">What's your main goal right now?</p>
-
-              <div className="rocket-visual-card">
-                <div className="rocket-icon-pulse">
-                  <Rocket size={28} />
-                </div>
-                <div style={{ fontWeight: '700', fontSize: '0.95rem', color: '#FFFFFF' }}>Targeted Acceleration</div>
-                <div style={{ fontSize: '0.78rem', color: '#CBD5E1', marginTop: '4px' }}>Custom advisory solutions built for your milestones.</div>
-              </div>
-
-              <span className="cursive-highlight-tag">"Bigger, Brighter, Together."</span>
-            </div>
-          )}
-
-          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 4 */}
-          {step === 4 && (
-            <div className="modal-left-main-content">
-              <h2 className="modal-left-headline">Let's Build Your Next Success Story.</h2>
-              <p className="modal-left-subhead">Share your details and our senior advisor will get in touch.</p>
-
-              <div className="handshake-visual-card">
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                  <PhoneCall size={22} />
+          {/* Split Journey Artwork: Timeline (Left) + 3D Winding Pathway Artwork (Right) */}
+          <div className="img1-journey-split-container">
+            {/* Vertical Step Timeline */}
+            <div className="img1-vertical-timeline">
+              <div className="img1-timeline-line" />
+              
+              {/* Step 1: START */}
+              <div className="img1-timeline-step">
+                <div className="img1-step-badge done">
+                  <Check size={16} strokeWidth={3} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#FFFFFF' }}>Zero-Obligation Session</div>
-                  <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Direct consultation with domain experts.</div>
+                  <div className="img1-step-content-title">START</div>
+                  <div className="img1-step-content-sub">Business Setup</div>
+                </div>
+              </div>
+
+              {/* Step 2: BUILD */}
+              <div className="img1-timeline-step">
+                <div className={`img1-step-badge ${step >= 2 ? 'done' : 'done'}`}>
+                  <Check size={16} strokeWidth={3} />
+                </div>
+                <div>
+                  <div className="img1-step-content-title">BUILD</div>
+                  <div className="img1-step-content-sub">Compliance</div>
+                </div>
+              </div>
+
+              {/* Step 3: GROW */}
+              <div className="img1-timeline-step">
+                <div className={`img1-step-badge ${step >= 3 ? 'done' : 'active-orange'}`}>
+                  {step >= 3 ? <Check size={16} strokeWidth={3} /> : '03'}
+                </div>
+                <div>
+                  <div className="img1-step-content-title" style={{ color: step === 3 ? '#FF7200' : '#1A102F' }}>GROW</div>
+                  <div className="img1-step-content-sub">Funding</div>
+                </div>
+              </div>
+
+              {/* Step 4: SCALE */}
+              <div className="img1-timeline-step">
+                <div className={`img1-step-badge ${step === 4 ? 'active-orange' : 'upcoming'}`}>
+                  04
+                </div>
+                <div>
+                  <div className="img1-step-content-title" style={{ color: step === 4 ? '#FF7200' : '#64748B' }}>SCALE</div>
+                  <div className="img1-step-content-sub">Greater Possibilities</div>
                 </div>
               </div>
             </div>
-          )}
 
-          {/* Left Footer Trust Badges */}
-          <div className="modal-left-trust-bar">
-            {step === 1 && (
-              <>
-                <span className="trust-pill-tag"><ShieldCheck size={13} /> Local Expertise</span>
-                <span className="trust-pill-tag"><Lock size={13} /> Trust & Integrity</span>
-                <span className="trust-pill-tag"><TrendingUp size={13} /> Strategic Growth</span>
-              </>
-            )}
-            {step === 2 && (
-              <>
-                <span className="trust-pill-tag"><Award size={13} /> Proven Track Record</span>
-                <span className="trust-pill-tag"><ShieldCheck size={13} /> Confidential Advisory</span>
-              </>
-            )}
-            {step === 3 && (
-              <>
-                <span className="trust-pill-tag"><CheckCircle2 size={13} /> Strategy Led</span>
-                <span className="trust-pill-tag"><Zap size={13} /> Execution Focused</span>
-                <span className="trust-pill-tag"><Rocket size={13} /> Growth Driven</span>
-              </>
-            )}
-            {step === 4 && (
-              <>
-                <span className="trust-pill-tag"><Building size={13} /> Pan-India Support</span>
-                <span className="trust-pill-tag"><ShieldCheck size={13} /> Long-Term Partnership</span>
-              </>
-            )}
+            {/* 3D Winding Pathway Graphic */}
+            <div className="img1-winding-artwork">
+              {/* Archway top header */}
+              <div className="img1-archway-header">
+                <div className="img1-archway-title">
+                  BIGGER BUSINESSES<br />BRIGHTER TOMORROWS
+                </div>
+              </div>
+
+              {/* Stacked 3D Cards representing the winding spiral path */}
+              <div className="img1-road-blocks-stack">
+                <div className="img1-road-card">
+                  <div className="img1-road-card-icon" style={{ background: '#EEF2FF', color: '#4F46E5' }}>
+                    <BarChart3 size={13} />
+                  </div>
+                  <div>
+                    <div className="img1-road-card-title">SCALE</div>
+                    <div className="img1-road-card-sub">Expand Globally</div>
+                  </div>
+                </div>
+
+                <div className="img1-road-card">
+                  <div className="img1-road-card-icon" style={{ background: '#ECFDF5', color: '#059669' }}>
+                    <TrendingUp size={13} />
+                  </div>
+                  <div>
+                    <div className="img1-road-card-title">GROW</div>
+                    <div className="img1-road-card-sub">Get Funding</div>
+                  </div>
+                </div>
+
+                <div className="img1-road-card">
+                  <div className="img1-road-card-icon" style={{ background: '#FFFBEB', color: '#D97706' }}>
+                    <ShieldCheck size={13} />
+                  </div>
+                  <div>
+                    <div className="img1-road-card-title">BUILD</div>
+                    <div className="img1-road-card-sub">Stay Compliant</div>
+                  </div>
+                </div>
+
+                <div className="img1-road-card">
+                  <div className="img1-road-card-icon" style={{ background: '#FFF7ED', color: '#EA580C' }}>
+                    <Lightbulb size={13} />
+                  </div>
+                  <div>
+                    <div className="img1-road-card-title">START</div>
+                    <div className="img1-road-card-sub">Turn Idea Into Reality</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* Cursive Tag */}
+          <div className="img1-cursive-tag-container">
+            <span className="img1-cursive-text">Together Towards Sustainable Growth</span>
+          </div>
+
+          {/* Trust Points List */}
+          <div className="img1-trust-features-list">
+            <div className="img1-trust-item">
+              <div className="img1-trust-icon-circle">
+                <Users size={17} />
+              </div>
+              <div>
+                <div className="img1-trust-title">Local Expertise</div>
+                <div className="img1-trust-sub">Deep understanding of regional markets</div>
+              </div>
+            </div>
+
+            <div className="img1-trust-item">
+              <div className="img1-trust-icon-circle">
+                <ShieldCheck size={17} />
+              </div>
+              <div>
+                <div className="img1-trust-title">Trust & Integrity</div>
+                <div className="img1-trust-sub">Transparent and ethical advisory</div>
+              </div>
+            </div>
+
+            <div className="img1-trust-item">
+              <div className="img1-trust-icon-circle">
+                <BarChart3 size={17} />
+              </div>
+              <div>
+                <div className="img1-trust-title">Strategic Growth</div>
+                <div className="img1-trust-sub">Driving businesses towards sustainable success</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dark Security Footer Bar */}
+          <div className="img1-dark-bottom-bar">
+            <span className="img1-dark-bar-item">
+              <ShieldCheck size={14} color="#C4B5FD" /> 100% Secure
+            </span>
+            <span className="img1-dark-bar-divider">|</span>
+            <span className="img1-dark-bar-item">
+              <Lock size={14} color="#C4B5FD" /> No Spam
+            </span>
+            <span className="img1-dark-bar-divider">|</span>
+            <span className="img1-dark-bar-item">
+              <PhoneCall size={14} color="#C4B5FD" /> Expert Consultation
+            </span>
+          </div>
+
         </div>
 
         {/* RIGHT PANEL: INTERACTIVE FORM WIZARD */}
