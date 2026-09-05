@@ -206,7 +206,7 @@ export default function LegalCaCategoryPage() {
                         View Details <ArrowRight size={16} />
                       </button>
                     </div>
-                    <div className="card-image-right" style={{ backgroundImage: `url(${serviceData.cardImage})` }}>
+                    <div className="card-image-right" style={{ backgroundImage: `url(${serviceData.cardImage})`, ...(serviceData.cardImageStyle || {}) }}>
                     </div>
                   </div>
                 );

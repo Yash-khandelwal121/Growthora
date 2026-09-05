@@ -127,9 +127,8 @@
 
 .card-image-right {
   background-size: cover;
-  background-position: center top;
+  background-position: center;
   background-repeat: no-repeat;
-  background-color: #0A0F1D;
   border-radius: 0 16px 16px 0;
 }
 
