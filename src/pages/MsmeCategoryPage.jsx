@@ -353,7 +353,7 @@ export default function MsmeCategoryPage() {
                         View Details <ArrowRight size={16} />
                       </button>
                     </div>
-                    <div className="card-image-right" style={{ backgroundImage: `url(${sData.cardImage})` }}>
+                    <div className="card-image-right" style={{ backgroundImage: `url(${sData.cardImage})`, ...(sData.cardImageStyle || {}) }}>
                     </div>
                   </div>
                 );
