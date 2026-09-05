@@ -33,33 +33,33 @@ export default function BookConsultationPage() {
   };
 
   return (
-    <div className="services-page-root" style={{ background: '#F7F4EE', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div className="services-page-root" style={{ background: '#F8FAFC', minHeight: '100vh', overflowX: 'hidden' }}>
       <Header 
         onOpenConsultation={() => setIsConsultationOpen(true)}
         onOpenAskGrowthora={() => setIsAskOpen(true)}
       />
 
       {/* TOP HERO BREADCRUMB HEADER */}
-      <section style={{ padding: '36px 0 20px', textAlign: 'center' }}>
+      <section style={{ padding: '40px 0 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
           <button 
             type="button" 
             className="back-btn-ghost" 
             onClick={() => navigate('/')}
-            style={{ marginBottom: '16px' }}
+            style={{ marginBottom: '18px' }}
           >
-            <ArrowLeft size={16} /> Back to Website
+            <ArrowLeft size={16} /> Back to Home
           </button>
           
-          <div className="eyebrow-badge" style={{ display: 'inline-flex', marginBottom: '12px' }}>
+          <div className="eyebrow-badge" style={{ display: 'inline-flex', marginBottom: '14px', background: 'rgba(255, 114, 0, 0.1)', color: '#FF7200', border: '1px solid rgba(255, 114, 0, 0.2)' }}>
             <Sparkles size={14} color="#FF7200" />
             <span>GROWTHORA ADVISORY PRIVATE LIMITED</span>
           </div>
 
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#1A0E2E', margin: '0 0 10px', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '2.6rem', fontWeight: '800', color: '#0F172A', margin: '0 0 12px', letterSpacing: '-0.02em' }}>
             Book a Free 30-Minute Consultation
           </h1>
-          <p style={{ color: '#52525B', fontSize: '1.05rem', maxWidth: '640px', margin: '0 auto', lineHeight: '1.6' }}>
+          <p style={{ color: '#475569', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto', lineHeight: '1.6' }}>
             Direct strategic guidance with Growthora senior partners. No obligations, no hard sell — just an actionable roadmap tailored for your business.
           </p>
         </div>
@@ -70,10 +70,10 @@ export default function BookConsultationPage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', boxSizing: 'border-box' }}>
           
           <div style={{
-            background: 'linear-gradient(150deg, #180D30 0%, #120824 60%, #1F0D36 100%)',
+            background: 'linear-gradient(135deg, #0A0F1D 0%, #0F172A 60%, #172136 100%)',
             borderRadius: '28px',
             border: '1px solid rgba(255, 255, 255, 0.12)',
-            boxShadow: '0 30px 90px -15px rgba(0, 0, 0, 0.45), 0 0 60px rgba(255, 114, 0, 0.08)',
+            boxShadow: '0 30px 90px -15px rgba(15, 23, 42, 0.35), 0 0 50px rgba(255, 114, 0, 0.06)',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
             overflow: 'hidden',
@@ -85,7 +85,7 @@ export default function BookConsultationPage() {
               
               {!submitted ? (
                 <div>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 114, 0, 0.15)', color: '#FF7200', padding: '4px 12px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: '800', marginBottom: '16px' }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 114, 0, 0.15)', color: '#FF7200', border: '1px solid rgba(255, 114, 0, 0.3)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: '800', marginBottom: '16px' }}>
                     <Lock size={13} /> CONFIDENTIAL ADVISORY
                   </div>
 
@@ -100,7 +100,7 @@ export default function BookConsultationPage() {
                     
                     {/* FULL NAME */}
                     <div style={{ marginBottom: '20px' }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                         FULL NAME *
                       </label>
                       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -113,8 +113,8 @@ export default function BookConsultationPage() {
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                           style={{
                             width: '100%',
-                            background: 'rgba(255, 255, 255, 0.06)',
-                            border: '1px solid rgba(255, 255, 255, 0.16)',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
                             borderRadius: '12px',
                             padding: '14px 16px 14px 48px',
                             color: '#FFFFFF',
@@ -131,10 +131,10 @@ export default function BookConsultationPage() {
                       
                       {/* PHONE */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                           PHONE *
                         </label>
-                        <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.16)', borderRadius: '12px', padding: '0 14px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '12px', padding: '0 14px' }}>
                           <span style={{ fontSize: '0.88rem', fontWeight: '700', color: '#CBD5E1', paddingRight: '8px', borderRight: '1px solid rgba(255,255,255,0.15)' }}>+91</span>
                           <input
                             type="tel"
@@ -157,7 +157,7 @@ export default function BookConsultationPage() {
 
                       {/* EMAIL */}
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                           EMAIL *
                         </label>
                         <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -170,8 +170,8 @@ export default function BookConsultationPage() {
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             style={{
                               width: '100%',
-                              background: 'rgba(255, 255, 255, 0.06)',
-                              border: '1px solid rgba(255, 255, 255, 0.16)',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid rgba(255, 255, 255, 0.15)',
                               borderRadius: '12px',
                               padding: '14px 16px 14px 48px',
                               color: '#FFFFFF',
@@ -186,7 +186,7 @@ export default function BookConsultationPage() {
 
                     {/* COMPANY NAME */}
                     <div style={{ marginBottom: '20px' }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                         COMPANY NAME (OPTIONAL)
                       </label>
                       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -198,8 +198,8 @@ export default function BookConsultationPage() {
                           onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                           style={{
                             width: '100%',
-                            background: 'rgba(255, 255, 255, 0.06)',
-                            border: '1px solid rgba(255, 255, 255, 0.16)',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
                             borderRadius: '12px',
                             padding: '14px 16px 14px 48px',
                             color: '#FFFFFF',
@@ -212,7 +212,7 @@ export default function BookConsultationPage() {
 
                     {/* BUSINESS STAGE */}
                     <div style={{ marginBottom: '20px' }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                         BUSINESS STAGE
                       </label>
                       <select
@@ -220,7 +220,7 @@ export default function BookConsultationPage() {
                         onChange={(e) => setFormData({ ...formData, businessStage: e.target.value })}
                         style={{
                           width: '100%',
-                          background: '#1F123B',
+                          background: '#1E293B',
                           border: '1px solid rgba(255, 255, 255, 0.16)',
                           borderRadius: '12px',
                           padding: '14px 16px',
@@ -239,7 +239,7 @@ export default function BookConsultationPage() {
 
                     {/* WHAT DO YOU NEED HELP WITH? */}
                     <div style={{ marginBottom: '24px' }}>
-                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#A78BFA', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '800', color: '#CBD5E1', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                         WHAT DO YOU NEED HELP WITH?
                       </label>
                       <select
@@ -247,7 +247,7 @@ export default function BookConsultationPage() {
                         onChange={(e) => setFormData({ ...formData, practiceNeed: e.target.value })}
                         style={{
                           width: '100%',
-                          background: '#1F123B',
+                          background: '#1E293B',
                           border: '1px solid rgba(255, 255, 255, 0.16)',
                           borderRadius: '12px',
                           padding: '14px 16px',
@@ -276,8 +276,8 @@ export default function BookConsultationPage() {
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         style={{
                           width: '100%',
-                          background: 'rgba(255, 255, 255, 0.06)',
-                          border: '1px solid rgba(255, 255, 255, 0.16)',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
                           borderRadius: '12px',
                           padding: '14px 16px',
                           color: '#FFFFFF',
@@ -361,7 +361,7 @@ export default function BookConsultationPage() {
               padding: '48px 40px',
               display: 'flex',
               flexDirection: 'column',
-              justify: 'space-between'
+              justifyContent: 'space-between'
             }}>
               
               <div>
@@ -405,7 +405,7 @@ export default function BookConsultationPage() {
                 </div>
 
                 {/* Free call guarantee subtext */}
-                <p style={{ color: '#94A3B8', fontSize: '0.84rem', lineHeight: '1.5', margin: '0 0 32px', fontStyle: 'italic', background: 'rgba(255, 255, 255, 0.04)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <p style={{ color: '#CBD5E1', fontSize: '0.84rem', lineHeight: '1.5', margin: '0 0 32px', fontStyle: 'italic', background: 'rgba(255, 255, 255, 0.04)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
                   The 30-minute first call is free. You walk away with a written route, even if you don't choose to engage the team further.
                 </p>
 
@@ -417,7 +417,7 @@ export default function BookConsultationPage() {
                   </div>
 
                   <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '16px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div style={{ fontWeight: '800', fontSize: '1.4rem', color: '#8B5CF6' }}>2,173+</div>
+                    <div style={{ fontWeight: '800', fontSize: '1.4rem', color: '#FF7200' }}>2,173+</div>
                     <div style={{ fontSize: '0.74rem', color: '#94A3B8', marginTop: '2px' }}>Businesses supported</div>
                   </div>
 
@@ -427,7 +427,7 @@ export default function BookConsultationPage() {
                   </div>
 
                   <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '16px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div style={{ fontWeight: '800', fontSize: '1.4rem', color: '#3B82F6' }}>30 min</div>
+                    <div style={{ fontWeight: '800', fontSize: '1.4rem', color: '#38BDF8' }}>30 min</div>
                     <div style={{ fontSize: '0.74rem', color: '#94A3B8', marginTop: '2px' }}>Free first call</div>
                   </div>
                 </div>
@@ -446,7 +446,7 @@ export default function BookConsultationPage() {
                     href="tel:+919005427979" 
                     style={{ display: 'flex', alignItems: 'center', gap: '14px', color: '#FFFFFF', textDecoration: 'none', transition: 'opacity 0.2s' }}
                   >
-                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FF7200', flexShrink: 0 }}>
+                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(255, 114, 0, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FF7200', flexShrink: 0 }}>
                       <Phone size={18} />
                     </div>
                     <div>
@@ -460,7 +460,7 @@ export default function BookConsultationPage() {
                     href="mailto:info@growthora.co.in" 
                     style={{ display: 'flex', alignItems: 'center', gap: '14px', color: '#FFFFFF', textDecoration: 'none', transition: 'opacity 0.2s' }}
                   >
-                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#8B5CF6', flexShrink: 0 }}>
+                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', background: 'rgba(255, 114, 0, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FF7200', flexShrink: 0 }}>
                       <Mail size={18} />
                     </div>
                     <div>
@@ -506,7 +506,7 @@ export default function BookConsultationPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             
             <div style={{ background: '#F8FAFC', padding: '28px', borderRadius: '18px', border: '1px solid #E2E8F0' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF', color: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF7ED', color: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', border: '1px solid rgba(255, 114, 0, 0.2)' }}>
                 <ShieldCheck size={24} />
               </div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0F172A', marginBottom: '8px' }}>Zero Hard Sell</h3>
@@ -516,7 +516,7 @@ export default function BookConsultationPage() {
             </div>
 
             <div style={{ background: '#F8FAFC', padding: '28px', borderRadius: '18px', border: '1px solid #E2E8F0' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF', color: '#8B5CF6', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF7ED', color: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', border: '1px solid rgba(255, 114, 0, 0.2)' }}>
                 <CheckCircle2 size={24} />
               </div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0F172A', marginBottom: '8px' }}>Written Action Plan</h3>
@@ -526,7 +526,7 @@ export default function BookConsultationPage() {
             </div>
 
             <div style={{ background: '#F8FAFC', padding: '28px', borderRadius: '18px', border: '1px solid #E2E8F0' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF', color: '#10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FFF7ED', color: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px', border: '1px solid rgba(255, 114, 0, 0.2)' }}>
                 <PhoneCall size={24} />
               </div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0F172A', marginBottom: '8px' }}>Senior Partner Led</h3>
@@ -541,7 +541,7 @@ export default function BookConsultationPage() {
       </section>
 
       {/* FAQS SECTION */}
-      <section style={{ padding: '80px 0', background: '#F7F4EE' }}>
+      <section style={{ padding: '80px 0', background: '#F8FAFC' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
           
           <div className="section-header text-center" style={{ marginBottom: '40px' }}>
