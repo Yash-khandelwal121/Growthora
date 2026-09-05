@@ -3,7 +3,7 @@ export const BLUEPRINT_DATA = {
     category: "REGISTRATION",
     title: "Entity Formation & Compliance Blueprint",
     tagline: "FOUNDATION → COMPLIANCE → READY TO GROW",
-    image: "/blueprints/01_registration.png",
+    image: "/services/reg_company_hero_final.png",
     executionPath: [
       { step: "01", label: "Limited Liability Partnership (LLP)" },
       { step: "02", label: "Proprietorship Registration" },

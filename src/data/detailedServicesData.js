@@ -429,8 +429,8 @@ export const DETAILED_SERVICES_DATA = {
     title: "Company Registration",
     subtitle: "Establish a Powerful Corporate Presence",
     description: "Whether you need a Section 8 NGO, an OPC (One Person Company), or a Public Limited Company, our end-to-end company registration services lay the foundation for your enterprise.",
-    heroImage: "/services/card_reg_company.jpg",
-    cardImage: "/services/card_reg_company.jpg",
+    heroImage: "/services/reg_company_hero_final.png",
+    cardImage: "/services/reg_company_hero_final.png",
     overview: {
       whatItIs: "The legal process of incorporating a business entity under the Companies Act, providing it with a distinct legal identity.",
       whyImportant: "It provides legal recognition, limits personal liability, and establishes the formal structure required to operate at scale.",
