@@ -68,7 +68,7 @@ export default function ValuationPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
+              <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
@@ -285,7 +285,7 @@ export default function ValuationPage() {
                     type="button" 
                     className="btn-primary"
                     style={{ padding: '12px 22px', fontSize: '0.95rem', flexShrink: 0 }}
-                    onClick={() => setIsConsultationOpen(true)}
+                    onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   >
                     Get Business Valued <ArrowRight size={16} />
                   </button>
@@ -386,7 +386,7 @@ export default function ValuationPage() {
                     type="button" 
                     className="btn-primary"
                     style={{ background: '#FF7200', borderColor: '#FF7200', padding: '12px 24px', fontSize: '0.95rem', flexShrink: 0 }}
-                    onClick={() => setIsConsultationOpen(true)}
+                    onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   >
                     Get Your Business Valued →
                   </button>
@@ -404,7 +404,7 @@ export default function ValuationPage() {
                       type="button" 
                       className="btn-primary" 
                       style={{ padding: '12px 24px', fontSize: '0.95rem' }}
-                      onClick={() => setIsConsultationOpen(true)}
+                      onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                     >
                       Get Your Business Valued →
                     </button>
@@ -515,7 +515,7 @@ export default function ValuationPage() {
             <button 
               className="btn-primary" 
               style={{ padding: '14px 32px', fontSize: '1.05rem', background: '#FF7200', borderColor: '#FF7200' }} 
-              onClick={() => setIsConsultationOpen(true)}
+              onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               Book a Consultation →
             </button>

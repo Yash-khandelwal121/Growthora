@@ -39,6 +39,13 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleConsultationClick = (e) => {
+    if (e) e.preventDefault();
+    setMobileMenuOpen(false);
+    navigate('/book-consultation');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="sticky-header">
       <div className="header-container">
@@ -85,7 +92,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           <button 
             type="button" 
             className="btn-primary-header"
-            onClick={onOpenConsultation}
+            onClick={handleConsultationClick}
           >
             <span>Book a Consultation</span>
             <ArrowRight size={16} />
@@ -131,10 +138,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             <button 
               type="button" 
               className="btn-primary-header w-full"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenConsultation();
-              }}
+              onClick={handleConsultationClick}
             >
               <span>Book a Consultation</span>
               <ArrowRight size={16} />

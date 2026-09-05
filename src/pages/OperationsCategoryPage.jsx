@@ -89,7 +89,7 @@ export default function OperationsCategoryPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
+              <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
@@ -317,8 +317,8 @@ export default function OperationsCategoryPage() {
             Set up structured HR, CRM, sales, and support systems so your company operates with efficiency and scale.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>Book a Free Consultation</button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>Talk to an Operations Expert</button>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Book a Free Consultation</button>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Talk to an Operations Expert</button>
           </div>
         </div>
       </section>

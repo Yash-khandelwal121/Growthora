@@ -66,7 +66,7 @@ export default function MsmeCategoryPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
+              <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
@@ -304,7 +304,7 @@ export default function MsmeCategoryPage() {
                       type="button" 
                       className="btn-primary" 
                       style={{ padding: '12px 24px', fontSize: '0.95rem' }}
-                      onClick={() => setIsConsultationOpen(true)}
+                      onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                     >
                       Apply for This Scheme
                     </button>
@@ -459,7 +459,7 @@ export default function MsmeCategoryPage() {
             <button 
               className="btn-primary" 
               style={{ padding: '14px 32px', fontSize: '1.05rem', background: '#FF7200', borderColor: '#FF7200' }} 
-              onClick={() => setIsConsultationOpen(true)}
+              onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               Book a consultation →
             </button>

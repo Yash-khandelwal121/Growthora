@@ -111,7 +111,7 @@ export default function BrandingPage() {
             <p>Not sure which branding service fits your business?</p>
             <button 
               className="branding-sidebar-cta-btn"
-              onClick={() => setIsConsultationOpen(true)}
+              onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               Book a consultation <ArrowRight size={16} />
             </button>
@@ -269,14 +269,14 @@ export default function BrandingPage() {
               <button 
                 className="btn-primary" 
                 style={{ padding: '14px 28px', fontSize: '1rem' }}
-                onClick={() => setIsConsultationOpen(true)}
+                onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               >
                 Book a Free Consultation
               </button>
               <button 
                 className="btn-secondary" 
                 style={{ padding: '14px 28px', fontSize: '1rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                onClick={() => setIsConsultationOpen(true)}
+                onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               >
                 Talk to an Expert
               </button>

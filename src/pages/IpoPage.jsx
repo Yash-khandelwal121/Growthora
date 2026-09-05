@@ -67,7 +67,7 @@ export default function IpoPage() {
             </p>
 
             <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-              <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
+              <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <span>Book a Free Consultation</span>
                 <ArrowRight size={18} />
               </button>
@@ -283,7 +283,7 @@ export default function IpoPage() {
                     type="button" 
                     className="btn-primary"
                     style={{ padding: '12px 22px', fontSize: '0.95rem', flexShrink: 0 }}
-                    onClick={() => setIsConsultationOpen(true)}
+                    onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   >
                     Start Assessment <ArrowRight size={16} />
                   </button>
@@ -365,7 +365,7 @@ export default function IpoPage() {
                       type="button" 
                       className="btn-primary" 
                       style={{ padding: '12px 24px', fontSize: '0.95rem' }}
-                      onClick={() => setIsConsultationOpen(true)}
+                      onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                     >
                       Start Your IPO Readiness Assessment →
                     </button>
@@ -400,36 +400,41 @@ export default function IpoPage() {
             </div>
             <div className="foundation-card">
               <span className="f-num">03</span>
-              <h4>Bankable DRHP & Valuation</h4>
-              <p>Robust prospectus drafting, financial modeling, and peer-benchmarked company valuation.</p>
+              <h4>Governance & Structuring</h4>
+              <p>Strengthening board composition, internal financial controls (IFC), and capital structure prior to DRHP filing.</p>
             </div>
             <div className="foundation-card">
               <span className="f-num">04</span>
-              <h4>End-to-End Governance</h4>
-              <p>From pre-IPO balance sheet clean-up to post-listing SEBI LODR corporate governance disclosure.</p>
+              <h4>Post-Listing Stewardship</h4>
+              <p>Continuous compliance management for LODR, quarterly investor disclosures, and secretarial audits.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. WHY GROWTHORA FOR IPO */}
-      <section className="why-growthora-cards">
+      {/* 4. PROCESS TIMELINE */}
+      <section className="process-section">
         <div className="container">
           <div className="section-header text-center">
-            <h2 className="section-title">Why Founders Choose Growthora for IPO</h2>
+            <h2 className="section-title">End-to-End Execution Process</h2>
           </div>
-          <div className="wg-grid">
+          <div className="process-timeline">
             {[
-              "Diagnostic Pre-IPO Eligibility & Restructuring Audit",
-              "SEBI ICDR & Exchange Compliance Alignment",
-              "Virtual Data Room (VDR) & Diligence Management",
-              "BRLM Pitching & Intermediary Fee Negotiation",
-              "Objects of Issue & Capital Deployment Structuring",
-              "Post-Listing LODR Disclosure & Secretarial Support"
-            ].map((reason, idx) => (
-              <div className="wg-card" key={idx}>
-                <ShieldCheck size={24} color="#FF7200" />
-                <h4>{reason}</h4>
+              { num: '01', title: 'Readiness & Diagnostic Audit', desc: 'Financial, legal, and secretarial audit to identify listing eligibility and gaps.' },
+              { num: '02', title: 'Capital & Business Structuring', desc: 'Restructuring share capital, bonus issues, and corporate entity cleanup.' },
+              { num: '03', title: 'Intermediary Onboarding', desc: 'Selecting and appointing Merchant Bankers, Legal Counsels, Registrar & Peer Auditors.' },
+              { num: '04', title: 'DRHP / Prospectus Drafting', desc: 'Preparing draft offer documents and business story with legal vetting.' },
+              { num: '05', title: 'SEBI & Exchange Filing', desc: 'Submitting DRHP to SEBI / Stock Exchanges for observations and approvals.' },
+              { num: '06', title: 'Roadshows & Book Building', desc: 'Investor presentation, anchor placement, and public issue marketing.' },
+              { num: '07', title: 'Allotment & Stock Listing', desc: 'Finalizing issue pricing, share allotment, and formal exchange trading commencement.' },
+              { num: '08', title: 'Post-Listing LODR Compliance', desc: 'Quarterly secretarial filings, SEBI compliance, and investor relationship management.' },
+            ].map((step, idx) => (
+              <div className="process-step-item" key={idx}>
+                <div className="ps-num">{step.num}</div>
+                <div className="ps-content">
+                  <h4>{step.title}</h4>
+                  <p>{step.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -440,7 +445,7 @@ export default function IpoPage() {
       <section className="faq-section" style={{ background: 'white', padding: '80px 0' }}>
         <div className="container">
           <div className="section-header text-center">
-            <h2 className="section-title">IPO Services FAQs</h2>
+            <h2 className="section-title">IPO Advisory FAQs</h2>
           </div>
           <div className="faq-accordion-wrapper" style={{ maxWidth: '800px', margin: '0 auto' }}>
             {IPO_CATEGORY_DATA.faqs.map((faq, idx) => (
@@ -476,7 +481,7 @@ export default function IpoPage() {
             <button 
               className="btn-primary" 
               style={{ padding: '14px 32px', fontSize: '1.05rem', background: '#FF7200', borderColor: '#FF7200' }} 
-              onClick={() => setIsConsultationOpen(true)}
+              onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             >
               Book a Consultation →
             </button>

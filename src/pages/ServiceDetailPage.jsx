@@ -51,7 +51,7 @@ export default function ServiceDetailPage() {
                 {serviceData.description}
               </p>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button className="btn-primary" onClick={() => setIsConsultationOpen(true)}>
+                <button className="btn-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                   Book Free Consultation
                 </button>
               </div>
@@ -179,14 +179,14 @@ export default function ServiceDetailPage() {
                 <button 
                   className="btn-primary" 
                   style={{ width: '100%', marginBottom: '12px' }}
-                  onClick={() => setIsConsultationOpen(true)}
+                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 >
                   Proceed with Registration
                 </button>
                 <button 
                   className="btn-secondary" 
                   style={{ width: '100%', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  onClick={() => setIsConsultationOpen(true)}
+                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 >
                   Request Callback
                 </button>

@@ -1,7 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PhoneCall, CheckCircle2 } from 'lucide-react';
 
 export const FinalCTA = ({ onOpenConsultation, onOpenAskGrowthora }) => {
+  const navigate = useNavigate();
+
+  const handleConsultationClick = () => {
+    navigate('/book-consultation');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section className="final-cta-section">
       <div className="cta-card-wrapper">
@@ -20,7 +28,7 @@ export const FinalCTA = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             <button
               type="button"
               className="btn-cta-primary"
-              onClick={() => onOpenConsultation(null)}
+              onClick={handleConsultationClick}
             >
               <span>Book a Free Consultation</span>
               <ArrowRight size={18} />
@@ -29,7 +37,7 @@ export const FinalCTA = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             <button
               type="button"
               className="btn-cta-secondary"
-              onClick={onOpenAskGrowthora}
+              onClick={handleConsultationClick}
             >
               <PhoneCall size={16} />
               <span>Talk to an Expert</span>

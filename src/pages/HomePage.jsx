@@ -22,45 +22,9 @@ export default function HomePage() {
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState(null);
 
-  const handleOpenConsultation = (service = null) => {
-    if (service && service.id === '01') {
-      navigate('/services/registration');
-      return;
-    }
-    if (service && service.id === '02') {
-      navigate('/services/finance-funding');
-      return;
-    }
-    if (service && service.id === '03') {
-      navigate('/services/certifications');
-      return;
-    }
-    if (service && service.id === '04') {
-      navigate('/services/branding');
-      return;
-    }
-    if (service && service.id === '05') {
-      navigate('/services/legal-ca');
-      return;
-    }
-    if (service && service.id === '06') {
-      navigate('/services/operations');
-      return;
-    }
-    if (service && service.id === '07') {
-      navigate('/services/msme-benefits');
-      return;
-    }
-    if (service && service.id === '08') {
-      navigate('/services/ipo');
-      return;
-    }
-    if (service && service.id === '09') {
-      navigate('/services/valuation');
-      return;
-    }
-    setSelectedServiceForModal(service);
-    setIsConsultationOpen(true);
+  const handleOpenConsultation = () => {
+    navigate('/book-consultation');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectCategory = (id) => {

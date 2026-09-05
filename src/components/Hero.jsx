@@ -114,7 +114,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
             <button 
               type="button" 
               className="btn-hero-primary"
-              onClick={onOpenConsultation}
+              onClick={() => {
+                navigate('/book-consultation');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             >
               <span>Book a Free Consultation</span>
               <ArrowRight size={18} />

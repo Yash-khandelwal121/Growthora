@@ -71,7 +71,7 @@ export default function CertificationDetailPage() {
               </p>
 
               <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-                <button className="btn-hero-primary" onClick={() => setIsConsultationOpen(true)}>
+                <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                   <span>Book a Free Consultation</span>
                   <ArrowRight size={18} />
                 </button>
@@ -190,10 +190,10 @@ export default function CertificationDetailPage() {
                 </div>
 
                 <div style={{ marginTop: '40px' }}>
-                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }} onClick={() => setIsConsultationOpen(true)}>
+                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                     Book a Free Consultation
                   </button>
-                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>
+                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                     Talk to an Expert
                   </button>
                 </div>
@@ -234,10 +234,10 @@ export default function CertificationDetailPage() {
             Tell us what your business needs. Growthora will help you identify the relevant certification and guide you through the process.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => setIsConsultationOpen(true)}>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '1.05rem' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
               Book a Free Consultation
             </button>
-            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => setIsConsultationOpen(true)}>
+            <button className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
               Talk to an Expert
             </button>
           </div>
