@@ -51,6 +51,10 @@ export default function HomePage() {
       navigate('/services/msme-benefits');
       return;
     }
+    if (service && service.id === '08') {
+      navigate('/services/ipo');
+      return;
+    }
     setSelectedServiceForModal(service);
     setIsConsultationOpen(true);
   };
