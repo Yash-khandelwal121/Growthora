@@ -38,6 +38,11 @@ export const Footer = ({ onSelectCategory }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    if (srv.id === '07') {
+      navigate('/services/msme-benefits');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     if (location.pathname === '/') {
       if (onSelectCategory) {

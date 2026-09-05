@@ -47,6 +47,10 @@ export default function HomePage() {
       navigate('/services/operations');
       return;
     }
+    if (service && service.id === '07') {
+      navigate('/services/msme-benefits');
+      return;
+    }
     setSelectedServiceForModal(service);
     setIsConsultationOpen(true);
   };
