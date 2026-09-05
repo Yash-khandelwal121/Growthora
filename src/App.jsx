@@ -8,6 +8,8 @@ import FinanceFundingDetailPage from './pages/FinanceFundingDetailPage';
 import CertificationCategoryPage from './pages/CertificationCategoryPage';
 import CertificationDetailPage from './pages/CertificationDetailPage';
 import BrandingPage from './pages/BrandingPage';
+import OperationsCategoryPage from './pages/OperationsCategoryPage';
+import OperationsDetailPage from './pages/OperationsDetailPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -35,6 +37,10 @@ export function App() {
 
         {/* Branding Routes */}
         <Route path="/services/branding" element={<BrandingPage />} />
+
+        {/* Operations Routes */}
+        <Route path="/services/operations" element={<OperationsCategoryPage />} />
+        <Route path="/services/operations/:serviceSlug" element={<OperationsDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

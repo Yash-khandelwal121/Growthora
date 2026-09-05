@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SERVICES_DATA } from '../data/servicesData';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -15,12 +16,33 @@ import '../styles/animations.css';
 import '../styles/blueprint.css';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [activeId, setActiveId] = useState('01');
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState(null);
 
   const handleOpenConsultation = (service = null) => {
+    if (service && service.id === '01') {
+      navigate('/services/registration');
+      return;
+    }
+    if (service && service.id === '02') {
+      navigate('/services/finance-funding');
+      return;
+    }
+    if (service && service.id === '03') {
+      navigate('/services/certifications');
+      return;
+    }
+    if (service && service.id === '04') {
+      navigate('/services/branding');
+      return;
+    }
+    if (service && service.id === '06') {
+      navigate('/services/operations');
+      return;
+    }
     setSelectedServiceForModal(service);
     setIsConsultationOpen(true);
   };
