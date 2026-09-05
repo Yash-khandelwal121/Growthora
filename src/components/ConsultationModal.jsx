@@ -324,25 +324,26 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
           
           {!submitted ? (
             <>
-              <div>
-                {/* Stepper Progress Header */}
-                <div className="stepper-header-wrapper">
-                  <div className="stepper-top-info">
-                    <span className="step-indicator-text">STEP {step} OF 4</span>
-                    <span className="step-percent-text">{step * 25}% Complete</span>
-                  </div>
-
-                  {/* Stepper Dots Track */}
-                  <div className="stepper-track-bar">
-                    <div className="stepper-track-line" />
-                    <div className="stepper-track-progress" style={{ width: `${((step - 1) / 3) * 100}%` }} />
-                    <div className={`stepper-dot-item ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`} />
-                    <div className={`stepper-dot-item ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`} />
-                    <div className={`stepper-dot-item ${step >= 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`} />
-                    <div className={`stepper-dot-item ${step >= 4 ? 'active' : ''}`} />
-                  </div>
+              {/* Stepper Progress Header */}
+              <div className="stepper-header-wrapper">
+                <div className="stepper-top-info">
+                  <span className="step-indicator-text">STEP {step} OF 4</span>
+                  <span className="step-percent-text">{step * 25}% Complete</span>
                 </div>
 
+                {/* Stepper Dots Track */}
+                <div className="stepper-track-bar">
+                  <div className="stepper-track-line" />
+                  <div className="stepper-track-progress" style={{ width: `${((step - 1) / 3) * 100}%` }} />
+                  <div className={`stepper-dot-item ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`} />
+                  <div className={`stepper-dot-item ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`} />
+                  <div className={`stepper-dot-item ${step >= 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`} />
+                  <div className={`stepper-dot-item ${step >= 4 ? 'active' : ''}`} />
+                </div>
+              </div>
+
+              {/* Controlled Scrollable Body for Steps */}
+              <div className="wizard-scrollable-body">
                 {/* STEP 1: BUSINESS NEED */}
                 {step === 1 && (
                   <div className="animate-fade-in">

@@ -15,8 +15,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
-  overflow-y: auto;
+  padding: 1rem;
+  overflow: hidden;
   animation: modalOverlayFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -28,15 +28,16 @@
 .growthora-modal-container {
   position: relative;
   width: 100%;
-  max-width: 1080px;
+  max-width: 1040px;
+  height: 620px;
+  max-height: calc(100vh - 32px);
   background: #FFFFFF;
   border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 30px 90px -15px rgba(0, 0, 0, 0.4), 0 0 50px rgba(107, 59, 167, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 30px 90px -15px rgba(0, 0, 0, 0.45), 0 0 50px rgba(107, 59, 167, 0.08);
   display: grid;
-  grid-template-columns: 410px 1fr;
+  grid-template-columns: 380px 1fr;
   overflow: hidden;
-  max-height: 92vh;
   margin: auto;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   animation: modalBoxPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -52,14 +53,16 @@
 ------------------------------------------------------------- */
 .growthora-modal-left.light-theme {
   background: linear-gradient(180deg, #FBF9F4 0%, #F4ECE1 100%);
-  padding: 1.75rem 1.6rem 0rem 1.6rem;
+  padding: 1.4rem 1.4rem 0rem 1.4rem;
   color: #1A102F;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  overflow-y: auto;
+  overflow: hidden; /* NO SCROLLBAR ON LEFT PANEL */
   border-right: 1px solid #E5DDCF;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .modal-brand-logo-img.light-bg {
@@ -68,13 +71,13 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   padding: 4px;
   border-radius: 10px;
-  height: 38px;
+  height: 36px;
   width: auto;
 }
 
 .modal-brand-name.dark-text {
   color: #1E1035;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   line-height: 1.1;
@@ -82,17 +85,17 @@
 
 .modal-brand-tagline.dark-sub {
   color: #71717A;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 500;
 }
 
 .img1-hero-header {
-  margin-top: 0.85rem;
-  margin-bottom: 1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .img1-main-headline {
-  font-size: 1.85rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: #1A102F;
   line-height: 1.12;
@@ -106,9 +109,9 @@
 }
 
 .img1-main-subhead {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   color: #52525B;
-  margin-top: 0.4rem;
+  margin-top: 0.25rem;
   margin-bottom: 0;
   font-weight: 400;
 }
@@ -116,12 +119,12 @@
 /* Timeline + Winding Path Split Container */
 .img1-journey-split-container {
   display: grid;
-  grid-template-columns: 145px 1fr;
-  gap: 10px;
+  grid-template-columns: 135px 1fr;
+  gap: 8px;
   align-items: center;
   position: relative;
-  margin-top: 0.25rem;
-  margin-bottom: 0.75rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 
 /* Left Vertical Timeline */
@@ -129,15 +132,15 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.85rem;
   padding-left: 2px;
 }
 
 .img1-timeline-line {
   position: absolute;
-  left: 17px;
-  top: 18px;
-  bottom: 18px;
+  left: 15px;
+  top: 14px;
+  bottom: 14px;
   width: 2px;
   background: #CBD5E1;
   z-index: 1;
@@ -146,20 +149,20 @@
 .img1-timeline-step {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   position: relative;
   z-index: 2;
 }
 
 .img1-step-badge {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   flex-shrink: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
@@ -182,14 +185,14 @@
 }
 
 .img1-step-content-title {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: #1A102F;
   line-height: 1.1;
 }
 
 .img1-step-content-sub {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #64748B;
   font-weight: 500;
 }
@@ -198,8 +201,8 @@
 .img1-winding-artwork {
   position: relative;
   background: linear-gradient(180deg, #F3EBE0 0%, #EADECF 100%);
-  border-radius: 16px;
-  padding: 10px 8px;
+  border-radius: 14px;
+  padding: 8px 6px;
   border: 1px solid #E2D5C3;
   overflow: hidden;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
@@ -207,67 +210,67 @@
 
 .img1-archway-header {
   background: linear-gradient(180deg, #FDF4E3 0%, #F5C97A 60%, #D97706 100%);
-  border-radius: 45px 45px 0 0;
-  padding: 10px 6px 6px 6px;
+  border-radius: 40px 40px 0 0;
+  padding: 8px 4px 4px 4px;
   text-align: center;
   border: 1px solid #F59E0B;
   box-shadow: 0 4px 10px rgba(217, 119, 6, 0.15);
 }
 
 .img1-archway-title {
-  font-size: 0.58rem;
+  font-size: 0.54rem;
   font-weight: 800;
   color: #451A03;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 /* Winding 3D Road Blocks Stack */
 .img1-road-blocks-stack {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  margin-top: 8px;
+  gap: 5px;
+  margin-top: 6px;
   position: relative;
 }
 
 .img1-road-card {
   background: #FFFFFF;
-  border-radius: 9px;
-  padding: 5px 8px;
+  border-radius: 8px;
+  padding: 4px 6px;
   box-shadow: 0 4px 10px rgba(26, 16, 47, 0.06);
   border: 1px solid #EAE2D5;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: transform 0.2s ease;
 }
 
 .img1-road-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .img1-road-card-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   flex-shrink: 0;
 }
 
 .img1-road-card-title {
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 800;
   color: #1A102F;
   line-height: 1;
 }
 
 .img1-road-card-sub {
-  font-size: 0.58rem;
+  font-size: 0.54rem;
   color: #64748B;
   font-weight: 500;
   white-space: nowrap;
@@ -276,13 +279,13 @@
 /* Cursive Handwritten Tag */
 .img1-cursive-tag-container {
   text-align: right;
-  margin-top: 0.2rem;
-  margin-bottom: 0.75rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.4rem;
 }
 
 .img1-cursive-text {
   font-family: 'Caveat', cursive, sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #1A102F;
   position: relative;
@@ -294,8 +297,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -3px;
-  height: 3px;
+  bottom: -2px;
+  height: 2.5px;
   background: #FF7200;
   border-radius: 2px;
 }
@@ -304,22 +307,22 @@
 .img1-trust-features-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 0.2rem;
-  margin-bottom: 0.75rem;
+  gap: 8px;
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
   border-top: 1px dashed #E2D7C7;
-  padding-top: 0.85rem;
+  padding-top: 0.6rem;
 }
 
 .img1-trust-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .img1-trust-icon-circle {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: #FDF0ED;
   color: #991B1B;
@@ -330,14 +333,14 @@
 }
 
 .img1-trust-title {
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 800;
   color: #1A102F;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .img1-trust-sub {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   color: #64748B;
   font-weight: 500;
 }
@@ -346,16 +349,29 @@
 .img1-dark-bottom-bar {
   background: #1C0F35;
   color: #FFFFFF;
-  margin-left: -1.6rem;
-  margin-right: -1.6rem;
-  padding: 0.85rem 1rem;
+  margin-left: -1.4rem;
+  margin-right: -1.4rem;
+  padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 600;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
+  flex-shrink: 0;
+}
+
+.img1-dark-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #F3E8FF;
+}
+
+.img1-dark-bar-divider {
+  opacity: 0.3;
+  color: #A78BFA;
 }
 
 .img1-dark-bar-item {
