@@ -234,11 +234,11 @@ export default function MsmeCategoryPage() {
                 </div>
 
                 {/* Banner Graphic Image */}
-                <div style={{ width: '100%', borderRadius: '16px', overflow: 'hidden', height: '240px', marginBottom: '30px' }}>
+                <div style={{ width: '100%', borderRadius: '16px', overflow: 'hidden', aspectRatio: '16/9', marginBottom: '30px', background: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img 
                     src={activeSchemeData.heroImage} 
                     alt={activeSchemeData.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block' }} 
                   />
                 </div>
 

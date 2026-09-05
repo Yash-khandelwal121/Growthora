@@ -105,7 +105,7 @@ export default function FinanceFundingDetailPage() {
               <img 
                 src={detailData.heroImage || "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"} 
                 alt={detailData.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block' }} 
               />
             </div>
           </div>

@@ -264,20 +264,23 @@
 .blueprint-3d-render-container {
   position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #f8f9fa;
 }
 
 .blueprint-3d-render-img {
   width: 100%;
-  height: auto;
-  max-height: 420px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   border-radius: 16px;
   transition: transform 0.4s ease, filter 0.4s ease;
+  display: block;
 }
 
 .blueprint-model-wrapper:hover .blueprint-3d-render-img {
@@ -890,9 +893,9 @@
 
   .blueprint-3d-render-img {
     width: 100%;
-    max-width: 100%;
-    max-height: 240px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
   }
 
   /* Execution Path — STACK VERTICALLY ON MOBILE */
@@ -1033,7 +1036,7 @@
   }
 
   .blueprint-3d-render-img {
-    max-height: 200px;
+    object-fit: contain;
   }
 
   .blueprint-nav-item {
