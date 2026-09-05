@@ -5,7 +5,7 @@ export const MSME_DATA = {
     title: "Electricity Duty Exemption (Guj)",
     subtitle: "Power Tariff Incentives & Tax Exemption for Gujarat Industrial Units",
     description: "Assisting manufacturing units and eligible industrial enterprises in Gujarat to obtain Electricity Duty Exemption certificates and reduce power overheads.",
-    heroImage: "/services/msme_electricity_duty.jpg?v=3",
+    heroImage: "/services/msme_electricity_duty_hero.jpg?v=3",
     cardImage: "/services/msme_electricity_duty.jpg?v=3",
     overview: {
       whatItIs: "A state government incentive program in Gujarat offering 100% exemption on electricity duty for eligible new industrial units and expanding manufacturing plants.",
@@ -60,7 +60,7 @@ export const MSME_DATA = {
     title: "PMFME Scheme",
     subtitle: "PM Formalisation of Micro Food Processing Enterprises",
     description: "Financial, technical, and business support for micro food processing units to upgrade technology, formalize operations, and access capital subsidies.",
-    heroImage: "/services/msme_pmfme.jpg?v=3",
+    heroImage: "/services/msme_pmfme_hero.jpg?v=3",
     cardImage: "/services/msme_pmfme.jpg?v=3",
     overview: {
       whatItIs: "A flagship central scheme offering credit-linked capital subsidies and technical support for individual micro food processing enterprises, FPOs, and SHGs.",
@@ -115,7 +115,7 @@ export const MSME_DATA = {
     title: "NAIFF - Agri Infra Fund",
     subtitle: "3% Interest Subvention & Credit Guarantee for Post-Harvest Assets",
     description: "Financing and interest subvention for building post-harvest infrastructure, warehouses, cold chains, and primary processing centers.",
-    heroImage: "/services/msme_naiff.jpg?v=3",
+    heroImage: "/services/msme_naiff_hero.jpg?v=3",
     cardImage: "/services/msme_naiff.jpg?v=3",
     overview: {
       whatItIs: "A medium-long term debt financing facility providing 3% annual interest subvention and credit guarantee coverage for post-harvest management projects.",
@@ -170,7 +170,7 @@ export const MSME_DATA = {
     title: "PMEGP",
     subtitle: "Prime Minister's Employment Generation Programme Subsidy",
     description: "Credit-linked margin money subsidy program for setting up new micro-enterprises in manufacturing and service sectors.",
-    heroImage: "/services/msme_pmegp.jpg?v=3",
+    heroImage: "/services/msme_pmegp_hero.jpg?v=3",
     cardImage: "/services/msme_pmegp.jpg?v=3",
     overview: {
       whatItIs: "A major credit-linked subsidy scheme administered by KVIC offering up to 35% margin money subsidy to establish new micro-enterprises.",
@@ -225,7 +225,7 @@ export const MSME_DATA = {
     title: "RIPS 2024 (Rajasthan)",
     subtitle: "Rajasthan Investment Promotion Scheme Subsidies & Tax Incentives",
     description: "Unlocking capital subsidies, SGST reimbursements, electricity duty exemptions, and employment incentives for investments in Rajasthan.",
-    heroImage: "/services/msme_rips.jpg?v=3",
+    heroImage: "/services/msme_rips_hero.jpg?v=3",
     cardImage: "/services/msme_rips.jpg?v=3",
     overview: {
       whatItIs: "The comprehensive flagship investment promotion policy of Rajasthan offering financial incentives, tax exemptions, and capital subsidies to new and expanding industrial investments.",
@@ -280,7 +280,7 @@ export const MSME_DATA = {
     title: "Loan for Dairy Business (AHIDF)",
     subtitle: "Animal Husbandry Infrastructure Development Fund Concession",
     description: "Financing and interest subvention for dairy processing, value addition, milk chilling centers, and animal feed manufacturing units.",
-    heroImage: "/services/msme_ahidf.jpg?v=3",
+    heroImage: "/services/msme_ahidf_hero.jpg?v=3",
     cardImage: "/services/msme_ahidf.jpg?v=3",
     overview: {
       whatItIs: "A central government scheme providing 3% interest subvention and credit guarantee coverage for investments in dairy processing, meat processing, and animal feed plants.",
