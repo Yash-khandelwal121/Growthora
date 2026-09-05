@@ -135,11 +135,11 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
           <X size={18} />
         </button>
 
-        {/* LEFT PANEL: IMAGE 1 EXACT MATCH WARM LUXURY CREAM VISUAL DESIGN */}
+        {/* LEFT PANEL: ULTRA PREMIUM LUXURY VISUAL DESIGN */}
         <div className="growthora-modal-left light-theme">
           
           {/* Top Logo Header */}
-          <div className="modal-brand-header-group" style={{ marginBottom: '0.75rem' }}>
+          <div className="modal-brand-header-group">
             <div className="modal-brand-logo-row">
               <img src="/growthora_logo.jpg" alt="Growthora Advisory" className="modal-brand-logo-img light-bg" />
               <div>
@@ -168,7 +168,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
               {/* Step 1: START */}
               <div className="img1-timeline-step">
                 <div className="img1-step-badge done">
-                  <Check size={16} strokeWidth={3} />
+                  <Check size={14} strokeWidth={3} />
                 </div>
                 <div>
                   <div className="img1-step-content-title">START</div>
@@ -178,22 +178,22 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
               {/* Step 2: BUILD */}
               <div className="img1-timeline-step">
-                <div className={`img1-step-badge ${step >= 2 ? 'done' : 'done'}`}>
-                  <Check size={16} strokeWidth={3} />
+                <div className={`img1-step-badge ${step >= 2 ? 'done' : 'upcoming'}`}>
+                  {step >= 2 ? <Check size={14} strokeWidth={3} /> : '02'}
                 </div>
                 <div>
-                  <div className="img1-step-content-title">BUILD</div>
+                  <div className="img1-step-content-title" style={{ color: step >= 2 ? '#1A102F' : '#64748B' }}>BUILD</div>
                   <div className="img1-step-content-sub">Compliance</div>
                 </div>
               </div>
 
               {/* Step 3: GROW */}
               <div className="img1-timeline-step">
-                <div className={`img1-step-badge ${step >= 3 ? 'done' : 'active-orange'}`}>
-                  {step >= 3 ? <Check size={16} strokeWidth={3} /> : '03'}
+                <div className={`img1-step-badge ${step >= 3 ? 'done' : step === 3 ? 'active-orange' : 'upcoming'}`}>
+                  {step > 3 ? <Check size={14} strokeWidth={3} /> : '03'}
                 </div>
                 <div>
-                  <div className="img1-step-content-title" style={{ color: step === 3 ? '#FF7200' : '#1A102F' }}>GROW</div>
+                  <div className="img1-step-content-title" style={{ color: step === 3 ? '#FF7200' : step > 3 ? '#1A102F' : '#64748B' }}>GROW</div>
                   <div className="img1-step-content-sub">Funding</div>
                 </div>
               </div>
@@ -210,20 +210,29 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
               </div>
             </div>
 
-            {/* 3D Winding Pathway Graphic */}
+            {/* 3D Winding Pathway Visual Graphic */}
             <div className="img1-winding-artwork">
-              {/* Archway top header */}
+              {/* Gold Archway Header Banner */}
               <div className="img1-archway-header">
                 <div className="img1-archway-title">
                   BIGGER BUSINESSES<br />BRIGHTER TOMORROWS
                 </div>
               </div>
 
-              {/* Stacked 3D Cards representing the winding spiral path */}
+              {/* 3D Ecosystem Transparent Graphic Overlay */}
+              <div className="img1-3d-graphic-wrapper">
+                <img 
+                  src="/hero_3d_ecosystem_transparent.png" 
+                  alt="3D Business Growth Graphic" 
+                  className="img1-3d-graphic-img" 
+                />
+              </div>
+
+              {/* Stacked 3D Milestone Pathway Cards */}
               <div className="img1-road-blocks-stack">
                 <div className="img1-road-card">
                   <div className="img1-road-card-icon" style={{ background: '#EEF2FF', color: '#4F46E5' }}>
-                    <BarChart3 size={13} />
+                    <BarChart3 size={12} />
                   </div>
                   <div>
                     <div className="img1-road-card-title">SCALE</div>
@@ -233,7 +242,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
                 <div className="img1-road-card">
                   <div className="img1-road-card-icon" style={{ background: '#ECFDF5', color: '#059669' }}>
-                    <TrendingUp size={13} />
+                    <TrendingUp size={12} />
                   </div>
                   <div>
                     <div className="img1-road-card-title">GROW</div>
@@ -243,7 +252,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
                 <div className="img1-road-card">
                   <div className="img1-road-card-icon" style={{ background: '#FFFBEB', color: '#D97706' }}>
-                    <ShieldCheck size={13} />
+                    <ShieldCheck size={12} />
                   </div>
                   <div>
                     <div className="img1-road-card-title">BUILD</div>
@@ -253,7 +262,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
                 <div className="img1-road-card">
                   <div className="img1-road-card-icon" style={{ background: '#FFF7ED', color: '#EA580C' }}>
-                    <Lightbulb size={13} />
+                    <Lightbulb size={12} />
                   </div>
                   <div>
                     <div className="img1-road-card-title">START</div>
@@ -264,16 +273,16 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
             </div>
           </div>
 
-          {/* Cursive Tag */}
+          {/* Cursive Tagline */}
           <div className="img1-cursive-tag-container">
             <span className="img1-cursive-text">Together Towards Sustainable Growth</span>
           </div>
 
-          {/* Trust Points List */}
+          {/* Value Highlights List */}
           <div className="img1-trust-features-list">
             <div className="img1-trust-item">
               <div className="img1-trust-icon-circle">
-                <Users size={17} />
+                <Users size={15} />
               </div>
               <div>
                 <div className="img1-trust-title">Local Expertise</div>
@@ -283,7 +292,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
             <div className="img1-trust-item">
               <div className="img1-trust-icon-circle">
-                <ShieldCheck size={17} />
+                <ShieldCheck size={15} />
               </div>
               <div>
                 <div className="img1-trust-title">Trust & Integrity</div>
@@ -293,7 +302,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
             <div className="img1-trust-item">
               <div className="img1-trust-icon-circle">
-                <BarChart3 size={17} />
+                <BarChart3 size={15} />
               </div>
               <div>
                 <div className="img1-trust-title">Strategic Growth</div>
@@ -302,18 +311,18 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
             </div>
           </div>
 
-          {/* Dark Security Footer Bar */}
+          {/* Dark Bottom Security Bar */}
           <div className="img1-dark-bottom-bar">
             <span className="img1-dark-bar-item">
-              <ShieldCheck size={14} color="#C4B5FD" /> 100% Secure
+              <ShieldCheck size={13} color="#C4B5FD" /> 100% Secure
             </span>
             <span className="img1-dark-bar-divider">|</span>
             <span className="img1-dark-bar-item">
-              <Lock size={14} color="#C4B5FD" /> No Spam
+              <Lock size={13} color="#C4B5FD" /> No Spam
             </span>
             <span className="img1-dark-bar-divider">|</span>
             <span className="img1-dark-bar-item">
-              <PhoneCall size={14} color="#C4B5FD" /> Expert Consultation
+              <PhoneCall size={13} color="#C4B5FD" /> Expert Consultation
             </span>
           </div>
 
@@ -541,7 +550,7 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
                         </div>
                       </div>
 
-                      <div className="step4-field-block" style={{ marginBottom: '12px' }}>
+                      <div className="step4-field-block" style={{ marginBottom: '10px' }}>
                         <label htmlFor="companyName">Company / Business Name (Optional)</label>
                         <div className="step4-input-box">
                           <Building size={16} color="#64748B" />
@@ -573,43 +582,48 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
               {/* Wizard Bottom Controls Bar */}
               <div className="wizard-footer-bar">
-                {step > 1 ? (
-                  <button type="button" className="btn-wizard-back-ghost" onClick={handleBack}>
-                    ← Back
-                  </button>
-                ) : (
-                  <div />
-                )}
-
+                {/* Security Trust Badges Sub-Row */}
                 <div className="wizard-footer-trust-notes">
-                  <span>🔒 100% Secure</span>
-                  <span>•</span>
-                  <span>🚫 No Spam</span>
-                  <span>•</span>
-                  <span>👨‍💼 Expert Consultation</span>
+                  <span className="trust-pill"><ShieldCheck size={12} color="#FF7200" /> 100% Secure</span>
+                  <span className="trust-dot">•</span>
+                  <span className="trust-pill"><Lock size={12} color="#FF7200" /> No Spam</span>
+                  <span className="trust-dot">•</span>
+                  <span className="trust-pill"><PhoneCall size={12} color="#FF7200" /> Expert Consultation</span>
                 </div>
 
-                {step < 4 ? (
-                  <button 
-                    type="button" 
-                    className="btn-wizard-continue" 
-                    disabled={!isStepValid()}
-                    onClick={handleNext}
-                  >
-                    <span>Continue</span>
-                    <ArrowRight size={16} />
-                  </button>
-                ) : (
-                  <button 
-                    type="submit" 
-                    form="consultation-wizard-form" 
-                    className="btn-wizard-continue"
-                    disabled={!isStepValid()}
-                  >
-                    <span>Get My Free Consultation</span>
-                    <ArrowRight size={16} />
-                  </button>
-                )}
+                {/* Main Control Buttons Row */}
+                <div className="wizard-footer-btn-row">
+                  {step > 1 ? (
+                    <button type="button" className="btn-wizard-back-ghost" onClick={handleBack}>
+                      <ArrowLeft size={16} />
+                      <span>Back</span>
+                    </button>
+                  ) : (
+                    <div />
+                  )}
+
+                  {step < 4 ? (
+                    <button 
+                      type="button" 
+                      className="btn-wizard-continue" 
+                      disabled={!isStepValid()}
+                      onClick={handleNext}
+                    >
+                      <span>Continue</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  ) : (
+                    <button 
+                      type="submit" 
+                      form="consultation-wizard-form" 
+                      className="btn-wizard-continue primary-cta"
+                      disabled={!isStepValid()}
+                    >
+                      <span>Get My Free Consultation</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  )}
+                </div>
               </div>
             </>
           ) : (
