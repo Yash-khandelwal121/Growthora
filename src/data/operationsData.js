@@ -276,7 +276,7 @@ export const OPERATIONS_CATEGORY_DATA = {
   breadcrumb: "Home / Services / Operations",
   title: "Operations",
   subtitle: "HR, CRM, and sales systems set up so your team runs without constant firefighting.",
-  heroImage: "/services/ops_hero.jpg",
+  heroImage: "/services/ops_hero.jpg?v=2",
   servicesList: [
     { id: "01", slug: "hr-support", title: "HR Support" },
     { id: "02", slug: "crm-solutions", title: "CRM Solutions" },
