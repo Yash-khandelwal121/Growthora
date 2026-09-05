@@ -157,7 +157,7 @@ export default function CertificationCategoryPage() {
             <button className="back-btn-ghost" onClick={() => navigate('/')}>
               <ArrowLeft size={16} /> Back to Ecosystem
             </button>
-            <div className="eyebrow-badge" style={{ marginTop: '20px' }}>
+            <div className="eyebrow-badge" style={{ marginTop: '8px' }}>
               <Award className="eyebrow-icon" size={14} />
               <span>GROWTHORA ADVISORY</span>
             </div>

@@ -53,7 +53,7 @@ export default function LegalCaCategoryPage() {
             <button className="back-btn-ghost" onClick={() => navigate('/')}>
               <ArrowLeft size={16} /> Home / Services / Legal & CA
             </button>
-            <div className="eyebrow-badge" style={{ marginTop: '20px' }}>
+            <div className="eyebrow-badge" style={{ marginTop: '8px' }}>
               <Zap className="eyebrow-icon" size={14} />
               <span>GROWTHORA ADVISORY</span>
             </div>

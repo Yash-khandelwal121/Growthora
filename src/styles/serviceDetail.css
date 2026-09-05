@@ -3,8 +3,8 @@
    ================================================== */
 .category-hero-section {
   position: relative;
-  padding: 140px 0 80px;
-  background: var(--bg-main);
+  padding: 40px 0 55px;
+  background: #FFFFFF;
   overflow: hidden;
 }
 
@@ -345,12 +345,12 @@
 
 /* Specific Service Detail Page */
 .service-detail-root {
-  background-color: var(--bg-main);
+  background-color: #FFFFFF;
   min-height: 100vh;
 }
 
 .sd-hero {
-  padding: 140px 0 80px;
+  padding: 40px 0 55px;
   background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
 }
 
@@ -558,8 +558,9 @@
     grid-template-columns: 1fr;
   }
   
-  .category-hero-section {
-    padding: 100px 0 60px;
+  .category-hero-section,
+  .sd-hero {
+    padding: 28px 0 36px;
   }
   
   .hero-title {

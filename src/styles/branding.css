@@ -10,7 +10,7 @@
 
 /* ─── Page Header ────────────────────────────────── */
 .branding-page-header {
-  padding: 120px 0 48px;
+  padding: 40px 0 44px;
   background: linear-gradient(180deg, #ffffff 0%, #FAF9F6 100%);
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
 }
@@ -518,7 +518,7 @@
 
 @media (max-width: 768px) {
   .branding-page-header {
-    padding: 90px 0 36px;
+    padding: 36px 0 30px;
   }
 
   .branding-layout {
