@@ -60,6 +60,14 @@ export default function HomePage() {
   };
 
   const handleSelectCategory = (id) => {
+    if (id === '01') { navigate('/services/registration'); return; }
+    if (id === '02') { navigate('/services/finance-funding'); return; }
+    if (id === '03') { navigate('/services/certifications'); return; }
+    if (id === '04') { navigate('/services/branding'); return; }
+    if (id === '05') { navigate('/services/legal-ca'); return; }
+    if (id === '06') { navigate('/services/operations'); return; }
+    if (id === '07') { navigate('/services/msme-benefits'); return; }
+    if (id === '08') { navigate('/services/ipo'); return; }
     setActiveId(id);
     const element = document.getElementById('services-master');
     if (element) {

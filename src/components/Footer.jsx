@@ -43,6 +43,11 @@ export const Footer = ({ onSelectCategory }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    if (srv.id === '08') {
+      navigate('/services/ipo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     if (location.pathname === '/') {
       if (onSelectCategory) {

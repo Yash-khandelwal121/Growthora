@@ -58,6 +58,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
       navigate('/services/msme-benefits');
       return;
     }
+    if (nodeId === "08") {
+      navigate('/services/ipo');
+      return;
+    }
     if (onSelectCategory) {
       onSelectCategory(nodeId);
     }
