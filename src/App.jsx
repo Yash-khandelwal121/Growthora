@@ -16,6 +16,7 @@ import MsmeCategoryPage from './pages/MsmeCategoryPage';
 import MsmeDetailPage from './pages/MsmeDetailPage';
 import IpoPage from './pages/IpoPage';
 import ValuationPage from './pages/ValuationPage';
+import BookConsultationPage from './pages/BookConsultationPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -63,6 +64,10 @@ export function App() {
         {/* Valuation Routes */}
         <Route path="/services/valuation" element={<ValuationPage />} />
         <Route path="/services/valuation/:serviceSlug" element={<ValuationPage />} />
+
+        {/* Book a Consultation Standalone Page Routes */}
+        <Route path="/book-a-consultation" element={<BookConsultationPage />} />
+        <Route path="/book-consultation" element={<BookConsultationPage />} />
       </Routes>
     </BrowserRouter>
   );
