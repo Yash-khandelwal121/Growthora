@@ -334,7 +334,7 @@ export const MSME_CATEGORY_DATA = {
   breadcrumb: "Home / Services / MSME Benefits",
   title: "MSME Benefits",
   subtitle: "Every loan subsidy, capital grant, and state incentive identified, applied for, and secured end to end.",
-  heroImage: "/services/msme_hero.jpg",
+  heroImage: "/services/msme_hero.jpg?v=2",
   schemesList: [
     { id: "01", slug: "electricity-duty-exemption", title: "Electricity Duty Exemption (Guj)" },
     { id: "02", slug: "pmfme-scheme", title: "PMFME Scheme" },
