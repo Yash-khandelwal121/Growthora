@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { 
   X, CheckCircle2, ArrowRight, ArrowLeft, Building, TrendingUp, Award, 
   Sparkles, Scale, Sliders, Gift, BarChart3, Calculator, Check, ShieldCheck, 
-  Lock, PhoneCall
+  Lock, PhoneCall, User, Mail, Phone, MapPin, Rocket, DollarSign, Landmark, 
+  Megaphone, Settings, LineChart, HelpCircle, Lightbulb, Users, Briefcase, 
+  Building2, MoreHorizontal, Layers, Shield, Zap
 } from 'lucide-react';
 import '../styles/consultationModal.css';
 
@@ -58,36 +60,49 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
 
   if (!isOpen) return null;
 
-  // Step 1 Need Options
+  // Step 1 Need Options (3x3 Grid)
   const needsList = [
-    { title: 'Business Registration', icon: Building, desc: 'Company incorporation, GST, Udyam & setup' },
-    { title: 'Finance & Funding', icon: TrendingUp, desc: 'Grants, debt, equity & MSME loans' },
-    { title: 'Certifications & Compliance', icon: Award, desc: 'ISO, Startup India, FSSAI & ZED' },
-    { title: 'Branding & Marketing', icon: Sparkles, desc: 'Logo, website, SEO & brand identity' },
-    { title: 'Legal & CA', icon: Scale, desc: 'Agreements, IP, ROC filings & CA support' },
-    { title: 'Operations', icon: Sliders, desc: 'HR, CRM, sales & customer workflows' },
-    { title: 'MSME Benefits', icon: Gift, desc: 'Subsidies, duty exemptions & schemes' },
-    { title: 'IPO & Capital Markets', icon: BarChart3, desc: 'SME listing & DRHP readiness' },
-    { title: 'Business Valuation', icon: Calculator, desc: 'FEMA, M&A & fundraising models' }
+    { title: 'Business Registration', icon: Building, color: '#3B82F6', bg: '#EFF6FF', desc: 'Start or structure your business' },
+    { title: 'Finance & Funding', icon: TrendingUp, color: '#F97316', bg: '#FFF7ED', desc: 'Loans, grants, working capital & funding' },
+    { title: 'Certifications & Compliance', icon: Award, color: '#10B981', bg: '#ECFDF5', desc: 'Government certifications and compliance' },
+    { title: 'Branding & Marketing', icon: Megaphone, color: '#EF4444', bg: '#FEF2F2', desc: 'Build and grow your brand' },
+    { title: 'Legal & CA', icon: Scale, color: '#D97706', bg: '#FFFBEB', desc: 'Legal, taxation and compliance support' },
+    { title: 'Operations', icon: Sliders, color: '#8B5CF6', bg: '#F5F3FF', desc: 'HR, CRM, sales and business systems' },
+    { title: 'MSME Benefits', icon: Gift, color: '#B45309', bg: '#FEF3C7', desc: 'Government schemes and MSME benefits' },
+    { title: 'IPO & Capital Markets', icon: BarChart3, color: '#4F46E5', bg: '#EEF2FF', desc: 'Prepare for scale and public markets' },
+    { title: 'Business Valuation', icon: Calculator, color: '#0284C7', bg: '#F0F9FF', desc: "Understand your company's value" }
   ];
 
   // Step 2 Profile Options
-  const stagesList = ['Idea Stage', 'New Business', 'Early Stage (1–3 Years)', 'Established Business (3+ Years)'];
-  const typesList = ['Proprietorship', 'Partnership', 'LLP', 'Private Limited', 'Other'];
+  const stagesList = [
+    { label: 'Idea Stage', icon: Lightbulb },
+    { label: 'New Business', icon: Rocket },
+    { label: 'Early Stage (1–3 Years)', icon: TrendingUp },
+    { label: 'Established (3+ Years)', icon: Building }
+  ];
+
+  const typesList = [
+    { label: 'Proprietorship', icon: User },
+    { label: 'Partnership', icon: Users },
+    { label: 'LLP', icon: Briefcase },
+    { label: 'Private Limited', icon: Building2 },
+    { label: 'Other', icon: MoreHorizontal }
+  ];
+
   const turnoverList = ['Pre-Revenue', 'Below ₹10 Lakh', '₹10 Lakh – ₹50 Lakh', '₹50 Lakh – ₹2 Crore', '₹2 Crore+'];
 
   // Step 3 Requirement Options
   const reqList = [
-    'Start my business',
-    'Raise funding',
-    'Get government benefits',
-    'Improve compliance',
-    'Build my brand',
-    'Improve business operations',
-    'Prepare for growth',
-    'Business valuation',
-    'IPO readiness',
-    'Not sure — I need guidance'
+    { title: 'Start my business', icon: Rocket, bg: '#F5F3FF', color: '#8B5CF6' },
+    { title: 'Raise funding', icon: DollarSign, bg: '#FEF3C7', color: '#D97706' },
+    { title: 'Get government benefits', icon: Landmark, bg: '#EFF6FF', color: '#2563EB' },
+    { title: 'Improve compliance', icon: ShieldCheck, bg: '#EEF2FF', color: '#4F46E5' },
+    { title: 'Build my brand', icon: Megaphone, bg: '#FFF7ED', color: '#EA580C' },
+    { title: 'Improve business operations', icon: Settings, bg: '#FFFBEB', color: '#CA8A04' },
+    { title: 'Prepare for growth', icon: BarChart3, bg: '#F0FDF4', color: '#16A34A' },
+    { title: 'Business valuation', icon: Calculator, bg: '#ECFDF5', color: '#059669' },
+    { title: 'IPO readiness', icon: LineChart, bg: '#F0F9FF', color: '#0284C7' },
+    { title: 'Not sure — I need guidance', icon: HelpCircle, bg: '#F8FAFC', color: '#475569' }
   ];
 
   const handleNext = () => {
@@ -115,87 +130,213 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
     <div className="growthora-modal-overlay" onClick={onClose}>
       <div className="growthora-modal-container" onClick={(e) => e.stopPropagation()}>
         
-        {/* Close Button */}
-        <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+        {/* Close Icon Button */}
+        <button type="button" className="modal-close-icon-btn" onClick={onClose} aria-label="Close modal">
           <X size={18} />
         </button>
 
-        {/* LEFT PANEL: VISUAL BRANDING */}
+        {/* LEFT PANEL: DYNAMIC BRANDING & ARTWORK PER STEP */}
         <div className="growthora-modal-left">
-          <div>
-            <div className="modal-brand-header">
-              <img src="/growthora_logo.jpg" alt="Growthora Advisory" className="modal-brand-logo" />
-              <span className="modal-brand-badge">GROWTHORA ADVISORY</span>
-            </div>
-
-            <div className="modal-left-body">
-              <h3 className="modal-left-title">Your Growth Journey Starts Here</h3>
-              
-              {/* Stylized Journey Road */}
-              <div className="growth-journey-track">
-                <div className={`journey-node ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}>
-                  <span className="node-number">{step > 1 ? <Check size={14} /> : '01'}</span>
-                  <span className="node-label">START</span>
-                </div>
-                <div className={`journey-node ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}>
-                  <span className="node-number">{step > 2 ? <Check size={14} /> : '02'}</span>
-                  <span className="node-label">BUILD</span>
-                </div>
-                <div className={`journey-node ${step >= 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`}>
-                  <span className="node-number">{step > 3 ? <Check size={14} /> : '03'}</span>
-                  <span className="node-label">GROW</span>
-                </div>
-                <div className={`journey-node ${step >= 4 ? 'active' : ''}`}>
-                  <span className="node-number">04</span>
-                  <span className="node-label">SCALE</span>
-                </div>
+          
+          <div className="modal-brand-header-group">
+            <div className="modal-brand-logo-row">
+              <img src="/growthora_logo.jpg" alt="Growthora Advisory" className="modal-brand-logo-img" />
+              <div>
+                <div className="modal-brand-name">GROWTHORA</div>
+                <div className="modal-brand-tagline">Guiding Growth. Empowering Futures.</div>
               </div>
             </div>
           </div>
 
-          <div className="modal-left-trust">
-            <div className="trust-item"><CheckCircle2 size={15} /> Local Expertise</div>
-            <div className="trust-item"><CheckCircle2 size={15} /> Trust & Integrity</div>
-            <div className="trust-item"><CheckCircle2 size={15} /> Strategic Growth</div>
+          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 1 */}
+          {step === 1 && (
+            <div className="modal-left-main-content">
+              <h2 className="modal-left-headline">Big Goals Need the Right Partner.</h2>
+              <p className="modal-left-subhead">From startup to scale, we're with you at every step.</p>
+
+              {/* 4-Block Staircase Visual */}
+              <div className="staircase-visual-container">
+                <div className="stair-block-item active">
+                  <span className="stair-num-badge">01</span>
+                  <div>
+                    <div className="stair-label-title">START</div>
+                  </div>
+                  <span className="stair-label-sub">Business Setup</span>
+                </div>
+                <div className="stair-block-item">
+                  <span className="stair-num-badge">02</span>
+                  <div>
+                    <div className="stair-label-title">BUILD</div>
+                  </div>
+                  <span className="stair-label-sub">Compliance</span>
+                </div>
+                <div className="stair-block-item">
+                  <span className="stair-num-badge">03</span>
+                  <div>
+                    <div className="stair-label-title">GROW</div>
+                  </div>
+                  <span className="stair-label-sub">Funding</span>
+                </div>
+                <div className="stair-block-item">
+                  <span className="stair-num-badge">04</span>
+                  <div>
+                    <div className="stair-label-title">SCALE</div>
+                  </div>
+                  <span className="stair-label-sub">Growth</span>
+                </div>
+              </div>
+
+              <span className="cursive-highlight-tag">"Your Growth, Our Commitment."</span>
+            </div>
+          )}
+
+          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 2 */}
+          {step === 2 && (
+            <div className="modal-left-main-content">
+              <h2 className="modal-left-headline">Every Business Stage Has an Opportunity.</h2>
+              <p className="modal-left-subhead">Tell us about your business so we can guide you better.</p>
+
+              <div className="workstation-visual-card">
+                <div className="notepad-art-box">
+                  <div className="notepad-title">Strategic Roadmap</div>
+                  <div className="notepad-check-list">
+                    <div>✓ Ideas & Entity Setup</div>
+                    <div>✓ Compliance & Taxation</div>
+                    <div>✓ Operational Architecture</div>
+                    <div>✓ Capital & Scale ✓</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '16px', textCenter: 'center' }}>
+                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
+                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#FF7200' }}>2,500+</div>
+                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Advised</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
+                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#8B5CF6' }}>12+</div>
+                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Industries</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.06)', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
+                  <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#10B981' }}>9</div>
+                  <div style={{ fontSize: '0.68rem', color: '#94A3B8' }}>Practices</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 3 */}
+          {step === 3 && (
+            <div className="modal-left-main-content">
+              <h2 className="modal-left-headline">Turn Your Vision Into Real Progress.</h2>
+              <p className="modal-left-subhead">What's your main goal right now?</p>
+
+              <div className="rocket-visual-card">
+                <div className="rocket-icon-pulse">
+                  <Rocket size={28} />
+                </div>
+                <div style={{ fontWeight: '700', fontSize: '0.95rem', color: '#FFFFFF' }}>Targeted Acceleration</div>
+                <div style={{ fontSize: '0.78rem', color: '#CBD5E1', marginTop: '4px' }}>Custom advisory solutions built for your milestones.</div>
+              </div>
+
+              <span className="cursive-highlight-tag">"Bigger, Brighter, Together."</span>
+            </div>
+          )}
+
+          {/* DYNAMIC LEFT PANEL CONTENT FOR STEP 4 */}
+          {step === 4 && (
+            <div className="modal-left-main-content">
+              <h2 className="modal-left-headline">Let's Build Your Next Success Story.</h2>
+              <p className="modal-left-subhead">Share your details and our senior advisor will get in touch.</p>
+
+              <div className="handshake-visual-card">
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#FF7200', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                  <PhoneCall size={22} />
+                </div>
+                <div>
+                  <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#FFFFFF' }}>Zero-Obligation Session</div>
+                  <div style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Direct consultation with domain experts.</div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Left Footer Trust Badges */}
+          <div className="modal-left-trust-bar">
+            {step === 1 && (
+              <>
+                <span className="trust-pill-tag"><ShieldCheck size={13} /> Local Expertise</span>
+                <span className="trust-pill-tag"><Lock size={13} /> Trust & Integrity</span>
+                <span className="trust-pill-tag"><TrendingUp size={13} /> Strategic Growth</span>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                <span className="trust-pill-tag"><Award size={13} /> Proven Track Record</span>
+                <span className="trust-pill-tag"><ShieldCheck size={13} /> Confidential Advisory</span>
+              </>
+            )}
+            {step === 3 && (
+              <>
+                <span className="trust-pill-tag"><CheckCircle2 size={13} /> Strategy Led</span>
+                <span className="trust-pill-tag"><Zap size={13} /> Execution Focused</span>
+                <span className="trust-pill-tag"><Rocket size={13} /> Growth Driven</span>
+              </>
+            )}
+            {step === 4 && (
+              <>
+                <span className="trust-pill-tag"><Building size={13} /> Pan-India Support</span>
+                <span className="trust-pill-tag"><ShieldCheck size={13} /> Long-Term Partnership</span>
+              </>
+            )}
           </div>
         </div>
 
-        {/* RIGHT PANEL: INTERACTIVE WIZARD */}
+        {/* RIGHT PANEL: INTERACTIVE FORM WIZARD */}
         <div className="growthora-modal-right">
           
           {!submitted ? (
             <>
               <div>
-                {/* Step Progress Header */}
-                <div className="modal-step-header">
-                  <div className="progress-info-row">
-                    <span className="step-count-badge">STEP {step} OF 4</span>
-                    <span className="percentage-badge">{step * 25}% Complete</span>
+                {/* Stepper Progress Header */}
+                <div className="stepper-header-wrapper">
+                  <div className="stepper-top-info">
+                    <span className="step-indicator-text">STEP {step} OF 4</span>
+                    <span className="step-percent-text">{step * 25}% Complete</span>
                   </div>
-                  <div className="progress-track">
-                    <div className="progress-fill" style={{ width: `${step * 25}%` }} />
+
+                  {/* Stepper Dots Track */}
+                  <div className="stepper-track-bar">
+                    <div className="stepper-track-line" />
+                    <div className="stepper-track-progress" style={{ width: `${((step - 1) / 3) * 100}%` }} />
+                    <div className={`stepper-dot-item ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`} />
+                    <div className={`stepper-dot-item ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`} />
+                    <div className={`stepper-dot-item ${step >= 3 ? 'active' : ''} ${step > 3 ? 'completed' : ''}`} />
+                    <div className={`stepper-dot-item ${step >= 4 ? 'active' : ''}`} />
                   </div>
                 </div>
 
                 {/* STEP 1: BUSINESS NEED */}
                 {step === 1 && (
                   <div className="animate-fade-in">
-                    <h2 className="step-heading">How can Growthora help your business?</h2>
-                    <div className="cards-grid-3col">
+                    <h2 className="wizard-step-title">How can Growthora help your business?</h2>
+                    <p className="wizard-step-subtitle">Choose the area where you need expert guidance.</p>
+                    
+                    <div className="step1-cards-grid">
                       {needsList.map((item, idx) => {
                         const isSelected = formData.selectedNeed === item.title;
                         const Icon = item.icon;
                         return (
                           <div 
                             key={idx}
-                            className={`selectable-card ${isSelected ? 'selected' : ''}`}
+                            className={`step1-card-item ${isSelected ? 'selected' : ''}`}
                             onClick={() => setFormData({ ...formData, selectedNeed: item.title })}
                           >
-                            <div className="card-icon-box">
+                            <div className="step1-icon-circle" style={{ background: item.bg, color: item.color }}>
                               <Icon size={18} />
                             </div>
-                            <div className="card-title-text">{item.title}</div>
-                            <div className="card-desc-text">{item.desc}</div>
+                            <div className="step1-card-name">{item.title}</div>
+                            <div className="step1-card-desc">{item.desc}</div>
                           </div>
                         );
                       })}
@@ -206,56 +347,70 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
                 {/* STEP 2: BUSINESS PROFILE */}
                 {step === 2 && (
                   <div className="animate-fade-in">
-                    <h2 className="step-heading">Tell us about your business</h2>
+                    <h2 className="wizard-step-title">Tell us about your business</h2>
+                    <p className="wizard-step-subtitle">A few details will help us recommend the right Growthora solution.</p>
                     
                     {/* Business Stage */}
-                    <div className="profile-section-block">
-                      <label className="profile-section-label">Business Stage</label>
-                      <div className="pills-option-grid">
-                        {stagesList.map((stg, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            className={`pill-option-btn ${formData.businessStage === stg ? 'selected' : ''}`}
-                            onClick={() => setFormData({ ...formData, businessStage: stg })}
-                          >
-                            {stg}
-                          </button>
-                        ))}
+                    <div className="profile-group-container">
+                      <label className="profile-group-label">Business Stage</label>
+                      <div className="profile-buttons-row">
+                        {stagesList.map((stg, idx) => {
+                          const Icon = stg.icon;
+                          const isSelected = formData.businessStage === stg.label;
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`profile-select-btn ${isSelected ? 'selected' : ''}`}
+                              onClick={() => setFormData({ ...formData, businessStage: stg.label })}
+                            >
+                              <Icon size={14} />
+                              <span>{stg.label}</span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
                     {/* Business Type */}
-                    <div className="profile-section-block">
-                      <label className="profile-section-label">Business Type</label>
-                      <div className="pills-option-grid">
-                        {typesList.map((type, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            className={`pill-option-btn ${formData.businessType === type ? 'selected' : ''}`}
-                            onClick={() => setFormData({ ...formData, businessType: type })}
-                          >
-                            {type}
-                          </button>
-                        ))}
+                    <div className="profile-group-container">
+                      <label className="profile-group-label">Business Type</label>
+                      <div className="profile-buttons-row">
+                        {typesList.map((type, idx) => {
+                          const Icon = type.icon;
+                          const isSelected = formData.businessType === type.label;
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`profile-select-btn ${isSelected ? 'selected' : ''}`}
+                              onClick={() => setFormData({ ...formData, businessType: type.label })}
+                            >
+                              <Icon size={14} />
+                              <span>{type.label}</span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
                     {/* Annual Turnover */}
-                    <div className="profile-section-block">
-                      <label className="profile-section-label">Annual Turnover</label>
-                      <div className="pills-option-grid">
-                        {turnoverList.map((to, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            className={`pill-option-btn ${formData.turnover === to ? 'selected' : ''}`}
-                            onClick={() => setFormData({ ...formData, turnover: to })}
-                          >
-                            {to}
-                          </button>
-                        ))}
+                    <div className="profile-group-container">
+                      <label className="profile-group-label">Annual Turnover</label>
+                      <div className="profile-buttons-row">
+                        {turnoverList.map((to, idx) => {
+                          const isSelected = formData.turnover === to;
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`profile-select-btn ${isSelected ? 'selected' : ''}`}
+                              onClick={() => setFormData({ ...formData, turnover: to })}
+                            >
+                              <span>{to}</span>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -264,17 +419,23 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
                 {/* STEP 3: REQUIREMENT */}
                 {step === 3 && (
                   <div className="animate-fade-in">
-                    <h2 className="step-heading">What is your current requirement?</h2>
-                    <div className="req-grid-2col">
-                      {reqList.map((req, idx) => {
-                        const isSelected = formData.requirement === req;
+                    <h2 className="wizard-step-title">What is your current requirement?</h2>
+                    <p className="wizard-step-subtitle">Select what you would like our advisory team to help you achieve.</p>
+                    
+                    <div className="step3-req-grid">
+                      {reqList.map((item, idx) => {
+                        const isSelected = formData.requirement === item.title;
+                        const Icon = item.icon;
                         return (
                           <div
                             key={idx}
-                            className={`req-option-card ${isSelected ? 'selected' : ''}`}
-                            onClick={() => setFormData({ ...formData, requirement: req })}
+                            className={`step3-req-card ${isSelected ? 'selected' : ''}`}
+                            onClick={() => setFormData({ ...formData, requirement: item.title })}
                           >
-                            <span>{req}</span>
+                            <div className="step3-req-icon" style={{ background: item.bg, color: item.color }}>
+                              <Icon size={16} />
+                            </div>
+                            <span style={{ flexGrow: 1 }}>{item.title}</span>
                             {isSelected && <Check size={16} color="#FF7200" />}
                           </div>
                         );
@@ -286,70 +447,87 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
                 {/* STEP 4: CONTACT DETAILS */}
                 {step === 4 && (
                   <div className="animate-fade-in">
-                    <h2 className="step-heading">Let's build your next success story.</h2>
-                    <form id="consultation-final-form" onSubmit={handleSubmit}>
-                      <div className="contact-form-grid">
-                        <div className="contact-input-field">
+                    <h2 className="wizard-step-title">Where should we send your consultation details?</h2>
+                    <p className="wizard-step-subtitle">Our advisor will review your requirements and contact you with the right next steps.</p>
+                    
+                    <form id="consultation-wizard-form" onSubmit={handleSubmit}>
+                      <div className="step4-form-grid">
+                        <div className="step4-field-block">
                           <label htmlFor="fullName">Full Name *</label>
-                          <input
-                            id="fullName"
-                            type="text"
-                            required
-                            placeholder="e.g. Rajesh Kumar"
-                            value={formData.fullName}
-                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                          />
+                          <div className="step4-input-box">
+                            <User size={16} color="#64748B" />
+                            <input
+                              id="fullName"
+                              type="text"
+                              required
+                              placeholder="Enter your full name"
+                              value={formData.fullName}
+                              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                            />
+                          </div>
                         </div>
 
-                        <div className="contact-input-field">
+                        <div className="step4-field-block">
                           <label htmlFor="phone">Mobile Number *</label>
-                          <input
-                            id="phone"
-                            type="tel"
-                            required
-                            placeholder="+91 98765 43210"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          />
+                          <div className="step4-input-box">
+                            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#475569' }}>+91</span>
+                            <input
+                              id="phone"
+                              type="tel"
+                              required
+                              placeholder="98765 43210"
+                              value={formData.phone}
+                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            />
+                          </div>
                         </div>
 
-                        <div className="contact-input-field">
+                        <div className="step4-field-block">
                           <label htmlFor="email">Email Address *</label>
-                          <input
-                            id="email"
-                            type="email"
-                            required
-                            placeholder="rajesh@company.in"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          />
+                          <div className="step4-input-box">
+                            <Mail size={16} color="#64748B" />
+                            <input
+                              id="email"
+                              type="email"
+                              required
+                              placeholder="you@company.com"
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            />
+                          </div>
                         </div>
 
-                        <div className="contact-input-field">
+                        <div className="step4-field-block">
                           <label htmlFor="city">City *</label>
+                          <div className="step4-input-box">
+                            <MapPin size={16} color="#64748B" />
+                            <input
+                              id="city"
+                              type="text"
+                              required
+                              placeholder="Select or type your city"
+                              value={formData.city}
+                              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="step4-field-block" style={{ marginBottom: '12px' }}>
+                        <label htmlFor="companyName">Company / Business Name (Optional)</label>
+                        <div className="step4-input-box">
+                          <Building size={16} color="#64748B" />
                           <input
-                            id="city"
+                            id="companyName"
                             type="text"
-                            required
-                            placeholder="e.g. Ahmedabad, Mumbai"
-                            value={formData.city}
-                            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                            placeholder="Enter your company name (optional)"
+                            value={formData.companyName}
+                            onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                           />
                         </div>
                       </div>
 
-                      <div className="contact-input-field" style={{ marginBottom: '12px' }}>
-                        <label htmlFor="companyName">Company / Business Name</label>
-                        <input
-                          id="companyName"
-                          type="text"
-                          placeholder="e.g. Acme Enterprises Pvt Ltd"
-                          value={formData.companyName}
-                          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        />
-                      </div>
-
-                      <div className="agree-checkbox-row">
+                      <div className="step4-agree-row">
                         <input
                           id="agree"
                           type="checkbox"
@@ -365,31 +543,39 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
                 )}
               </div>
 
-              {/* Wizard Control Buttons */}
-              <div className="modal-controls-row">
+              {/* Wizard Bottom Controls Bar */}
+              <div className="wizard-footer-bar">
                 {step > 1 ? (
-                  <button type="button" className="btn-wizard-back" onClick={handleBack}>
+                  <button type="button" className="btn-wizard-back-ghost" onClick={handleBack}>
                     ← Back
                   </button>
                 ) : (
                   <div />
                 )}
 
+                <div className="wizard-footer-trust-notes">
+                  <span>🔒 100% Secure</span>
+                  <span>•</span>
+                  <span>🚫 No Spam</span>
+                  <span>•</span>
+                  <span>👨‍💼 Expert Consultation</span>
+                </div>
+
                 {step < 4 ? (
                   <button 
                     type="button" 
-                    className="btn-wizard-next" 
+                    className="btn-wizard-continue" 
                     disabled={!isStepValid()}
                     onClick={handleNext}
                   >
-                    <span>Next</span>
+                    <span>Continue</span>
                     <ArrowRight size={16} />
                   </button>
                 ) : (
                   <button 
                     type="submit" 
-                    form="consultation-final-form" 
-                    className="btn-wizard-next"
+                    form="consultation-wizard-form" 
+                    className="btn-wizard-continue"
                     disabled={!isStepValid()}
                   >
                     <span>Get My Free Consultation</span>
@@ -399,19 +585,23 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
               </div>
             </>
           ) : (
-            /* SUCCESS STATE */
-            <div className="success-modal-body animate-scale-up">
-              <div className="success-check-badge">
+            /* SUCCESS OVERLAY MODAL CARD */
+            <div className="success-card-centered animate-scale-up">
+              <div className="success-badge-circle">
                 <CheckCircle2 size={44} />
               </div>
-              <h2 className="success-modal-title">You're All Set!</h2>
-              <p className="success-modal-desc">
+              <h2 className="success-main-title">You're All Set!</h2>
+              <p className="success-main-desc">
                 Thank you for choosing <strong>Growthora Advisory</strong>. Our senior advisory team will review your requirements for <strong>{formData.selectedNeed}</strong> and get in touch with you shortly.
               </p>
+              
+              <div className="success-status-pill">
+                ✓ Your consultation request has been received.
+              </div>
+
               <button
                 type="button"
-                className="btn-wizard-next"
-                style={{ padding: '14px 36px', fontSize: '1rem' }}
+                className="btn-back-to-site"
                 onClick={() => {
                   setSubmitted(false);
                   setStep(1);
@@ -422,18 +612,6 @@ export const ConsultationModal = ({ isOpen, onClose, selectedService }) => {
               </button>
             </div>
           )}
-        </div>
-
-        {/* BOTTOM NAVY TRUST STRIP */}
-        <div className="modal-bottom-trust-strip">
-          <div className="trust-badges-list">
-            <span className="trust-badge-item"><ShieldCheck size={14} /> 100% Secure</span>
-            <span className="trust-badge-item"><Lock size={14} /> No Spam</span>
-            <span className="trust-badge-item"><PhoneCall size={14} /> Expert Consultation</span>
-          </div>
-          <div style={{ fontWeight: '600' }}>
-            One Stop Solution For All Your Business Growth Needs • Funding • Compliance • Growth • Sustainability
-          </div>
         </div>
 
       </div>
