@@ -73,7 +73,7 @@ export default function CertificationDetailPage() {
               </p>
 
               <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-                <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                <button className="btn-hero-primary" onClick={() => setIsFundingModalOpen(true)}>
                   <span>Book a Free Consultation</span>
                   <ArrowRight size={18} />
                 </button>

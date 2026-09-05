@@ -67,8 +67,8 @@ export default function MsmeDetailPage() {
                 {detailData.description}
               </p>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button className="btn-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                  Apply for Scheme
+                <button className="btn-primary" onClick={() => setIsFundingModalOpen(true)}>
+                  Apply For Scheme & Check Eligibility
                 </button>
               </div>
             </div>

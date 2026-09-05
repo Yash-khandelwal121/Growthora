@@ -45,9 +45,8 @@ export const FundingSolutionPopup = ({ isModal = false, onClose }) => {
     if (onClose) onClose();
   };
 
-  // Prevent rendering inline version on mobile, and modal version on desktop
+  // Prevent rendering inline version on mobile screens
   if (!isModal && isMobile) return null;
-  if (isModal && !isMobile) return null;
 
   const renderLeftPanel = () => (
     <div className="fp-left-panel">

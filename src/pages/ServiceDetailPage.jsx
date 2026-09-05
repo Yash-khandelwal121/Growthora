@@ -53,7 +53,7 @@ export default function ServiceDetailPage() {
                 {serviceData.description}
               </p>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button className="btn-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                <button className="btn-primary" onClick={() => setIsFundingModalOpen(true)}>
                   Book Free Consultation
                 </button>
               </div>
@@ -174,6 +174,18 @@ export default function ServiceDetailPage() {
         isOpen={isAskOpen}
         onClose={() => setIsAskOpen(false)}
       />
+
+      {/* Floating trigger button */}
+      <button
+        className="fp-mobile-trigger"
+        onClick={() => setIsFundingModalOpen(true)}
+      >
+        Check Eligibility →
+      </button>
+
+      {isFundingModalOpen && (
+        <FundingSolutionPopup isModal={true} onClose={() => setIsFundingModalOpen(false)} />
+      )}
     </div>
   );
 }

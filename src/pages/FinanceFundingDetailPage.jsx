@@ -80,7 +80,7 @@ export default function FinanceFundingDetailPage() {
               </p>
               
               <div className="hero-cta-group" style={{ marginTop: '30px' }}>
-                <button className="btn-hero-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                <button className="btn-hero-primary" onClick={() => setIsFundingModalOpen(true)}>
                   <span>Start Your Application</span>
                   <ArrowRight size={18} />
                 </button>

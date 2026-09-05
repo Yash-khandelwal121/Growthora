@@ -67,7 +67,7 @@ export default function OperationsDetailPage() {
                 {detailData.description}
               </p>
               <div style={{ display: 'flex', gap: '16px' }}>
-                <button className="btn-primary" onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                <button className="btn-primary" onClick={() => setIsFundingModalOpen(true)}>
                   Book Free Consultation
                 </button>
               </div>
