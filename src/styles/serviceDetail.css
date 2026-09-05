@@ -355,7 +355,7 @@
 }
 
 .sd-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -394,8 +394,9 @@
 
 .sd-content-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1fr 430px;
+  gap: 48px;
+  align-items: start;
 }
 
 .sd-main-content h2 {

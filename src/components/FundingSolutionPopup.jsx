@@ -324,7 +324,7 @@ export const FundingSolutionPopup = ({ isModal = false, onClose }) => {
 
   // Inline sidebar mode — no left panel, just the form
   return (
-    <div className={containerClass} style={{ position: 'sticky', top: '120px' }}>
+    <div className={containerClass} style={{ position: 'sticky', top: '140px' }}>
       {renderContent()}
     </div>
   );
