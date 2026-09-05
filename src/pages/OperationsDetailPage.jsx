@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, FileText, Settings, HelpCircle, ChevronDown, ChevronUp, Briefcase } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { OPERATIONS_DATA } from '../data/operationsData';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
+import { FundingSolutionPopup } from '../components/FundingSolutionPopup';
 
 export default function OperationsDetailPage() {
   const { serviceSlug } = useParams();
@@ -15,6 +16,7 @@ export default function OperationsDetailPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
+  const [isFundingModalOpen, setIsFundingModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -75,7 +77,7 @@ export default function OperationsDetailPage() {
                 <img 
                   src={detailData.heroImage} 
                   alt={detailData.title} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block' }} 
                 />
               </div>
             </div>
@@ -165,44 +167,7 @@ export default function OperationsDetailPage() {
 
             {/* Sidebar */}
             <div className="sd-sidebar">
-              <div className="sd-sidebar-card">
-                <h3>Get Started Today</h3>
-                
-                <div className="sd-timeline">
-                  <Settings size={20} className="sd-timeline-icon" />
-                  <div>
-                    <div style={{ fontSize: '0.85rem', color: '#94A3B8' }}>Expected Timeline</div>
-                    <div style={{ fontWeight: '500' }}>{detailData.timeline}</div>
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '12px' }}>Ideal For:</div>
-                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#CBD5E1' }}>
-                    {detailData.idealFor.map((item, idx) => (
-                      <li key={idx} style={{ marginBottom: '8px', paddingLeft: '16px', position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: 0, top: '6px', width: '4px', height: '4px', borderRadius: '50%', background: '#FF7200' }}></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button 
-                  className="btn-primary" 
-                  style={{ width: '100%', marginBottom: '12px' }}
-                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                >
-                  Proceed with Operations Setup
-                </button>
-                <button 
-                  className="btn-secondary" 
-                  style={{ width: '100%', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                >
-                  Request Callback
-                </button>
-              </div>
+              <FundingSolutionPopup />
             </div>
 
           </div>
@@ -221,6 +186,18 @@ export default function OperationsDetailPage() {
         isOpen={isAskOpen}
         onClose={() => setIsAskOpen(false)}
       />
+
+      {/* Mobile floating trigger button */}
+      <button
+        className="fp-mobile-trigger"
+        onClick={() => setIsFundingModalOpen(true)}
+      >
+        Check Eligibility →
+      </button>
+
+      {isFundingModalOpen && (
+        <FundingSolutionPopup isModal={true} onClose={() => setIsFundingModalOpen(false)} />
+      )}
     </div>
   );
 }

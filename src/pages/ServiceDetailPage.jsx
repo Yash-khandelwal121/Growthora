@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, FileText, Settings, He
 import { DETAILED_SERVICES_DATA } from '../data/detailedServicesData';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
+import { FundingSolutionPopup } from '../components/FundingSolutionPopup';
 
 export default function ServiceDetailPage() {
   const { serviceId } = useParams();
@@ -15,6 +16,7 @@ export default function ServiceDetailPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
+  const [isFundingModalOpen, setIsFundingModalOpen] = useState(false);
 
   // If URL is invalid, redirect back to category
   useEffect(() => {
@@ -153,44 +155,7 @@ export default function ServiceDetailPage() {
 
             {/* Sidebar */}
             <div className="sd-sidebar">
-              <div className="sd-sidebar-card">
-                <h3>Get Started Today</h3>
-                
-                <div className="sd-timeline">
-                  <Settings size={20} className="sd-timeline-icon" />
-                  <div>
-                    <div style={{ fontSize: '0.85rem', color: '#94A3B8' }}>Expected Timeline</div>
-                    <div style={{ fontWeight: '500' }}>{serviceData.timeline}</div>
-                  </div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '12px' }}>Ideal For:</div>
-                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#CBD5E1' }}>
-                    {serviceData.idealFor.map((item, idx) => (
-                      <li key={idx} style={{ marginBottom: '8px', paddingLeft: '16px', position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: 0, top: '6px', width: '4px', height: '4px', borderRadius: '50%', background: '#FF7200' }}></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button 
-                  className="btn-primary" 
-                  style={{ width: '100%', marginBottom: '12px' }}
-                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                >
-                  Proceed with Registration
-                </button>
-                <button 
-                  className="btn-secondary" 
-                  style={{ width: '100%', borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
-                  onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                >
-                  Request Callback
-                </button>
-              </div>
+              <FundingSolutionPopup />
             </div>
 
           </div>

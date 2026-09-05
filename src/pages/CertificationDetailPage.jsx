@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle, ArrowRight, Award, ChevronDown, ChevronUp, File
 import { CERTIFICATION_DATA } from '../data/certificationData';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
+import { FundingSolutionPopup } from '../components/FundingSolutionPopup';
 
 export default function CertificationDetailPage() {
   const { serviceSlug } = useParams();
@@ -13,6 +14,7 @@ export default function CertificationDetailPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
+  const [isFundingModalOpen, setIsFundingModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,7 +85,7 @@ export default function CertificationDetailPage() {
                 src={detailData.heroImage}
                 alt={detailData.title}
                 loading="lazy"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block' }}
               />
             </div>
           </div>
@@ -175,29 +177,7 @@ export default function CertificationDetailPage() {
 
             {/* RIGHT COLUMN: SIDEBAR */}
             <div className="sd-sidebar">
-              <div className="sd-sidebar-card">
-                <h3>Certification Summary</h3>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '8px' }}>Timeline &amp; Processing</div>
-                  <div style={{ fontSize: '0.95rem', color: 'white', lineHeight: '1.5' }}>{detailData.timeline}</div>
-                </div>
-
-                <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                  <p style={{ fontSize: '0.85rem', color: '#94A3B8', fontStyle: 'italic', margin: 0 }}>
-                    *Growthora provides advisory and execution support but cannot guarantee approval. Approval depends entirely on the respective certification authority.
-                  </p>
-                </div>
-
-                <div style={{ marginTop: '40px' }}>
-                  <button className="btn-primary" style={{ width: '100%', marginBottom: '12px' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                    Book a Free Consultation
-                  </button>
-                  <button className="btn-secondary" style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }} onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                    Talk to an Expert
-                  </button>
-                </div>
-              </div>
+              <FundingSolutionPopup />
             </div>
 
           </div>
@@ -256,6 +236,34 @@ export default function CertificationDetailPage() {
         isOpen={isAskOpen}
         onClose={() => setIsAskOpen(false)}
       />
+
+      {/* Mobile floating trigger button */}
+      <button
+        className="fp-mobile-trigger"
+        onClick={() => setIsFundingModalOpen(true)}
+        style={{
+          display: 'none',
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 999,
+          background: '#FF7200',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50px',
+          padding: '14px 24px',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          boxShadow: '0 8px 30px rgba(255, 114, 0, 0.3)',
+          cursor: 'pointer'
+        }}
+      >
+        Check Eligibility →
+      </button>
+
+      {isFundingModalOpen && (
+        <FundingSolutionPopup isModal={true} onClose={() => setIsFundingModalOpen(false)} />
+      )}
     </div>
   );
 }

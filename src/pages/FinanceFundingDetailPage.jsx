@@ -6,6 +6,7 @@ import { ArrowLeft, CheckCircle, ArrowRight, ShieldCheck, ChevronDown, ChevronUp
 import { FINANCE_FUNDING_DATA } from '../data/financeFundingData';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
+import { FundingSolutionPopup } from '../components/FundingSolutionPopup';
 
 export default function FinanceFundingDetailPage() {
   const { categoryId, grantId } = useParams();
@@ -13,6 +14,7 @@ export default function FinanceFundingDetailPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
+  const [isFundingModalOpen, setIsFundingModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -105,7 +107,7 @@ export default function FinanceFundingDetailPage() {
               <img 
                 src={detailData.heroImage || "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"} 
                 alt={detailData.title} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }} 
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block' }} 
               />
             </div>
           </div>
@@ -200,49 +202,7 @@ export default function FinanceFundingDetailPage() {
 
             {/* RIGHT COLUMN: SIDEBAR */}
             <div className="sd-sidebar">
-              <div className="sd-sidebar-card">
-                <h3>Pathway Details</h3>
-                
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '8px' }}>Timeline & Processing</div>
-                  <div style={{ fontSize: '0.95rem', color: 'white', lineHeight: '1.5' }}>{detailData.timeline}</div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '0.9rem', color: '#94A3B8', marginBottom: '12px' }}>Ideal For:</div>
-                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem', color: '#CBD5E1' }}>
-                    {detailData.idealFor.map((item, idx) => (
-                      <li key={idx} style={{ marginBottom: '8px', paddingLeft: '16px', position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: 0, top: '6px', width: '4px', height: '4px', borderRadius: '50%', background: '#FF7200' }}></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                  <p style={{ fontSize: '0.85rem', color: '#94A3B8', fontStyle: 'italic', margin: 0 }}>
-                    *Growthora provides advisory and execution support but cannot guarantee approval. Approval depends entirely on the respective authority or investor.
-                  </p>
-                </div>
-
-                <div style={{ marginTop: '40px' }}>
-                  <button 
-                    className="btn-primary" 
-                    style={{ width: '100%', marginBottom: '12px' }}
-                    onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  >
-                    Book a Free Consultation
-                  </button>
-                  <button 
-                    className="btn-secondary" 
-                    style={{ width: '100%', borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}
-                    onClick={() => { navigate('/book-consultation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  >
-                    Talk to an Expert
-                  </button>
-                </div>
-              </div>
+              <FundingSolutionPopup />
             </div>
 
           </div>
@@ -288,6 +248,34 @@ export default function FinanceFundingDetailPage() {
         isOpen={isAskOpen}
         onClose={() => setIsAskOpen(false)}
       />
+
+      {/* Mobile floating trigger button */}
+      <button
+        className="fp-mobile-trigger"
+        onClick={() => setIsFundingModalOpen(true)}
+        style={{
+          display: 'none',
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 999,
+          background: '#FF7200',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50px',
+          padding: '14px 24px',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          boxShadow: '0 8px 30px rgba(255, 114, 0, 0.3)',
+          cursor: 'pointer'
+        }}
+      >
+        Check Eligibility →
+      </button>
+
+      {isFundingModalOpen && (
+        <FundingSolutionPopup isModal={true} onClose={() => setIsFundingModalOpen(false)} />
+      )}
     </div>
   );
 }
