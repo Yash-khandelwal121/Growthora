@@ -28,6 +28,11 @@ export const Footer = ({ onSelectCategory }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    if (srv.id === '05') {
+      navigate('/services/legal-ca');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (srv.id === '06') {
       navigate('/services/operations');
       window.scrollTo({ top: 0, behavior: 'smooth' });

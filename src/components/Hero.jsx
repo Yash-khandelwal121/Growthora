@@ -46,6 +46,10 @@ export const Hero = ({ onOpenConsultation, onSelectCategory }) => {
       navigate('/services/branding');
       return;
     }
+    if (nodeId === "05") {
+      navigate('/services/legal-ca');
+      return;
+    }
     if (nodeId === "06") {
       navigate('/services/operations');
       return;

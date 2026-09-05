@@ -10,6 +10,8 @@ import CertificationDetailPage from './pages/CertificationDetailPage';
 import BrandingPage from './pages/BrandingPage';
 import OperationsCategoryPage from './pages/OperationsCategoryPage';
 import OperationsDetailPage from './pages/OperationsDetailPage';
+import LegalCaCategoryPage from './pages/LegalCaCategoryPage';
+import LegalCaDetailPage from './pages/LegalCaDetailPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -41,6 +43,10 @@ export function App() {
         {/* Operations Routes */}
         <Route path="/services/operations" element={<OperationsCategoryPage />} />
         <Route path="/services/operations/:serviceSlug" element={<OperationsDetailPage />} />
+
+        {/* Legal & CA Routes */}
+        <Route path="/services/legal-ca" element={<LegalCaCategoryPage />} />
+        <Route path="/services/legal-ca/:serviceSlug" element={<LegalCaDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

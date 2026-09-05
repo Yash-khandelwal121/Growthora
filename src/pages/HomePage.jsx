@@ -39,6 +39,10 @@ export default function HomePage() {
       navigate('/services/branding');
       return;
     }
+    if (service && service.id === '05') {
+      navigate('/services/legal-ca');
+      return;
+    }
     if (service && service.id === '06') {
       navigate('/services/operations');
       return;
