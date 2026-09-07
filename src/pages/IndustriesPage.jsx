@@ -331,7 +331,18 @@ export default function IndustriesPage() {
                   className="ind-card"
                   onClick={() => handleOpenConsultation(ind)}
                 >
-                  <div>
+                  {/* Card Top Image */}
+                  <div className="ind-card-image-wrap">
+                    <img
+                      src={ind.image}
+                      alt={ind.name}
+                      loading="lazy"
+                    />
+                    <div className="ind-card-image-overlay" />
+                  </div>
+
+                  {/* Card Body */}
+                  <div className="ind-card-body">
                     <div className="ind-card-icon-wrap">
                       <IndustryIcon iconName={ind.iconName} size={22} />
                     </div>
@@ -339,6 +350,7 @@ export default function IndustriesPage() {
                     <p className="ind-card-desc">{ind.subtitle}</p>
                   </div>
 
+                  {/* Card Footer */}
                   <div className="ind-card-footer">
                     <span className="ind-card-explore-lbl">Explore</span>
                     <div className="ind-card-arrow-circle">

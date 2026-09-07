@@ -31,6 +31,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Agri-business & allied sectors',
     description: 'Farming, post-harvest processing, agri-machinery, and rural enterprise advisory.',
     iconName: 'Wheat',
+    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '18+',
     fundingAccess: 'AIF, NABARD, PM-KISAN, NABARD Subsidy'
@@ -43,6 +44,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Industrial & production units',
     description: 'From compliance and registrations to funding, PLI schemes, and factory expansion.',
     iconName: 'Factory',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
     featured: true,
     featuredNumber: '01',
     featuredDesc: 'From compliance and registrations to funding and expansion.',
@@ -58,6 +60,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Wholesale & retail trade',
     description: 'GST compliance, import-export licenses, MSME merchant benefits, and working capital.',
     iconName: 'Store',
+    image: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '12+',
     fundingAccess: 'MSME Merchant Loans, IEC Code, Trade Credit'
@@ -70,6 +73,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Hospitals, pharma & wellness',
     description: 'Advisory built around regulation, NABH compliance, pharma licensing, and expansion funding.',
     iconName: 'Stethoscope',
+    image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
     featured: true,
     featuredNumber: '03',
     featuredDesc: 'Advisory built around regulation, funding and sustainable growth.',
@@ -85,6 +89,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Schools, colleges & edtech',
     description: 'Trust/society registrations, FCRA, CSR funding access, and EdTech startup structuring.',
     iconName: 'GraduationCap',
+    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '10+',
     fundingAccess: 'Section 8 Trust Advisory, Skill India Grants'
@@ -97,6 +102,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'IT companies & SaaS',
     description: 'Helping technology businesses structure, scale, protect IP, and stay tax-compliant.',
     iconName: 'Laptop',
+    image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
     featured: true,
     featuredNumber: '02',
     featuredDesc: 'Helping technology businesses structure, scale and stay compliant.',
@@ -112,6 +118,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Apparel, garments & fabrics',
     description: 'TUFS scheme subsidies, export incentive guidance, cluster development, and apparel manufacturing.',
     iconName: 'Scissors',
+    image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '14+',
     fundingAccess: 'ATUFS Textile Subsidy, EPCG Export License'
@@ -124,6 +131,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Real estate & infrastructure',
     description: 'RERA compliance, joint venture structures, project funding access, and environmental clearances.',
     iconName: 'Building2',
+    image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '11+',
     fundingAccess: 'RERA Advisory, Infrastructure Project Credit'
@@ -136,6 +144,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Supply chain & transportation',
     description: 'Fleet financing assistance, warehouse compliance, logistics park subsidies, and customs clearance.',
     iconName: 'Truck',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '16+',
     fundingAccess: 'National Logistics Policy Subsidies, Vehicle Loans'
@@ -148,6 +157,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Components & consumer goods',
     description: 'SPECS scheme support, BIS certification, electronic component assembly, and hardware grants.',
     iconName: 'Cpu',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '20+',
     fundingAccess: 'SPECS Electronics Grant, EMC 2.0 Subsidy'
@@ -160,6 +170,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'FMCG, food processing',
     description: 'PMFME scheme assistance, FSSAI central licensing, cold chain subsidies, and organic certification.',
     iconName: 'Utensils',
+    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '22+',
     fundingAccess: 'PMFME 35% Capital Subsidy, MOFPI Grants'
@@ -172,6 +183,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Artisans & traditional crafts',
     description: 'Artisan cluster grants, GI registration, handicraft export incentives, and Khadi MSME benefits.',
     iconName: 'Palette',
+    image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '14+',
     fundingAccess: 'Ambedkar Hastshilp Vikas Yojana, GI Tagging'
@@ -184,6 +196,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Financial services & digital finance',
     description: 'RBI regulatory sandbox guidance, NBFC setup, payment gateway compliance, and fintech structuring.',
     iconName: 'TrendingUp',
+    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '12+',
     fundingAccess: 'GIFT City IFSCA Regulations, NBFC Registration'
@@ -196,6 +209,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Emerging tech & innovation',
     description: 'Patent filing support, R&D tax exemptions, BIRAC/MeitY deep-tech seed funds, and AI governance.',
     iconName: 'Brain',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '19+',
     fundingAccess: 'MeitY SAMRIDH Scheme, TIDE 2.0 Grants'
@@ -208,6 +222,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Renewable & sustainable solutions',
     description: 'Solar power incentives, EV manufacturing subsidies, carbon credit compliance, and ESG advisory.',
     iconName: 'Leaf',
+    image: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '24+',
     fundingAccess: 'IREDA Concessional Loans, FAME II Subsidies'
@@ -220,6 +235,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Healthcare innovation',
     description: 'CDSCO medical device approvals, BIRAC BIG grants, clinical trial compliance, and biotech park incentives.',
     iconName: 'Dna',
+    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '17+',
     fundingAccess: 'BIRAC BIG ₹50 Lakh Grant, CDSCO Approval'
@@ -232,6 +248,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Non-profits & development',
     description: 'Section 8 formation, 12A & 80G tax exemptions, FCRA registration, and CSR grant matchmaking.',
     iconName: 'Users',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '13+',
     fundingAccess: '12A & 80G Approval, Corporate CSR Funds'
@@ -244,6 +261,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Strategic & advanced manufacturing',
     description: 'Industrial defense licenses, iDEX innovation grants, defense corridor incentives, and offset advisory.',
     iconName: 'Shield',
+    image: 'https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '15+',
     fundingAccess: 'iDEX ₹1.5 Cr Grant, Defense Corridor Incentives'
@@ -256,6 +274,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Content & creative industries',
     description: 'AVGC policy incentives, copyright & IP protection, gaming license compliance, and film production grants.',
     iconName: 'Gamepad2',
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '10+',
     fundingAccess: 'State AVGC Policy Subsidies, IP Advisory'
@@ -268,6 +287,7 @@ export const INDUSTRIES_DATA = [
     subtitle: 'Livestock & dairy businesses',
     description: 'AHIDF scheme 3% interest subvention, dairy processing capital subsidies, and FPO formation.',
     iconName: 'Flame',
+    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
     featured: false,
     schemesCount: '16+',
     fundingAccess: 'AHIDF 33% Capital Subsidy, NABARD Dairy Loans'
