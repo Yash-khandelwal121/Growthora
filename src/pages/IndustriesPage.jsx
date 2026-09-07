@@ -23,6 +23,8 @@ import {
   Flame,
   Search,
   ArrowRight,
+  ChevronRight,
+  X,
   CheckCircle2,
   Building,
   Award,
@@ -80,17 +82,56 @@ export default function IndustriesPage() {
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState(null);
 
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+  const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+  const searchContainerRef = useRef(null);
+
+  const [isExploreDropdownOpen, setIsExploreDropdownOpen] = useState(false);
+  const exploreDropdownRef = useRef(null);
+
   const filterNavRef = useRef(null);
   const scrollDirectionRef = useRef(1); // 1 = Left to Right, -1 = Right to Left
+  const isHoveredRef = useRef(false);
+  const isTouchActiveRef = useRef(false);
   const isPausedRef = useRef(false);
   const pauseTimeoutRef = useRef(null);
 
-  const handleUserInteraction = () => {
+  // Mouse Enter -> Pause auto-scroll while hovering
+  const handleFilterMouseEnter = () => {
+    isHoveredRef.current = true;
     isPausedRef.current = true;
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => {
+  };
+
+  // Mouse Leave -> Resume auto-scroll smoothly when cursor leaves
+  const handleFilterMouseLeave = () => {
+    isHoveredRef.current = false;
+    if (!isTouchActiveRef.current) {
       isPausedRef.current = false;
-    }, 1200);
+    }
+  };
+
+  // Touch Start -> Pause during mobile touch/swipe
+  const handleFilterTouchStart = () => {
+    isTouchActiveRef.current = true;
+    isPausedRef.current = true;
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+  };
+
+  // Touch End / Cancel -> Resume after short delay on mobile
+  const handleFilterTouchEnd = () => {
+    isTouchActiveRef.current = false;
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => {
+      if (!isHoveredRef.current && !isTouchActiveRef.current) {
+        isPausedRef.current = false;
+      }
+    }, 1500);
+  };
+
+  // Select category (with toggle back to 'All' if selected again)
+  const handleCategorySelect = (cat) => {
+    setSelectedCategory((prevCat) => (prevCat === cat && cat !== 'All' ? 'All' : cat));
   };
 
   useEffect(() => {
@@ -101,10 +142,10 @@ export default function IndustriesPage() {
     if (prefersReducedMotion) return;
 
     let animId;
-    const speed = 1.2; // smooth continuous speed per frame (~72px/sec)
+    const speed = 1.0; // smooth continuous speed per frame (~60px/sec)
 
     const step = () => {
-      if (el && !isPausedRef.current) {
+      if (el && !isHoveredRef.current && !isTouchActiveRef.current && !isPausedRef.current) {
         const maxScroll = el.scrollWidth - el.clientWidth;
         if (maxScroll > 0) {
           el.scrollLeft += speed * scrollDirectionRef.current;
@@ -127,15 +168,92 @@ export default function IndustriesPage() {
     };
   }, []);
 
-  // Open consultation modal / navigate to industry detail
-  const handleOpenConsultation = (industryItem = null) => {
-    if (industryItem && (industryItem.slug === 'agriculture' || industryItem.name.toLowerCase() === 'agriculture')) {
-      navigate('/industries/agriculture');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Search Results for Live Dropdown
+  const searchDropdownResults = useMemo(() => {
+    const query = searchTerm.toLowerCase().trim();
+    if (!query) {
+      return INDUSTRIES_DATA;
+    }
+    return INDUSTRIES_DATA.filter((item) => {
+      return (
+        item.name.toLowerCase().includes(query) ||
+        item.subtitle.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+      );
+    });
+  }, [searchTerm]);
+
+  // Click Outside & Escape Key Listener
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
+        setIsSearchDropdownOpen(false);
+      }
+      if (exploreDropdownRef.current && !exploreDropdownRef.current.contains(e.target)) {
+        setIsExploreDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDownGlobal = (e) => {
+      if (e.key === 'Escape') {
+        setIsSearchDropdownOpen(false);
+        setIsExploreDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDownGlobal);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDownGlobal);
+    };
+  }, []);
+
+  // Handle Search Result Selection
+  const handleSelectSearchItem = (item) => {
+    setIsSearchDropdownOpen(false);
+    setSearchTerm(item.name);
+    handleOpenConsultation(item);
+  };
+
+  // Keyboard navigation on Search Input
+  const handleSearchKeyDown = (e) => {
+    if (!isSearchDropdownOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        setIsSearchDropdownOpen(true);
+      }
       return;
     }
-    if (industryItem && (industryItem.slug === 'manufacturing' || industryItem.name.toLowerCase() === 'manufacturing')) {
-      navigate('/industries/manufacturing');
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlightedSearchIndex((prev) =>
+        prev < searchDropdownResults.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightedSearchIndex((prev) =>
+        prev > 0 ? prev - 1 : searchDropdownResults.length - 1
+      );
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (
+        searchDropdownResults.length > 0 &&
+        highlightedSearchIndex >= 0 &&
+        highlightedSearchIndex < searchDropdownResults.length
+      ) {
+        handleSelectSearchItem(searchDropdownResults[highlightedSearchIndex]);
+      }
+    } else if (e.key === 'Escape') {
+      setIsSearchDropdownOpen(false);
+    }
+  };
+
+  // Open consultation modal / navigate to industry detail
+  const handleOpenConsultation = (industryItem = null) => {
+    if (industryItem && industryItem.slug) {
+      navigate(`/industries/${industryItem.slug}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -202,17 +320,43 @@ export default function IndustriesPage() {
             </p>
 
             <div className="ind-hero-cta-group">
-              <button
-                type="button"
-                className="btn-ind-primary"
-                onClick={() => {
-                  const el = document.getElementById('industries-directory');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <span>Explore Industries</span>
-                <ArrowRight size={18} />
-              </button>
+              <div ref={exploreDropdownRef} className="ind-explore-dropdown-wrapper">
+                <button
+                  type="button"
+                  className="btn-ind-primary"
+                  onClick={() => setIsExploreDropdownOpen((prev) => !prev)}
+                  aria-expanded={isExploreDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <span>Explore Industries</span>
+                  <ArrowRight size={18} className={`ind-arrow-icon ${isExploreDropdownOpen ? 'ind-arrow-active' : ''}`} />
+                </button>
+
+                {isExploreDropdownOpen && (
+                  <div className="ind-explore-dropdown-menu" role="menu">
+                    <div className="ind-explore-dropdown-grid">
+                      {INDUSTRIES_DATA.map((ind) => (
+                        <div
+                          key={ind.id}
+                          role="menuitem"
+                          className="ind-explore-dropdown-item"
+                          onClick={() => {
+                            setIsExploreDropdownOpen(false);
+                            navigate(`/industries/${ind.slug}`);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          <div className="ind-explore-item-icon">
+                            <IndustryIcon iconName={ind.iconName} size={18} />
+                          </div>
+                          <span className="ind-explore-item-name">{ind.name}</span>
+                          <ChevronRight className="ind-explore-item-arrow" size={15} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <button
                 type="button"
@@ -294,16 +438,73 @@ export default function IndustriesPage() {
               </p>
             </div>
 
-            {/* Search Box */}
-            <div className="ind-search-box">
+            {/* Search Box with Real-time Dropdown */}
+            <div ref={searchContainerRef} className="ind-search-box">
               <Search className="ind-search-icon" size={18} />
               <input
                 type="text"
                 className="ind-search-input"
                 placeholder="Search your industry..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchDropdownOpen(true)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setIsSearchDropdownOpen(true);
+                  setHighlightedSearchIndex(0);
+                }}
+                onKeyDown={handleSearchKeyDown}
+                aria-expanded={isSearchDropdownOpen}
+                aria-haspopup="listbox"
               />
+
+              {searchTerm && (
+                <button
+                  type="button"
+                  className="ind-search-clear-btn"
+                  onClick={() => {
+                    setSearchTerm('');
+                    setHighlightedSearchIndex(0);
+                    setIsSearchDropdownOpen(true);
+                  }}
+                  title="Clear search"
+                >
+                  <X size={13} />
+                </button>
+              )}
+
+              {/* Live Search Dropdown Panel */}
+              {isSearchDropdownOpen && (
+                <div className="ind-search-dropdown" role="listbox">
+                  {searchDropdownResults.length > 0 ? (
+                    searchDropdownResults.map((item, index) => (
+                      <div
+                        key={item.id}
+                        role="option"
+                        aria-selected={highlightedSearchIndex === index}
+                        className={`ind-search-result-item ${
+                          highlightedSearchIndex === index ? 'highlighted' : ''
+                        }`}
+                        onMouseEnter={() => setHighlightedSearchIndex(index)}
+                        onClick={() => handleSelectSearchItem(item)}
+                      >
+                        <div className="ind-search-result-icon">
+                          <IndustryIcon iconName={item.iconName} size={18} />
+                        </div>
+                        <div className="ind-search-result-info">
+                          <div className="ind-search-result-title">{item.name}</div>
+                          <div className="ind-search-result-sub">{item.subtitle}</div>
+                        </div>
+                        <ChevronRight className="ind-search-result-arrow" size={16} />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="ind-search-empty-state">
+                      <p>No industries found for "{searchTerm}"</p>
+                      <span>Try searching for agriculture, manufacturing, IT, or healthcare</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -311,16 +512,18 @@ export default function IndustriesPage() {
           <div
             ref={filterNavRef}
             className="ind-filter-nav"
-            onTouchStart={handleUserInteraction}
-            onPointerDown={handleUserInteraction}
-            onWheel={handleUserInteraction}
+            onMouseEnter={handleFilterMouseEnter}
+            onMouseLeave={handleFilterMouseLeave}
+            onTouchStart={handleFilterTouchStart}
+            onTouchEnd={handleFilterTouchEnd}
+            onTouchCancel={handleFilterTouchEnd}
           >
             {INDUSTRIES_CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 className={`ind-filter-btn ${selectedCategory === cat ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => handleCategorySelect(cat)}
               >
                 {cat}
               </button>
@@ -353,6 +556,21 @@ export default function IndustriesPage() {
                     </div>
                     <h3 className="ind-card-name">{ind.name}</h3>
                     <p className="ind-card-desc">{ind.subtitle}</p>
+
+                    {/* Interactive Hover Highlights (4 points) */}
+                    {ind.highlights && ind.highlights.length > 0 && (
+                      <div className="ind-card-hover-details">
+                        <div className="ind-card-details-divider" />
+                        <ul className="ind-card-highlights-list">
+                          {ind.highlights.map((pt, idx) => (
+                            <li key={idx} className="ind-card-highlight-item">
+                              <span className="ind-highlight-bullet">•</span>
+                              <span>{pt}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
                   {/* Card Footer */}
@@ -391,14 +609,14 @@ export default function IndustriesPage() {
         <div className="ind-featured-container">
           <div className="ind-featured-top">
             <div>
-              <div className="ind-section-eyebrow" style={{ color: '#FF6B00' }}>
+              <div className="ind-section-eyebrow">
                 <Sparkles size={14} />
                 <span>FEATURED INDUSTRIES</span>
               </div>
-              <h2 className="ind-section-title" style={{ color: '#FFFFFF' }}>
+              <h2 className="ind-section-title">
                 Built Around Your Industry
               </h2>
-              <p className="ind-section-subtitle" style={{ color: '#CBD5E1' }}>
+              <p className="ind-section-subtitle">
                 Focused expertise for businesses operating in India's most dynamic sectors.
               </p>
             </div>
@@ -427,9 +645,28 @@ export default function IndustriesPage() {
                 <div className="ind-featured-overlay" />
 
                 <div className="ind-featured-content">
-                  <span className="ind-featured-num">{ind.featuredNumber}</span>
+                  <div className="ind-featured-num-wrap">
+                    <span className="ind-featured-num">{ind.featuredNumber}</span>
+                    {ind.growthAreas && ind.growthAreas.length > 0 && (
+                      <div className="ind-featured-growth-pills">
+                        <span className="ind-growth-tag-text">{ind.growthAreas.join(' • ')}</span>
+                      </div>
+                    )}
+                  </div>
+
                   <h3 className="ind-featured-title">{ind.name}</h3>
                   <p className="ind-featured-desc">{ind.featuredDesc}</p>
+
+                  {ind.growthPoints && ind.growthPoints.length > 0 && (
+                    <ul className="ind-featured-value-points">
+                      {ind.growthPoints.map((pt, idx) => (
+                        <li key={idx} className="ind-featured-value-item">
+                          <span className="ind-value-bullet">•</span>
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   <div className="ind-featured-action">
                     <span>Explore</span>
@@ -453,7 +690,7 @@ export default function IndustriesPage() {
             </div>
 
             <h2 className="ind-intelligence-title">
-              <span className="ind-cyan-highlight">Your Industry</span> Changes.<br />
+              <span className="ind-text-highlight">Your Industry</span> Changes.<br />
               <span className="ind-text-highlight">Your Advisory</span> Should Too.
             </h2>
 
@@ -474,7 +711,7 @@ export default function IndustriesPage() {
           {/* Right Stats Grid */}
           <div className="ind-stats-grid">
             <div className="ind-stat-item">
-              <div className="ind-stat-val cyan">20+</div>
+              <div className="ind-stat-val orange">20+</div>
               <div className="ind-stat-lbl">Industries Covered</div>
             </div>
 
@@ -489,7 +726,7 @@ export default function IndustriesPage() {
             </div>
 
             <div className="ind-stat-item">
-              <div className="ind-stat-val cyan">100+</div>
+              <div className="ind-stat-val orange">100+</div>
               <div className="ind-stat-lbl">Government Schemes Mapped</div>
             </div>
           </div>

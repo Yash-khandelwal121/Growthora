@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowRight,
   CheckCircle2,
@@ -19,6 +19,7 @@ import { Footer } from '../components/Footer';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
 import { AGRICULTURE_PAGE_DATA } from '../data/agricultureData';
+import { INDUSTRIES_DATA } from '../data/industriesData';
 
 import '../styles/index.css';
 import '../styles/animations.css';
@@ -39,6 +40,7 @@ const RegIcon = ({ iconName, size = 22 }) => {
 
 export default function AgriculturePage() {
   const navigate = useNavigate();
+  const { industrySlug } = useParams();
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState(null);
@@ -53,6 +55,27 @@ export default function AgriculturePage() {
     fundingCta
   } = AGRICULTURE_PAGE_DATA;
 
+  // Dynamic industry data matching
+  const currentSlug = industrySlug || 'agriculture';
+  const matchedIndustry = INDUSTRIES_DATA.find((ind) => ind.slug === currentSlug) || INDUSTRIES_DATA[0];
+
+  const heroTitle = currentSlug === 'agriculture'
+    ? hero.title
+    : `${matchedIndustry.name} - Advisory, Funding & Growth`;
+
+  const heroDescription = currentSlug === 'agriculture'
+    ? hero.description
+    : matchedIndustry.description;
+
+  const heroEyebrow = matchedIndustry ? matchedIndustry.name.toUpperCase() : 'AGRICULTURE';
+  const heroImage = matchedIndustry ? matchedIndustry.image : '/industries/agriculture.jpg';
+
+  const breadcrumbItems = [
+    { label: 'Home', link: '/' },
+    { label: 'Industries', link: '/industries' },
+    { label: matchedIndustry ? matchedIndustry.name : 'Agriculture', link: `/industries/${currentSlug}` }
+  ];
+
   // Open consultation modal helper
   const handleOpenConsultation = (customTitle = null) => {
     if (customTitle) {
@@ -60,14 +83,14 @@ export default function AgriculturePage() {
         id: 'agri-consult',
         navLabel: customTitle,
         title: customTitle,
-        categoryName: 'Agriculture Industry'
+        categoryName: `${matchedIndustry.name} Industry`
       });
     } else {
       setSelectedServiceForModal({
         id: 'agri-gen',
-        navLabel: 'Agriculture Advisory',
-        title: 'Agriculture Industry Advisory & Funding',
-        categoryName: 'Agriculture Industry'
+        navLabel: `${matchedIndustry.name} Advisory`,
+        title: `${matchedIndustry.name} Industry Advisory & Funding`,
+        categoryName: `${matchedIndustry.name} Industry`
       });
     }
     setIsConsultationOpen(true);
@@ -101,57 +124,69 @@ export default function AgriculturePage() {
         onOpenAskGrowthora={() => setIsAskOpen(true)}
       />
 
-      {/* 1. AGRICULTURE HERO */}
+      {/* 1. INDUSTRY HERO */}
       <section className="agri-hero-section">
         <div className="agri-hero-container">
-          {/* Breadcrumbs */}
-          <nav className="agri-breadcrumb" aria-label="Breadcrumb">
-            {hero.breadcrumb.map((crumb, idx) => (
-              <React.Fragment key={crumb.label}>
-                {idx > 0 && <span className="agri-breadcrumb-sep">/</span>}
-                {idx === hero.breadcrumb.length - 1 ? (
-                  <span className="agri-breadcrumb-active">{crumb.label}</span>
-                ) : (
-                  <a
-                    href={crumb.link}
-                    className="agri-breadcrumb-item"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate(crumb.link);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                  >
-                    {crumb.label}
-                  </a>
-                )}
-              </React.Fragment>
-            ))}
-          </nav>
+          <div className="agri-hero-left">
+            {/* Breadcrumbs */}
+            <nav className="agri-breadcrumb" aria-label="Breadcrumb">
+              {breadcrumbItems.map((crumb, idx) => (
+                <React.Fragment key={crumb.label}>
+                  {idx > 0 && <span className="agri-breadcrumb-sep">/</span>}
+                  {idx === breadcrumbItems.length - 1 ? (
+                    <span className="agri-breadcrumb-active">{crumb.label}</span>
+                  ) : (
+                    <a
+                      href={crumb.link}
+                      className="agri-breadcrumb-item"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(crumb.link);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
+                      {crumb.label}
+                    </a>
+                  )}
+                </React.Fragment>
+              ))}
+            </nav>
 
-          <h1 className="agri-hero-title">{hero.title}</h1>
-          <p className="agri-hero-description">{hero.description}</p>
+            <div className="agri-eyebrow-badge">
+              <Sparkles size={14} />
+              <span>{heroEyebrow}</span>
+            </div>
 
-          <div className="agri-hero-actions">
-            <button
-              type="button"
-              className="btn-agri-primary"
-              onClick={() => {
-                const el = document.getElementById('agri-schemes-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              <span>Explore Agriculture Schemes</span>
-              <ArrowRight size={18} />
-            </button>
+            <h1 className="agri-hero-title">{heroTitle}</h1>
+            <p className="agri-hero-description">{heroDescription}</p>
 
-            <button
-              type="button"
-              className="btn-agri-secondary"
-              onClick={() => handleOpenConsultation()}
-            >
-              <span>Book a Consultation</span>
-              <ArrowRight size={16} />
-            </button>
+            <div className="agri-hero-actions">
+              <button
+                type="button"
+                className="btn-agri-primary"
+                onClick={() => {
+                  const el = document.getElementById('agri-schemes-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <span>Explore {matchedIndustry ? matchedIndustry.name : 'Agriculture'} Schemes</span>
+                <ArrowRight size={18} />
+              </button>
+
+              <button
+                type="button"
+                className="btn-agri-secondary"
+                onClick={() => handleOpenConsultation()}
+              >
+                <span>Book a Consultation</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Hero Visual Card Container */}
+          <div className="agri-hero-visual-card">
+            <img src={heroImage} alt={heroTitle} />
           </div>
         </div>
       </section>
