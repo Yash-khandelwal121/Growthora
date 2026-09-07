@@ -15,6 +15,7 @@
   box-shadow: 0 10px 40px rgba(0,0,0,0.09);
   overflow: hidden;
   box-sizing: border-box;
+  margin-top: 320px; /* push panel lower — aligns with mid-content */
 }
 
 .fp-inline-body {

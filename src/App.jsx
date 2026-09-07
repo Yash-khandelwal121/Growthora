@@ -17,12 +17,15 @@ import MsmeDetailPage from './pages/MsmeDetailPage';
 import IpoPage from './pages/IpoPage';
 import ValuationPage from './pages/ValuationPage';
 import BookConsultationPage from './pages/BookConsultationPage';
+import IndustriesPage from './pages/IndustriesPage';
+import AgriculturePage from './pages/AgriculturePage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
 import './styles/animations.css';
 import './styles/blueprint.css';
 import './styles/serviceDetail.css';
+import './styles/agriculture.css';
 
 export function App() {
   return (
@@ -30,6 +33,9 @@ export function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/industries" element={<IndustriesPage />} />
+        <Route path="/industries/agriculture" element={<AgriculturePage />} />
+        <Route path="/industries/:industrySlug" element={<AgriculturePage />} />
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />
         

@@ -1,0 +1,710 @@
+/* =============================================================
+   GROWTHORA ADVISORY — AGRICULTURE INDUSTRY DETAIL PAGE STYLESHEET
+============================================================= */
+
+/* -------------------------------------------------------------
+   1. HERO SECTION
+------------------------------------------------------------- */
+.agri-hero-section {
+  position: relative;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 107, 0, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(147, 51, 234, 0.12) 0%, transparent 45%),
+    linear-gradient(135deg, #050B16 0%, #07132B 50%, #060D1F 100%);
+  color: #FFFFFF;
+  padding: 4rem 2rem 5rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.agri-hero-container {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* Breadcrumb */
+.agri-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  color: #94A3B8;
+  margin-bottom: 1.75rem;
+  font-weight: 500;
+}
+
+.agri-breadcrumb-item {
+  color: #94A3B8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.agri-breadcrumb-item:hover {
+  color: #FF6B00;
+}
+
+.agri-breadcrumb-active {
+  color: #FF6B00;
+  font-weight: 700;
+}
+
+.agri-breadcrumb-sep {
+  color: #64748B;
+}
+
+.agri-hero-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  max-width: 850px;
+}
+
+.agri-hero-description {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #CBD5E1;
+  max-width: 720px;
+  margin-bottom: 2.25rem;
+}
+
+.agri-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn-agri-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 30px;
+  background: #FF6B00;
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(255, 107, 0, 0.35);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-agri-primary:hover {
+  background: #E05600;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 107, 0, 0.45);
+}
+
+.btn-agri-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  font-size: 0.92rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.btn-agri-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 107, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+
+/* -------------------------------------------------------------
+   2. HOW THE WORK RUNS SECTION
+------------------------------------------------------------- */
+.agri-overview-section {
+  background-color: #FAF9F6;
+  padding: 5rem 2rem;
+  color: #0F172A;
+}
+
+.agri-overview-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.agri-section-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #FF6B00;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.agri-section-title {
+  font-family: var(--font-heading);
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.agri-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 1.25rem;
+}
+
+.agri-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.agri-stat-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.agri-stat-card:hover {
+  border-color: rgba(255, 107, 0, 0.4);
+  transform: translateX(4px);
+  box-shadow: 0 8px 24px rgba(255, 107, 0, 0.1);
+}
+
+.agri-stat-val {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FF6B00;
+  line-height: 1;
+}
+
+.agri-stat-lbl {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0F172A;
+  text-align: right;
+}
+
+
+/* -------------------------------------------------------------
+   3. REGISTRATIONS SECTION
+------------------------------------------------------------- */
+.agri-registrations-section {
+  background: #FFFFFF;
+  padding: 5rem 2rem;
+  color: #0F172A;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.agri-registrations-container {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.agri-registrations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+  margin-top: 2.5rem;
+}
+
+.agri-reg-card {
+  background: #FAF9F6;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 1.6rem 1.4rem;
+  transition: all 0.25s ease;
+}
+
+.agri-reg-card:hover {
+  background: #FFFFFF;
+  border-color: #FF6B00;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(255, 107, 0, 0.12);
+}
+
+.agri-reg-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 107, 0, 0.1);
+  color: #FF6B00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.agri-reg-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.4rem;
+}
+
+.agri-reg-desc {
+  font-size: 0.88rem;
+  color: #64748B;
+  line-height: 1.55;
+}
+
+
+/* -------------------------------------------------------------
+   4. PAIN POINTS SECTION
+------------------------------------------------------------- */
+.agri-painpoints-section {
+  background-color: #FAF9F6;
+  padding: 5rem 2rem;
+  color: #0F172A;
+}
+
+.agri-painpoints-container {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.agri-painpoints-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+  margin-top: 2.5rem;
+}
+
+.agri-pain-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-left: 4px solid #EF4444;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+  transition: all 0.25s ease;
+}
+
+.agri-pain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.12);
+}
+
+.agri-pain-title {
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+}
+
+.agri-pain-desc {
+  font-size: 0.88rem;
+  color: #64748B;
+  line-height: 1.55;
+}
+
+
+/* -------------------------------------------------------------
+   5. DEPARTMENTS ENGAGED SECTION
+------------------------------------------------------------- */
+.agri-departments-section {
+  background: linear-gradient(135deg, #060D1E 0%, #071A3D 100%);
+  padding: 5.5rem 2rem;
+  color: #FFFFFF;
+}
+
+.agri-departments-container {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.agri-departments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+  margin-top: 2.75rem;
+}
+
+.agri-dept-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.agri-dept-card:hover {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(255, 107, 0, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 36px rgba(255, 107, 0, 0.15);
+}
+
+.agri-dept-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.agri-dept-num {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #FF6B00;
+  background: rgba(255, 107, 0, 0.15);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.agri-dept-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.45rem;
+}
+
+.agri-dept-desc {
+  font-size: 0.88rem;
+  color: #CBD5E1;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.agri-dept-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: rgba(255, 107, 0, 0.12);
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  padding: 0.5rem 1.1rem;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: fit-content;
+}
+
+.agri-dept-btn:hover {
+  background: #FF6B00;
+  border-color: #FF6B00;
+  color: #FFFFFF;
+  transform: translateX(4px);
+}
+
+
+/* -------------------------------------------------------------
+   6. CONSULTATION CTA MID BANNER
+------------------------------------------------------------- */
+.agri-mid-cta-section {
+  background-color: #FAF9F6;
+  padding: 4rem 2rem;
+}
+
+.agri-mid-cta-banner {
+  max-width: 1360px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #FFFDF9 0%, #FAF5EB 100%);
+  border: 1.5px solid rgba(255, 107, 0, 0.2);
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 10px 30px rgba(255, 107, 0, 0.08);
+  flex-wrap: wrap;
+}
+
+.agri-mid-cta-text h3 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 0.25rem;
+}
+
+.agri-mid-cta-text p {
+  font-size: 0.95rem;
+  color: #64748B;
+}
+
+
+/* -------------------------------------------------------------
+   7. AGRICULTURE SCHEMES SECTION
+------------------------------------------------------------- */
+.agri-schemes-section {
+  background: #FAF9F6;
+  padding: 5rem 2rem;
+  color: #0F172A;
+}
+
+.agri-schemes-container {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.agri-schemes-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.agri-all-schemes-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 24px;
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #0F172A;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.agri-all-schemes-link:hover {
+  border-color: #FF6B00;
+  color: #FF6B00;
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(255, 107, 0, 0.12);
+}
+
+.agri-schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+  margin-top: 2.75rem;
+}
+
+.agri-scheme-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.agri-scheme-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 12px 32px rgba(255, 107, 0, 0.12);
+}
+
+.agri-scheme-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.agri-scheme-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #FF6B00;
+  background: rgba(255, 107, 0, 0.1);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.agri-scheme-coverage {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.agri-scheme-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 0.35rem;
+}
+
+.agri-scheme-authority {
+  font-size: 0.82rem;
+  color: #64748B;
+  line-height: 1.45;
+  margin-bottom: 0.85rem;
+}
+
+.agri-scheme-amount {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FAF8F5;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.agri-scheme-open-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0F172A;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.agri-scheme-card:hover .agri-scheme-open-btn {
+  color: #FF6B00;
+}
+
+
+/* -------------------------------------------------------------
+   8. FINAL FUNDING CTA BANNER
+------------------------------------------------------------- */
+.agri-funding-cta-section {
+  padding: 4rem 2rem 5rem;
+  background: #FAF9F6;
+}
+
+.agri-funding-cta-banner {
+  max-width: 1360px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #07132B 0%, #060D1D 100%);
+  border-radius: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  padding: 3.5rem 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.agri-cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.agri-funding-cta-title {
+  font-family: var(--font-heading);
+  font-size: 2.85rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.agri-funding-cta-sub {
+  font-size: 1.08rem;
+  color: #CBD5E1;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.agri-funding-trust-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2.25rem;
+  flex-wrap: wrap;
+}
+
+.agri-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #CBD5E1;
+}
+
+.agri-trust-icon {
+  color: #10B981;
+}
+
+.agri-confidential-tag {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  margin-top: 1.25rem;
+  font-weight: 500;
+}
+
+
+/* -------------------------------------------------------------
+   9. RESPONSIVE BREAKPOINTS
+------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .agri-registrations-grid { grid-template-columns: repeat(2, 1fr); }
+  .agri-painpoints-grid { grid-template-columns: repeat(2, 1fr); }
+  .agri-departments-grid { grid-template-columns: repeat(2, 1fr); }
+  .agri-schemes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 991px) {
+  .agri-overview-container { grid-template-columns: 1fr; gap: 2.5rem; }
+  .agri-hero-title { font-size: 2.65rem; }
+}
+
+@media (max-width: 600px) {
+  .agri-hero-title { font-size: 2.1rem; }
+  .agri-section-title { font-size: 1.85rem; }
+  .agri-registrations-grid { grid-template-columns: 1fr; }
+  .agri-painpoints-grid { grid-template-columns: 1fr; }
+  .agri-departments-grid { grid-template-columns: 1fr; }
+  .agri-schemes-grid { grid-template-columns: 1fr; }
+  .agri-funding-cta-title { font-size: 2rem; }
+  .agri-funding-cta-banner { padding: 2.5rem 1.5rem; }
+}

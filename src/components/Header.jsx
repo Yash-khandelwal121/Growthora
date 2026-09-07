@@ -39,6 +39,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleIndustriesClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/industries') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/industries');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -60,13 +70,22 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
 
         {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Main Navigation">
-          <a href="#services-master" className="nav-link active" onClick={handleServicesClick}>
+          <a 
+            href="/#services-master" 
+            className={`nav-link ${location.pathname !== '/industries' ? 'active' : ''}`} 
+            onClick={handleServicesClick}
+          >
             Services
-            <span className="active-dot" />
+            {location.pathname !== '/industries' && <span className="active-dot" />}
           </a>
-          <span className="nav-link disabled" title="Services Page Only Redesign">
+          <a 
+            href="/industries" 
+            className={`nav-link ${location.pathname === '/industries' ? 'active' : ''}`}
+            onClick={handleIndustriesClick}
+          >
             Industries
-          </span>
+            {location.pathname === '/industries' && <span className="active-dot" />}
+          </a>
           <span className="nav-link disabled" title="Services Page Only Redesign">
             Govt Schemes
           </span>
