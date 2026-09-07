@@ -16,9 +16,9 @@ export const AGRICULTURE_PAGE_DATA = {
       "We map central and state schemes against your stage, turnover, and promoter category, then build the project report and run the applications to sanction. After funding, we sequence registration, compliance, and growth - so the work compounds rather than fragments across vendors."
     ],
     stats: [
-      { value: '~16%', label: 'Contribution to GDP' },
-      { value: '4.4% CAGR', label: '5-yr avg growth' },
-      { value: '42%', label: 'Workforce employed' }
+      { value: '~18%', label: 'Contribution to GDP/GVA' },
+      { value: '~4%', label: '5-Yr Avg Growth' },
+      { value: '~43%', label: 'Workforce (PLFS 2025)' }
     ]
   },
 

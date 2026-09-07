@@ -168,20 +168,21 @@ export default function IndustriesPage() {
     };
   }, []);
 
-  // Search Results for Live Dropdown
+  // Search Results for Live Dropdown (Always A-Z sorted)
   const searchDropdownResults = useMemo(() => {
     const query = searchTerm.toLowerCase().trim();
-    if (!query) {
-      return INDUSTRIES_DATA;
-    }
-    return INDUSTRIES_DATA.filter((item) => {
-      return (
-        item.name.toLowerCase().includes(query) ||
-        item.subtitle.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query)
-      );
-    });
+    const list = !query
+      ? [...INDUSTRIES_DATA]
+      : INDUSTRIES_DATA.filter((item) => {
+          return (
+            item.name.toLowerCase().includes(query) ||
+            item.subtitle.toLowerCase().includes(query) ||
+            item.description.toLowerCase().includes(query) ||
+            item.category.toLowerCase().includes(query)
+          );
+        });
+
+    return list.sort((a, b) => a.name.localeCompare(b.name));
   }, [searchTerm]);
 
   // Click Outside & Escape Key Listener
@@ -485,6 +486,7 @@ export default function IndustriesPage() {
                           highlightedSearchIndex === index ? 'highlighted' : ''
                         }`}
                         onMouseEnter={() => setHighlightedSearchIndex(index)}
+                        onMouseLeave={() => setHighlightedSearchIndex(-1)}
                         onClick={() => handleSelectSearchItem(item)}
                       >
                         <div className="ind-search-result-icon">
@@ -556,6 +558,33 @@ export default function IndustriesPage() {
                     </div>
                     <h3 className="ind-card-name">{ind.name}</h3>
                     <p className="ind-card-desc">{ind.subtitle}</p>
+
+                    {/* Sector-Wise Key Metrics */}
+                    {ind.metrics && (
+                      <div className="ind-card-metrics">
+                        <div className="ind-metric-item" title={`GDP/GVA: ${ind.metrics.gdpFull}`}>
+                          <span className="ind-metric-val">{ind.metrics.gdpGva}</span>
+                          <span className="ind-metric-lbl">GDP/GVA</span>
+                          {ind.metrics.gdpNote && (
+                            <span className="ind-metric-subnote">{ind.metrics.gdpNote}</span>
+                          )}
+                        </div>
+                        <div className="ind-metric-item" title={`5-Yr Avg Growth: ${ind.metrics.growthFull}`}>
+                          <span className="ind-metric-val">{ind.metrics.growth}</span>
+                          <span className="ind-metric-lbl">5-Yr Avg Growth</span>
+                          {ind.metrics.growthNote && (
+                            <span className="ind-metric-subnote">{ind.metrics.growthNote}</span>
+                          )}
+                        </div>
+                        <div className="ind-metric-item" title={`Workforce: ${ind.metrics.workforceFull}`}>
+                          <span className="ind-metric-val">{ind.metrics.workforce}</span>
+                          <span className="ind-metric-lbl">Workforce</span>
+                          {ind.metrics.workforceNote && (
+                            <span className="ind-metric-subnote">{ind.metrics.workforceNote}</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Interactive Hover Highlights (4 points) */}
                     {ind.highlights && ind.highlights.length > 0 && (
@@ -815,7 +844,7 @@ export default function IndustriesPage() {
           <div className="ind-cta-banner-glow" />
 
           <div className="ind-cta-content-col">
-            <div className="ind-eyebrow" style={{ background: 'rgba(255, 107, 0, 0.18)' }}>
+            <div className="ind-eyebrow">
               <Sparkles size={14} />
               <span>INDUSTRY SOLUTIONS</span>
             </div>

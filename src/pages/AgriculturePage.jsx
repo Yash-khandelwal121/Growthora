@@ -211,12 +211,29 @@ export default function AgriculturePage() {
           </div>
 
           <div className="agri-stats-grid">
-            {overview.stats.map((stat, idx) => (
-              <div key={idx} className="agri-stat-card">
-                <span className="agri-stat-val">{stat.value}</span>
-                <span className="agri-stat-lbl">{stat.label}</span>
-              </div>
-            ))}
+            {matchedIndustry && matchedIndustry.metrics ? (
+              <>
+                <div className="agri-stat-card">
+                  <span className="agri-stat-val">{matchedIndustry.metrics.gdpFull}</span>
+                  <span className="agri-stat-lbl">GDP/GVA</span>
+                </div>
+                <div className="agri-stat-card">
+                  <span className="agri-stat-val">{matchedIndustry.metrics.growthFull}</span>
+                  <span className="agri-stat-lbl">5-Yr Avg Growth</span>
+                </div>
+                <div className="agri-stat-card">
+                  <span className="agri-stat-val">{matchedIndustry.metrics.workforceFull}</span>
+                  <span className="agri-stat-lbl">Workforce</span>
+                </div>
+              </>
+            ) : (
+              overview.stats.map((stat, idx) => (
+                <div key={idx} className="agri-stat-card">
+                  <span className="agri-stat-val">{stat.value}</span>
+                  <span className="agri-stat-lbl">{stat.label}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
