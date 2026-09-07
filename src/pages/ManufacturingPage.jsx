@@ -164,17 +164,7 @@ export default function ManufacturingPage() {
 
           {/* Right Hero Visual Card */}
           <div className="mfg-hero-visual-card">
-            <img src={hero.image} alt="Manufacturing Industrial Plant" />
-            <div className="mfg-hero-visual-overlay" />
-            
-            <div className="mfg-hero-floating-badges">
-              {hero.floatingStats.map((stat, i) => (
-                <div className="mfg-floating-badge" key={i}>
-                  <div className="mfg-badge-number">{stat.number}</div>
-                  <div className="mfg-badge-label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+            <img src={hero.image} alt="Manufacturing Industrial Plant with Robotic Arm" />
           </div>
         </div>
       </section>

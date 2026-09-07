@@ -8,7 +8,7 @@ export const MANUFACTURING_PAGE_DATA = {
     eyebrow: 'MANUFACTURING',
     title: 'Manufacturing - funded, compliant, and growing.',
     description: 'We work with manufacturing businesses across India — from first-time MSME registrations to ₹5 Cr collateral-free term loans and the growth engines that compound after.',
-    image: '/industries/manufacturing.jpg',
+    image: '/industries/mfg_hero_robotic_arm.jpg',
     floatingStats: [
       { number: '₹5 Cr', label: 'Collateral-Free Credit' },
       { number: '35%+', label: 'Government Subsidy Eligibility' }
@@ -26,7 +26,7 @@ export const MANUFACTURING_PAGE_DATA = {
       { value: '~35%', label: 'Share of manufacturing GVA' },
       { value: '~45%', label: 'Share of India\'s exports' }
     ],
-    visualImage: '/services/card_reg_company_wide.jpg'
+    visualImage: '/industries/mfg_facility_overview.jpg'
   },
 
   registrations: {
