@@ -19,6 +19,7 @@ import ValuationPage from './pages/ValuationPage';
 import BookConsultationPage from './pages/BookConsultationPage';
 import IndustriesPage from './pages/IndustriesPage';
 import AgriculturePage from './pages/AgriculturePage';
+import ManufacturingPage from './pages/ManufacturingPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -26,6 +27,7 @@ import './styles/animations.css';
 import './styles/blueprint.css';
 import './styles/serviceDetail.css';
 import './styles/agriculture.css';
+import './styles/manufacturing.css';
 
 export function App() {
   return (
@@ -35,6 +37,7 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/industries" element={<IndustriesPage />} />
         <Route path="/industries/agriculture" element={<AgriculturePage />} />
+        <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
         <Route path="/industries/:industrySlug" element={<AgriculturePage />} />
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />

@@ -134,6 +134,11 @@ export default function IndustriesPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    if (industryItem && (industryItem.slug === 'manufacturing' || industryItem.name.toLowerCase() === 'manufacturing')) {
+      navigate('/industries/manufacturing');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (industryItem) {
       setSelectedServiceForModal({
         id: industryItem.id,
