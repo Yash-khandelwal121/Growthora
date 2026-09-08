@@ -511,44 +511,39 @@ export function InsightsPage() {
                           <line x1="0" y1="65" x2="350" y2="65" stroke="rgba(16,25,43,0.06)" strokeDasharray="4 4" />
                           <line x1="0" y1="102" x2="350" y2="102" stroke="rgba(16,25,43,0.06)" strokeDasharray="4 4" />
 
-                          {/* Column 1: Compliance — ₹30L */}
+                          {/* Column 1: Compliance */}
                           <g className="chart-col col-1">
-                            <text x="32" y="91" fontSize="9.5" fontWeight="800" fill="#475569" textAnchor="middle" className="bar-val-text val-1">₹30L</text>
                             <rect x="22" y="97" width="20" height="18" rx="4" fill="rgba(240, 99, 30, 0.3)" className="chart-bar-face2 face2-bar-1" />
                             <text x="32" y="132" fontSize="8.5" fontWeight="700" fill="#64748B" textAnchor="middle">Compliance</text>
-                            <title>Compliance — ₹30L</title>
+                            <title>Compliance</title>
                           </g>
 
-                          {/* Column 2: Loan — ₹2 Cr */}
+                          {/* Column 2: Loan */}
                           <g className="chart-col col-2">
-                            <text x="98" y="73" fontSize="9.5" fontWeight="800" fill="#475569" textAnchor="middle" className="bar-val-text val-2">₹2 Cr</text>
                             <rect x="88" y="79" width="20" height="36" rx="4" fill="rgba(240, 99, 30, 0.5)" className="chart-bar-face2 face2-bar-2" />
                             <text x="98" y="132" fontSize="8.5" fontWeight="700" fill="#64748B" textAnchor="middle">Loan</text>
-                            <title>Loan — ₹2 Cr</title>
+                            <title>Loan</title>
                           </g>
 
-                          {/* Column 3: Subsidy — ₹15 Cr */}
+                          {/* Column 3: Subsidy */}
                           <g className="chart-col col-3">
-                            <text x="164" y="53" fontSize="9.5" fontWeight="800" fill="#475569" textAnchor="middle" className="bar-val-text val-3">₹15 Cr</text>
                             <rect x="154" y="59" width="20" height="56" rx="4" fill="rgba(240, 99, 30, 0.7)" className="chart-bar-face2 face2-bar-3" />
                             <text x="164" y="132" fontSize="8.5" fontWeight="700" fill="#64748B" textAnchor="middle">Subsidy</text>
-                            <title>Subsidy — ₹15 Cr</title>
+                            <title>Subsidy</title>
                           </g>
 
-                          {/* Column 4: Funding — ₹75 Cr */}
+                          {/* Column 4: Funding */}
                           <g className="chart-col col-4">
-                            <text x="230" y="33" fontSize="9.5" fontWeight="800" fill="#475569" textAnchor="middle" className="bar-val-text val-4">₹75 Cr</text>
                             <rect x="220" y="39" width="20" height="76" rx="4" fill="rgba(240, 99, 30, 0.85)" className="chart-bar-face2 face2-bar-4" />
                             <text x="230" y="132" fontSize="8.5" fontWeight="700" fill="#64748B" textAnchor="middle">Funding</text>
-                            <title>Funding — ₹75 Cr</title>
+                            <title>Funding</title>
                           </g>
 
-                          {/* Column 5: Registration — ₹205 Cr (Emphasized Peak Point) */}
+                          {/* Column 5: Registration (Emphasized Peak Point) */}
                           <g className="chart-col col-5">
-                            <text x="296" y="11" fontSize="10.5" fontWeight="900" fill="#F0631E" textAnchor="middle" className="bar-val-text val-5">₹205 Cr</text>
                             <rect x="286" y="17" width="20" height="98" rx="4" fill="#F0631E" className="chart-bar-face2 face2-bar-5" />
                             <text x="296" y="132" fontSize="8.5" fontWeight="800" fill="#F0631E" textAnchor="middle">Registration</text>
-                            <title>Registration — ₹205 Cr</title>
+                            <title>Registration</title>
                           </g>
 
                           {/* Navy Trend Line */}

@@ -19,7 +19,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: true,
     description: 'Eligible startups can claim a 100% income tax exemption for any three consecutive years under Section 80-IAC — but many founders either don\'t qualify or miss the opportunity due to improper planning. Learn the eligibility criteria, application process, documentation, timelines, and how to maximize this benefit.',
-    image: '/services/cert_80iac.jpg',
+    image: '/images/insights/80-iac-tax-exemption-startup-india.webp',
     overlayText: '100% Tax Exemption',
     content: {
       introduction: 'Eligible startups can claim a 100% income tax exemption for any three consecutive years under Section 80-IAC — but many founders either don\'t qualify or miss the opportunity due to improper planning.',
@@ -54,7 +54,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Zero Defect Zero Effect (ZED) Certification helps MSMEs improve quality, enhance operational efficiency, and gain access to government incentives, procurement opportunities, and global markets. Learn how the certification works, who should apply, and the financial assistance available.',
-    image: '/services/cert_zed.jpg',
+    image: '/images/insights/zed-certification-msme-guide.webp',
     content: {
       introduction: 'Zero Defect Zero Effect (ZED) Certification helps MSMEs improve quality, enhance operational efficiency, and gain access to government incentives, procurement opportunities, and global markets.',
       sections: [
@@ -88,7 +88,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'A D-U-N-S Number is more than just a business identifier — it builds credibility with international buyers, multinational corporations, financial institutions, and government agencies. Discover why it matters and how it supports global expansion.',
-    image: '/services/cert_duns.jpg',
+    image: '/images/insights/duns-number-global-business-guide.webp',
     content: {
       introduction: 'A D-U-N-S Number is a unique nine-digit identifier assigned by Dun & Bradstreet that establishes corporate identity and financial credibility across international supply chains.',
       sections: [
@@ -118,7 +118,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'From ISO 9001 and ISO 14001 to ISO 27001 and ISO 45001, selecting the right certification can improve quality, strengthen customer trust, unlock new markets, and support long-term growth. This guide explains the standards, costs, implementation process, and available support for businesses of every size.',
-    image: '/services/cert_iso.jpg',
+    image: '/images/insights/iso-certification-complete-guide-2026.webp',
     content: {
       introduction: 'Selecting the right ISO standard improves operational consistency, builds client confidence, and unlocks qualification criteria for corporate tenders.',
       sections: [
@@ -148,7 +148,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Growing from a startup to a ₹100 crore enterprise requires far more than increasing sales. It demands structured leadership, financial discipline, scalable systems, governance, capital planning, and strategic execution.',
-    image: '/growthora_industries_hero_building.jpg',
+    image: '/images/insights/100-crore-business-roadmap-india.webp',
     overlayTag: 'Bigger Businesses A Stronger India',
     content: {
       introduction: 'Growing from a startup to a ₹100 crore enterprise requires far more than increasing sales. It demands structured leadership, financial discipline, scalable systems, governance, capital planning, and strategic execution.',
@@ -183,7 +183,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Many companies experience rapid early growth but struggle to move beyond ₹5 crore in annual revenue. Discover the operational, financial, and leadership bottlenecks that limit scale — and the strategic frameworks used by successful businesses to overcome them.',
-    image: '/services/ops_strategy.jpg',
+    image: '/images/insights/breaking-5-crore-revenue-plateau-india.webp',
     content: {
       introduction: 'Many Indian enterprises hit an invisible growth wall at ₹5 crore revenue due to founder dependency, cash flow misalignment, and informal management structures.',
       sections: [
@@ -213,7 +213,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Revenue alone doesn\'t measure business health. From EBITDA and cash conversion cycle to customer acquisition cost, gross margin, and employee productivity, learn the key performance indicators every CEO should monitor to drive sustainable growth.',
-    image: '/services/ff_chart.jpg',
+    image: '/images/insights/ceo-dashboard-25-business-metrics-india.webp',
     content: {
       introduction: 'Revenue alone doesn\'t measure business health. Managing a scaling business requires tracking a balanced dashboard of financial, operational, customer, and human capital metrics.',
       sections: [
@@ -243,7 +243,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Expansion is one of the biggest investments a company makes. Learn how to determine the right time, structure, funding model, and risk management approach before entering new cities, states, or international markets.',
-    image: '/industries/manufacturing.jpg',
+    image: '/images/insights/business-expansion-strategy-india.webp',
     content: {
       introduction: 'Expansion requires evaluating market demand, local compliance regulations, tax implications (GST cross-charge/transfer pricing), and capital requirements.',
       sections: [
@@ -273,7 +273,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Business valuation isn\'t only for investors or acquisitions. Learn the financial methods, growth drivers, and strategic factors that determine your company\'s value and how to increase it before seeking funding or planning an exit.',
-    image: '/services/ff_laptop.jpg',
+    image: '/images/insights/business-valuation-india-guide.webp',
     content: {
       introduction: 'Understanding business valuation methodologies enables founders to negotiate funding rounds, structure M&A transactions, and build long-term enterprise value.',
       sections: [
@@ -303,7 +303,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Investors fund businesses that demonstrate financial discipline, governance, predictable growth, and operational maturity. Discover the key documents, metrics, systems, and strategies that make your company investment-ready.',
-    image: '/services/ff_team.jpg',
+    image: '/images/insights/investor-ready-business-india.webp',
     content: {
       introduction: 'Being investor-ready means having audited financial records, clean legal cap tables, clear IP ownership, and structured growth forecasts prepared before entering due diligence.',
       sections: [
@@ -333,7 +333,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'A successful business isn\'t built quarter by quarter — it follows a long-term strategic roadmap. Learn how to develop a practical five-year business plan covering growth targets, expansion, funding, people, operations, and risk management.',
-    image: '/industries/information_technology.jpg',
+    image: '/images/insights/5-year-business-plan-india.webp',
     content: {
       introduction: 'A structured 5-year strategic blueprint aligns management, capital allocation, operational roadmap, and market expansion targets.',
       sections: [
@@ -363,7 +363,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Every successful business should be built with an exit strategy in mind. Whether planning a merger, acquisition, management buyout, family succession, or IPO, strategic preparation significantly impacts valuation and transaction success.',
-    image: '/industries/fintech.jpg',
+    image: '/images/insights/exit-strategy-business-india.webp',
     content: {
       introduction: 'Planning an exit strategy 3 to 5 years in advance maximizes transaction valuation, streamlines regulatory approvals, and ensures seamless leadership succession.',
       sections: [
@@ -393,7 +393,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'The strongest businesses don\'t just grow — they build governance systems that inspire investor confidence, improve decision-making, and reduce operational risk. Learn how structured governance can transform an ambitious company into an institution.',
-    image: '/services/legal_ca_hero_wide.jpg',
+    image: '/images/insights/corporate-governance-competitive-advantage-india.webp',
     content: {
       introduction: 'Robust corporate governance transforms mid-sized companies into institutional enterprises that attract premium valuations and banking lines.',
       sections: [
@@ -423,7 +423,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Businesses often reach a point where growth depends less on the founder and more on the strength of systems, leadership, and accountability. Explore the strategic transition that enables companies to scale sustainably and endure across generations.',
-    image: '/services/ops_hr.jpg',
+    image: '/images/insights/founder-to-professional-management-india.webp',
     overlayTag: 'People Process Progress',
     content: {
       introduction: 'Transitioning from founder-driven execution to a professionally managed enterprise is the single most critical evolution for scaling beyond early success.',
@@ -454,7 +454,7 @@ export const ALL_INSIGHTS = [
     date: '15 May 2026',
     featured: false,
     description: 'Three legal structures dominate Indian startup and MSME registrations — Private Limited, LLP, and OPC. Each has different compliance costs, tax implications, and investor readiness. A direct comparison for founders making the decision.',
-    image: '/services/card_reg_pvt_ltd.jpg',
+    image: '/images/insights/private-limited-vs-llp-vs-opc-india.webp',
     content: {
       introduction: 'Choosing the right legal entity structure balances annual compliance costs, tax optimization, limited liability protection, and fundraising capability.',
       sections: [
@@ -484,7 +484,7 @@ export const ALL_INSIGHTS = [
     date: '6 May 2026',
     featured: false,
     description: 'PMFME gives micro food-processing units a 35% credit-linked capital subsidy, seed capital for SHGs, and branding support. Here is who qualifies and how to build a fundable application.',
-    image: '/services/msme_pmfme.jpg',
+    image: '/images/insights/pmfme-scheme-food-processing-subsidy.webp',
     content: {
       introduction: 'The Pradhan Mantri Formalisation of Micro food processing Enterprises (PMFME) scheme offers micro food-processing enterprises financial, technical, and business support.',
       sections: [
@@ -514,7 +514,7 @@ export const ALL_INSIGHTS = [
     date: '28 April 2026',
     featured: false,
     description: 'Both schemes offer collateral-free lending — but they serve different business sizes, loan amounts, and purposes. A direct comparison to help you choose the right scheme before you approach a bank.',
-    image: '/services/ff_loan_wide.jpg',
+    image: '/images/insights/mudra-loan-vs-cgtmse-2026.webp',
     content: {
       introduction: 'India’s two primary collateral-free credit schemes—MUDRA and CGTMSE—cater to distinct borrowing requirements, loan limits, and business maturity stages.',
       sections: [
@@ -544,7 +544,7 @@ export const ALL_INSIGHTS = [
     date: '12 April 2026',
     featured: false,
     description: 'ISO certification unlocks tenders, buyer confidence, and scheme eligibility — but only the right standard, obtained the right way, delivers value. Here is how MSMEs choose, budget, and get certified.',
-    image: '/services/cert_lab_wide.jpg',
+    image: '/images/insights/iso-certification-msme-guide.webp',
     content: {
       introduction: 'ISO certification equips MSMEs with globally recognized quality credentials required for corporate vendor registration and public procurement tenders.',
       sections: [
@@ -574,7 +574,7 @@ export const ALL_INSIGHTS = [
     date: '10 April 2026',
     featured: false,
     description: 'DPIIT recognition unlocks tax exemptions, fast-track IPR filing, government tender access, and eligibility for the Startup India Seed Fund. Here\'s the exact process, documents, and timeline.',
-    image: '/services/cert_startup_india.jpg',
+    image: '/images/insights/dpiit-startup-india-recognition-2026.webp',
     overlayTag: 'Ideas Innovation Impact',
     content: {
       introduction: 'DPIIT Recognition grants startups access to official incentives including tax holidays, self-certification under labor laws, fast-tracked patent filing, and public procurement waivers.',
@@ -605,7 +605,7 @@ export const ALL_INSIGHTS = [
     date: '25 March 2026',
     featured: false,
     description: 'The Prime Minister\'s Employment Generation Programme offers 15-35% capital subsidy for new micro-enterprises — but the application process, bank linkage, and margin money requirement trip up most first-time applicants. A complete guide.',
-    image: '/services/msme_pmegp.jpg',
+    image: '/images/insights/pmegp-scheme-2026-guide.webp',
     content: {
       introduction: 'The Prime Minister’s Employment Generation Programme (PMEGP) is a credit-linked subsidy scheme for establishing new micro-enterprises in manufacturing and service sectors.',
       sections: [
@@ -635,7 +635,7 @@ export const ALL_INSIGHTS = [
     date: '20 March 2026',
     featured: false,
     description: 'The Government e-Marketplace is one of the largest public procurement channels in the world. Here is how MSMEs register as sellers, unlock purchase preference, and avoid the errors that get listings blocked.',
-    image: '/services/cert_gem.jpg',
+    image: '/images/insights/gem-registration-msme-2026.webp',
     content: {
       introduction: 'The Government e-Marketplace (GeM) provides Indian MSMEs direct access to multi-billion-dollar central and state government department procurement tenders.',
       sections: [
@@ -665,7 +665,7 @@ export const ALL_INSIGHTS = [
     date: '10 March 2026',
     featured: false,
     description: 'With AI-driven digital lending and expanded government backing, securing up to ₹10 lakh is now faster and more transparent than ever. A guide to eligibility, top schemes, and the fastest approval paths.',
-    image: '/services/ff_meeting.jpg',
+    image: '/images/insights/msme-business-loan-10-lakh.webp',
     content: {
       introduction: 'Securing collateral-free business loans up to ₹10 Lakh for MSMEs has been streamlined through digital lending portals, MUDRA, and PSBLoansIn59Minutes.',
       sections: [
@@ -695,7 +695,7 @@ export const ALL_INSIGHTS = [
     date: '2 March 2026',
     featured: false,
     description: 'A practical map of the central and state subsidies Indian MSMEs qualify for in 2026 — capital subsidies, interest subvention, credit guarantee, and state incentives — and how to actually claim them.',
-    image: '/industries/clean_energy.jpg',
+    image: '/images/insights/msme-subsidy-schemes-india-2026.webp',
     content: {
       introduction: 'Indian MSMEs miss out on crores in government financial incentives annually due to lack of awareness regarding central and state subsidy schemes.',
       sections: [
@@ -725,7 +725,7 @@ export const ALL_INSIGHTS = [
     date: '20 February 2026',
     featured: false,
     description: 'With the GST Council\'s push toward auto-reconciliation in 2026, MSMEs that stay compliant gain a competitive edge. A practical guide to ITC, filing calendars, and the mistakes that cost lakhs.',
-    image: '/services/card_reg_gst.jpg',
+    image: '/images/insights/gst-compliance-msme-2026.webp',
     content: {
       introduction: 'Strict GST compliance and automated Input Tax Credit (ITC) reconciliation prevent cash flow blockages and tax audit penalties.',
       sections: [
@@ -755,7 +755,7 @@ export const ALL_INSIGHTS = [
     date: '8 February 2026',
     featured: false,
     description: 'Stand-Up India funds greenfield enterprises for SC, ST, and women founders with composite loans from Rs 10 lakh to Rs 1 crore. Here is who qualifies, how the 85% funding works, and the mistakes that stall sanctions.',
-    image: '/services/msme_naiff.jpg',
+    image: '/images/insights/stand-up-india-scheme-2026.webp',
     content: {
       introduction: 'The Stand-Up India scheme facilitates bank loans between ₹10 Lakh and ₹1 Crore to Scheduled Caste (SC), Scheduled Tribe (ST), and Women borrowers for setting up greenfield enterprises.',
       sections: [
@@ -785,7 +785,7 @@ export const ALL_INSIGHTS = [
     date: '5 February 2026',
     featured: false,
     description: 'The single most impactful step an Indian business owner can take to formally enter the MSME ecosystem — free, paperless, and Aadhaar-based. Here\'s what registration actually unlocks.',
-    image: '/services/msme_electricity_duty.jpg',
+    image: '/images/insights/udyam-registration-2026.webp',
     content: {
       introduction: 'Udyam Registration is the official government registration system for Micro, Small, and Medium Enterprises in India, replacing Udyog Aadhaar Memorandum.',
       sections: [
@@ -815,7 +815,7 @@ export const ALL_INSIGHTS = [
     date: '25 January 2026',
     featured: false,
     description: 'The non-negotiables: a five-year P&L tied to a realistic capacity ramp, a sensitivity table the bank can stress-test, and the schedules — DSCR, working-capital cycle, debt-equity — every credit committee opens first.',
-    image: '/services/branding_agency_wide.jpg',
+    image: '/images/insights/msme-financial-model-template.webp',
     content: {
       introduction: 'A fundable project report is the key document bank credit committees evaluate to determine loan sanction, debt-service coverage, and repayment feasibility.',
       sections: [
@@ -845,7 +845,7 @@ export const ALL_INSIGHTS = [
     date: '18 January 2026',
     featured: false,
     description: 'Why the micro/small/medium threshold matters far more than founders realize: it determines which schemes, which subsidies, and which lender desks even look at your file.',
-    image: '/services/card_reg_msme.jpg',
+    image: '/images/insights/udyam-registration-step-by-step.webp',
     content: {
       introduction: 'Understanding MSME composite classification thresholds (Investment in Plant & Machinery + Annual Turnover) determines eligibility for specific state and central subsidy schemes.',
       sections: [
@@ -875,7 +875,7 @@ export const ALL_INSIGHTS = [
     date: '10 January 2026',
     featured: false,
     description: 'A field-tested walkthrough of the credit-guarantee scheme — sector eligibility, the working-capital vs. term-loan distinction, and what bankers look for in your project report.',
-    image: '/services/msme_ahidf.jpg',
+    image: '/images/insights/cgtmse-eligibility-2026.webp',
     content: {
       introduction: 'The Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE) provides collateral-free credit guarantees to banks and NBFCs for lending to MSMEs.',
       sections: [
