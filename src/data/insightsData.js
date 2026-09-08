@@ -243,7 +243,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Expansion is one of the biggest investments a company makes. Learn how to determine the right time, structure, funding model, and risk management approach before entering new cities, states, or international markets.',
-    image: '/services/card_reg_company_wide.jpg',
+    image: '/industries/manufacturing.jpg',
     content: {
       introduction: 'Expansion requires evaluating market demand, local compliance regulations, tax implications (GST cross-charge/transfer pricing), and capital requirements.',
       sections: [
@@ -333,7 +333,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'A successful business isn\'t built quarter by quarter — it follows a long-term strategic roadmap. Learn how to develop a practical five-year business plan covering growth targets, expansion, funding, people, operations, and risk management.',
-    image: '/services/ops_hero.jpg',
+    image: '/industries/information_technology.jpg',
     content: {
       introduction: 'A structured 5-year strategic blueprint aligns management, capital allocation, operational roadmap, and market expansion targets.',
       sections: [
@@ -363,7 +363,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Every successful business should be built with an exit strategy in mind. Whether planning a merger, acquisition, management buyout, family succession, or IPO, strategic preparation significantly impacts valuation and transaction success.',
-    image: '/services/ff_industry.jpg',
+    image: '/industries/fintech.jpg',
     content: {
       introduction: 'Planning an exit strategy 3 to 5 years in advance maximizes transaction valuation, streamlines regulatory approvals, and ensures seamless leadership succession.',
       sections: [
@@ -393,7 +393,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'The strongest businesses don\'t just grow — they build governance systems that inspire investor confidence, improve decision-making, and reduce operational risk. Learn how structured governance can transform an ambitious company into an institution.',
-    image: '/services/legal_hero.jpg',
+    image: '/services/legal_ca_hero_wide.jpg',
     content: {
       introduction: 'Robust corporate governance transforms mid-sized companies into institutional enterprises that attract premium valuations and banking lines.',
       sections: [
@@ -695,7 +695,7 @@ export const ALL_INSIGHTS = [
     date: '2 March 2026',
     featured: false,
     description: 'A practical map of the central and state subsidies Indian MSMEs qualify for in 2026 — capital subsidies, interest subvention, credit guarantee, and state incentives — and how to actually claim them.',
-    image: '/services/msme_hero.jpg',
+    image: '/industries/clean_energy.jpg',
     content: {
       introduction: 'Indian MSMEs miss out on crores in government financial incentives annually due to lack of awareness regarding central and state subsidy schemes.',
       sections: [
@@ -755,7 +755,7 @@ export const ALL_INSIGHTS = [
     date: '8 February 2026',
     featured: false,
     description: 'Stand-Up India funds greenfield enterprises for SC, ST, and women founders with composite loans from Rs 10 lakh to Rs 1 crore. Here is who qualifies, how the 85% funding works, and the mistakes that stall sanctions.',
-    image: '/industries/fintech.jpg',
+    image: '/services/msme_naiff.jpg',
     content: {
       introduction: 'The Stand-Up India scheme facilitates bank loans between ₹10 Lakh and ₹1 Crore to Scheduled Caste (SC), Scheduled Tribe (ST), and Women borrowers for setting up greenfield enterprises.',
       sections: [
@@ -785,7 +785,7 @@ export const ALL_INSIGHTS = [
     date: '5 February 2026',
     featured: false,
     description: 'The single most impactful step an Indian business owner can take to formally enter the MSME ecosystem — free, paperless, and Aadhaar-based. Here\'s what registration actually unlocks.',
-    image: '/services/card_reg_msme.jpg',
+    image: '/services/msme_electricity_duty.jpg',
     content: {
       introduction: 'Udyam Registration is the official government registration system for Micro, Small, and Medium Enterprises in India, replacing Udyog Aadhaar Memorandum.',
       sections: [
@@ -815,7 +815,7 @@ export const ALL_INSIGHTS = [
     date: '25 January 2026',
     featured: false,
     description: 'The non-negotiables: a five-year P&L tied to a realistic capacity ramp, a sensitivity table the bank can stress-test, and the schedules — DSCR, working-capital cycle, debt-equity — every credit committee opens first.',
-    image: '/services/legal_ca_accounting.jpg',
+    image: '/services/branding_agency_wide.jpg',
     content: {
       introduction: 'A fundable project report is the key document bank credit committees evaluate to determine loan sanction, debt-service coverage, and repayment feasibility.',
       sections: [
@@ -845,7 +845,7 @@ export const ALL_INSIGHTS = [
     date: '18 January 2026',
     featured: false,
     description: 'Why the micro/small/medium threshold matters far more than founders realize: it determines which schemes, which subsidies, and which lender desks even look at your file.',
-    image: '/services/reg_msme_hero.jpg',
+    image: '/services/card_reg_msme.jpg',
     content: {
       introduction: 'Understanding MSME composite classification thresholds (Investment in Plant & Machinery + Annual Turnover) determines eligibility for specific state and central subsidy schemes.',
       sections: [
@@ -875,7 +875,7 @@ export const ALL_INSIGHTS = [
     date: '10 January 2026',
     featured: false,
     description: 'A field-tested walkthrough of the credit-guarantee scheme — sector eligibility, the working-capital vs. term-loan distinction, and what bankers look for in your project report.',
-    image: '/services/legal_drafting.jpg',
+    image: '/services/msme_ahidf.jpg',
     content: {
       introduction: 'The Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE) provides collateral-free credit guarantees to banks and NBFCs for lending to MSMEs.',
       sections: [

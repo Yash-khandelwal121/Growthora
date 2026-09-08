@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
   Search,
   ArrowRight,
@@ -42,6 +42,7 @@ import '../styles/insights.css';
 export function InsightsPage() {
   const navigate = useNavigate();
   const { slug } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // State management
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -49,12 +50,32 @@ export function InsightsPage() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskGrowthoraOpen, setIsAskGrowthoraOpen] = useState(false);
 
+  // Live search dropdown state & refs
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+  const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
+  const searchContainerRef = useRef(null);
+
   // Selected article for reader modal
   const [selectedArticle, setSelectedArticle] = useState(null);
 
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterMsg, setNewsletterMsg] = useState(null);
+
+  // Sync category from URL search params on mount & browser back/forward navigation
+  useEffect(() => {
+    const catParam = searchParams.get('category');
+    if (catParam) {
+      const matchedCat = INSIGHT_CATEGORIES.find(
+        (c) => c.toLowerCase() === catParam.toLowerCase()
+      );
+      if (matchedCat) {
+        setSelectedCategory(matchedCat);
+        return;
+      }
+    }
+    setSelectedCategory('All');
+  }, [searchParams]);
 
   // Sync route slug with selectedArticle & scroll to top
   useEffect(() => {
@@ -78,27 +99,146 @@ export function InsightsPage() {
 
   const handleCloseArticleModal = () => {
     setSelectedArticle(null);
-    navigate('/insights', { replace: false });
+    const catParam = searchParams.get('category');
+    if (catParam) {
+      navigate(`/insights?category=${encodeURIComponent(catParam)}`, { replace: false });
+    } else {
+      navigate('/insights', { replace: false });
+    }
   };
 
-  // Filtered insights logic
-  const filteredGridInsights = useMemo(() => {
-    return GRID_INSIGHTS.filter((item) => {
+  const handleCategoryClick = (cat) => {
+    setSelectedCategory(cat);
+
+    if (cat === 'All') {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.delete('category');
+      setSearchParams(newParams, { replace: false });
+    } else {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('category', cat.toLowerCase());
+      setSearchParams(newParams, { replace: false });
+    }
+
+    const el = document.getElementById('insights-grid-section');
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < 0 || rect.top > 250) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  // Filtered pool of articles matching selected category AND search query
+  const filteredCategoryArticles = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+
+    return ALL_INSIGHTS.filter((item) => {
       const matchesCategory =
         selectedCategory === 'All' ||
         item.category.toLowerCase() === selectedCategory.toLowerCase();
 
-      const query = searchQuery.trim().toLowerCase();
-      const matchesSearch =
-        !query ||
-        item.title.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query) ||
-        item.badge.toLowerCase().includes(query);
+      if (!query) return matchesCategory;
 
-      return matchesCategory && matchesSearch;
+      const matchesTitle = item.title?.toLowerCase().includes(query);
+      const matchesDesc = item.description?.toLowerCase().includes(query);
+      const matchesCat = item.category?.toLowerCase().includes(query);
+      const matchesBadge = item.badge?.toLowerCase().includes(query);
+      const matchesTag =
+        item.overlayTag?.toLowerCase().includes(query) ||
+        item.overlayText?.toLowerCase().includes(query);
+
+      return matchesCategory && (matchesTitle || matchesDesc || matchesCat || matchesBadge || matchesTag);
     });
   }, [selectedCategory, searchQuery]);
+
+  // Dynamic Featured Article based on category & search filter
+  const activeFeaturedInsight = useMemo(() => {
+    if (selectedCategory === 'All' && !searchQuery.trim()) {
+      return FEATURED_INSIGHT;
+    }
+    return filteredCategoryArticles.length > 0 ? filteredCategoryArticles[0] : null;
+  }, [selectedCategory, searchQuery, filteredCategoryArticles]);
+
+  // Dynamic Latest Insights (up to 3 articles) based on category & search filter
+  const activeLatestInsights = useMemo(() => {
+    if (selectedCategory === 'All' && !searchQuery.trim()) {
+      return LATEST_INSIGHTS;
+    }
+    if (filteredCategoryArticles.length > 1) {
+      return filteredCategoryArticles.slice(1, 4);
+    }
+    return [];
+  }, [selectedCategory, searchQuery, filteredCategoryArticles]);
+
+  // Live search dropdown results (strictly A-Z sorted)
+  const searchDropdownResults = useMemo(() => {
+    return [...filteredCategoryArticles].sort((a, b) => a.title.localeCompare(b.title));
+  }, [filteredCategoryArticles]);
+
+  // Main grid output
+  const filteredGridInsights = useMemo(() => {
+    return filteredCategoryArticles;
+  }, [filteredCategoryArticles]);
+
+  // Click Outside & Escape key listener to close live dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
+        setIsSearchDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDownGlobal = (e) => {
+      if (e.key === 'Escape') {
+        setIsSearchDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDownGlobal);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDownGlobal);
+    };
+  }, []);
+
+  const handleSelectSearchItem = (article) => {
+    setIsSearchDropdownOpen(false);
+    handleArticleClick(article);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (!isSearchDropdownOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        setIsSearchDropdownOpen(true);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlightedSearchIndex((prev) =>
+        prev < searchDropdownResults.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightedSearchIndex((prev) =>
+        prev > 0 ? prev - 1 : searchDropdownResults.length - 1
+      );
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (
+        searchDropdownResults.length > 0 &&
+        highlightedSearchIndex >= 0 &&
+        highlightedSearchIndex < searchDropdownResults.length
+      ) {
+        handleSelectSearchItem(searchDropdownResults[highlightedSearchIndex]);
+      }
+    } else if (e.key === 'Escape') {
+      setIsSearchDropdownOpen(false);
+    }
+  };
 
   // Parallax & Interactive 3D visual state
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -468,32 +608,104 @@ export function InsightsPage() {
                   role="tab"
                   aria-selected={selectedCategory === cat}
                   className={`insights-category-pill ${selectedCategory === cat ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => handleCategoryClick(cat)}
                 >
                   {cat}
                 </button>
               ))}
             </div>
 
-            {/* Search Box */}
-            <div className="insights-search-box">
+            {/* Search Box with Live Dropdown */}
+            <div ref={searchContainerRef} className="insights-search-box">
               <Search className="insights-search-icon" size={16} />
               <input
                 type="text"
                 className="insights-search-input"
                 placeholder="Search insights..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => {
+                  setIsSearchDropdownOpen(true);
+                }}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchDropdownOpen(true);
+                  setHighlightedSearchIndex(0);
+                }}
+                onKeyDown={handleSearchKeyDown}
+                aria-expanded={isSearchDropdownOpen}
+                aria-haspopup="listbox"
               />
+
               {searchQuery && (
                 <button
                   type="button"
                   className="insights-clear-search"
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => {
+                    setSearchQuery('');
+                    setHighlightedSearchIndex(0);
+                    setIsSearchDropdownOpen(false);
+                  }}
                   aria-label="Clear search query"
+                  title="Clear search"
                 >
                   <X size={14} />
                 </button>
+              )}
+
+              {/* Live Search Dropdown Panel */}
+              {isSearchDropdownOpen && searchQuery.trim() !== '' && (
+                <div className="insights-search-dropdown" role="listbox">
+                  {searchDropdownResults.length > 0 ? (
+                    <div className="insights-dropdown-results-header">
+                      <span>{searchDropdownResults.length} {searchDropdownResults.length === 1 ? 'article' : 'articles'} found (Sorted A–Z)</span>
+                    </div>
+                  ) : null}
+
+                  {searchDropdownResults.length > 0 ? (
+                    searchDropdownResults.map((item, index) => (
+                      <div
+                        key={item.id}
+                        role="option"
+                        aria-selected={highlightedSearchIndex === index}
+                        className={`insights-search-result-item ${
+                          highlightedSearchIndex === index ? 'highlighted' : ''
+                        }`}
+                        onMouseEnter={() => setHighlightedSearchIndex(index)}
+                        onClick={() => handleSelectSearchItem(item)}
+                      >
+                        <div className="insights-search-result-info">
+                          <div className="insights-search-result-title">{item.title}</div>
+                          <div className="insights-search-result-meta">
+                            <span className="insights-search-result-badge">{item.badge || item.category}</span>
+                            <span className="insights-meta-dot" />
+                            <Clock size={12} />
+                            <span>{item.readTime}</span>
+                          </div>
+                        </div>
+                        <ChevronRight className="insights-search-result-arrow" size={16} />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="insights-search-empty-state">
+                      <HelpCircle size={22} className="insights-empty-icon-sub" />
+                      <p className="insights-empty-title">No insights found</p>
+                      <span className="insights-empty-desc">
+                        We couldn't find any articles matching "{searchQuery}". Try searching for funding, compliance, tax, or ISO.
+                      </span>
+                      <button
+                        type="button"
+                        className="insights-empty-reset-btn"
+                        onClick={() => {
+                          setSearchQuery('');
+                          handleCategoryClick('All');
+                          setIsSearchDropdownOpen(false);
+                        }}
+                      >
+                        Reset Search & Filters
+                      </button>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 
@@ -502,101 +714,129 @@ export function InsightsPage() {
       </section>
 
       {/* ─── FEATURED INSIGHT SECTION ─── */}
-      <section className="insights-featured-section">
-        <div className="insights-container">
-          <div className="insights-section-eyebrow">
-            <span style={{ fontSize: '1rem', color: '#FF7200', fontWeight: 'bold' }}>⊕</span>
-            <span>FEATURED INSIGHT</span>
-          </div>
-
-          <div className="insights-featured-grid">
-            
-            {/* Left Featured Article Card */}
-            <div
-              className="insights-featured-card"
-              onClick={() => handleArticleClick(FEATURED_INSIGHT)}
-            >
-              <div className="insights-featured-img-wrap">
-                <img
-                  src={FEATURED_INSIGHT.image}
-                  alt={FEATURED_INSIGHT.title}
-                  className="insights-featured-img"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = '/public/growthora_industries_hero_building.jpg';
-                  }}
-                />
-                {FEATURED_INSIGHT.overlayText && (
-                  <div className="insights-featured-overlay-badge">
-                    {FEATURED_INSIGHT.overlayText}
-                  </div>
-                )}
-              </div>
-
-              <div className="insights-featured-body">
-                <span className="insights-badge">{FEATURED_INSIGHT.badge}</span>
-                <h2 className="insights-featured-title">{FEATURED_INSIGHT.title}</h2>
-                <p className="insights-featured-desc">{FEATURED_INSIGHT.description}</p>
-
-                <div className="insights-card-meta">
-                  <Clock size={14} />
-                  <span>{FEATURED_INSIGHT.readTime}</span>
-                  <span className="insights-meta-dot" />
-                  <Calendar size={14} />
-                  <span>{FEATURED_INSIGHT.date}</span>
-                </div>
-
-                <button type="button" className="insights-btn-read">
-                  <span>Read Insight</span>
-                  <ArrowRight size={16} />
-                </button>
-              </div>
+      {activeFeaturedInsight && (
+        <section className="insights-featured-section">
+          <div className="insights-container">
+            <div className="insights-section-eyebrow">
+              <span style={{ fontSize: '1rem', color: '#FF7200', fontWeight: 'bold' }}>⊕</span>
+              <span>
+                {selectedCategory !== 'All'
+                  ? `FEATURED IN ${selectedCategory.toUpperCase()}`
+                  : 'FEATURED INSIGHT'}
+              </span>
             </div>
 
-            {/* Right Latest Insights Column */}
-            <div className="insights-latest-col">
-              <div className="insights-section-eyebrow" style={{ marginBottom: '12px' }}>
-                <span style={{ fontSize: '1rem', color: '#FF7200', fontWeight: 'bold' }}>⊕</span>
-                <span>LATEST INSIGHTS</span>
-              </div>
-
-              {LATEST_INSIGHTS.map((item) => (
-                <div
-                  key={item.id}
-                  className="insights-latest-card"
-                  onClick={() => handleArticleClick(item)}
-                >
-                  <div className="insights-latest-thumb-wrap">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="insights-latest-thumb"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = '/services/ff_meeting.jpg';
-                      }}
-                    />
-                  </div>
-
-                  <div className="insights-latest-content">
-                    <span className="insights-badge">{item.badge}</span>
-                    <h3 className="insights-latest-title">{item.title}</h3>
-                    <div className="insights-card-meta" style={{ marginBottom: 0 }}>
-                      <Clock size={13} />
-                      <span>{item.readTime}</span>
-                      <span className="insights-meta-dot" />
-                      <span>{item.date}</span>
+            <div className="insights-featured-grid">
+              
+              {/* Left Featured Article Card */}
+              <div
+                className="insights-featured-card"
+                onClick={() => handleArticleClick(activeFeaturedInsight)}
+              >
+                <div className="insights-featured-img-wrap">
+                  <img
+                    src={activeFeaturedInsight.image}
+                    alt={activeFeaturedInsight.title}
+                    className="insights-featured-img"
+                    width="600"
+                    height="375"
+                    loading="eager"
+                    decoding="async"
+                    style={{
+                      objectFit: activeFeaturedInsight.objectFit || 'cover',
+                      objectPosition: activeFeaturedInsight.objectPosition || 'top center'
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/growthora_industries_hero_building.jpg';
+                    }}
+                  />
+                  {activeFeaturedInsight.overlayText && (
+                    <div className="insights-featured-overlay-badge">
+                      {activeFeaturedInsight.overlayText}
                     </div>
+                  )}
+                </div>
+
+                <div className="insights-featured-body">
+                  <span className="insights-badge">{activeFeaturedInsight.badge}</span>
+                  <h2 className="insights-featured-title">{activeFeaturedInsight.title}</h2>
+                  <p className="insights-featured-desc">{activeFeaturedInsight.description}</p>
+
+                  <div className="insights-card-meta">
+                    <Clock size={14} />
+                    <span>{activeFeaturedInsight.readTime}</span>
+                    <span className="insights-meta-dot" />
+                    <Calendar size={14} />
+                    <span>{activeFeaturedInsight.date}</span>
                   </div>
 
-                  <ArrowRight className="insights-latest-arrow" size={18} />
+                  <button type="button" className="insights-btn-read">
+                    <span>Read Insight</span>
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
-              ))}
-            </div>
+              </div>
 
+              {/* Right Latest Insights Column */}
+              {activeLatestInsights.length > 0 && (
+                <div className="insights-latest-col">
+                  <div className="insights-section-eyebrow" style={{ marginBottom: '12px' }}>
+                    <span style={{ fontSize: '1rem', color: '#FF7200', fontWeight: 'bold' }}>⊕</span>
+                    <span>
+                      {selectedCategory !== 'All'
+                        ? `MORE IN ${selectedCategory.toUpperCase()}`
+                        : 'LATEST INSIGHTS'}
+                    </span>
+                  </div>
+
+                  {activeLatestInsights.map((item) => (
+                    <div
+                      key={item.id}
+                      className="insights-latest-card"
+                      onClick={() => handleArticleClick(item)}
+                    >
+                      <div className="insights-latest-thumb-wrap">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="insights-latest-thumb"
+                          width="160"
+                          height="100"
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            objectFit: item.objectFit || 'cover',
+                            objectPosition: item.objectPosition || 'top center'
+                          }}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '/services/ff_meeting.jpg';
+                          }}
+                        />
+                      </div>
+
+                      <div className="insights-latest-content">
+                        <span className="insights-badge">{item.badge}</span>
+                        <h3 className="insights-latest-title">{item.title}</h3>
+                        <div className="insights-card-meta" style={{ marginBottom: 0 }}>
+                          <Clock size={13} />
+                          <span>{item.readTime}</span>
+                          <span className="insights-meta-dot" />
+                          <span>{item.date}</span>
+                        </div>
+                      </div>
+
+                      <ArrowRight className="insights-latest-arrow" size={18} />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ─── MAIN INSIGHTS GRID ─── */}
       <section className="insights-grid-section">
@@ -606,11 +846,21 @@ export function InsightsPage() {
             <div className="insights-grid-title-group">
               <div className="insights-section-eyebrow" style={{ marginBottom: '8px' }}>
                 <span style={{ fontSize: '1rem', color: '#FF7200', fontWeight: 'bold' }}>⊕</span>
-                <span>EXPLORE INSIGHTS</span>
+                <span>
+                  {selectedCategory !== 'All'
+                    ? `${selectedCategory.toUpperCase()} INSIGHTS (${filteredGridInsights.length})`
+                    : 'EXPLORE INSIGHTS'}
+                </span>
               </div>
-              <h2>Ideas, insights and opportunities</h2>
+              <h2>
+                {selectedCategory !== 'All'
+                  ? `${selectedCategory} Articles & Analysis`
+                  : 'Ideas, insights and opportunities'}
+              </h2>
               <p className="insights-grid-subtitle">
-                In-depth articles, guides and analysis to help you build, comply and grow.
+                {selectedCategory !== 'All'
+                  ? `Showing all ${filteredGridInsights.length} ${selectedCategory.toLowerCase()} articles from our growth database.`
+                  : 'In-depth articles, guides and analysis to help you build, comply and grow.'}
               </p>
             </div>
 
@@ -618,8 +868,8 @@ export function InsightsPage() {
               <div
                 className="insights-view-all-link"
                 onClick={() => {
-                  setSelectedCategory('All');
                   setSearchQuery('');
+                  handleCategoryClick('All');
                 }}
               >
                 <span>View all insights</span>
@@ -642,6 +892,14 @@ export function InsightsPage() {
                       src={item.image}
                       alt={item.title}
                       className="insights-card-img"
+                      width="400"
+                      height="250"
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        objectFit: item.objectFit || 'cover',
+                        objectPosition: item.objectPosition || 'top center'
+                      }}
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = '/services/card_reg_pvt_ltd.jpg';
@@ -686,8 +944,8 @@ export function InsightsPage() {
                 type="button"
                 className="insights-empty-reset-btn"
                 onClick={() => {
-                  setSelectedCategory('All');
                   setSearchQuery('');
+                  handleCategoryClick('All');
                 }}
               >
                 Reset Search & Filters
@@ -872,15 +1130,25 @@ export function InsightsPage() {
               </div>
             </div>
 
-            <img
-              src={selectedArticle.image}
-              alt={selectedArticle.title}
-              className="insights-modal-img"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = '/services/card_reg_pvt_ltd.jpg';
-              }}
-            />
+            <div className="insights-modal-img-wrap">
+              <img
+                src={selectedArticle.image}
+                alt={selectedArticle.title}
+                className="insights-modal-img"
+                width="800"
+                height="500"
+                loading="eager"
+                decoding="async"
+                style={{
+                  objectFit: selectedArticle.objectFit || 'cover',
+                  objectPosition: selectedArticle.objectPosition || 'top center'
+                }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/services/card_reg_pvt_ltd.jpg';
+                }}
+              />
+            </div>
 
             <div className="insights-modal-intro">
               {selectedArticle.description}
