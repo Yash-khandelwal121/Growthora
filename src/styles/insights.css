@@ -265,11 +265,12 @@
 /* Layer 0: Rotating Ring & Micro Grid */
 .insights-orange-ring {
   position: absolute;
-  top: 10px;
-  left: 40px;
+  top: 42px;
+  left: 45px;
   width: 380px;
   height: 380px;
   pointer-events: none;
+  opacity: 0.85;
   animation: slowRotateRing 40s linear infinite;
 }
 
@@ -515,32 +516,50 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  z-index: 20;
 }
 
 .icon-lightbulb { top: 15px; left: 80px; animation: floatIcon1 4.5s ease-in-out infinite; }
-.icon-shield { top: 40px; right: 25px; animation: floatIcon2 5.2s ease-in-out infinite; }
+.icon-shield { top: 100px; right: 18px; animation: floatIcon2 5.2s ease-in-out infinite; }
 .icon-book { bottom: 50px; left: 15px; animation: floatIcon3 4.8s ease-in-out infinite; }
 .icon-chart { bottom: 25px; right: 40px; animation: floatIcon4 5.6s ease-in-out infinite; }
 
 /* Layer 4: Cursive Annotations */
 .top-cursive {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 8px;
+  right: 30px;
   text-align: right;
   font-family: 'Caveat', cursive;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: #F0631E;
-  line-height: 1.15;
-  transform: rotate(4deg);
-  text-shadow: 0 2px 10px rgba(240, 99, 30, 0.15);
+  line-height: 1.25;
+  transform: rotate(2deg);
+  text-shadow: 0 2px 10px rgba(240, 99, 30, 0.12);
+  z-index: 25;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.cursive-line-1 {
+  font-size: 1.45rem;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.cursive-line-2 {
+  font-size: 1.45rem;
+  white-space: nowrap;
+  line-height: 1.2;
+  margin-top: 2px;
 }
 
 .cursive-arrow {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 900;
-  margin-left: 2px;
+  margin-left: 3px;
+  display: inline-block;
 }
 
 /* Hero Animations */
@@ -938,9 +957,19 @@
   }
 
   .top-cursive {
-    font-size: 1.1rem;
-    right: 5px;
-    top: -5px;
+    font-size: 1.2rem;
+    right: 25px;
+    top: 6px;
+  }
+
+  .cursive-line-1,
+  .cursive-line-2 {
+    font-size: 1.2rem;
+  }
+
+  .icon-shield {
+    top: 85px;
+    right: 12px;
   }
 
   .floating-3d-icon {
