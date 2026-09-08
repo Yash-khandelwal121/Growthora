@@ -20,6 +20,7 @@ import BookConsultationPage from './pages/BookConsultationPage';
 import IndustriesPage from './pages/IndustriesPage';
 import AgriculturePage from './pages/AgriculturePage';
 import ManufacturingPage from './pages/ManufacturingPage';
+import InsightsPage from './pages/InsightsPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -28,6 +29,7 @@ import './styles/blueprint.css';
 import './styles/serviceDetail.css';
 import './styles/agriculture.css';
 import './styles/manufacturing.css';
+import './styles/insights.css';
 
 export function App() {
   return (
@@ -39,6 +41,11 @@ export function App() {
         <Route path="/industries/agriculture" element={<AgriculturePage />} />
         <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
         <Route path="/industries/:industrySlug" element={<AgriculturePage />} />
+        
+        {/* Growthora Insights Routes */}
+        <Route path="/insights" element={<InsightsPage />} />
+        <Route path="/insights/:slug" element={<InsightsPage />} />
+
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />
         

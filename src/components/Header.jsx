@@ -49,6 +49,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleInsightsClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/insights') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/insights');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -72,11 +82,11 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
         <nav className="desktop-nav" aria-label="Main Navigation">
           <a 
             href="/#services-master" 
-            className={`nav-link ${location.pathname !== '/industries' ? 'active' : ''}`} 
+            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' ? 'active' : ''}`} 
             onClick={handleServicesClick}
           >
             Services
-            {location.pathname !== '/industries' && <span className="active-dot" />}
+            {location.pathname !== '/industries' && location.pathname !== '/insights' && <span className="active-dot" />}
           </a>
           <a 
             href="/industries" 
@@ -89,9 +99,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           <span className="nav-link disabled" title="Services Page Only Redesign">
             Govt Schemes
           </span>
-          <span className="nav-link disabled" title="Services Page Only Redesign">
+          <a 
+            href="/insights" 
+            className={`nav-link ${location.pathname === '/insights' ? 'active' : ''}`}
+            onClick={handleInsightsClick}
+          >
             Insights
-          </span>
+            {location.pathname === '/insights' && <span className="active-dot" />}
+          </a>
           <span className="nav-link disabled" title="Services Page Only Redesign">
             About
           </span>
@@ -134,10 +149,33 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
         <div className="mobile-drawer animate-fade-in">
           <a 
             href="#services-master" 
-            className="mobile-nav-link active"
-            onClick={() => setMobileMenuOpen(false)}
+            className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleServicesClick(e);
+            }}
           >
-            Services (Active)
+            Services
+          </a>
+          <a 
+            href="/industries" 
+            className={`mobile-nav-link ${location.pathname === '/industries' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleIndustriesClick(e);
+            }}
+          >
+            Industries
+          </a>
+          <a 
+            href="/insights" 
+            className={`mobile-nav-link ${location.pathname === '/insights' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleInsightsClick(e);
+            }}
+          >
+            Growthora Insights
           </a>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?
