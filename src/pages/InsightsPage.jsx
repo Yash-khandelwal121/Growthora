@@ -105,6 +105,9 @@ export function InsightsPage() {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleHeroMouseMove = (e) => {
+    if (typeof window !== 'undefined' && (window.matchMedia('(hover: none)').matches || window.innerWidth <= 768)) {
+      return;
+    }
     const rect = e.currentTarget.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
@@ -119,7 +122,7 @@ export function InsightsPage() {
   };
 
   const getLayerStyle = (depthFactor, baseRotateX = 0, baseRotateY = 0) => {
-    if (!isHovered) return {};
+    if (!isHovered || (typeof window !== 'undefined' && window.innerWidth <= 768)) return {};
     const moveX = (mousePos.x * 16 * depthFactor).toFixed(2);
     const moveY = (mousePos.y * 14 * depthFactor).toFixed(2);
     const rotX = (-mousePos.y * 6 * depthFactor + baseRotateX).toFixed(2);

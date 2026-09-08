@@ -1297,33 +1297,290 @@
 
   .ind-hero-stats-stack {
     flex-direction: row;
+  }
+}
+
+/* -------------------------------------------------------------
+   MOBILE & TABLET RESPONSIVE SYSTEM FOR INDUSTRIES PAGE
+------------------------------------------------------------- */
+.industries-page-root {
+  overflow-x: clip;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .ind-hero-section {
+    padding: 3.5rem 1.5rem 4rem;
+    overflow: hidden;
+  }
+
+  .ind-hero-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  .ind-hero-title {
+    font-size: clamp(2.4rem, 5.5vw, 3.4rem);
+    max-width: 100%;
+  }
+
+  .ind-hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+
+  .ind-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .ind-why-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .ind-directory-container {
+    padding: 0 1.5rem;
+  }
+
+  .ind-intelligence-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .ind-cta-banner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 2rem;
+  }
+
+  .ind-cta-image-wrap img {
+    height: 240px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .ind-hero-section {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .ind-hero-title {
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.15;
+  }
+
+  .ind-hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+  }
+
+  .ind-directory-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+
+  .ind-search-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ind-filter-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ind-filter-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ind-filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.1rem;
+  }
+
+  .ind-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .ind-card-highlights-list {
+    max-height: 300px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ind-card-details-divider {
+    border-color: rgba(255, 106, 0, 0.25);
+  }
+
+  .ind-hero-visual-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .ind-hero-image-card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .ind-hero-stats-stack {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
     width: 100%;
   }
 
   .ind-hero-stat-card {
     flex: 1;
+    padding: 0.85rem 1rem;
   }
 
-  .ind-featured-grid { grid-template-columns: 1fr; }
-  .ind-intelligence-container { grid-template-columns: 1fr; gap: 2.5rem; }
-  .ind-cta-banner {
+  .ind-hero-stat-number {
+    font-size: 1.4rem;
+  }
+
+  .ind-hero-stat-label {
+    font-size: 0.72rem;
+  }
+
+  .ind-featured-grid {
     grid-template-columns: 1fr;
-    padding: 2.5rem 2rem;
+    gap: 1.5rem;
   }
 
-  .ind-cta-image-wrap img { height: 220px; }
+  .ind-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
-@media (max-width: 600px) {
-  .ind-hero-title { font-size: 2.2rem; }
-  .ind-hero-subtitle { font-size: 0.98rem; }
-  .ind-directory-header { flex-direction: column; align-items: flex-start; }
-  .ind-search-box { max-width: 100%; }
-  .ind-cards-grid { grid-template-columns: 1fr; }
-  .ind-why-cards-grid { grid-template-columns: 1fr; }
-  .ind-stats-grid { grid-template-columns: 1fr; padding: 1.5rem; }
-  .ind-section-title { font-size: 1.85rem; }
-  .ind-cta-title { font-size: 1.95rem; }
+@media (max-width: 640px) {
+  .ind-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .ind-why-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ind-hero-section {
+    padding: 2rem 0.85rem 2.5rem;
+  }
+
+  .ind-eyebrow {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .ind-hero-title {
+    font-size: clamp(1.75rem, 7.5vw, 2.25rem);
+  }
+
+  .ind-hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .ind-hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .ind-explore-dropdown-wrapper,
+  .btn-ind-primary,
+  .btn-ind-secondary {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .ind-hero-feature-points {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-top: 1.25rem;
+  }
+
+  .ind-hero-stats-stack {
+    flex-direction: column;
+  }
+
+  .ind-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .ind-card {
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .ind-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1.25rem;
+    gap: 0.85rem;
+  }
+
+  .ind-section-title {
+    font-size: 1.6rem;
+  }
+
+  .ind-cta-title {
+    font-size: 1.65rem;
+  }
+
+  .ind-cta-banner {
+    padding: 2rem 1rem;
+    border-radius: 20px;
+  }
+
+  .ind-cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 375px) {
+  .ind-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ind-hero-title {
+    font-size: 1.65rem;
+  }
 }
 
 /* -------------------------------------------------------------
@@ -1460,12 +1717,16 @@
 @media (max-width: 768px) {
   .ind-explore-dropdown-menu {
     left: 0;
-    width: 90vw;
+    right: 0;
+    width: 100%;
+    max-width: calc(100vw - 2rem);
     max-height: 360px;
     padding: 0.75rem;
+    box-sizing: border-box;
   }
   .ind-explore-dropdown-grid {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
 }
+
