@@ -5,7 +5,8 @@ export const INSIGHT_CATEGORIES = [
   'Funding',
   'Compliance',
   'Certifications',
-  'Strategy'
+  'Strategy',
+  'Growth'
 ];
 
 export const ALL_INSIGHTS = [
@@ -19,7 +20,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: true,
     description: 'Eligible startups can claim a 100% income tax exemption for any three consecutive years under Section 80-IAC — but many founders either don\'t qualify or miss the opportunity due to improper planning. Learn the eligibility criteria, application process, documentation, timelines, and how to maximize this benefit.',
-    image: '/images/insights/80-iac-tax-exemption-startup-india.webp',
+    image: '/images/insights/80-iac-tax-exemption-startup-india.jpg',
     overlayText: '100% Tax Exemption',
     content: {
       introduction: 'Eligible startups can claim a 100% income tax exemption for any three consecutive years under Section 80-IAC — but many founders either don\'t qualify or miss the opportunity due to improper planning.',
@@ -54,7 +55,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Zero Defect Zero Effect (ZED) Certification helps MSMEs improve quality, enhance operational efficiency, and gain access to government incentives, procurement opportunities, and global markets. Learn how the certification works, who should apply, and the financial assistance available.',
-    image: '/images/insights/zed-certification-msme-guide.webp',
+    image: '/images/insights/zed-certification-msme-guide.jpg',
     content: {
       introduction: 'Zero Defect Zero Effect (ZED) Certification helps MSMEs improve quality, enhance operational efficiency, and gain access to government incentives, procurement opportunities, and global markets.',
       sections: [
@@ -88,7 +89,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'A D-U-N-S Number is more than just a business identifier — it builds credibility with international buyers, multinational corporations, financial institutions, and government agencies. Discover why it matters and how it supports global expansion.',
-    image: '/images/insights/duns-number-global-business-guide.webp',
+    image: '/images/insights/duns-number-global-business-guide.jpg',
     content: {
       introduction: 'A D-U-N-S Number is a unique nine-digit identifier assigned by Dun & Bradstreet that establishes corporate identity and financial credibility across international supply chains.',
       sections: [
@@ -118,7 +119,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'From ISO 9001 and ISO 14001 to ISO 27001 and ISO 45001, selecting the right certification can improve quality, strengthen customer trust, unlock new markets, and support long-term growth. This guide explains the standards, costs, implementation process, and available support for businesses of every size.',
-    image: '/images/insights/iso-certification-complete-guide-2026.webp',
+    image: '/images/insights/iso-certification-complete-guide-2026.png',
     content: {
       introduction: 'Selecting the right ISO standard improves operational consistency, builds client confidence, and unlocks qualification criteria for corporate tenders.',
       sections: [
@@ -183,7 +184,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Many companies experience rapid early growth but struggle to move beyond ₹5 crore in annual revenue. Discover the operational, financial, and leadership bottlenecks that limit scale — and the strategic frameworks used by successful businesses to overcome them.',
-    image: '/images/insights/breaking-5-crore-revenue-plateau-india.webp',
+    image: '/images/insights/breaking-5-crore-revenue-plateau-india.jpg',
     content: {
       introduction: 'Many Indian enterprises hit an invisible growth wall at ₹5 crore revenue due to founder dependency, cash flow misalignment, and informal management structures.',
       sections: [
@@ -213,7 +214,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Revenue alone doesn\'t measure business health. From EBITDA and cash conversion cycle to customer acquisition cost, gross margin, and employee productivity, learn the key performance indicators every CEO should monitor to drive sustainable growth.',
-    image: '/images/insights/ceo-dashboard-25-business-metrics-india.webp',
+    image: '/images/insights/ceo-dashboard-25-business-metrics-india.jpg',
     content: {
       introduction: 'Revenue alone doesn\'t measure business health. Managing a scaling business requires tracking a balanced dashboard of financial, operational, customer, and human capital metrics.',
       sections: [
@@ -243,7 +244,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Expansion is one of the biggest investments a company makes. Learn how to determine the right time, structure, funding model, and risk management approach before entering new cities, states, or international markets.',
-    image: '/images/insights/business-expansion-strategy-india.webp',
+    image: '/images/insights/business-expansion-strategy-india.jpg',
     content: {
       introduction: 'Expansion requires evaluating market demand, local compliance regulations, tax implications (GST cross-charge/transfer pricing), and capital requirements.',
       sections: [
@@ -423,7 +424,7 @@ export const ALL_INSIGHTS = [
     date: '3 July 2026',
     featured: false,
     description: 'Businesses often reach a point where growth depends less on the founder and more on the strength of systems, leadership, and accountability. Explore the strategic transition that enables companies to scale sustainably and endure across generations.',
-    image: '/images/insights/founder-to-professional-management-india.webp',
+    image: '/images/insights/founder-to-professional-management-india.jpg',
     overlayTag: 'People Process Progress',
     content: {
       introduction: 'Transitioning from founder-driven execution to a professionally managed enterprise is the single most critical evolution for scaling beyond early success.',
@@ -454,7 +455,7 @@ export const ALL_INSIGHTS = [
     date: '15 May 2026',
     featured: false,
     description: 'Three legal structures dominate Indian startup and MSME registrations — Private Limited, LLP, and OPC. Each has different compliance costs, tax implications, and investor readiness. A direct comparison for founders making the decision.',
-    image: '/images/insights/private-limited-vs-llp-vs-opc-india.webp',
+    image: '/images/insights/private-limited-vs-llp-vs-opc-india.png',
     content: {
       introduction: 'Choosing the right legal entity structure balances annual compliance costs, tax optimization, limited liability protection, and fundraising capability.',
       sections: [
@@ -484,7 +485,7 @@ export const ALL_INSIGHTS = [
     date: '6 May 2026',
     featured: false,
     description: 'PMFME gives micro food-processing units a 35% credit-linked capital subsidy, seed capital for SHGs, and branding support. Here is who qualifies and how to build a fundable application.',
-    image: '/images/insights/pmfme-scheme-food-processing-subsidy.webp',
+    image: '/images/insights/pmfme-scheme-food-processing-subsidy.jpg',
     content: {
       introduction: 'The Pradhan Mantri Formalisation of Micro food processing Enterprises (PMFME) scheme offers micro food-processing enterprises financial, technical, and business support.',
       sections: [
@@ -514,7 +515,7 @@ export const ALL_INSIGHTS = [
     date: '28 April 2026',
     featured: false,
     description: 'Both schemes offer collateral-free lending — but they serve different business sizes, loan amounts, and purposes. A direct comparison to help you choose the right scheme before you approach a bank.',
-    image: '/images/insights/mudra-loan-vs-cgtmse-2026.webp',
+    image: '/images/insights/mudra-loan-vs-cgtmse-2026.jpg',
     content: {
       introduction: 'India’s two primary collateral-free credit schemes—MUDRA and CGTMSE—cater to distinct borrowing requirements, loan limits, and business maturity stages.',
       sections: [
@@ -605,7 +606,7 @@ export const ALL_INSIGHTS = [
     date: '25 March 2026',
     featured: false,
     description: 'The Prime Minister\'s Employment Generation Programme offers 15-35% capital subsidy for new micro-enterprises — but the application process, bank linkage, and margin money requirement trip up most first-time applicants. A complete guide.',
-    image: '/images/insights/pmegp-scheme-2026-guide.webp',
+    image: '/images/insights/pmegp-scheme-2026-guide.jpg',
     content: {
       introduction: 'The Prime Minister’s Employment Generation Programme (PMEGP) is a credit-linked subsidy scheme for establishing new micro-enterprises in manufacturing and service sectors.',
       sections: [
@@ -755,7 +756,7 @@ export const ALL_INSIGHTS = [
     date: '8 February 2026',
     featured: false,
     description: 'Stand-Up India funds greenfield enterprises for SC, ST, and women founders with composite loans from Rs 10 lakh to Rs 1 crore. Here is who qualifies, how the 85% funding works, and the mistakes that stall sanctions.',
-    image: '/images/insights/stand-up-india-scheme-2026.webp',
+    image: '/images/insights/stand-up-india-scheme-2026.jpg',
     content: {
       introduction: 'The Stand-Up India scheme facilitates bank loans between ₹10 Lakh and ₹1 Crore to Scheduled Caste (SC), Scheduled Tribe (ST), and Women borrowers for setting up greenfield enterprises.',
       sections: [
@@ -785,7 +786,7 @@ export const ALL_INSIGHTS = [
     date: '5 February 2026',
     featured: false,
     description: 'The single most impactful step an Indian business owner can take to formally enter the MSME ecosystem — free, paperless, and Aadhaar-based. Here\'s what registration actually unlocks.',
-    image: '/images/insights/udyam-registration-2026.webp',
+    image: '/images/insights/udyam-registration-2026.jpg',
     content: {
       introduction: 'Udyam Registration is the official government registration system for Micro, Small, and Medium Enterprises in India, replacing Udyog Aadhaar Memorandum.',
       sections: [

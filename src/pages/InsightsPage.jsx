@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
   Search,
@@ -17,6 +17,7 @@ import {
   Building2,
   Mail,
   ChevronRight,
+  ChevronDown,
   HelpCircle,
   BarChart2
 } from 'lucide-react';
@@ -25,6 +26,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { ConsultationModal } from '../components/ConsultationModal';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
+import { FundingSolutionPopup } from '../components/FundingSolutionPopup';
 
 import {
   INSIGHT_CATEGORIES,
@@ -49,11 +51,28 @@ export function InsightsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskGrowthoraOpen, setIsAskGrowthoraOpen] = useState(false);
+  const [isFundingPopupOpen, setIsFundingPopupOpen] = useState(false);
 
   // Live search dropdown state & refs
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [highlightedSearchIndex, setHighlightedSearchIndex] = useState(0);
   const searchContainerRef = useRef(null);
+
+  // Explore Insights dropdown state & ref
+  const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [highlightedExploreIndex, setHighlightedExploreIndex] = useState(0);
+  const exploreDropdownRef = useRef(null);
+  const exploreBtnRef = useRef(null);
+  const exploreItemRefs = useRef([]);
+
+  const exploreDropdownItems = [
+    { label: 'All Insights', category: 'All', icon: Layers },
+    { label: 'Funding', category: 'Funding', icon: TrendingUp },
+    { label: 'Compliance', category: 'Compliance', icon: ShieldCheck },
+    { label: 'Certifications', category: 'Certifications', icon: Award },
+    { label: 'Strategy', category: 'Strategy', icon: Compass },
+    { label: 'Growth', category: 'Growth', icon: Sparkles }
+  ];
 
   // Selected article for reader modal
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -110,14 +129,22 @@ export function InsightsPage() {
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
 
-    if (cat === 'All') {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.delete('category');
-      setSearchParams(newParams, { replace: false });
+    if (slug) {
+      if (cat === 'All') {
+        navigate('/insights', { replace: false });
+      } else {
+        navigate(`/insights?category=${encodeURIComponent(cat.toLowerCase())}`, { replace: false });
+      }
     } else {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set('category', cat.toLowerCase());
-      setSearchParams(newParams, { replace: false });
+      if (cat === 'All') {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete('category');
+        setSearchParams(newParams, { replace: false });
+      } else {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('category', cat.toLowerCase());
+        setSearchParams(newParams, { replace: false });
+      }
     }
 
     const el = document.getElementById('insights-grid-section');
@@ -129,6 +156,71 @@ export function InsightsPage() {
     }
   };
 
+  const handleSelectExploreCategory = (cat) => {
+    setIsExploreOpen(false);
+    handleCategoryClick(cat);
+  };
+
+  const toggleExploreDropdown = () => {
+    setIsExploreOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        const catIdx = exploreDropdownItems.findIndex(
+          (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
+        );
+        setHighlightedExploreIndex(catIdx >= 0 ? catIdx : 0);
+      }
+      return next;
+    });
+  };
+
+  const handleExploreKeyDown = (e) => {
+    if (!isExploreOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setIsExploreOpen(true);
+        const catIdx = exploreDropdownItems.findIndex(
+          (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
+        );
+        setHighlightedExploreIndex(catIdx >= 0 ? catIdx : 0);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlightedExploreIndex((prev) =>
+        prev < exploreDropdownItems.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightedExploreIndex((prev) =>
+        prev > 0 ? prev - 1 : exploreDropdownItems.length - 1
+      );
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      setHighlightedExploreIndex(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      setHighlightedExploreIndex(exploreDropdownItems.length - 1);
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (highlightedExploreIndex >= 0 && highlightedExploreIndex < exploreDropdownItems.length) {
+        handleSelectExploreCategory(exploreDropdownItems[highlightedExploreIndex].category);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setIsExploreOpen(false);
+      exploreBtnRef.current?.focus();
+    }
+  };
+
+  useEffect(() => {
+    if (isExploreOpen && exploreItemRefs.current[highlightedExploreIndex]) {
+      exploreItemRefs.current[highlightedExploreIndex]?.focus();
+    }
+  }, [isExploreOpen, highlightedExploreIndex]);
+
   // Filtered pool of articles matching selected category AND search query
   const filteredCategoryArticles = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -136,7 +228,12 @@ export function InsightsPage() {
     return ALL_INSIGHTS.filter((item) => {
       const matchesCategory =
         selectedCategory === 'All' ||
-        item.category.toLowerCase() === selectedCategory.toLowerCase();
+        (selectedCategory === 'Growth'
+          ? item.category.toLowerCase() === 'strategy' ||
+            item.title?.toLowerCase().includes('growth') ||
+            item.description?.toLowerCase().includes('growth') ||
+            item.slug?.toLowerCase().includes('growth')
+          : item.category.toLowerCase() === selectedCategory.toLowerCase());
 
       if (!query) return matchesCategory;
 
@@ -152,13 +249,51 @@ export function InsightsPage() {
     });
   }, [selectedCategory, searchQuery]);
 
-  // Dynamic Featured Article based on category & search filter
-  const activeFeaturedInsight = useMemo(() => {
+  // Dynamic Featured Carousel pool based on category & search filter
+  const featuredCarouselArticles = useMemo(() => {
+    if (filteredCategoryArticles.length === 0) return [];
     if (selectedCategory === 'All' && !searchQuery.trim()) {
-      return FEATURED_INSIGHT;
+      return filteredCategoryArticles.slice(0, 6);
     }
-    return filteredCategoryArticles.length > 0 ? filteredCategoryArticles[0] : null;
+    return filteredCategoryArticles.slice(0, 6);
   }, [selectedCategory, searchQuery, filteredCategoryArticles]);
+
+  // Featured Carousel State
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [prevFeaturedIndex, setPrevFeaturedIndex] = useState(-1);
+  const [isCarouselHovered, setIsCarouselHovered] = useState(false);
+
+  // Reset carousel index when category or search query changes
+  useEffect(() => {
+    setFeaturedIndex(0);
+    setPrevFeaturedIndex(-1);
+  }, [selectedCategory, searchQuery]);
+
+  // Preload next slide images to ensure zero blank frames
+  useEffect(() => {
+    if (featuredCarouselArticles.length > 1) {
+      featuredCarouselArticles.forEach((article) => {
+        if (article?.image) {
+          const img = new Image();
+          img.src = article.image;
+        }
+      });
+    }
+  }, [featuredCarouselArticles]);
+
+  // Auto-rotate timer effect (15-second viewing interval)
+  useEffect(() => {
+    if (featuredCarouselArticles.length <= 1 || isCarouselHovered) {
+      return;
+    }
+
+    const viewingTimer = setTimeout(() => {
+      setPrevFeaturedIndex(featuredIndex);
+      setFeaturedIndex((prevIndex) => (prevIndex + 1) % featuredCarouselArticles.length);
+    }, 6000); // 6 seconds interval
+
+    return () => clearTimeout(viewingTimer);
+  }, [featuredIndex, featuredCarouselArticles.length, isCarouselHovered]);
 
   // Dynamic Latest Insights (up to 3 articles) based on category & search filter
   const activeLatestInsights = useMemo(() => {
@@ -171,6 +306,81 @@ export function InsightsPage() {
     return [];
   }, [selectedCategory, searchQuery, filteredCategoryArticles]);
 
+  // Latest Insights - DOM Refs for queue rotation
+  const latestCardsRef = useRef([]);
+  const latestHoverRef = useRef(false);
+  const latestTimerRef = useRef(null);
+  const orderRef = useRef([0, 1, 2]);
+
+  useEffect(() => {
+    if (activeLatestInsights.length < 3) return;
+
+    // Reset state on data change
+    orderRef.current = [0, 1, 2];
+    latestCardsRef.current.forEach((el, idx) => {
+      if (el) {
+        el.className = 'insights-latest-card slot-' + orderRef.current.indexOf(idx);
+        if (orderRef.current.indexOf(idx) === 0) el.classList.add('is-top');
+      }
+    });
+
+    const runStep = () => {
+      if (latestHoverRef.current) {
+        latestTimerRef.current = setTimeout(runStep, 4200);
+        return;
+      }
+
+      const topIdx = orderRef.current[0];
+      const midIdx = orderRef.current[1];
+      const botIdx = orderRef.current[2];
+
+      const topEl = latestCardsRef.current[topIdx];
+      const midEl = latestCardsRef.current[midIdx];
+      const botEl = latestCardsRef.current[botIdx];
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion && topEl && midEl && botEl) {
+        topEl.classList.add('popping');
+        
+        midEl.classList.remove('slot-1');
+        midEl.classList.add('slot-0', 'is-top');
+        
+        botEl.classList.remove('slot-2');
+        botEl.classList.add('slot-1');
+        
+        topEl.classList.remove('is-top');
+
+        setTimeout(() => {
+          if (topEl) {
+            topEl.classList.remove('popping', 'slot-0');
+            topEl.classList.add('slot-2');
+          }
+          orderRef.current = [midIdx, botIdx, topIdx];
+          latestTimerRef.current = setTimeout(runStep, 4200 - 800);
+        }, 800);
+      } else if (topEl && midEl && botEl) {
+        topEl.classList.remove('slot-0', 'is-top');
+        topEl.classList.add('slot-2');
+        
+        midEl.classList.remove('slot-1');
+        midEl.classList.add('slot-0', 'is-top');
+        
+        botEl.classList.remove('slot-2');
+        botEl.classList.add('slot-1');
+        
+        orderRef.current = [midIdx, botIdx, topIdx];
+        latestTimerRef.current = setTimeout(runStep, 4200);
+      }
+    };
+
+    latestTimerRef.current = setTimeout(runStep, 4200);
+
+    return () => {
+      clearTimeout(latestTimerRef.current);
+    };
+  }, [activeLatestInsights]);
+
   // Live search dropdown results (strictly A-Z sorted)
   const searchDropdownResults = useMemo(() => {
     return [...filteredCategoryArticles].sort((a, b) => a.title.localeCompare(b.title));
@@ -181,17 +391,21 @@ export function InsightsPage() {
     return filteredCategoryArticles;
   }, [filteredCategoryArticles]);
 
-  // Click Outside & Escape key listener to close live dropdown
+  // Click Outside & Escape key listener to close live dropdowns
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
         setIsSearchDropdownOpen(false);
+      }
+      if (exploreDropdownRef.current && !exploreDropdownRef.current.contains(e.target)) {
+        setIsExploreOpen(false);
       }
     };
 
     const handleKeyDownGlobal = (e) => {
       if (e.key === 'Escape') {
         setIsSearchDropdownOpen(false);
+        setIsExploreOpen(false);
       }
     };
 
@@ -362,14 +576,66 @@ export function InsightsPage() {
 
               {/* Hero Action Buttons */}
               <div className="insights-hero-actions point-stagger-3">
-                <button
-                  type="button"
-                  className="insights-btn-primary"
-                  onClick={scrollToGrid}
-                >
-                  <span>Explore Insights</span>
-                  <ArrowRight size={16} />
-                </button>
+                <div className={`insights-explore-dropdown-wrap ${isExploreOpen ? 'open' : ''}`} ref={exploreDropdownRef}>
+                  <button
+                    ref={exploreBtnRef}
+                    id="explore-insights-dropdown-btn"
+                    type="button"
+                    className={`insights-btn-primary ${isExploreOpen ? 'open' : ''}`}
+                    onClick={toggleExploreDropdown}
+                    onKeyDown={handleExploreKeyDown}
+                    aria-expanded={isExploreOpen}
+                    aria-haspopup="menu"
+                    aria-controls="explore-insights-dropdown-menu"
+                    aria-label="Explore Insights category dropdown"
+                  >
+                    <span>Explore Insights</span>
+                    <ArrowRight
+                      size={16}
+                      className={`explore-btn-arrow ${isExploreOpen ? 'rotated' : ''}`}
+                    />
+                  </button>
+
+                  {isExploreOpen && (
+                    <div
+                      id="explore-insights-dropdown-menu"
+                      className="insights-explore-dropdown"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="explore-insights-dropdown-btn"
+                      onKeyDown={handleExploreKeyDown}
+                    >
+                      {exploreDropdownItems.map((item, index) => {
+                        const IconComponent = item.icon;
+                        const isActive = selectedCategory.toLowerCase() === item.category.toLowerCase();
+                        const isHighlighted = highlightedExploreIndex === index;
+                        return (
+                          <button
+                            key={item.category}
+                            ref={(el) => (exploreItemRefs.current[index] = el)}
+                            id={`explore-item-${index}`}
+                            type="button"
+                            role="menuitem"
+                            tabIndex={isHighlighted ? 0 : -1}
+                            className={`explore-dropdown-item ${isActive ? 'active' : ''} ${
+                              isHighlighted ? 'highlighted' : ''
+                            }`}
+                            onClick={() => handleSelectExploreCategory(item.category)}
+                            onMouseEnter={() => setHighlightedExploreIndex(index)}
+                          >
+                            <div className="explore-dropdown-item-left">
+                              <span className="explore-dropdown-icon">
+                                <IconComponent size={15} />
+                              </span>
+                              <span className="explore-dropdown-label">{item.label}</span>
+                            </div>
+                            <ChevronRight className="explore-dropdown-arrow" size={14} />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
 
                 <button
                   type="button"
@@ -708,8 +974,8 @@ export function InsightsPage() {
         </div>
       </section>
 
-      {/* ─── FEATURED INSIGHT SECTION ─── */}
-      {activeFeaturedInsight && (
+      {/* ─── FEATURED INSIGHT CAROUSEL SECTION ─── */}
+      {featuredCarouselArticles.length > 0 && (
         <section className="insights-featured-section">
           <div className="insights-container">
             <div className="insights-section-eyebrow">
@@ -723,54 +989,103 @@ export function InsightsPage() {
 
             <div className="insights-featured-grid">
               
-              {/* Left Featured Article Card */}
+              {/* Left Featured Article Card Carousel */}
               <div
-                className="insights-featured-card"
-                onClick={() => handleArticleClick(activeFeaturedInsight)}
+                className="insights-featured-card insights-featured-carousel"
+                onMouseEnter={() => setIsCarouselHovered(true)}
+                onMouseLeave={() => setIsCarouselHovered(false)}
               >
-                <div className="insights-featured-img-wrap">
-                  <img
-                    src={activeFeaturedInsight.image}
-                    alt={activeFeaturedInsight.title}
-                    className="insights-featured-img"
-                    width="600"
-                    height="375"
-                    loading="eager"
-                    decoding="async"
-                    style={{
-                      objectFit: activeFeaturedInsight.objectFit || 'cover',
-                      objectPosition: activeFeaturedInsight.objectPosition || 'top center'
-                    }}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = '/growthora_industries_hero_building.jpg';
-                    }}
-                  />
-                  {activeFeaturedInsight.overlayText && (
-                    <div className="insights-featured-overlay-badge">
-                      {activeFeaturedInsight.overlayText}
-                    </div>
-                  )}
-                </div>
+                <div className="insights-carousel-viewport">
+                  <div className="insights-carousel-track">
+                    {featuredCarouselArticles.map((article, idx) => {
+                      let slideClass = '';
+                      if (idx === featuredIndex) {
+                        slideClass = 'active-slide';
+                      } else if (idx === prevFeaturedIndex) {
+                        slideClass = 'prev-slide';
+                      }
+                      
+                      return (
+                        <div
+                          key={`slide-${article.id}-${idx}`}
+                          className={`insights-carousel-slide ${slideClass}`}
+                          onClick={() => handleArticleClick(article)}
+                        >
+                          <div className="insights-featured-img-wrap">
+                          <img
+                            src={article.image}
+                            alt={article.title}
+                            className="insights-featured-img"
+                            width="600"
+                            height="375"
+                            loading="eager"
+                            decoding="async"
+                            style={{
+                              objectFit: article.objectFit || 'cover',
+                              objectPosition: article.objectPosition || 'top center'
+                            }}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = '/growthora_industries_hero_building.jpg';
+                            }}
+                          />
+                          {article.overlayText && (
+                            <div className="insights-featured-overlay-badge">
+                              {article.overlayText}
+                            </div>
+                          )}
+                        </div>
 
-                <div className="insights-featured-body">
-                  <span className="insights-badge">{activeFeaturedInsight.badge}</span>
-                  <h2 className="insights-featured-title">{activeFeaturedInsight.title}</h2>
-                  <p className="insights-featured-desc">{activeFeaturedInsight.description}</p>
+                        <div className="insights-featured-body">
+                          <span className="insights-badge">
+                            {article.badge || article.category}
+                          </span>
+                          <h2 className="insights-featured-title">{article.title}</h2>
+                          <p className="insights-featured-desc">{article.description}</p>
 
-                  <div className="insights-card-meta">
-                    <Clock size={14} />
-                    <span>{activeFeaturedInsight.readTime}</span>
-                    <span className="insights-meta-dot" />
-                    <Calendar size={14} />
-                    <span>{activeFeaturedInsight.date}</span>
+                          <div className="insights-card-meta">
+                            <Clock size={14} />
+                            <span>{article.readTime}</span>
+                            <span className="insights-meta-dot" />
+                            <Calendar size={14} />
+                            <span>{article.date}</span>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="insights-btn-read"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleArticleClick(article);
+                            }}
+                          >
+                            <span>Read Insight</span>
+                            <ArrowRight size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
                   </div>
-
-                  <button type="button" className="insights-btn-read">
-                    <span>Read Insight</span>
-                    <ArrowRight size={16} />
-                  </button>
                 </div>
+
+                {/* Carousel Navigation Indicators */}
+                {featuredCarouselArticles.length > 1 && (
+                  <div className="insights-carousel-indicators">
+                    {featuredCarouselArticles.map((item, idx) => (
+                      <button
+                        key={`dot-${item.id}-${idx}`}
+                        type="button"
+                        className={`carousel-dot ${idx === featuredIndex ? 'active' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFeaturedIndex(idx);
+                        }}
+                        aria-label={`Go to featured slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Right Latest Insights Column */}
@@ -785,11 +1100,14 @@ export function InsightsPage() {
                     </span>
                   </div>
 
-                  {activeLatestInsights.map((item) => (
+                  {activeLatestInsights.map((item, index) => (
                     <div
                       key={item.id}
-                      className="insights-latest-card"
+                      ref={(el) => (latestCardsRef.current[index] = el)}
+                      className={`insights-latest-card slot-${index}`}
                       onClick={() => handleArticleClick(item)}
+                      onMouseEnter={() => { latestHoverRef.current = true; }}
+                      onMouseLeave={() => { latestHoverRef.current = false; }}
                     >
                       <div className="insights-latest-thumb-wrap">
                         <img
@@ -1209,6 +1527,26 @@ export function InsightsPage() {
           isOpen={isAskGrowthoraOpen}
           onClose={() => setIsAskGrowthoraOpen(false)}
         />
+      )}
+
+      {/* ─── FLOATING ROBOT BUTTON (NOW FUNDING ICON) ─── */}
+      <button 
+        className="insights-floating-robot" 
+        onClick={() => setIsFundingPopupOpen(true)}
+        title="Find Funding For Your Business"
+        aria-label="Open Funding Assistant"
+      >
+        <img src="/images/funding-icon.png" alt="Funding" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.15)' }} />
+      </button>
+
+      {/* ─── FUNDING POPUP MODAL ─── */}
+      {isFundingPopupOpen && (
+        <div className="insights-funding-modal-wrapper">
+          <FundingSolutionPopup 
+            isModal={true} 
+            onClose={() => setIsFundingPopupOpen(false)} 
+          />
+        </div>
       )}
 
       {/* Footer */}

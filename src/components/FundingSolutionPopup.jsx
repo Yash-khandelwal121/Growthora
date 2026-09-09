@@ -45,8 +45,8 @@ export const FundingSolutionPopup = ({ isModal = false, onClose }) => {
     if (onClose) onClose();
   };
 
-  // Don't render inline panel on mobile (shown via modal instead)
-  if (!isModal && isMobile) return null;
+  // Don't render inline panel on mobile if it's strictly a modal, but allow inline rendering now
+  // if (!isModal && isMobile) return null;
 
   // ─── Left "Our Offices" Panel (modal only) ───
   const renderLeftPanel = () => (
