@@ -875,8 +875,8 @@ export const ALL_INSIGHTS = [
     readTime: '7 min read',
     date: '10 January 2026',
     featured: false,
-    description: 'A field-tested walkthrough of the credit-guarantee scheme — sector eligibility, the working-capital vs. term-loan distinction, and what bankers look for in your project report.',
-    image: '/images/insights/cgtmse-eligibility-2026.webp',
+    description: 'The government guarantees collateral-free loans up to ₹5 Crore for MSMEs, but simple bank compliance errors lead to 60% of rejections. Learn how to structure your loan application for guaranteed CGTMSE approval.',
+    image: '/images/insights/cgtmse-eligibility-2026.jpg',
     content: {
       introduction: 'The Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE) provides collateral-free credit guarantees to banks and NBFCs for lending to MSMEs.',
       sections: [
