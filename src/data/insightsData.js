@@ -575,7 +575,7 @@ export const ALL_INSIGHTS = [
     date: '10 April 2026',
     featured: false,
     description: 'DPIIT recognition unlocks tax exemptions, fast-track IPR filing, government tender access, and eligibility for the Startup India Seed Fund. Here\'s the exact process, documents, and timeline.',
-    image: '/images/insights/dpiit-startup-india-recognition-2026.webp',
+    image: '/images/insights/dpiit-startup-india-recognition-2026.jpg',
     overlayTag: 'Ideas Innovation Impact',
     content: {
       introduction: 'DPIIT Recognition grants startups access to official incentives including tax holidays, self-certification under labor laws, fast-tracked patent filing, and public procurement waivers.',
@@ -636,7 +636,7 @@ export const ALL_INSIGHTS = [
     date: '20 March 2026',
     featured: false,
     description: 'The Government e-Marketplace is one of the largest public procurement channels in the world. Here is how MSMEs register as sellers, unlock purchase preference, and avoid the errors that get listings blocked.',
-    image: '/images/insights/gem-registration-msme-2026.webp',
+    image: '/images/insights/gem-registration-msme-2026.jpg',
     content: {
       introduction: 'The Government e-Marketplace (GeM) provides Indian MSMEs direct access to multi-billion-dollar central and state government department procurement tenders.',
       sections: [
@@ -696,7 +696,7 @@ export const ALL_INSIGHTS = [
     date: '2 March 2026',
     featured: false,
     description: 'A practical map of the central and state subsidies Indian MSMEs qualify for in 2026 — capital subsidies, interest subvention, credit guarantee, and state incentives — and how to actually claim them.',
-    image: '/images/insights/msme-subsidy-schemes-india-2026.webp',
+    image: '/images/insights/msme-subsidy-schemes-india-2026.jpg',
     content: {
       introduction: 'Indian MSMEs miss out on crores in government financial incentives annually due to lack of awareness regarding central and state subsidy schemes.',
       sections: [
