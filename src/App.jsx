@@ -31,10 +31,13 @@ import './styles/agriculture.css';
 import './styles/manufacturing.css';
 import './styles/insights.css';
 
+import { GrowthoraAIChat } from './components/GrowthoraAIChat/GrowthoraAIChat';
+
 export function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <GrowthoraAIChat />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/industries" element={<IndustriesPage />} />
