@@ -408,7 +408,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: nowrap;
-  padding-bottom: 8px; /* space for scrollbar */
+  padding-bottom: 8px;
 }
 
 .suggested-prompts-scroll::-webkit-scrollbar {
@@ -435,6 +435,64 @@
 }
 
 .suggested-prompt-chip:hover {
+  background: #fff3ec;
+  color: #ff6b00;
+  border-color: #ff6b00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(255, 107, 0, 0.1);
+}
+
+.language-selector-container {
+  padding: 16px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.language-selector-header {
+  text-align: center;
+}
+
+.language-selector-header h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a192f;
+}
+
+.language-selector-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.language-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.language-chip {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-chip:hover {
   background: #fff3ec;
   color: #ff6b00;
   border-color: #ff6b00;
@@ -532,6 +590,70 @@
   font-weight: 500;
 }
 
+.live-voice-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  padding: 24px;
+}
+
+.voice-status-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.voice-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+}
+
+.voice-state.listening span {
+  color: #ff6b00;
+}
+
+.voice-state.speaking span {
+  color: #ff6b00;
+}
+
+.pulse-anim {
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.exit-voice-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.exit-voice-btn:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
 @media (max-width: 480px) {
   .growthora-ai-wrapper {
     bottom: 16px;
@@ -553,3 +675,4 @@
     padding: 16px;
   }
 }
+

@@ -1,15 +1,290 @@
-import React, { useState, useRef } from 'react';
-import { Send, Image as ImageIcon, Mic, X, Loader2, Square } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Send, Image as ImageIcon, Mic, X, Loader2, Square, Keyboard, AudioLines } from 'lucide-react';
 
-export default function ChatInput({ onSendMessage, isTyping }) {
+export default function ChatInput({ 
+  onSendMessage, 
+  isTyping, 
+  isLiveVoiceMode, 
+  setIsLiveVoiceMode, 
+  playAudio, 
+  audioPlayerRef,
+  playingMessageId,
+  selectedLanguage,
+  onLanguageSelect
+}) {
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [isRecording, setIsRecording] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
+  
+  // Voice UI state
+  const [voiceState, setVoiceState] = useState('idle');
+  const [voiceError, setVoiceError] = useState('');
+  
   const fileInputRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
+  
+  // Runtime Locks
+  const isLiveVoiceModeRef = useRef(false);
+  const isSpeakingRef = useRef(false);
+  const isProcessingRef = useRef(false);
+  const recognitionRunningRef = useRef(false);
+  const lastTtsEndTimeRef = useRef(0);
+  const listeningUnlockTimerRef = useRef(null);
+  const recognitionRef = useRef(null);
 
+  // Initialize SpeechRecognition once
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setVoiceError("Live voice conversation is not supported in this browser. Please use Google Chrome or Microsoft Edge.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = selectedLanguage ? selectedLanguage.code : 'hi-IN'; // defaults to hi-IN during selection to better capture names
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      console.log("[VOICE] Recognition STARTED");
+      recognitionRunningRef.current = true;
+      setVoiceState('listening');
+    };
+
+    recognition.onresult = (event) => {
+      // Prevent duplicate processing if already thinking/processing
+      if (isProcessingRef.current || isSpeakingRef.current) return;
+
+      let transcript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          transcript += event.results[i][0].transcript;
+        }
+      }
+      
+      const finalText = transcript.trim();
+      if (!finalText) return;
+      
+      console.log("[VOICE] FINAL TRANSCRIPT:", finalText);
+
+      const elapsed = Date.now() - lastTtsEndTimeRef.current;
+      if (elapsed < 1000) {
+        console.log("[VOICE] USER SPEECH IGNORED (TTS Cooldown):", finalText);
+        return;
+      }
+      
+      if (finalText.length < 2) {
+        console.log("[VOICE] USER SPEECH IGNORED (Too short/noise):", finalText);
+        return;
+      }
+
+      // If no language is selected yet, check if the user spoke a language name
+      if (!selectedLanguage) {
+        const lowerText = finalText.toLowerCase();
+        const supported = [
+          { name: 'English', code: 'en', words: ['english'] },
+          { name: 'Hindi', code: 'hi', words: ['hindi', 'हिंदी'] },
+          { name: 'Telugu', code: 'te', words: ['telugu', 'తెలుగు'] },
+          { name: 'Malayalam', code: 'ml', words: ['malayalam', 'മലയാളം'] },
+          { name: 'Kannada', code: 'kn', words: ['kannada', 'ಕನ್ನಡ'] },
+          { name: 'Marathi', code: 'mr', words: ['marathi', 'मराठी'] },
+          { name: 'Bengali', code: 'bn', words: ['bengali', 'bangla', 'বাংলা'] },
+          { name: 'Punjabi', code: 'pa', words: ['punjabi', 'ਪੰਜਾਬੀ'] }
+        ];
+
+        for (const lang of supported) {
+          if (lang.words.some(w => lowerText.includes(w))) {
+            console.log("[VOICE] Language Selected via Mic:", lang.name);
+            try { recognition.stop(); } catch(e){}
+            recognitionRunningRef.current = false;
+            onLanguageSelect(lang);
+            return;
+          }
+        }
+        
+        // If they spoke something else but no language is selected, just drop it 
+        // to prevent API calls before language selection.
+        console.log("[VOICE] Ignored speech because no language selected yet:", finalText);
+        return;
+      }
+      
+      console.log("[VOICE] USER SPEECH ACCEPTED:", finalText);
+
+      try { recognition.stop(); } catch(e){}
+      
+      recognitionRunningRef.current = false;
+      isProcessingRef.current = true;
+      setVoiceState('thinking');
+      
+      onSendMessage({
+        text: finalText,
+        image: null,
+        imagePreview: null,
+        isVoiceQuery: true
+      });
+    };
+
+    recognition.onend = () => {
+      recognitionRunningRef.current = false;
+
+      if (!isLiveVoiceModeRef.current) return;
+      if (isSpeakingRef.current) return;
+      if (isProcessingRef.current) return;
+
+      const elapsed = Date.now() - lastTtsEndTimeRef.current;
+      const delay = Math.max(700, 1000 - elapsed);
+
+      clearTimeout(listeningUnlockTimerRef.current);
+      listeningUnlockTimerRef.current = setTimeout(() => {
+        if (
+          isLiveVoiceModeRef.current &&
+          !isSpeakingRef.current &&
+          !isProcessingRef.current &&
+          !recognitionRunningRef.current
+        ) {
+          startRecognition();
+        }
+      }, delay);
+    };
+
+    recognition.onerror = (event) => {
+      if (event.error === 'not-allowed') {
+        console.warn("[VOICE] Recognition error:", event.error);
+        recognitionRunningRef.current = false;
+        setIsLiveVoiceMode(false);
+        alert('Microphone permission denied.');
+      } else if (event.error !== 'no-speech') {
+        console.warn("[VOICE] Recognition error:", event.error);
+      }
+    };
+
+    recognitionRef.current = recognition;
+  }, []);
+
+  const startRecognition = () => {
+    if (!isLiveVoiceModeRef.current) return;
+    if (isSpeakingRef.current) {
+      return;
+    }
+    if (isProcessingRef.current) {
+      return;
+    }
+    if (recognitionRunningRef.current) return;
+    if (!recognitionRef.current) return;
+
+    try {
+      console.log("[VOICE] STARTING LISTENING");
+      recognitionRef.current.start();
+    } catch (error) {
+      console.warn("[VOICE] Recognition start failed:", error);
+    }
+  };
+
+  const stopVoiceMode = () => {
+    isSpeakingRef.current = false;
+    isProcessingRef.current = false;
+    clearTimeout(listeningUnlockTimerRef.current);
+    setVoiceState('idle');
+    if (recognitionRunningRef.current) {
+      try { recognitionRef.current?.abort(); } catch(e){}
+      recognitionRunningRef.current = false;
+    }
+  };
+
+  // Update SpeechRecognition lang when selectedLanguage changes
+  useEffect(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.lang = selectedLanguage ? selectedLanguage.code : 'hi-IN';
+    }
+  }, [selectedLanguage]);
+
+  // Greeting flow
+  useEffect(() => {
+    isLiveVoiceModeRef.current = isLiveVoiceMode;
+
+    const runGreeting = async () => {
+      console.log("[VOICE] TTS START");
+      isSpeakingRef.current = true;
+      setVoiceState('speaking');
+      
+      if (recognitionRunningRef.current) {
+        try { recognitionRef.current?.abort(); } catch(e){}
+        recognitionRunningRef.current = false;
+      }
+      
+      try {
+        await playAudio("Hello, hi! This is Growthora Agent. How can I help you?", 'greeting');
+      } catch (err) {
+        console.error(err);
+      }
+      
+      console.log("[VOICE] TTS END");
+      isSpeakingRef.current = false;
+      lastTtsEndTimeRef.current = Date.now();
+      setVoiceState('listening');
+      
+      clearTimeout(listeningUnlockTimerRef.current);
+      listeningUnlockTimerRef.current = setTimeout(() => {
+        if (
+          isLiveVoiceModeRef.current &&
+          !isSpeakingRef.current &&
+          !isProcessingRef.current
+        ) {
+          startRecognition();
+        }
+      }, 1000);
+    };
+
+    if (isLiveVoiceMode) {
+      if (voiceError) return;
+      runGreeting();
+    } else {
+      stopVoiceMode();
+    }
+  }, [isLiveVoiceMode, voiceError]);
+
+  // Handle TTS Lifecycle from parent AI response
+  useEffect(() => {
+    if (isLiveVoiceMode) {
+      if (playingMessageId) {
+        console.log("[VOICE] TTS START");
+        isSpeakingRef.current = true;
+        isProcessingRef.current = false;
+        setVoiceState('speaking');
+        
+        if (recognitionRunningRef.current) {
+          try { recognitionRef.current?.abort(); } catch (e) {}
+          recognitionRunningRef.current = false;
+        }
+      } else {
+        if (isSpeakingRef.current) {
+          console.log("[VOICE] TTS END");
+          isSpeakingRef.current = false;
+          lastTtsEndTimeRef.current = Date.now();
+          setVoiceState('listening');
+          
+          clearTimeout(listeningUnlockTimerRef.current);
+          listeningUnlockTimerRef.current = setTimeout(() => {
+            if (
+              isLiveVoiceModeRef.current &&
+              !isSpeakingRef.current &&
+              !isProcessingRef.current
+            ) {
+              startRecognition();
+            }
+          }, 1000);
+        }
+      }
+    }
+  }, [playingMessageId, isLiveVoiceMode]);
+
+  useEffect(() => {
+    return () => {
+      stopVoiceMode();
+    };
+  }, []);
+
+  // Standard chat handlers
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -35,68 +310,11 @@ export default function ChatInput({ onSendMessage, isTyping }) {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      const audioChunks = [];
-
-      mediaRecorder.ondataavailable = (event) => {
-        audioChunks.push(event.data);
-      };
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-        await handleTranscription(audioBlob);
-        stream.getTracks().forEach(track => track.stop());
-      };
-
-      mediaRecorder.start();
-      setIsRecording(true);
-    } catch (error) {
-      console.error('Microphone error:', error);
-      alert('Could not access microphone. Please check permissions.');
-    }
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
-  };
-
-  const handleTranscription = async (audioBlob) => {
-    setIsTranscribing(true);
-    try {
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
-      
-      const response = await fetch('/api/transcribe', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (data.text) {
-        setText((prev) => prev + (prev ? ' ' : '') + data.text);
-      } else {
-        throw new Error(data.error || 'Transcription failed');
-      }
-    } catch (error) {
-      alert('Failed to transcribe audio.');
-      console.error(error);
-    } finally {
-      setIsTranscribing(false);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!text.trim() && !image) return;
 
-    onSendMessage({ text, image, imagePreview });
+    onSendMessage({ text, image, imagePreview, isVoiceQuery: false });
     setText('');
     removeImage();
   };
@@ -108,6 +326,62 @@ export default function ChatInput({ onSendMessage, isTyping }) {
     }
   };
 
+  if (isLiveVoiceMode) {
+    if (voiceError) {
+      return (
+        <div className="chat-input-area live-voice-mode">
+          <div className="voice-status-display">
+            <div className="voice-state" style={{ color: '#ef4444', textAlign: 'center' }}>
+              <span>{voiceError}</span>
+            </div>
+          </div>
+          <button type="button" className="exit-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
+            <Keyboard size={16} /> Exit Voice
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="chat-input-area live-voice-mode">
+        <div className="voice-status-display">
+          {voiceState === 'listening' && (
+            <div className="voice-state listening">
+              <AudioLines className="pulse-anim" size={32} color="#ff6b00" />
+              <span>Listening...</span>
+            </div>
+          )}
+          {voiceState === 'transcribing' && (
+            <div className="voice-state">
+              <Loader2 className="lucide-spin" size={24} color="#64748b" />
+              <span>Processing speech...</span>
+            </div>
+          )}
+          {voiceState === 'thinking' && (
+            <div className="voice-state">
+              <Loader2 className="lucide-spin" size={24} color="#ff6b00" />
+              <span>Thinking...</span>
+            </div>
+          )}
+          {voiceState === 'speaking' && (
+            <div className="voice-state speaking">
+              <AudioLines size={32} color="#ff6b00" />
+              <span>Speaking...</span>
+            </div>
+          )}
+        </div>
+        
+        <button 
+          type="button" 
+          className="exit-voice-btn" 
+          onClick={() => setIsLiveVoiceMode(false)}
+        >
+          <Keyboard size={16} /> Exit Voice
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="chat-input-area">
       {imagePreview && (
@@ -117,21 +391,6 @@ export default function ChatInput({ onSendMessage, isTyping }) {
           <button type="button" onClick={removeImage} title="Remove image">
             <X size={14} />
           </button>
-        </div>
-      )}
-
-      {isRecording && (
-        <div className="voice-recording-status">
-          <span style={{flex: 1}}>Recording in progress...</span>
-          <button type="button" onClick={stopRecording} style={{background:'transparent', border:'none', color:'#ef4444', cursor:'pointer', display:'flex', alignItems:'center', gap:'4px'}}>
-            <Square size={14} fill="currentColor" /> Stop
-          </button>
-        </div>
-      )}
-      
-      {isTranscribing && (
-        <div className="voice-recording-status" style={{color: '#64748b', background: '#f8fafc'}}>
-          <Loader2 size={14} className="lucide-spin" /> Transcribing...
         </div>
       )}
 
@@ -158,16 +417,15 @@ export default function ChatInput({ onSendMessage, isTyping }) {
           value={text} 
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
-          disabled={isTyping || isRecording || isTranscribing}
+          disabled={isTyping}
           rows={1}
         />
 
         <button 
           type="button" 
-          className={`icon-button ${isRecording ? 'recording' : ''}`} 
-          onClick={isRecording ? stopRecording : startRecording}
-          disabled={isTyping || isTranscribing}
-          title={isRecording ? "Stop Recording" : "Use Microphone"}
+          className="icon-button" 
+          onClick={() => setIsLiveVoiceMode(true)}
+          title="Live Voice Mode"
         >
           <Mic size={20} />
         </button>
@@ -175,7 +433,7 @@ export default function ChatInput({ onSendMessage, isTyping }) {
         <button 
           type="submit" 
           className="send-button" 
-          disabled={isTyping || (!text.trim() && !image) || isRecording || isTranscribing}
+          disabled={isTyping || (!text.trim() && !image)}
           title="Send Message"
         >
           <Send size={16} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Bot, Copy, ThumbsUp, ThumbsDown } from 'lucide-react';
 
-export default function ChatMessages({ messages, isTyping, setShowFundingPopup }) {
+export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio }) {
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -35,10 +35,14 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup }
     });
   };
 
+  // Auto-play is now handled explicitly in GrowthoraAIChat's handleSendMessage
+  // to avoid duplicate playback and race conditions.
+
   return (
     <div className="chat-messages">
       {messages.map((msg, index) => {
         const isFundingRelevant = msg.role === 'ai' && (msg.content.toLowerCase().includes('funding assessment') || msg.content.toLowerCase().includes('fund'));
+        const msgId = msg.id || index;
 
         return (
           <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -60,6 +64,17 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup }
 
                 {msg.role === 'ai' && index !== 0 && (
                   <div className="chat-message-actions">
+                    <button 
+                      className={`message-action-btn ${playingMessageId === msgId ? 'playing' : ''}`}
+                      onClick={() => playAudio(msg.content, msgId)}
+                      title={playingMessageId === msgId ? 'Stop Listening' : 'Listen'}
+                    >
+                      {playingMessageId === msgId ? (
+                        <>⏹️ Stop</>
+                      ) : (
+                        <>🔊 Listen</>
+                      )}
+                    </button>
                     <button className="message-action-btn" onClick={() => handleCopy(msg.content)} title="Copy">
                       <Copy size={14} /> Copy
                     </button>

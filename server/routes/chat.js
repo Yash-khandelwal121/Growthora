@@ -30,7 +30,7 @@ CRITICAL RULES:
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { message, conversation } = req.body;
+    const { message, conversation, language } = req.body;
     let parsedConversation = [];
     if (conversation) {
       try {
@@ -46,8 +46,13 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     const contextStr = searchKnowledge(message || '');
     
+    let sysPrompt = SYSTEM_PROMPT;
+    if (language) {
+      sysPrompt += `\n\nCRITICAL LANGUAGE OVERRIDE: Always respond in the user's selected language: ${language}. Do not switch languages unless the user explicitly changes the selected language.`;
+    }
+    
     const messages = [
-      { role: 'system', content: SYSTEM_PROMPT + '\n\nKnowledge Context:\n' + contextStr }
+      { role: 'system', content: sysPrompt + '\n\nKnowledge Context:\n' + contextStr }
     ];
 
     // Append history
