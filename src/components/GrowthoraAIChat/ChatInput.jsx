@@ -132,6 +132,7 @@ export default function ChatInput({
       const finalText = normalizeTranscript(finalTranscript.trim());
       if (!finalText) return;
       
+      console.log(`[VOICE_PRODUCTION_LOG] FINAL_TRANSCRIPT: ${finalText}`);
       console.log(`[VOICE TIMING] ${Date.now()} - STT Final Transcript received:`, finalText);
 
       const elapsed = Date.now() - lastTtsEndTimeRef.current;

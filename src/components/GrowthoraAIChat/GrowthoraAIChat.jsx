@@ -176,6 +176,11 @@ export function GrowthoraAIChat() {
 
         console.log(`[VOICE TIMING] ${Date.now()} - TTSRequest started`);
 
+        console.log(`[VOICE_PRODUCTION_LOG] TTS_REQUEST_START - Fetching /api/tts for lang: ${finalLangCode}`);
+        
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s TTS timeout
+
         const response = await fetch('/api/tts', {
           method: 'POST',
           headers: {
@@ -185,11 +190,16 @@ export function GrowthoraAIChat() {
             text, 
             language: requestLangObjName,
             languageCode: finalLangCode
-          })
+          }),
+          signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
+
+        console.log(`[VOICE_PRODUCTION_LOG] TTS_RESPONSE - Status: ${response.status}`);
 
         if (!response.ok) {
-          throw new Error('TTS Failed');
+          throw new Error(`TTS Failed with status: ${response.status}`);
         }
 
         if (ttsCancelledRef.current) {
@@ -246,7 +256,7 @@ export function GrowthoraAIChat() {
         await audio.play();
 
       } catch (error) {
-
+        console.log(`[VOICE_PRODUCTION_LOG] VOICE_ERROR during TTS API`, error);
         console.error('[VOICE] Cloud TTS error, falling back to native Web Speech API:', error);
 
         // Fallback to native Web Speech API
@@ -321,27 +331,52 @@ export function GrowthoraAIChat() {
     stopAudio();
 
     try {
-      const formData = new FormData();
-      if (text) formData.append('message', text);
-      if (image) formData.append('image', image);
-      formData.append('language', selectedLanguage.name);
+      console.log(`[VOICE_PRODUCTION_LOG] CHAT_REQUEST_START - Query: ${text}`);
       
       const history = messages.filter(m => m.role !== 'system' && !m.isLanguagePrompt && !m.isSystemAlert).map(m => ({
         role: m.role === 'ai' ? 'assistant' : m.role,
         content: m.content
       }));
-      formData.append('conversation', JSON.stringify(history.slice(-10)));
 
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        body: formData
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s chat timeout
 
+      let response;
+      if (image) {
+        // Send as FormData ONLY if there's an image, as multer on Vercel can hang on text-only FormData
+        const formData = new FormData();
+        if (text) formData.append('message', text);
+        formData.append('image', image);
+        formData.append('language', selectedLanguage.name);
+        formData.append('conversation', JSON.stringify(history.slice(-10)));
+
+        response = await fetch('/api/chat', {
+          method: 'POST',
+          body: formData,
+          signal: controller.signal
+        });
+      } else {
+        // Send as JSON if there's no image to bypass multer hanging issue
+        response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            language: selectedLanguage.name,
+            conversation: JSON.stringify(history.slice(-10))
+          }),
+          signal: controller.signal
+        });
+      }
+      
+      clearTimeout(timeoutId);
+      
+      console.log(`[VOICE_PRODUCTION_LOG] CHAT_RESPONSE - Status: ${response.status}`);
       const data = await response.json();
       console.log(`[VOICE TIMING] ${Date.now()} - Chat Response Received`);
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch AI response');
+        throw new Error(data.error || `Failed to fetch AI response: ${response.status}`);
       }
 
       const messageId = Date.now();
@@ -359,7 +394,7 @@ export function GrowthoraAIChat() {
       }
 
     } catch (error) {
-      console.error(error);
+      console.error(`[VOICE_PRODUCTION_LOG] VOICE_ERROR during /api/chat`, error);
       setErrorMsg('Sorry, I am having trouble connecting right now. Please try again in a moment.');
       setMessages((prev) => [...prev, { role: 'ai', content: 'Sorry, I am having trouble connecting right now. Please try again in a moment.' }]);
       setIsTyping(false);
