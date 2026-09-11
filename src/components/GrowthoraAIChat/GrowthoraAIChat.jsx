@@ -22,6 +22,17 @@ export const SUPPORTED_LANGUAGES = [
   { name: 'Punjabi', label: 'Punjabi', code: 'pa' }
 ];
 
+export const VOICE_LANGUAGES = {
+  english: { speechRecognition: 'en-IN', tts: 'en-IN' },
+  hindi: { speechRecognition: 'hi-IN', tts: 'hi-IN' },
+  telugu: { speechRecognition: 'te-IN', tts: 'te-IN' },
+  malayalam: { speechRecognition: 'ml-IN', tts: 'ml-IN' },
+  kannada: { speechRecognition: 'kn-IN', tts: 'kn-IN' },
+  marathi: { speechRecognition: 'mr-IN', tts: 'mr-IN' },
+  bengali: { speechRecognition: 'bn-IN', tts: 'bn-IN' },
+  punjabi: { speechRecognition: 'pa-IN', tts: 'pa-IN' }
+};
+
 export const CONFIRMATION_MESSAGES = {
   en: "Great! I'll continue in English. How can I help you today?",
   hi: "बहुत अच्छा! अब मैं आपसे हिंदी में बात करूंगा। मैं आपकी कैसे सहायता कर सकता हूँ?",
@@ -42,6 +53,7 @@ export function GrowthoraAIChat() {
 
   const [playingMessageId, setPlayingMessageId] = useState(null);
   const audioPlayerRef = React.useRef(null);
+  const ttsCancelledRef = React.useRef(false);
 
   const [isLiveVoiceMode, setIsLiveVoiceMode] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -65,11 +77,41 @@ export function GrowthoraAIChat() {
     }
   }, []);
 
+  const stopAudio = () => {
+    const audio = audioPlayerRef.current;
+    
+    ttsCancelledRef.current = true;
+
+    if (!audio) {
+      setPlayingMessageId(null);
+      return;
+    }
+
+    console.log('[VOICE] STOP AUDIO');
+
+    audio.onended = null;
+    audio.onerror = null;
+    audio.onpause = null;
+
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+    } catch (e) {
+      console.warn('[VOICE] Error stopping audio:', e);
+    }
+
+    if (audio.src?.startsWith('blob:')) {
+      URL.revokeObjectURL(audio.src);
+    }
+
+    audioPlayerRef.current = null;
+    setPlayingMessageId(null);
+  };
+
   useEffect(() => {
     return () => {
       if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause();
-        audioPlayerRef.current = null;
+        stopAudio();
       }
     };
   }, []);
@@ -84,19 +126,11 @@ export function GrowthoraAIChat() {
       setMessages([INITIAL_MESSAGE]);
     }
     setErrorMsg(null);
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.pause();
-      audioPlayerRef.current = null;
-    }
-    setPlayingMessageId(null);
+    stopAudio();
   };
 
   const changeLanguage = () => {
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.pause();
-      audioPlayerRef.current = null;
-    }
-    setPlayingMessageId(null);
+    stopAudio();
     setIsLiveVoiceMode(false);
     setSelectedLanguage(null);
     localStorage.removeItem('growthora_ai_language');
@@ -106,11 +140,7 @@ export function GrowthoraAIChat() {
   useEffect(() => {
     if (!isOpen) {
       setIsLiveVoiceMode(false);
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.pause();
-        audioPlayerRef.current = null;
-      }
-      setPlayingMessageId(null);
+      stopAudio();
     }
   }, [isOpen]);
 
@@ -130,32 +160,50 @@ export function GrowthoraAIChat() {
   const playAudio = (text, id, forceLangCode = null) => {
     return new Promise(async (resolve, reject) => {
       let url = null;
+      
+      ttsCancelledRef.current = false;
 
       try {
         if (audioPlayerRef.current) {
-          audioPlayerRef.current.pause();
-          audioPlayerRef.current = null;
+          stopAudio();
+          ttsCancelledRef.current = false;
         }
 
         setPlayingMessageId(id);
 
         console.log('[VOICE] Sending text to TTS');
 
-        const requestLang = forceLangCode || selectedLanguage?.code || 'en';
+        const requestLangObjName = selectedLanguage?.name?.toLowerCase() || 'english';
+        const requestLangCode = forceLangCode || selectedLanguage?.code || 'en';
+        const langConfig = VOICE_LANGUAGES[requestLangObjName] || VOICE_LANGUAGES.english;
 
         const response = await fetch('/api/tts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ text, language: requestLang })
+          body: JSON.stringify({ 
+            text, 
+            language: requestLangObjName,
+            languageCode: langConfig.tts
+          })
         });
 
         if (!response.ok) {
           throw new Error('TTS Failed');
         }
 
+        if (ttsCancelledRef.current) {
+          reject(new Error('TTS Cancelled before playback'));
+          return;
+        }
+
         const blob = await response.blob();
+
+        if (ttsCancelledRef.current) {
+          reject(new Error('TTS Cancelled before playback'));
+          return;
+        }
 
         url = URL.createObjectURL(blob);
 
@@ -225,11 +273,7 @@ export function GrowthoraAIChat() {
     setIsTyping(true);
     setErrorMsg(null);
     
-    if (audioPlayerRef.current) {
-      audioPlayerRef.current.pause();
-      audioPlayerRef.current = null;
-      setPlayingMessageId(null);
-    }
+    stopAudio();
 
     try {
       const formData = new FormData();
@@ -304,6 +348,7 @@ export function GrowthoraAIChat() {
               setPlayingMessageId={setPlayingMessageId}
               audioPlayerRef={audioPlayerRef}
               playAudio={playAudio}
+              onStopAudio={stopAudio}
             />
 
             {messages.length === 1 && !selectedLanguage && (

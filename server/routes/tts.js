@@ -7,7 +7,7 @@ const SUPPORTED_LANGUAGES = ['en', 'hi', 'te', 'ml', 'kn', 'mr', 'bn', 'pa'];
 
 router.post('/', async (req, res) => {
   try {
-    const { text, language } = req.body;
+    const { text, language, languageCode } = req.body;
     if (!text) {
       return res.status(400).json({ error: 'Text is required' });
     }
@@ -18,9 +18,21 @@ router.post('/', async (req, res) => {
       .replace(/\n/g, ' . ')
       .trim();
       
-    let lang = 'en'; // default
-    if (language && SUPPORTED_LANGUAGES.includes(language)) {
-      lang = language;
+    const TTS_MAP = {
+      'en-IN': 'en',
+      'hi-IN': 'hi',
+      'te-IN': 'te',
+      'ml-IN': 'ml',
+      'kn-IN': 'kn',
+      'mr-IN': 'mr',
+      'bn-IN': 'bn',
+      'pa-IN': 'pa'
+    };
+
+    let lang = TTS_MAP[languageCode] || 'en';
+    
+    if (languageCode && !TTS_MAP[languageCode]) {
+      console.warn(`[VOICE] TTS language fallback from ${languageCode} to en`);
     }
 
     // Get Base64 Audio

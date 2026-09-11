@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Bot, Copy, ThumbsUp, ThumbsDown } from 'lucide-react';
 
-export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio }) {
+export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio, onStopAudio }) {
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -66,7 +66,13 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup, 
                   <div className="chat-message-actions">
                     <button 
                       className={`message-action-btn ${playingMessageId === msgId ? 'playing' : ''}`}
-                      onClick={() => playAudio(msg.content, msgId)}
+                      onClick={() => {
+                        if (playingMessageId === msgId) {
+                          onStopAudio();
+                        } else {
+                          playAudio(msg.content, msgId);
+                        }
+                      }}
                       title={playingMessageId === msgId ? 'Stop Listening' : 'Listen'}
                     >
                       {playingMessageId === msgId ? (

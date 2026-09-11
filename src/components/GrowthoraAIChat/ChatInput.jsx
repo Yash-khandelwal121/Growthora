@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Image as ImageIcon, Mic, X, Loader2, Square, Keyboard, AudioLines } from 'lucide-react';
+import { VOICE_LANGUAGES } from './GrowthoraAIChat';
 
 export default function ChatInput({ 
   onSendMessage, 
@@ -42,7 +43,11 @@ export default function ChatInput({
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = true;
-    recognition.lang = selectedLanguage ? selectedLanguage.code : 'hi-IN'; // defaults to hi-IN during selection to better capture names
+    
+    const requestLang = selectedLanguage?.name?.toLowerCase() || 'english';
+    const langConfig = VOICE_LANGUAGES[requestLang] || VOICE_LANGUAGES.english;
+    recognition.lang = selectedLanguage ? langConfig.speechRecognition : 'en-IN';
+    
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
@@ -194,7 +199,13 @@ export default function ChatInput({
   // Update SpeechRecognition lang when selectedLanguage changes
   useEffect(() => {
     if (recognitionRef.current) {
-      recognitionRef.current.lang = selectedLanguage ? selectedLanguage.code : 'hi-IN';
+      const requestLang = selectedLanguage?.name?.toLowerCase() || 'english';
+      const langConfig = VOICE_LANGUAGES[requestLang] || VOICE_LANGUAGES.english;
+      recognitionRef.current.lang = selectedLanguage ? langConfig.speechRecognition : 'en-IN';
+      
+      if (recognitionRunningRef.current) {
+        try { recognitionRef.current.abort(); } catch(e){}
+      }
     }
   }, [selectedLanguage]);
 
@@ -213,7 +224,20 @@ export default function ChatInput({
       }
       
       try {
-        await playAudio("Hello, hi! This is Growthora Agent. How can I help you?", 'greeting');
+        const GREETINGS = {
+          english: "Hello, hi! This is Growthora Agent. How can I help you?",
+          hindi: "नमस्ते! मैं Growthora Agent हूँ। मैं आपकी कैसे मदद कर सकता हूँ?",
+          telugu: "నమస్కారం! నేను Growthora Agent ని. నేను మీకు ఎలా సహాయపడగలను?",
+          malayalam: "നമസ്കാരം! ഞാൻ Growthora Agent ആണ്. എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?",
+          kannada: "ನಮಸ್ಕಾರ! ನಾನು Growthora Agent. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+          marathi: "नमस्कार! मी Growthora Agent आहे. मी तुम्हाला कशी मदत करू शकेन?",
+          bengali: "নমস্কার! আমি Growthora Agent। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
+          punjabi: "ਸਤਿ ਸ਼੍ਰੀ ਅਕਾਲ! ਮੈਂ Growthora Agent ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?"
+        };
+        const requestLang = selectedLanguage?.name?.toLowerCase() || 'english';
+        const greetingText = GREETINGS[requestLang] || GREETINGS.english;
+        
+        await playAudio(greetingText, 'greeting');
       } catch (err) {
         console.error(err);
       }
@@ -260,6 +284,7 @@ export default function ChatInput({
         if (isSpeakingRef.current) {
           console.log("[VOICE] TTS END");
           isSpeakingRef.current = false;
+          isProcessingRef.current = false;
           lastTtsEndTimeRef.current = Date.now();
           setVoiceState('listening');
           
