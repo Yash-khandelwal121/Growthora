@@ -3,12 +3,17 @@ import { HfInference } from '@huggingface/inference';
 let hf;
 
 export function initHuggingFace(token) {
-  if (!token) throw new Error('HF_TOKEN is missing');
-  hf = new HfInference(token);
+  // Kept for backward compatibility but dynamic initialization is preferred
+  if (token) hf = new HfInference(token);
 }
 
 export async function chatCompletion(messages) {
-  if (!hf) throw new Error('HuggingFace client not initialized');
+  const token = process.env.HF_TOKEN;
+  if (!token) {
+    throw new Error('HF_TOKEN environment variable is missing in Vercel. Please add it to your project settings.');
+  }
+  
+  const client = hf || new HfInference(token);
 
   // Check if any message content contains an image_url
   const hasImage = messages.some(msg => {
@@ -23,7 +28,7 @@ export async function chatCompletion(messages) {
     : (process.env.HF_TEXT_MODEL || "Qwen/Qwen2.5-7B-Instruct");
 
   try {
-    const response = await hf.chatCompletion({
+    const response = await client.chatCompletion({
       model: targetModel,
       messages: messages,
       max_tokens: 1024,

@@ -3,15 +3,20 @@ import { HfInference } from '@huggingface/inference';
 let hf;
 
 export function initSpeechService(token) {
-  if (!token) throw new Error('HF_TOKEN is missing');
-  hf = new HfInference(token);
+  // Kept for backward compatibility but dynamic initialization is preferred
+  if (token) hf = new HfInference(token);
 }
 
 export async function transcribeAudio(audioBuffer) {
-  if (!hf) throw new Error('HuggingFace client not initialized');
+  const token = process.env.HF_TOKEN;
+  if (!token) {
+    throw new Error('HF_TOKEN environment variable is missing in Vercel. Please add it to your project settings.');
+  }
+  
+  const client = hf || new HfInference(token);
 
   try {
-    const response = await hf.automaticSpeechRecognition({
+    const response = await client.automaticSpeechRecognition({
       model: 'openai/whisper-large-v3',
       data: audioBuffer,
     });

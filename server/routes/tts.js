@@ -26,9 +26,9 @@ router.post('/', async (req, res) => {
       .trim();
       
     const TTS_MAP = {
-      'en-IN': 'en-IN',
-      'hi-IN': 'hi-IN',
-      'bn-IN': 'bn-IN',
+      'en-IN': 'en',
+      'hi-IN': 'hi',
+      'bn-IN': 'bn',
       'te-IN': 'te',
       'ml-IN': 'ml',
       'kn-IN': 'kn',
