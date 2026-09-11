@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
     const results = await googleTTS.getAllAudioBase64(cleanText, {
       lang: lang,
       slow: false,
-      host: 'https://translate.googleapis.com',
+      host: 'https://translate.google.com',
       timeout: 15000,
     });
 
