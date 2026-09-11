@@ -17,8 +17,15 @@ const INTENT_MAP = {
 };
 
 export function searchKnowledge(query) {
-  const knowledgeDir = path.join(__dirname, '../../knowledge');
-  if (!fs.existsSync(knowledgeDir)) return '';
+  let knowledgeDir = path.join(process.cwd(), 'knowledge');
+  if (!fs.existsSync(knowledgeDir)) {
+    knowledgeDir = path.join(__dirname, '../../knowledge');
+  }
+  
+  if (!fs.existsSync(knowledgeDir)) {
+    console.warn(`[DIAGNOSTICS] RAG Knowledge Directory NOT FOUND! Tried: ${process.cwd()}/knowledge and ${path.join(__dirname, '../../knowledge')}`);
+    return '';
+  }
 
   const files = fs.readdirSync(knowledgeDir).filter(f => f.endsWith('.md'));
   

@@ -6,8 +6,11 @@ const router = express.Router();
 const SUPPORTED_LANGUAGES = ['en', 'hi', 'te', 'ml', 'kn', 'mr', 'bn', 'pa'];
 
 router.post('/', async (req, res) => {
+  console.log(`[DIAGNOSTICS] /api/tts endpoint entered`);
+  console.log(`[DIAGNOSTICS] Request Body Keys: ${Object.keys(req.body).join(', ')}`);
   try {
     const { text, language, languageCode } = req.body;
+    console.log(`[DIAGNOSTICS] TTS requested for language: ${languageCode}`);
     if (!text) {
       return res.status(400).json({ error: 'Text is required' });
     }
@@ -43,8 +46,8 @@ router.post('/', async (req, res) => {
     const results = await googleTTS.getAllAudioBase64(cleanText, {
       lang: lang,
       slow: false,
-      host: 'https://translate.google.com',
-      timeout: 10000,
+      host: 'https://translate.googleapis.com',
+      timeout: 15000,
     });
 
     const audioBuffers = results.map(result => Buffer.from(result.base64, 'base64'));
@@ -55,10 +58,11 @@ router.post('/', async (req, res) => {
       'Content-Length': finalBuffer.length,
     });
     
+    console.log(`[DIAGNOSTICS] /api/tts upstream success, returning audio`);
     res.send(finalBuffer);
   } catch (error) {
-    console.error('TTS error:', error);
-    res.status(500).json({ error: 'Failed to generate audio' });
+    console.error(`[DIAGNOSTICS] TTS error intercepted: ${error.message}`);
+    res.status(500).json({ error: error.message || 'Failed to generate audio' });
   }
 });
 

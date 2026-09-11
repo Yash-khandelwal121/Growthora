@@ -29,6 +29,10 @@ CRITICAL RULES:
 7. Be professional, conversational, and easy to understand. Do NOT use any Markdown formatting, JSON, bolding, italics, or decorative separators. Use plain text structure.`;
 
 router.post('/', upload.single('image'), async (req, res) => {
+  console.log(`[DIAGNOSTICS] /api/chat endpoint entered`);
+  console.log(`[DIAGNOSTICS] HF_TOKEN present: ${!!process.env.HF_TOKEN}`);
+  console.log(`[DIAGNOSTICS] Request Body Keys: ${Object.keys(req.body).join(', ')}`);
+  
   try {
     const { message, conversation, language } = req.body;
     let parsedConversation = [];
@@ -108,11 +112,11 @@ router.post('/', upload.single('image'), async (req, res) => {
     };
 
     const cleanReply = sanitizeResponse(aiMessage.content);
-
+    console.log(`[DIAGNOSTICS] /api/chat upstream success`);
     res.json({ reply: cleanReply });
   } catch (error) {
-    console.error('Chat error:', error);
-    res.status(500).json({ error: 'Sorry, I am having trouble connecting right now. Please try again in a moment.' });
+    console.error(`[DIAGNOSTICS] Chat error intercepted: ${error.message}`);
+    res.status(500).json({ error: error.message || 'Sorry, I am having trouble connecting right now. Please try again in a moment.' });
   }
 });
 
