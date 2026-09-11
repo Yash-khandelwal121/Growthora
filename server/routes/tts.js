@@ -44,13 +44,32 @@ router.post('/', async (req, res) => {
       console.warn(`[VOICE] TTS language fallback from ${languageCode} to en-IN`);
     }
 
-    // Get Base64 Audio
-    const results = await googleTTS.getAllAudioBase64(cleanText, {
-      lang: lang,
-      slow: false,
-      host: 'https://translate.google.com',
-      timeout: 15000,
-    });
+    // Get Base64 Audio - Try multiple regional hosts to bypass Vercel IP blocks
+    const hosts = [
+      'https://translate.google.co.in',
+      'https://translate.google.com', 
+      'https://translate.google.co.uk'
+    ];
+    
+    let results;
+    let lastError;
+    
+    for (const host of hosts) {
+      try {
+        results = await googleTTS.getAllAudioBase64(cleanText, {
+          lang: lang,
+          slow: false,
+          host: host,
+          timeout: 10000,
+        });
+        break; // Success
+      } catch (err) {
+        lastError = err;
+        console.warn(`[DIAGNOSTICS] TTS failed on host ${host}: ${err.message}`);
+      }
+    }
+    
+    if (!results) throw lastError;
 
     const audioBuffers = results.map(result => Buffer.from(result.base64, 'base64'));
     const finalBuffer = Buffer.concat(audioBuffers);
