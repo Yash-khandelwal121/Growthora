@@ -38,6 +38,8 @@ router.post('/', async (req, res) => {
 
     let lang = TTS_MAP[languageCode] || languageCode || 'en-IN';
     
+    console.log(`[DIAGNOSTICS] TTS Mapping: Requested UI Locale [${languageCode}] -> Mapped Provider Language [${lang}]`);
+    
     if (languageCode && !TTS_MAP[languageCode]) {
       console.warn(`[VOICE] TTS language fallback from ${languageCode} to en-IN`);
     }
@@ -58,7 +60,7 @@ router.post('/', async (req, res) => {
       'Content-Length': finalBuffer.length,
     });
     
-    console.log(`[DIAGNOSTICS] /api/tts upstream success, returning audio`);
+    console.log(`[DIAGNOSTICS] /api/tts upstream success, returning audio. Upstream Status: OK`);
     res.send(finalBuffer);
   } catch (error) {
     console.error(`[DIAGNOSTICS] TTS error intercepted: ${error.message}`);
