@@ -25,8 +25,8 @@ CRITICAL RULES:
 3. Only mention options, services, or schemes that are explicitly detailed in the Knowledge Context.
 4. MULTI-TURN MEMORY: Remember the user's business type, industry, or funding amount from previous messages. Answer follow-up questions in that context.
 5. FUNDING HANDOFF: If the user clearly indicates they need funding (e.g., "I need funding", "loan chahiye", "business loan", "grant", "investor"), you MUST explain the relevant Growthora funding routes (Grants, Debt, Equity) based on the context, and you MUST end your response by offering the "Start Funding Assessment" CTA.
-6. HINDI/HINGLISH: Reply naturally in the user's language/style (English, Hindi, or Hinglish).
-7. Be professional, easy to understand, and action-oriented. Use Markdown for readability.`;
+6. LANGUAGE CONTINUITY: You MUST reply naturally and fluently in the user's selected language. Do not mix languages or fallback to Hindi/English unless explicitly requested.
+7. Be professional, conversational, and easy to understand. Do NOT use any Markdown formatting, JSON, bolding, italics, or decorative separators. Use plain text structure.`;
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
@@ -48,7 +48,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     
     let sysPrompt = SYSTEM_PROMPT;
     if (language) {
-      sysPrompt += `\n\nCRITICAL LANGUAGE OVERRIDE: Always respond in the user's selected language: ${language}. Do not switch languages unless the user explicitly changes the selected language.`;
+      sysPrompt += `\n\nCRITICAL LANGUAGE OVERRIDE: You MUST formulate your entire response exclusively and fluently in ${language}. Absolutely NO Hindi or English fallback unless the user explicitly requests it. Your text and script must be natively ${language}.`;
     }
     
     const messages = [
@@ -86,7 +86,30 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     const aiMessage = await chatCompletion(messages);
 
-    res.json({ reply: aiMessage.content });
+    const sanitizeResponse = (text) => {
+      if (!text) return "";
+      let clean = text;
+      // Remove horizontal rules and decorative lines (===, ---, ***, etc.)
+      clean = clean.replace(/^[=\-_*~]{3,}\s*$/gm, '');
+      // Convert markdown headers (###, ##, #) to plain text with a newline
+      clean = clean.replace(/^#+\s+(.*)$/gm, '$1');
+      // Remove list bullets (- or * or +) at the start of a line
+      clean = clean.replace(/^[\s]*[-*+]\s+(.*)$/gm, '$1');
+      // Convert bold/italic symbols (**text**, *text*, __text__) but keep the text
+      clean = clean.replace(/[*_]{1,2}([^*_]+)[*_]{1,2}/g, '$1');
+      // Remove backticks and code blocks
+      clean = clean.replace(/```[\s\S]*?```/g, '');
+      clean = clean.replace(/`([^`]+)`/g, '$1');
+      // Remove raw HTML tags
+      clean = clean.replace(/<[^>]*>/g, '');
+      // Clean up multiple newlines
+      clean = clean.replace(/\n{3,}/g, '\n\n');
+      return clean.trim();
+    };
+
+    const cleanReply = sanitizeResponse(aiMessage.content);
+
+    res.json({ reply: cleanReply });
   } catch (error) {
     console.error('Chat error:', error);
     res.status(500).json({ error: 'Sorry, I am having trouble connecting right now. Please try again in a moment.' });

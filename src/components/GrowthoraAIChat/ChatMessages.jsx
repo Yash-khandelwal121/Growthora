@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Bot, Copy, ThumbsUp, ThumbsDown } from 'lucide-react';
+import cleanLogo from '../../assets/growthora_logo_clean.png';
 
 export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio, onStopAudio }) {
   const endOfMessagesRef = useRef(null);
@@ -40,8 +41,11 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup, 
 
   return (
     <div className="chat-messages">
+      <div className="chat-watermark-bg">
+        <img src={cleanLogo} alt="Growthora Watermark" />
+      </div>
       {messages.map((msg, index) => {
-        const isFundingRelevant = msg.role === 'ai' && (msg.content.toLowerCase().includes('funding assessment') || msg.content.toLowerCase().includes('fund'));
+        const isFundingRelevant = msg.role === 'ai' && typeof msg.content === 'string' && (msg.content.toLowerCase().includes('funding assessment') || msg.content.toLowerCase().includes('fund'));
         const msgId = msg.id || index;
 
         return (

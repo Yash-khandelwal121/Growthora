@@ -3,6 +3,8 @@ import { MessageSquare, X, RotateCcw, Sparkles, Globe } from 'lucide-react';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 import { FundingSolutionPopup } from '../FundingSolutionPopup';
+import aiLogo from '../../assets/growthora_chatbot_logo.jpg';
+import cleanLogo from '../../assets/growthora_logo_clean.png';
 import './growthoraAIChat.css';
 
 const INITIAL_MESSAGE = {
@@ -12,14 +14,14 @@ const INITIAL_MESSAGE = {
 };
 
 export const SUPPORTED_LANGUAGES = [
-  { name: 'English', label: 'English', code: 'en' },
-  { name: 'Hindi', label: 'Hindi', code: 'hi' },
-  { name: 'Telugu', label: 'Telugu', code: 'te' },
-  { name: 'Malayalam', label: 'Malayalam', code: 'ml' },
-  { name: 'Kannada', label: 'Kannada', code: 'kn' },
-  { name: 'Marathi', label: 'Marathi', code: 'mr' },
-  { name: 'Bengali', label: 'Bengali', code: 'bn' },
-  { name: 'Punjabi', label: 'Punjabi', code: 'pa' }
+  { name: 'English', label: 'English', code: 'en-IN' },
+  { name: 'Hindi', label: 'Hindi', code: 'hi-IN' },
+  { name: 'Telugu', label: 'Telugu', code: 'te-IN' },
+  { name: 'Malayalam', label: 'Malayalam', code: 'ml-IN' },
+  { name: 'Kannada', label: 'Kannada', code: 'kn-IN' },
+  { name: 'Marathi', label: 'Marathi', code: 'mr-IN' },
+  { name: 'Bengali', label: 'Bengali', code: 'bn-IN' },
+  { name: 'Punjabi', label: 'Punjabi', code: 'pa-IN' }
 ];
 
 export const VOICE_LANGUAGES = {
@@ -34,14 +36,14 @@ export const VOICE_LANGUAGES = {
 };
 
 export const CONFIRMATION_MESSAGES = {
-  en: "Great! I'll continue in English. How can I help you today?",
-  hi: "बहुत अच्छा! अब मैं आपसे हिंदी में बात करूंगा। मैं आपकी कैसे सहायता कर सकता हूँ?",
-  te: "చాలా బాగుంది! ఇకపై నేను మీతో తెలుగులో మాట్లాడతాను. నేను మీకు ఎలా సహాయం చేయగలను?",
-  ml: "വളരെ നല്ലത്! ഇനി ഞാൻ നിങ്ങളോട് മലയാളത്തിൽ സംസാരിക്കും. ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായിക്കാം?",
-  kn: "ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! ಇನ್ನು ಮುಂದೆ ನಾನು ನಿಮ್ಮೊಂದಿಗೆ ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡುತ್ತೇನೆ. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
-  mr: "खूप छान! आता मी तुमच्याशी मराठीत बोलेन. मी तुम्हाला कशी मदत करू शकतो?",
-  bn: "খুব ভালো! এখন থেকে আমি আপনার সঙ্গে বাংলায় কথা বলব। আমি কীভাবে আপনাকে সাহায্য করতে পারি?",
-  pa: "ਬਹੁਤ ਵਧੀਆ! ਹੁਣ ਮੈਂ ਤੁਹਾਡੇ ਨਾਲ ਪੰਜਾਬੀ ਵਿੱਚ ਗੱਲ ਕਰਾਂਗਾ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?"
+  'en-IN': "Great! I'll continue in English. How can I help you today?",
+  'hi-IN': "बहुत अच्छा! अब मैं आपसे हिंदी में बात करूंगा। मैं आपकी कैसे सहायता कर सकता हूँ?",
+  'te-IN': "చాలా బాగుంది! ఇకపై నేను మీతో తెలుగులో మాట్లాడతాను. నేను మీకు ఎలా సహాయం చేయగలను?",
+  'ml-IN': "വളരെ നല്ലത്! ഇനി ഞാൻ നിങ്ങളോട് മലയാളത്തിൽ സംസാരിക്കും. ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായിക്കാം?",
+  'kn-IN': "ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! ಇನ್ನು ಮುಂದೆ ನಾನು ನಿಮ್ಮೊಂದಿಗೆ ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡುತ್ತೇನೆ. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+  'mr-IN': "खूप छान! आता मी तुमच्याशी मराठीत बोलेन. मी तुम्हाला कशी मदत करू शकतो?",
+  'bn-IN': "খুব ভালো! এখন থেকে আমি আপনার সঙ্গে বাংলায় কথা বলব। আমি কীভাবে আপনাকে সাহায্য করতে পারি?",
+  'pa-IN': "ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ Growthora AI ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?"
 };
 
 export function GrowthoraAIChat() {
@@ -50,6 +52,7 @@ export function GrowthoraAIChat() {
   const [isTyping, setIsTyping] = useState(false);
   const [showFundingPopup, setShowFundingPopup] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [showLangMenu, setShowLangMenu] = useState(false);
 
   const [playingMessageId, setPlayingMessageId] = useState(null);
   const audioPlayerRef = React.useRef(null);
@@ -60,27 +63,18 @@ export function GrowthoraAIChat() {
 
   // Initialize Language
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('growthora_ai_language');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setSelectedLanguage(parsed);
-        setMessages([{
-          role: 'ai',
-          content: `Welcome back to Growthora AI! I am ready to help you in ${parsed.name}.`
-        }]);
-      } else {
-        setMessages([INITIAL_MESSAGE]);
-      }
-    } catch (e) {
-      setMessages([INITIAL_MESSAGE]);
-    }
+    setMessages([INITIAL_MESSAGE]);
+    // localStorage caching intentionally removed to force language selection every time
   }, []);
 
   const stopAudio = () => {
     const audio = audioPlayerRef.current;
     
     ttsCancelledRef.current = true;
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
 
     if (!audio) {
       setPlayingMessageId(null);
@@ -133,22 +127,26 @@ export function GrowthoraAIChat() {
     stopAudio();
     setIsLiveVoiceMode(false);
     setSelectedLanguage(null);
-    localStorage.removeItem('growthora_ai_language');
     setMessages([INITIAL_MESSAGE]);
+    setShowLangMenu(false);
   };
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      setIsLiveVoiceMode(true);
+    } else {
       setIsLiveVoiceMode(false);
       stopAudio();
     }
   }, [isOpen]);
 
   const handleLanguageSelect = async (langObj) => {
+    console.log(`[VOICE TIMING] ${Date.now()} - languageDetected: ${langObj.name}`);
     setSelectedLanguage(langObj);
-    localStorage.setItem('growthora_ai_language', JSON.stringify(langObj));
-
+    setIsLiveVoiceMode(true);
+    
     const confirmText = CONFIRMATION_MESSAGES[langObj.code];
+    console.log(`[VOICE TIMING] ${Date.now()} - confirmationGenerated: ${confirmText}`);
     
     const messageId = Date.now();
     const newAiMessage = { role: 'ai', content: confirmText, id: messageId, isVoiceResponse: true, isSystemAlert: true };
@@ -169,13 +167,14 @@ export function GrowthoraAIChat() {
           ttsCancelledRef.current = false;
         }
 
+        console.log(`[VOICE TIMING] ${Date.now()} - playAudio Started (fetching /api/tts)`);
         setPlayingMessageId(id);
 
-        console.log('[VOICE] Sending text to TTS');
-
         const requestLangObjName = selectedLanguage?.name?.toLowerCase() || 'english';
-        const requestLangCode = forceLangCode || selectedLanguage?.code || 'en';
         const langConfig = VOICE_LANGUAGES[requestLangObjName] || VOICE_LANGUAGES.english;
+        const finalLangCode = forceLangCode || langConfig.tts;
+
+        console.log(`[VOICE TIMING] ${Date.now()} - TTSRequest started`);
 
         const response = await fetch('/api/tts', {
           method: 'POST',
@@ -185,7 +184,7 @@ export function GrowthoraAIChat() {
           body: JSON.stringify({ 
             text, 
             language: requestLangObjName,
-            languageCode: langConfig.tts
+            languageCode: finalLangCode
           })
         });
 
@@ -207,12 +206,14 @@ export function GrowthoraAIChat() {
 
         url = URL.createObjectURL(blob);
 
+        console.log(`[VOICE TIMING] ${Date.now()} - Cloud TTS Blob Received`);
+
         const audio = new Audio(url);
 
         audioPlayerRef.current = audio;
 
         audio.onended = () => {
-          console.log('[VOICE] TTS playback finished');
+          console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Cloud)`);
 
           setPlayingMessageId(null);
 
@@ -241,13 +242,57 @@ export function GrowthoraAIChat() {
           reject(error);
         };
 
-        console.log('[VOICE] TTS playback started');
-
+        console.log(`[VOICE TIMING] ${Date.now()} - audioStarted (Cloud)`);
         await audio.play();
 
       } catch (error) {
 
-        console.error('[VOICE] TTS error:', error);
+        console.error('[VOICE] Cloud TTS error, falling back to native Web Speech API:', error);
+
+        // Fallback to native Web Speech API
+        if ('speechSynthesis' in window) {
+          try {
+            const requestLangObjName = selectedLanguage?.name?.toLowerCase() || 'english';
+            const langConfig = VOICE_LANGUAGES[requestLangObjName] || VOICE_LANGUAGES.english;
+            const finalLangCode = forceLangCode || langConfig.tts;
+            
+            // Deep sanitize for speech to avoid native voices pronouncing markdown symbols
+            const speechSafeText = text
+              .replace(/[*#_>`~\[\]={}]/g, '')
+              .replace(/(?:\s-\s|--+)/g, ' ')
+              .replace(/\n+/g, '. ')
+              .trim();
+              
+            const utterance = new SpeechSynthesisUtterance(speechSafeText);
+            utterance.lang = finalLangCode;
+            
+            // Try to find a native voice that perfectly matches the locale
+            const voices = window.speechSynthesis.getVoices();
+            const nativeVoice = voices.find(v => v.lang === finalLangCode) || 
+                                voices.find(v => v.lang.startsWith(finalLangCode.split('-')[0]));
+            if (nativeVoice) {
+              utterance.voice = nativeVoice;
+            }
+
+            utterance.onend = () => {
+              console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Native)`);
+              setPlayingMessageId(null);
+              resolve();
+            };
+
+            utterance.onerror = (e) => {
+              console.error('[VOICE] Native TTS error:', e);
+              setPlayingMessageId(null);
+              reject(e);
+            };
+
+            console.log(`[VOICE TIMING] ${Date.now()} - audioStarted (Native) [Locale: ${utterance.lang}]`);
+            window.speechSynthesis.speak(utterance);
+            return;
+          } catch (nativeErr) {
+            console.error('[VOICE] Native TTS fallback also failed:', nativeErr);
+          }
+        }
 
         setPlayingMessageId(null);
 
@@ -293,6 +338,7 @@ export function GrowthoraAIChat() {
       });
 
       const data = await response.json();
+      console.log(`[VOICE TIMING] ${Date.now()} - Chat Response Received`);
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to fetch AI response');
@@ -326,15 +372,39 @@ export function GrowthoraAIChat() {
         {isOpen ? (
           <div className="growthora-ai-panel">
             <div className="chat-header">
-              <div className="chat-header-info">
-                <div className="chat-header-info-title">
-                  <h3>Growthora AI <Sparkles size={14} style={{ color: '#ff6b00' }} /></h3>
-                  <div className="status-indicator"></div>
+              <div className="chat-header-brand">
+                <div className="chat-header-logo-container">
+                  <img src={cleanLogo} alt="Growthora Logo" className="chat-header-logo" />
                 </div>
-                <p>Your Growth & Business Assistant</p>
+                <div className="chat-header-info">
+                  <div className="chat-header-info-title">
+                    <h3>Growthora AI</h3>
+                    <Sparkles size={14} style={{ color: '#ff6b00', marginLeft: '4px', marginRight: '4px' }} />
+                    <div className="status-indicator"></div>
+                  </div>
+                  <p>Your Growth & Business Assistant</p>
+                </div>
               </div>
               <div className="chat-header-actions">
-                <button onClick={changeLanguage} title="Change Language"><Globe size={18} /></button>
+                <div style={{ position: 'relative' }}>
+                  <button onClick={() => setShowLangMenu(!showLangMenu)} title="Change Language"><Globe size={18} /></button>
+                  {showLangMenu && (
+                    <div className="language-dropdown-menu">
+                      {SUPPORTED_LANGUAGES.map(lang => (
+                        <button 
+                          key={lang.code} 
+                          onClick={() => {
+                            stopAudio();
+                            handleLanguageSelect(lang);
+                            setShowLangMenu(false);
+                          }}
+                        >
+                          {lang.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <button onClick={clearChat} title="Clear Conversation"><RotateCcw size={18} /></button>
                 <button onClick={() => setIsOpen(false)} title="Close"><X size={22} /></button>
               </div>
@@ -351,25 +421,7 @@ export function GrowthoraAIChat() {
               onStopAudio={stopAudio}
             />
 
-            {messages.length === 1 && !selectedLanguage && (
-              <div className="language-selector-container">
-                <div className="language-selector-header">
-                  <h4>Choose your language</h4>
-                  <p>Select a language to continue</p>
-                </div>
-                <div className="language-selector-grid">
-                  {SUPPORTED_LANGUAGES.map((langObj, i) => (
-                    <button 
-                      key={i} 
-                      className="language-chip" 
-                      onClick={() => handleLanguageSelect(langObj)}
-                    >
-                      {langObj.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+
 
             <ChatInput 
               onSendMessage={handleSendMessage} 
@@ -384,9 +436,38 @@ export function GrowthoraAIChat() {
             />
           </div>
         ) : (
-          <button className="growthora-ai-button" onClick={() => setIsOpen(true)}>
-            <MessageSquare size={28} />
-          </button>
+          <>
+            <button className="growthora-ai-button" onClick={() => setIsOpen(true)} style={{ padding: 0, overflow: 'visible', border: '2px solid rgba(255,107,0,0.3)', position: 'relative' }}>
+              <img src={aiLogo} alt="Growthora AI Chat" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+              <div className="ai-chat-badge" style={{
+                position: 'absolute',
+                top: '-4px',
+                right: '-4px',
+                backgroundColor: '#ff6b00',
+                borderRadius: '50%',
+                width: '24px',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                border: '2px solid white'
+              }}>
+                <Sparkles size={12} color="white" />
+              </div>
+            </button>
+            <div className="growthora-welcome-bubble" onClick={() => setIsOpen(true)}>
+              <div className="welcome-sparkles">
+                <Sparkles size={22} className="welcome-sparkles-icon-main" />
+                <Sparkles size={12} className="welcome-sparkles-icon-sub" />
+              </div>
+              <div className="welcome-text">
+                <div className="welcome-title">Hi! I'm Growthora AI</div>
+                <div className="welcome-subtitle">How can I help you today?</div>
+              </div>
+              <div className="welcome-tail"></div>
+            </div>
+          </>
         )}
       </div>
 

@@ -32,6 +32,29 @@ export default function ChatInput({
   const listeningUnlockTimerRef = useRef(null);
   const recognitionRef = useRef(null);
 
+  const selectedLanguageRef = useRef(selectedLanguage);
+  const onSendMessageRef = useRef(onSendMessage);
+  const onLanguageSelectRef = useRef(onLanguageSelect);
+
+  useEffect(() => { selectedLanguageRef.current = selectedLanguage; }, [selectedLanguage]);
+  useEffect(() => { onSendMessageRef.current = onSendMessage; }, [onSendMessage]);
+  useEffect(() => { onLanguageSelectRef.current = onLanguageSelect; }, [onLanguageSelect]);
+
+  // Fallback unlock if API fails or returns no audio
+  useEffect(() => {
+    if (!isTyping) {
+      const timer = setTimeout(() => {
+        if (isProcessingRef.current && !isSpeakingRef.current && isLiveVoiceModeRef.current) {
+           console.log("[VOICE] API finished but no TTS started. Unlocking.");
+           isProcessingRef.current = false;
+           setVoiceState('listening');
+           startRecognition();
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isTyping]);
+
   // Initialize SpeechRecognition once
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -44,10 +67,8 @@ export default function ChatInput({
     recognition.continuous = false;
     recognition.interimResults = true;
     
-    const requestLang = selectedLanguage?.name?.toLowerCase() || 'english';
-    const langConfig = VOICE_LANGUAGES[requestLang] || VOICE_LANGUAGES.english;
-    recognition.lang = selectedLanguage ? langConfig.speechRecognition : 'en-IN';
-    
+    // Initial lang (will be updated by another effect)
+    recognition.lang = 'en-IN';
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
@@ -60,20 +81,61 @@ export default function ChatInput({
       // Prevent duplicate processing if already thinking/processing
       if (isProcessingRef.current || isSpeakingRef.current) return;
 
-      let transcript = "";
+      let finalTranscript = "";
+      let interimTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
+        const text = event.results[i][0].transcript;
         if (event.results[i].isFinal) {
-          transcript += event.results[i][0].transcript;
+          finalTranscript += text;
+        } else {
+          interimTranscript += text;
         }
       }
       
-      const finalText = transcript.trim();
+      const fullTranscriptForLang = (finalTranscript + " " + interimTranscript).trim();
+
+      // IMMEDIATE ONBOARDING LANGUAGE DETECTION (No waiting for silence/isFinal)
+      if (!selectedLanguageRef.current && fullTranscriptForLang.length > 0) {
+        const lowerText = fullTranscriptForLang.toLowerCase();
+        const supported = [
+          { name: 'English', code: 'en-IN', words: ['english'] },
+          { name: 'Hindi', code: 'hi-IN', words: ['hindi', 'हिंदी'] },
+          { name: 'Telugu', code: 'te-IN', words: ['telugu', 'తెలుగు'] },
+          { name: 'Malayalam', code: 'ml-IN', words: ['malayalam', 'മലയാളം'] },
+          { name: 'Kannada', code: 'kn-IN', words: ['kannada', 'ಕನ್ನಡ'] },
+          { name: 'Marathi', code: 'mr-IN', words: ['marathi', 'मराठी'] },
+          { name: 'Bengali', code: 'bn-IN', words: ['bengali', 'bangla', 'বাংলা'] },
+          { name: 'Punjabi', code: 'pa-IN', words: ['punjabi', 'ਪੰਜਾਬੀ'] }
+        ];
+
+        for (const lang of supported) {
+          if (lang.words.some(w => lowerText.includes(w))) {
+            console.log(`[VOICE TIMING] ${Date.now()} - Onboarding language detected (Interim):`, lang.name);
+            
+            // IMMEDIATELY lock processing so ghost final transcripts do not trigger /api/chat
+            isProcessingRef.current = true;
+            recognitionRunningRef.current = false;
+            
+            try { recognition.stop(); } catch(e){}
+            
+            onLanguageSelectRef.current(lang);
+            return;
+          }
+        }
+      }
+      
+      const normalizeTranscript = (text) => {
+        // Context-aware replacement of common Growthora misrecognitions
+        return text.replace(/(?:^|\s)(गुरुद्वारा|ग्रोथोरा|Growth Ora|ग्रोथोरा AI|Growth aura)(?=\s|$|[.,!?])/gi, ' Growthora');
+      };
+      
+      const finalText = normalizeTranscript(finalTranscript.trim());
       if (!finalText) return;
       
-      console.log("[VOICE] FINAL TRANSCRIPT:", finalText);
+      console.log(`[VOICE TIMING] ${Date.now()} - STT Final Transcript received:`, finalText);
 
       const elapsed = Date.now() - lastTtsEndTimeRef.current;
-      if (elapsed < 1000) {
+      if (elapsed < 200) {
         console.log("[VOICE] USER SPEECH IGNORED (TTS Cooldown):", finalText);
         return;
       }
@@ -82,38 +144,8 @@ export default function ChatInput({
         console.log("[VOICE] USER SPEECH IGNORED (Too short/noise):", finalText);
         return;
       }
-
-      // If no language is selected yet, check if the user spoke a language name
-      if (!selectedLanguage) {
-        const lowerText = finalText.toLowerCase();
-        const supported = [
-          { name: 'English', code: 'en', words: ['english'] },
-          { name: 'Hindi', code: 'hi', words: ['hindi', 'हिंदी'] },
-          { name: 'Telugu', code: 'te', words: ['telugu', 'తెలుగు'] },
-          { name: 'Malayalam', code: 'ml', words: ['malayalam', 'മലയാളം'] },
-          { name: 'Kannada', code: 'kn', words: ['kannada', 'ಕನ್ನಡ'] },
-          { name: 'Marathi', code: 'mr', words: ['marathi', 'मराठी'] },
-          { name: 'Bengali', code: 'bn', words: ['bengali', 'bangla', 'বাংলা'] },
-          { name: 'Punjabi', code: 'pa', words: ['punjabi', 'ਪੰਜਾਬੀ'] }
-        ];
-
-        for (const lang of supported) {
-          if (lang.words.some(w => lowerText.includes(w))) {
-            console.log("[VOICE] Language Selected via Mic:", lang.name);
-            try { recognition.stop(); } catch(e){}
-            recognitionRunningRef.current = false;
-            onLanguageSelect(lang);
-            return;
-          }
-        }
-        
-        // If they spoke something else but no language is selected, just drop it 
-        // to prevent API calls before language selection.
-        console.log("[VOICE] Ignored speech because no language selected yet:", finalText);
-        return;
-      }
       
-      console.log("[VOICE] USER SPEECH ACCEPTED:", finalText);
+      console.log(`[VOICE TIMING] ${Date.now()} - Chat Start (Sending to /api/chat)`);
 
       try { recognition.stop(); } catch(e){}
       
@@ -121,7 +153,7 @@ export default function ChatInput({
       isProcessingRef.current = true;
       setVoiceState('thinking');
       
-      onSendMessage({
+      onSendMessageRef.current({
         text: finalText,
         image: null,
         imagePreview: null,
@@ -137,7 +169,7 @@ export default function ChatInput({
       if (isProcessingRef.current) return;
 
       const elapsed = Date.now() - lastTtsEndTimeRef.current;
-      const delay = Math.max(700, 1000 - elapsed);
+      const delay = Math.max(100, 200 - elapsed);
 
       clearTimeout(listeningUnlockTimerRef.current);
       listeningUnlockTimerRef.current = setTimeout(() => {
@@ -224,20 +256,26 @@ export default function ChatInput({
       }
       
       try {
-        const GREETINGS = {
-          english: "Hello, hi! This is Growthora Agent. How can I help you?",
-          hindi: "नमस्ते! मैं Growthora Agent हूँ। मैं आपकी कैसे मदद कर सकता हूँ?",
-          telugu: "నమస్కారం! నేను Growthora Agent ని. నేను మీకు ఎలా సహాయపడగలను?",
-          malayalam: "നമസ്കാരം! ഞാൻ Growthora Agent ആണ്. എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?",
-          kannada: "ನಮಸ್ಕಾರ! ನಾನು Growthora Agent. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
-          marathi: "नमस्कार! मी Growthora Agent आहे. मी तुम्हाला कशी मदत करू शकेन?",
-          bengali: "নমস্কার! আমি Growthora Agent। আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
-          punjabi: "ਸਤਿ ਸ਼੍ਰੀ ਅਕਾਲ! ਮੈਂ Growthora Agent ਹਾਂ। ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?"
-        };
-        const requestLang = selectedLanguage?.name?.toLowerCase() || 'english';
-        const greetingText = GREETINGS[requestLang] || GREETINGS.english;
-        
-        await playAudio(greetingText, 'greeting');
+        if (!selectedLanguageRef.current) {
+          const prompt = "Hello! Welcome to Growthora AI. Please select your language. You can say English, Hindi, Telugu, Malayalam, Kannada, Marathi, Bengali, or Punjabi.";
+          await playAudio(prompt, 'language-prompt', 'en-IN');
+        } else {
+          // If a language is already selected, just play a localized welcome back greeting
+          const GREETINGS = {
+            english: "Welcome back! How can I help you today?",
+            hindi: "वापसी पर स्वागत है! आज मैं आपकी कैसे मदद कर सकता हूँ?",
+            telugu: "తిరిగి స్వాగతం! ఈ రోజు నేను మీకు ఎలా సహాయపడగలను?",
+            malayalam: "തിരികെ സ്വാഗതം! ഇന്ന് എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?",
+            kannada: "ಮತ್ತೆ ಸ್ವಾಗತ! ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+            marathi: "परत स्वागत आहे! आज मी तुम्हाला कशी मदत करू शकेन?",
+            bengali: "ফিরে আসার জন্য স্বাগত! আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
+            punjabi: "ਵਾਪਸੀ 'ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ! ਅੱਜ ਮੈਂ ਤੁਹਾਡੀ ਕਿਵੇਂ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ?"
+          };
+          const requestLang = selectedLanguageRef.current?.name?.toLowerCase() || 'english';
+          const greetingText = GREETINGS[requestLang] || GREETINGS.english;
+          
+          await playAudio(greetingText, 'greeting');
+        }
       } catch (err) {
         console.error(err);
       }
@@ -256,7 +294,7 @@ export default function ChatInput({
         ) {
           startRecognition();
         }
-      }, 1000);
+      }, 200);
     };
 
     if (isLiveVoiceMode) {
@@ -297,7 +335,7 @@ export default function ChatInput({
             ) {
               startRecognition();
             }
-          }, 1000);
+          }, 200);
         }
       }
     }
@@ -354,55 +392,43 @@ export default function ChatInput({
   if (isLiveVoiceMode) {
     if (voiceError) {
       return (
-        <div className="chat-input-area live-voice-mode">
-          <div className="voice-status-display">
-            <div className="voice-state" style={{ color: '#ef4444', textAlign: 'center' }}>
-              <span>{voiceError}</span>
-            </div>
-          </div>
-          <button type="button" className="exit-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
-            <Keyboard size={16} /> Exit Voice
+        <div className="live-voice-overlay error-state">
+          <button type="button" className="close-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
+            <X size={24} />
           </button>
+          <div className="voice-status-text error-text">
+            <span>{voiceError}</span>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className="chat-input-area live-voice-mode">
-        <div className="voice-status-display">
-          {voiceState === 'listening' && (
-            <div className="voice-state listening">
-              <AudioLines className="pulse-anim" size={32} color="#ff6b00" />
-              <span>Listening...</span>
-            </div>
-          )}
-          {voiceState === 'transcribing' && (
-            <div className="voice-state">
-              <Loader2 className="lucide-spin" size={24} color="#64748b" />
-              <span>Processing speech...</span>
-            </div>
-          )}
-          {voiceState === 'thinking' && (
-            <div className="voice-state">
-              <Loader2 className="lucide-spin" size={24} color="#ff6b00" />
-              <span>Thinking...</span>
-            </div>
-          )}
-          {voiceState === 'speaking' && (
-            <div className="voice-state speaking">
-              <AudioLines size={32} color="#ff6b00" />
-              <span>Speaking...</span>
-            </div>
-          )}
-        </div>
-        
+      <div className="live-voice-overlay">
         <button 
           type="button" 
-          className="exit-voice-btn" 
+          className="close-voice-btn" 
           onClick={() => setIsLiveVoiceMode(false)}
+          title="Switch to Text Chat"
         >
-          <Keyboard size={16} /> Exit Voice
+          <X size={20} />
         </button>
+        
+        <div className="siri-orb-container">
+          <div className={`siri-orb ${voiceState}`}>
+            <div className="orb-core"></div>
+            <div className="orb-ring ring-1"></div>
+            <div className="orb-ring ring-2"></div>
+            <div className="orb-ring ring-3"></div>
+          </div>
+        </div>
+        
+        <div className="voice-status-text">
+          {voiceState === 'listening' && <span>Listening...</span>}
+          {voiceState === 'transcribing' && <span>Understanding...</span>}
+          {voiceState === 'thinking' && <span>Thinking...</span>}
+          {voiceState === 'speaking' && <span>Speaking...</span>}
+        </div>
       </div>
     );
   }

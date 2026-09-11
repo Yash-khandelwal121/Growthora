@@ -12,27 +12,31 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Text is required' });
     }
 
-    // Strip markdown formatting for speech
+    // Deep sanitize text specifically for speech to avoid pronouncing symbols
     const cleanText = text
-      .replace(/[*#_>`~\[\]]/g, '')
-      .replace(/\n/g, ' . ')
+      // Remove all markdown/decorative symbols
+      .replace(/[*#_>`~\[\]={}]/g, '')
+      // Remove standalone dashes or multiple dashes (but keep hyphens in words like co-op)
+      .replace(/(?:\s-\s|--+)/g, ' ')
+      // Replace newlines with periods to ensure proper pauses instead of skipping
+      .replace(/\n+/g, ' . ')
       .trim();
       
     const TTS_MAP = {
-      'en-IN': 'en',
-      'hi-IN': 'hi',
+      'en-IN': 'en-IN',
+      'hi-IN': 'hi-IN',
+      'bn-IN': 'bn-IN',
       'te-IN': 'te',
       'ml-IN': 'ml',
       'kn-IN': 'kn',
       'mr-IN': 'mr',
-      'bn-IN': 'bn',
       'pa-IN': 'pa'
     };
 
-    let lang = TTS_MAP[languageCode] || 'en';
+    let lang = TTS_MAP[languageCode] || languageCode || 'en-IN';
     
     if (languageCode && !TTS_MAP[languageCode]) {
-      console.warn(`[VOICE] TTS language fallback from ${languageCode} to en`);
+      console.warn(`[VOICE] TTS language fallback from ${languageCode} to en-IN`);
     }
 
     // Get Base64 Audio
