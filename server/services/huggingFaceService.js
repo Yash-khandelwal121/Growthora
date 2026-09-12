@@ -27,7 +27,7 @@ export async function chatCompletion(messages) {
 
   const targetModel = hasImage 
     ? (process.env.HF_VISION_MODEL || "Qwen/Qwen2.5-VL-72B-Instruct")
-    : (process.env.HF_TEXT_MODEL || "Qwen/Qwen2.5-7B-Instruct");
+    : (process.env.HF_TEXT_MODEL || "Qwen/Qwen2.5-7B-Instruct-1M");
 
   console.log(`[DIAGNOSTICS] Hugging Face Target Model/Provider: ${targetModel}`);
 
