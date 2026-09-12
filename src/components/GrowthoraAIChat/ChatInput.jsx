@@ -2,6 +2,73 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, Image as ImageIcon, Mic, X, Loader2, Square, Keyboard, AudioLines } from 'lucide-react';
 import { VOICE_LANGUAGES } from './GrowthoraAIChat';
 
+const PremiumRobotIcon = ({ className }) => (
+  <svg width="100%" height="100%" viewBox="0 0 120 120" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      {/* Deep Navy to Purple Glass-Metal Gradient */}
+      <linearGradient id="chassisGrad" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#1e293b" />
+        <stop offset="50%" stopColor="#4c1d95" />
+        <stop offset="100%" stopColor="#0f172a" />
+      </linearGradient>
+
+      {/* Visor Screen Gradient */}
+      <linearGradient id="visorScreenGrad" x1="20" y1="40" x2="100" y2="80" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#020617" stopOpacity="0.9" />
+        <stop offset="50%" stopColor="#172554" stopOpacity="0.8" />
+        <stop offset="100%" stopColor="#020617" stopOpacity="0.95" />
+      </linearGradient>
+
+      {/* Warm Orange Glow */}
+      <linearGradient id="orangeGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#ff8a33" />
+        <stop offset="50%" stopColor="#ffad66" />
+        <stop offset="100%" stopColor="#ff6b00" />
+      </linearGradient>
+
+      <filter id="glassReflection" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" floodColor="#000" floodOpacity="0.7"/>
+        <feDropShadow dx="0" dy="-2" stdDeviation="4" floodColor="#fff" floodOpacity="0.2"/>
+      </filter>
+
+      <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    {/* Gentle Pulsing Halo */}
+    <circle cx="60" cy="60" r="50" fill="#7c3aed" className="robot-halo" filter="url(#neonGlow)" style={{ transformOrigin: 'center' }} />
+
+    {/* Main Chassis */}
+    <rect x="20" y="20" width="80" height="80" rx="32" fill="url(#chassisGrad)" filter="url(#glassReflection)" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5"/>
+    
+    {/* Inner Glass Visor */}
+    <rect x="28" y="38" width="64" height="44" rx="16" fill="url(#visorScreenGrad)" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5"/>
+
+    {/* Reflection Highlight on Glass */}
+    <path d="M 32 42 Q 60 38, 88 42 L 88 50 Q 60 42, 32 50 Z" fill="rgba(255,255,255,0.1)"/>
+
+    {/* Soft Illuminated Eyes */}
+    <path d="M 40 54 Q 45 50, 50 54" stroke="#ffad66" strokeWidth="4" strokeLinecap="round" filter="url(#neonGlow)" />
+    <path d="M 70 54 Q 75 50, 80 54" stroke="#ffad66" strokeWidth="4" strokeLinecap="round" filter="url(#neonGlow)" />
+
+    {/* Equalizer Mouth */}
+    <g fill="url(#orangeGlow)" filter="url(#neonGlow)">
+      <rect x="52" y="68" width="4" height="6" rx="2" className="eq-bar eq-1" style={{ transformOrigin: 'center' }} />
+      <rect x="58" y="66" width="4" height="10" rx="2" className="eq-bar eq-2" style={{ transformOrigin: 'center' }} />
+      <rect x="64" y="68" width="4" height="6" rx="2" className="eq-bar eq-3" style={{ transformOrigin: 'center' }} />
+    </g>
+
+    {/* Side Ear Nodes */}
+    <rect x="12" y="50" width="8" height="20" rx="4" fill="#334155" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+    <rect x="100" y="50" width="8" height="20" rx="4" fill="#334155" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
+  </svg>
+);
+
 export default function ChatInput({ 
   onSendMessage, 
   isTyping, 
@@ -394,11 +461,13 @@ export default function ChatInput({
     if (voiceError) {
       return (
         <div className="live-voice-overlay error-state">
-          <button type="button" className="close-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
-            <X size={24} />
-          </button>
-          <div className="voice-status-text error-text">
-            <span>{voiceError}</span>
+          <div className="voice-modal-box">
+            <button type="button" className="close-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
+              <X size={16} />
+            </button>
+            <div className="voice-status-text error-text">
+              <span>{voiceError}</span>
+            </div>
           </div>
         </div>
       );
@@ -406,29 +475,27 @@ export default function ChatInput({
 
     return (
       <div className="live-voice-overlay">
-        <button 
-          type="button" 
-          className="close-voice-btn" 
-          onClick={() => setIsLiveVoiceMode(false)}
-          title="Switch to Text Chat"
-        >
-          <X size={20} />
-        </button>
-        
-        <div className="siri-orb-container">
-          <div className={`siri-orb ${voiceState}`}>
-            <div className="orb-core"></div>
-            <div className="orb-ring ring-1"></div>
-            <div className="orb-ring ring-2"></div>
-            <div className="orb-ring ring-3"></div>
+        <div className="voice-modal-box">
+          <button 
+            type="button" 
+            className="close-voice-btn" 
+            onClick={() => setIsLiveVoiceMode(false)}
+            title="Switch to Text Chat"
+          >
+            <X size={16} />
+          </button>
+          
+          <div className={`ai-robot-container ${voiceState}`}>
+            <div className="ai-robot-glow-bg"></div>
+            <PremiumRobotIcon className="ai-robot-icon" />
           </div>
-        </div>
-        
-        <div className="voice-status-text">
-          {voiceState === 'listening' && <span>Listening...</span>}
-          {voiceState === 'transcribing' && <span>Understanding...</span>}
-          {voiceState === 'thinking' && <span>Thinking...</span>}
-          {voiceState === 'speaking' && <span>Speaking...</span>}
+          
+          <div className="voice-status-text">
+            {voiceState === 'listening' && <span>Listening...</span>}
+            {voiceState === 'transcribing' && <span>Understanding...</span>}
+            {voiceState === 'thinking' && <span>Thinking...</span>}
+            {voiceState === 'speaking' && <span>Speaking...</span>}
+          </div>
         </div>
       </div>
     );
