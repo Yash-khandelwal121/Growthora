@@ -3,7 +3,7 @@
 export const IPO_CATEGORY_DATA = {
   title: "IPO",
   subtitle: "From IPO readiness to listing, we help ambitious businesses prepare, structure, and execute their journey to the public markets.",
-  heroImage: "/services/ipo_hero.jpg",
+  heroImage: "/ipo.png",
   
   servicesList: [
     { id: "01", slug: "ipo-readiness-assessment", title: "IPO Readiness Assessment" },
@@ -48,8 +48,8 @@ export const IPO_SERVICES_DATA = {
     title: "IPO Readiness Assessment",
     subtitle: "Is Your Business Ready for an IPO?",
     description: "Evaluate your financial strength, governance, compliance, documentation, business structure and growth story before entering the public markets.",
-    heroImage: "/services/ipo_readiness.jpg",
-    cardImage: "/services/ipo_readiness.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
     
     journeyStages: [
       { num: "01", title: "Assess", desc: "Financial audit, historical earnings evaluation, corporate governance review & preliminary IPO eligibility check." },
@@ -92,8 +92,8 @@ export const IPO_SERVICES_DATA = {
     title: "Pre-IPO Compliance",
     subtitle: "Strengthening secretarial, regulatory & corporate compliance before public filing.",
     description: "Systematically resolve ROC backlogs, share allotment gaps, board composition requirements, and statutory tax compliances to ensure smooth regulatory clearance.",
-    heroImage: "/services/ipo_compliance.jpg",
-    cardImage: "/services/ipo_compliance.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Audit", desc: "Complete secretarial & ROC compliance verification across all operational years." },
@@ -136,8 +136,8 @@ export const IPO_SERVICES_DATA = {
     title: "Financial & Business Structuring",
     subtitle: "Optimizing capital structure, financial modeling & corporate architecture.",
     description: "Structure promoter equity, convert debt into equity, restate historical financial statements, and build bankable 5-year valuation models.",
-    heroImage: "/services/ipo_structuring.jpg",
-    cardImage: "/services/ipo_structuring.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Consolidate", desc: "Consolidate group entities, subsidiaries & associate business entities under holding company." },
@@ -180,8 +180,8 @@ export const IPO_SERVICES_DATA = {
     title: "Due Diligence Support",
     subtitle: "Comprehensive legal, financial & secretarial due diligence for DRHP filing.",
     description: "Prepare an airtight Virtual Data Room (VDR) and coordinate legal & financial due diligence required by Merchant Bankers and SEBI.",
-    heroImage: "/services/ipo_diligence.jpg",
-    cardImage: "/services/ipo_diligence.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Setup VDR", desc: "Create secure Virtual Data Room indexed with legal, tax & commercial contracts." },
@@ -224,8 +224,8 @@ export const IPO_SERVICES_DATA = {
     title: "DRHP / Documentation Support",
     subtitle: "Drafting robust, compliant Draft Red Herring Prospectus & offer documents.",
     description: "End-to-end drafting of DRHP, RHP, and Final Prospectus chapters — covering industry reports, business description, financial disclosures, and risk factors.",
-    heroImage: "/services/ipo_drhp.jpg",
-    cardImage: "/services/ipo_drhp.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Industry Report", desc: "Commission independent industry research report from accredited research agencies." },
@@ -268,8 +268,8 @@ export const IPO_SERVICES_DATA = {
     title: "Merchant Banker Coordination",
     subtitle: "Selecting, negotiating & managing key IPO intermediaries.",
     description: "Identify and shortlist top SEBI-registered Merchant Bankers (BRLMs), Syndicate Members, Registrars, and Legal Counsels at optimal fee structures.",
-    heroImage: "/services/ipo_merchant_banker.jpg",
-    cardImage: "/services/ipo_merchant_banker.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Shortlist", desc: "Evaluate SEBI-registered Category-I Merchant Bankers based on sector track record." },
@@ -312,8 +312,8 @@ export const IPO_SERVICES_DATA = {
     title: "SEBI & Exchange Compliance",
     subtitle: "Handling SEBI observations, stock exchange approvals & in-principle clearance.",
     description: "Coordinate with SEBI and stock exchange (BSE SME / NSE Emerge / Mainboard) officials to resolve queries and obtain In-Principle Approval.",
-    heroImage: "/services/ipo_sebi.jpg",
-    cardImage: "/services/ipo_sebi.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "In-Principle", desc: "Apply for In-Principle Listing Approval from BSE / NSE." },
@@ -356,8 +356,8 @@ export const IPO_SERVICES_DATA = {
     title: "IPO Execution Support",
     subtitle: "Roadshows, book building, anchor allocation, subscription & listing.",
     description: "Manage pre-IPO investor roadshows, book building, ASBA syndicate bank monitoring, allotment finalization, and the exchange listing ceremony.",
-    heroImage: "/services/ipo_execution.jpg",
-    cardImage: "/services/ipo_execution.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "Roadshows", desc: "Conduct institutional investor roadshows, HNI meets & broker conferences." },
@@ -400,8 +400,8 @@ export const IPO_SERVICES_DATA = {
     title: "Post-Listing Compliance",
     subtitle: "SEBI LODR corporate governance, quarterly reporting & investor relations.",
     description: "Maintain continuous compliance under SEBI Listing Obligations and Disclosure Requirements (LODR), quarterly earnings calls, and annual secretarial audits.",
-    heroImage: "/services/ipo_post_listing.jpg",
-    cardImage: "/services/ipo_post_listing.jpg",
+    heroImage: "/ipo.png",
+    cardImage: "/ipo.png",
 
     journeyStages: [
       { num: "01", title: "LODR Compliance", desc: "Implement SEBI LODR compliance calendar for quarterly & annual disclosures." },

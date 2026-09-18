@@ -5,7 +5,7 @@ export const BRANDING_DATA = {
     title: 'Logo Design',
     subtitle: 'A Powerful Visual Identity That Speaks Before You Do',
     description: 'A logo is the single most visible representation of your brand. It communicates your values, quality, and personality in a simple visual identity — and it works across every surface, from business cards to billboards.',
-    image: '/services/branding_logo.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Powerful First Impression', desc: 'A professionally designed logo signals credibility and quality before a single word is spoken.' },
       { title: 'Distinctive Brand Identity', desc: 'Unique, memorable design that separates you from competitors in your market.' },
@@ -52,7 +52,7 @@ export const BRANDING_DATA = {
     title: 'Website Development',
     subtitle: 'A High-Performance Business Website That Converts',
     description: 'Your website is your 24/7 salesperson. A professionally designed, fast-loading, mobile-optimized website builds credibility, captures leads, and converts visitors into customers — even while you sleep.',
-    image: '/services/branding_website.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Mobile-First Responsive Design', desc: 'Pixel-perfect experience across all devices — desktop, tablet, and mobile.' },
       { title: 'Conversion-Focused UX', desc: 'Every layout and call-to-action is designed to guide visitors toward inquiry and purchase.' },
@@ -100,7 +100,7 @@ export const BRANDING_DATA = {
     title: 'SEO',
     subtitle: 'Get Found by the Customers Who Are Already Searching for You',
     description: 'Search Engine Optimization puts your business in front of customers who are actively looking for what you offer. A strong SEO foundation drives consistent, compounding organic traffic — without paying for every click.',
-    image: '/services/branding_seo.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Long-Term Organic Traffic', desc: 'SEO compounds over time — ranked content drives traffic for months and years without ongoing ad spend.' },
       { title: 'High Intent Audience', desc: 'Organic search visitors are already looking for what you offer — the highest quality traffic available.' },
@@ -147,7 +147,7 @@ export const BRANDING_DATA = {
     title: 'Social Media Marketing',
     subtitle: 'Build an Engaged Audience That Becomes Your Customer Base',
     description: 'Social media is where your customers spend their time and make their decisions. A consistent, professional, and strategic social media presence builds brand recognition, audience trust, and a steady pipeline of warm leads.',
-    image: '/services/branding_social.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Consistent Brand Presence', desc: 'Regular, high-quality content keeps your brand visible and top-of-mind for your audience.' },
       { title: 'Audience Trust Building', desc: 'Consistent value delivery builds a loyal, trusting audience that is primed to buy from you.' },
@@ -194,7 +194,7 @@ export const BRANDING_DATA = {
     title: 'Ads & Lead Generation',
     subtitle: 'Drive Targeted Traffic and Convert It Into Real Business',
     description: 'Paid advertising delivers immediate, targeted reach — putting your business in front of the exact customers searching for your solution. Combined with conversion-optimized landing pages and smart campaign management, ads become a predictable lead generation engine.',
-    image: '/services/branding_ads.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Immediate Market Visibility', desc: 'Unlike SEO, paid ads deliver visibility from day one — reaching your target audience immediately.' },
       { title: 'Precise Audience Targeting', desc: 'Target by location, intent, demographics, interests, and behaviours for maximum relevance.' },
@@ -242,7 +242,7 @@ export const BRANDING_DATA = {
     title: 'Branding Solutions',
     subtitle: 'A Complete Brand Identity System Built for Long-Term Growth',
     description: 'Branding is more than a logo — it is the entire system of how your business looks, sounds, and feels at every touchpoint. A complete brand identity creates cohesion, communicates professionalism, and builds the emotional connection that drives customer loyalty.',
-    image: '/services/branding_brand.jpg',
+    image: '/branding.png',
     benefits: [
       { title: 'Complete Visual Cohesion', desc: 'Every brand element — logo, colours, typography, imagery — works together as a unified system.' },
       { title: 'Clear Brand Positioning', desc: 'A defined brand position that differentiates you clearly in your market and resonates with your target audience.' },

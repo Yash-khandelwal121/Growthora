@@ -57,9 +57,30 @@ export function GrowthoraAIChat() {
   const [playingMessageId, setPlayingMessageId] = useState(null);
   const audioPlayerRef = React.useRef(null);
   const ttsCancelledRef = React.useRef(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const [isLiveVoiceMode, setIsLiveVoiceMode] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const groqAbortControllerRef = React.useRef(null);
+  const ttsAbortControllerRef = React.useRef(null);
+
+  const stopAssistantSpeech = () => {
+    console.log('[VOICE] Stop command detected (Central Stop Function)');
+
+    if (groqAbortControllerRef.current) {
+      groqAbortControllerRef.current.abort();
+      groqAbortControllerRef.current = null;
+    }
+
+    if (ttsAbortControllerRef.current) {
+      ttsAbortControllerRef.current.abort();
+      ttsAbortControllerRef.current = null;
+    }
+
+    stopAudio();
+    setIsTyping(false);
+  };
 
   // Initialize Language
   useEffect(() => {
@@ -78,6 +99,7 @@ export function GrowthoraAIChat() {
 
     if (!audio) {
       setPlayingMessageId(null);
+      setIsAudioPlaying(false);
       return;
     }
 
@@ -86,6 +108,7 @@ export function GrowthoraAIChat() {
     audio.onended = null;
     audio.onerror = null;
     audio.onpause = null;
+    audio.onplaying = null;
 
     try {
       audio.pause();
@@ -100,6 +123,7 @@ export function GrowthoraAIChat() {
 
     audioPlayerRef.current = null;
     setPlayingMessageId(null);
+    setIsAudioPlaying(false);
   };
 
   useEffect(() => {
@@ -174,12 +198,15 @@ export function GrowthoraAIChat() {
         const langConfig = VOICE_LANGUAGES[requestLangObjName] || VOICE_LANGUAGES.english;
         const finalLangCode = forceLangCode || langConfig.tts;
 
+        console.log(`\n[VOICE DEBUG] TTS FULL TEXT:\n${text}\n`);
         console.log(`[VOICE TIMING] ${Date.now()} - TTSRequest started`);
 
         console.log(`[VOICE_PRODUCTION_LOG] TTS_REQUEST_START - Fetching /api/tts for lang: ${finalLangCode}`);
         
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s TTS timeout
+        ttsAbortControllerRef.current = new AbortController();
+        const timeoutId = setTimeout(() => {
+          if (ttsAbortControllerRef.current) ttsAbortControllerRef.current.abort();
+        }, 30000); // 30s TTS timeout
 
         const response = await fetch('/api/tts', {
           method: 'POST',
@@ -191,10 +218,11 @@ export function GrowthoraAIChat() {
             language: requestLangObjName,
             languageCode: finalLangCode
           }),
-          signal: controller.signal
+          signal: ttsAbortControllerRef.current.signal
         });
         
         clearTimeout(timeoutId);
+        ttsAbortControllerRef.current = null;
 
         console.log(`[VOICE_PRODUCTION_LOG] TTS_RESPONSE - Status: ${response.status}`);
 
@@ -217,15 +245,23 @@ export function GrowthoraAIChat() {
         url = URL.createObjectURL(blob);
 
         console.log(`[VOICE TIMING] ${Date.now()} - Cloud TTS Blob Received`);
+        console.log(`[VOICE DEBUG] AUDIO BLOB:\nsize: ${blob.size}\ntype: ${blob.type}\n`);
 
         const audio = new Audio(url);
 
         audioPlayerRef.current = audio;
 
+        audio.onplaying = () => {
+          console.log(`[VOICE TIMING] ${Date.now()} - audioPlaying (Cloud)`);
+          setIsAudioPlaying(true);
+        };
+
         audio.onended = () => {
           console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Cloud)`);
+          console.log(`[VOICE DEBUG] AUDIO COMPLETED`);
 
           setPlayingMessageId(null);
+          setIsAudioPlaying(false);
 
           if (audioPlayerRef.current === audio) {
             audioPlayerRef.current = null;
@@ -236,10 +272,22 @@ export function GrowthoraAIChat() {
           resolve();
         };
 
+        audio.onstalled = () => console.log(`[AUDIO STALLED]`);
+        audio.onabort = () => console.log(`[AUDIO ABORTED]`);
+        
+        audio.onplay = () => {
+           console.log(`[VOICE DEBUG] AUDIO STARTED`);
+        };
+
+        audio.onloadedmetadata = () => {
+           console.log(`[VOICE DEBUG] AUDIO DURATION:`, audio.duration);
+        };
+
         audio.onerror = (error) => {
-          console.error('[VOICE] TTS playback error', error);
+          console.error('[VOICE DEBUG] AUDIO ERROR:', error);
 
           setPlayingMessageId(null);
+          setIsAudioPlaying(false);
 
           if (audioPlayerRef.current === audio) {
             audioPlayerRef.current = null;
@@ -284,15 +332,22 @@ export function GrowthoraAIChat() {
               utterance.voice = nativeVoice;
             }
 
+            utterance.onstart = () => {
+              console.log(`[VOICE TIMING] ${Date.now()} - audioPlaying (Native)`);
+              setIsAudioPlaying(true);
+            };
+
             utterance.onend = () => {
               console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Native)`);
               setPlayingMessageId(null);
+              setIsAudioPlaying(false);
               resolve();
             };
 
             utterance.onerror = (e) => {
               console.error('[VOICE] Native TTS error:', e);
               setPlayingMessageId(null);
+              setIsAudioPlaying(false);
               reject(e);
             };
 
@@ -338,8 +393,10 @@ export function GrowthoraAIChat() {
         content: m.content
       }));
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s chat timeout
+      groqAbortControllerRef.current = new AbortController();
+      const timeoutId = setTimeout(() => {
+        if (groqAbortControllerRef.current) groqAbortControllerRef.current.abort();
+      }, 120000); // 120s chat timeout
 
       let response;
       if (image) {
@@ -353,7 +410,7 @@ export function GrowthoraAIChat() {
         response = await fetch('/api/chat', {
           method: 'POST',
           body: formData,
-          signal: controller.signal
+          signal: groqAbortControllerRef.current.signal
         });
       } else {
         // Send as JSON if there's no image to bypass multer hanging issue
@@ -365,11 +422,12 @@ export function GrowthoraAIChat() {
             language: selectedLanguage.name,
             conversation: JSON.stringify(history.slice(-10))
           }),
-          signal: controller.signal
+          signal: groqAbortControllerRef.current.signal
         });
       }
       
       clearTimeout(timeoutId);
+      groqAbortControllerRef.current = null;
       
       console.log(`[VOICE_PRODUCTION_LOG] CHAT_RESPONSE - Status: ${response.status}`);
       const data = await response.json();
@@ -466,7 +524,10 @@ export function GrowthoraAIChat() {
               playAudio={playAudio}
               audioPlayerRef={audioPlayerRef}
               playingMessageId={playingMessageId}
+              isAudioPlaying={isAudioPlaying}
               selectedLanguage={selectedLanguage}
+              onStopAudio={stopAudio}
+              onStopAssistant={stopAssistantSpeech}
               onLanguageSelect={handleLanguageSelect}
             />
           </div>

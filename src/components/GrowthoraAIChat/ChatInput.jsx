@@ -77,8 +77,11 @@ export default function ChatInput({
   playAudio, 
   audioPlayerRef,
   playingMessageId,
+  isAudioPlaying,
   selectedLanguage,
-  onLanguageSelect
+  onLanguageSelect,
+  onStopAudio,
+  onStopAssistant
 }) {
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);
@@ -96,16 +99,21 @@ export default function ChatInput({
   const isProcessingRef = useRef(false);
   const recognitionRunningRef = useRef(false);
   const lastTtsEndTimeRef = useRef(0);
+  const ttsStartTimeRef = useRef(0);
   const listeningUnlockTimerRef = useRef(null);
   const recognitionRef = useRef(null);
 
   const selectedLanguageRef = useRef(selectedLanguage);
   const onSendMessageRef = useRef(onSendMessage);
   const onLanguageSelectRef = useRef(onLanguageSelect);
+  const onStopAudioRef = useRef(onStopAudio);
+  const onStopAssistantRef = useRef(onStopAssistant);
 
   useEffect(() => { selectedLanguageRef.current = selectedLanguage; }, [selectedLanguage]);
   useEffect(() => { onSendMessageRef.current = onSendMessage; }, [onSendMessage]);
   useEffect(() => { onLanguageSelectRef.current = onLanguageSelect; }, [onLanguageSelect]);
+  useEffect(() => { onStopAudioRef.current = onStopAudio; }, [onStopAudio]);
+  useEffect(() => { onStopAssistantRef.current = onStopAssistant; }, [onStopAssistant]);
 
   // Fallback unlock if API fails or returns no audio
   useEffect(() => {
@@ -144,10 +152,25 @@ export default function ChatInput({
       setVoiceState('listening');
     };
 
-    recognition.onresult = (event) => {
-      // Prevent duplicate processing if already thinking/processing
-      if (isProcessingRef.current || isSpeakingRef.current) return;
+    recognition.onsoundstart = () => {
+      // 1. Only allow barge-in if the bot is actually speaking
+      if (!isSpeakingRef.current) return;
 
+      // 2. 500ms grace period check (echo prevention)
+      const elapsed = Date.now() - ttsStartTimeRef.current;
+      if (elapsed < 500) {
+          console.log("[VOICE] Sound detected during grace period. Ignoring (echo prevention).");
+          return;
+      }
+      
+      // 3. Barge-in trigger
+      console.log("[VOICE] Barge-in detected! But keeping audio playing for debugging.");
+      // if (onStopAudioRef.current) {
+      //   onStopAudioRef.current();
+      // }
+    };
+
+    recognition.onresult = (event) => {
       let finalTranscript = "";
       let interimTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -160,6 +183,25 @@ export default function ChatInput({
       }
       
       const fullTranscriptForLang = (finalTranscript + " " + interimTranscript).trim();
+
+      // INTERRUPT/BARGE-IN DETECTION: Check immediately on both interim and final
+      const stopRegex = /(?:\b|\s|^)(stop|stop speaking|bas|बस|रुक|रुको|चुप|बंद करो|बोलना बंद करो|ruk|ruko|chup|band karo|shh|quiet)(?:\b|\s|$)/i;
+      const strippedTranscript = fullTranscriptForLang.replace(/[.?!,]/g, '').trim();
+      
+      if (stopRegex.test(strippedTranscript)) {
+         console.log("[VOICE] Stop command detected in transcript! Halting AI.");
+         if (onStopAssistantRef.current) {
+            onStopAssistantRef.current(); // Central abort
+         }
+         try { recognition.stop(); } catch(e){}
+         recognitionRunningRef.current = false;
+         isProcessingRef.current = false;
+         setVoiceState('listening');
+         return; // Early return to prevent chat call
+      }
+
+      // Prevent duplicate processing if already thinking/processing or speaking
+      if (isProcessingRef.current || isSpeakingRef.current) return;
 
       // IMMEDIATE ONBOARDING LANGUAGE DETECTION (No waiting for silence/isFinal)
       if (!selectedLanguageRef.current && fullTranscriptForLang.length > 0) {
@@ -268,9 +310,6 @@ export default function ChatInput({
 
   const startRecognition = () => {
     if (!isLiveVoiceModeRef.current) return;
-    if (isSpeakingRef.current) {
-      return;
-    }
     if (isProcessingRef.current) {
       return;
     }
@@ -314,14 +353,9 @@ export default function ChatInput({
     isLiveVoiceModeRef.current = isLiveVoiceMode;
 
     const runGreeting = async () => {
-      console.log("[VOICE] TTS START");
-      isSpeakingRef.current = true;
-      setVoiceState('speaking');
-      
-      if (recognitionRunningRef.current) {
-        try { recognitionRef.current?.abort(); } catch(e){}
-        recognitionRunningRef.current = false;
-      }
+      console.log("[VOICE] TTS FETCHING GREETING");
+      isProcessingRef.current = true;
+      setVoiceState('thinking');
       
       try {
         if (!selectedLanguageRef.current) {
@@ -348,7 +382,11 @@ export default function ChatInput({
         console.error(err);
       }
       
-      console.log("[VOICE] TTS END");
+      // Wait for playAudio to completely finish, but don't force 'listening' state 
+      // if we are already processing another message or stopped.
+      if (!isLiveVoiceModeRef.current || isProcessingRef.current) return;
+      
+      console.log("[VOICE] TTS GREETING END");
       isSpeakingRef.current = false;
       lastTtsEndTimeRef.current = Date.now();
       setVoiceState('listening');
@@ -376,15 +414,16 @@ export default function ChatInput({
   // Handle TTS Lifecycle from parent AI response
   useEffect(() => {
     if (isLiveVoiceMode) {
-      if (playingMessageId) {
-        console.log("[VOICE] TTS START");
+      if (isAudioPlaying) {
+        console.log("[VOICE] TTS ACTUAL PLAYBACK STARTED");
         isSpeakingRef.current = true;
         isProcessingRef.current = false;
+        ttsStartTimeRef.current = Date.now();
         setVoiceState('speaking');
         
-        if (recognitionRunningRef.current) {
-          try { recognitionRef.current?.abort(); } catch (e) {}
-          recognitionRunningRef.current = false;
+        // DO NOT abort recognition. Let it listen for barge-in.
+        if (isLiveVoiceModeRef.current && !recognitionRunningRef.current) {
+           startRecognition();
         }
       } else {
         if (isSpeakingRef.current) {
@@ -407,7 +446,7 @@ export default function ChatInput({
         }
       }
     }
-  }, [playingMessageId, isLiveVoiceMode]);
+  }, [isAudioPlaying, isLiveVoiceMode]);
 
   useEffect(() => {
     return () => {

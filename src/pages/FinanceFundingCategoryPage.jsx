@@ -111,8 +111,8 @@ export default function FinanceFundingCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img 
-                src="/services/ff_chart.jpg" 
-                alt="Finance and Funding" 
+                src="/funding3.png" 
+                alt="Capital Advisory & Finance & Funding" 
                 style={{
                   width: '100%',
                   height: 'auto',

@@ -192,8 +192,8 @@ export default function CertificationCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img
-                src="/services/cert_hero.jpg"
-                alt="Business Certifications and Compliance"
+                src="/certification2.png"
+                alt="Certification Process"
                 loading="lazy"
                 style={{
                   width: '100%',

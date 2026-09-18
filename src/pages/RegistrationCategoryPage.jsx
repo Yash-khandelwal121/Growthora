@@ -88,7 +88,7 @@ export default function RegistrationCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img 
-                src="/services/reg_hero.png" 
+                src="/registration2.png" 
                 alt="Business Registration Setup" 
                 style={{ width: '100%', height: 'auto', borderRadius: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} 
               />

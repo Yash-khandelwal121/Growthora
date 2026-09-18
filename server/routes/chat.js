@@ -17,16 +17,18 @@ const upload = multer({
 });
 
 const SYSTEM_PROMPT = `You are Growthora AI, the official Company Knowledge & Business Advisory Assistant for Growthora Advisory Private Limited.
-Your primary role is to answer questions about Growthora's services, funding solutions, MSME schemes, industries, registrations, and general business compliance using ONLY the provided verified Growthora Knowledge Context.
+Your role is to answer questions about Growthora's services, funding solutions, MSME schemes, industries, registrations, and general business compliance using the provided verified Growthora Knowledge Context, supplemented by your general knowledge where appropriate.
 
 CRITICAL RULES:
-1. NO HALLUCINATION: If the provided knowledge context does not contain the answer, you MUST clearly state: "I don't have verified Growthora-specific information for this detail. Please contact the Growthora team for exact information."
-2. Never invent: prices, phone numbers, addresses, employees, branches, certifications, clients, revenue, funding guarantees, government approvals, success rates, or legal claims.
-3. Only mention options, services, or schemes that are explicitly detailed in the Knowledge Context.
+1. GENERAL KNOWLEDGE ALLOWED: You are encouraged to answer general informational questions (e.g., "what are MSME benefits?", "how does a startup get funding?") comprehensively and helpfully. Do NOT refuse to answer general questions.
+2. NO HALLUCINATION OF COMPANY DATA: Never invent Growthora's prices, phone numbers, addresses, employees, branches, clients, revenue, or specific guarantees. If asked a specific question about Growthora's internal policies that is not in the context, you must state: "I don't have verified Growthora-specific information for this detail. Please contact the Growthora team for exact information."
+3. If the user asks about services, options, or schemes, use the Knowledge Context to highlight how Growthora can help.
 4. MULTI-TURN MEMORY: Remember the user's business type, industry, or funding amount from previous messages. Answer follow-up questions in that context.
 5. FUNDING HANDOFF: If the user clearly indicates they need funding (e.g., "I need funding", "loan chahiye", "business loan", "grant", "investor"), you MUST explain the relevant Growthora funding routes (Grants, Debt, Equity) based on the context, and you MUST end your response by offering the "Start Funding Assessment" CTA.
 6. LANGUAGE CONTINUITY: You MUST reply naturally and fluently in the user's selected language. Do not mix languages or fallback to Hindi/English unless explicitly requested.
-7. Be professional, conversational, and easy to understand. Do NOT use any Markdown formatting, JSON, bolding, italics, or decorative separators. Use plain text structure.`;
+7. Be professional, conversational, and easy to understand. Do NOT use any Markdown formatting, JSON, bolding, italics, or decorative separators. Use plain text structure.
+8. CONSULTATION BOOKING FLOW: Jab tum kisi user ke business query (jaise MSME, funding, registration) ka poora aur final jawab de chuke ho aur tumhe lagta hai ki user ke current sawal ka answer complete ho gaya hai, to apne response ke end mein ek tag add karo: [OFFER_CONSULTATION]. Dhyan rahe, is tag ke alawa khud se consultation offer mat karna, backend us tag ko replace karega.
+9. RESPONSE LENGTH: Har response ko concise rakho, ideally 3-5 sentences mein poora jawab do jab tak user explicitly detailed/lambi explanation na maange. Agar zyada detail available hai, to summary do aur pucho 'Kya aap iske baare mein aur detail mein jaanna chahenge?'`;
 
 router.post('/', upload.single('image'), async (req, res) => {
   console.log(`[DIAGNOSTICS] /api/chat endpoint entered`);
@@ -53,6 +55,30 @@ router.post('/', upload.single('image'), async (req, res) => {
     let sysPrompt = SYSTEM_PROMPT;
     if (language) {
       sysPrompt += `\n\nCRITICAL LANGUAGE OVERRIDE: You MUST formulate your entire response exclusively and fluently in ${language}. Absolutely NO Hindi or English fallback unless the user explicitly requests it. Your text and script must be natively ${language}.`;
+    }
+
+    // Dynamic Consultation State Machine Injection
+    const lastAiMsg = parsedConversation.slice().reverse().find(m => m.role === 'assistant');
+    if (lastAiMsg) {
+       const content = lastAiMsg.content.toLowerCase();
+       // Check if the AI recently offered or is in the middle of asking for details
+       if (content.includes("free consultation book") || 
+           content.includes("book a free consultation") || 
+           content.includes("kya aap chahenge") || 
+           content.includes("would you like") ||
+           content.includes("name") ||
+           content.includes("mobile") ||
+           content.includes("email") ||
+           content.includes("naam") ||
+           content.includes("phone")) {
+           
+           sysPrompt += `\n\n[CONSULTATION ACTIVE]: The user has been offered or is in the process of booking a consultation. Your task is strictly to gather their Name, Mobile Number, and Email. 
+CRITICAL: Ab tum Name, phir Mobile, phir Email — ek-ek karke sequentially pucho, ek hi message mein sab mat pucho.
+Agar user ka Name nahi pata, to sirf Name pucho.
+Agar Name pata hai par Mobile nahi, to sirf Mobile pucho.
+Agar Name aur Mobile pata hai par Email nahi, to sirf Email pucho.
+Teeno mil jaane ke baad hi [LEAD_CAPTURED: name=X, mobile=Y, email=Z] tag generate karo jaisa pehle se implement hai. Aur user ko thank you bolo.`;
+       }
     }
     
     const messages = [
@@ -88,6 +114,8 @@ router.post('/', upload.single('image'), async (req, res) => {
         : userMessageContent
     });
 
+    console.log('[GROQ DEBUG] Messages:', JSON.stringify(messages, null, 2));
+
     const aiMessage = await chatCompletion(messages);
 
     const sanitizeResponse = (text) => {
@@ -111,7 +139,28 @@ router.post('/', upload.single('image'), async (req, res) => {
       return clean.trim();
     };
 
-    const cleanReply = sanitizeResponse(aiMessage.content);
+    let cleanReply = sanitizeResponse(aiMessage.content);
+    
+    // Check for explicit Consultation Offer tag from AI
+    if (cleanReply.includes("[OFFER_CONSULTATION]")) {
+      cleanReply = cleanReply.replace(/\[OFFER_CONSULTATION\]/gi, '').trim();
+      const isEnglish = language && language.toLowerCase().includes('english');
+      const offerText = isEnglish 
+        ? "Would you like me to book a Free Consultation for you?"
+        : "Kya aap chahenge ki main aapke liye ek Free Consultation book kar doon?";
+      cleanReply += "\n\n" + offerText;
+    }
+    
+    // Check for lead capture tag
+    const leadMatch = cleanReply.match(/\[LEAD_CAPTURED:\s*(.*?)\]/i);
+    if (leadMatch) {
+      console.log(`[CRM_LEAD_SAVED] Data: ${leadMatch[1]}`);
+      cleanReply = cleanReply.replace(/\[LEAD_CAPTURED:\s*(.*?)\]/i, '').trim();
+    }
+
+    console.log(`\n[VOICE DEBUG] GROQ FINAL TEXT:\n${cleanReply}\n`);
+    console.log(`[VOICE DEBUG] FINAL TEXT LENGTH: ${cleanReply.length}\n`);
+
     console.log(`[DIAGNOSTICS] /api/chat upstream success`);
     res.json({ reply: cleanReply });
   } catch (error) {

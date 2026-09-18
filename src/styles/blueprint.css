@@ -30,7 +30,7 @@
 /* 30% Sidebar / 70% Blueprint Layout */
 .blueprint-layout-container {
   display: grid;
-  grid-template-columns: 310px 1fr;
+  grid-template-columns: 310px minmax(0, 1fr);
   gap: 2.5rem;
   align-items: start;
   max-width: 1360px;
@@ -151,6 +151,7 @@
 /* 3D Blueprint Table Container */
 .blueprint-main-content {
   transition: opacity 0.5s ease, transform 0.5s ease;
+  min-width: 0;
 }
 
 .blueprint-main-content.transitioning {

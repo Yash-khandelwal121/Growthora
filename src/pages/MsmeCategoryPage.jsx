@@ -85,8 +85,8 @@ export default function MsmeCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img 
-                src="/services/msme_hero.jpg?v=2" 
-                alt="MSME Government Benefits Advisory" 
+                src="/msme.png" 
+                alt="MSME Government Schemes Advisory" 
                 style={{ width: '100%', height: 'auto', borderRadius: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} 
               />
             </div>

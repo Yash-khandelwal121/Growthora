@@ -21,6 +21,7 @@ import IndustriesPage from './pages/IndustriesPage';
 import AgriculturePage from './pages/AgriculturePage';
 import ManufacturingPage from './pages/ManufacturingPage';
 import InsightsPage from './pages/InsightsPage';
+import AboutPage from './pages/AboutPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -87,6 +88,9 @@ export function App() {
         {/* Book a Consultation Standalone Page Routes */}
         <Route path="/book-a-consultation" element={<BookConsultationPage />} />
         <Route path="/book-consultation" element={<BookConsultationPage />} />
+
+        {/* About Page */}
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );

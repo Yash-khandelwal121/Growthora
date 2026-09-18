@@ -90,8 +90,8 @@ export default function LegalCaCategoryPage() {
           <div className="category-hero-visual">
             <div className="blueprint-3d-wrapper float-3d-motion">
               <img 
-                src="/services/legal_hero.jpg" 
-                alt="Legal & CA Advisory Practice" 
+                src="/legal.png" 
+                alt="Legal & Corporate Compliance" 
                 style={{ width: '100%', height: 'auto', borderRadius: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} 
               />
             </div>

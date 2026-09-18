@@ -59,6 +59,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/about') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/about');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -107,9 +117,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             Insights
             {location.pathname === '/insights' && <span className="active-dot" />}
           </a>
-          <span className="nav-link disabled" title="Services Page Only Redesign">
+          <a 
+            href="/about" 
+            className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+            onClick={handleAboutClick}
+          >
             About
-          </span>
+            {location.pathname === '/about' && <span className="active-dot" />}
+          </a>
         </nav>
 
         {/* Right Actions */}
@@ -176,6 +191,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Growthora Insights
+          </a>
+          <a 
+            href="/about" 
+            className={`mobile-nav-link ${location.pathname === '/about' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleAboutClick(e);
+            }}
+          >
+            About Growthora
           </a>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?

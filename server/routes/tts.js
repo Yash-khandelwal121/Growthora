@@ -1,11 +1,16 @@
 import express from 'express';
-import * as googleTTS from 'google-tts-api';
+import { generateSpeech } from '../services/ttsService.js';
 
 const router = express.Router();
 
 const SUPPORTED_LANGUAGES = ['en', 'hi', 'te', 'ml', 'kn', 'mr', 'bn', 'pa'];
 
+let ttsRequestCount = 0;
+
 router.post('/', async (req, res) => {
+  ttsRequestCount++;
+  console.log(`[TTS REQUEST #${ttsRequestCount}]`);
+  console.log(`[HTTP TTS] request text: ${req.body.text}`);
   console.log(`[DIAGNOSTICS] /api/tts endpoint entered`);
   console.log(`[DIAGNOSTICS] Request Body Keys: ${Object.keys(req.body).join(', ')}`);
   try {
@@ -25,60 +30,45 @@ router.post('/', async (req, res) => {
       .replace(/\n+/g, ' . ')
       .trim();
       
+    // Sarvam AI expects BCP-47 target_language_code format (e.g. 'en-IN')
     const TTS_MAP = {
-      'en-IN': 'en',
-      'hi-IN': 'hi',
-      'bn-IN': 'bn',
-      'te-IN': 'te',
-      'ml-IN': 'ml',
-      'kn-IN': 'kn',
-      'mr-IN': 'mr',
-      'pa-IN': 'pa'
+      'en': 'en-IN',
+      'hi': 'hi-IN',
+      'bn': 'bn-IN',
+      'te': 'te-IN',
+      'ml': 'ml-IN',
+      'kn': 'kn-IN',
+      'mr': 'mr-IN',
+      'pa': 'pa-IN',
+      'en-IN': 'en-IN',
+      'hi-IN': 'hi-IN',
+      'bn-IN': 'bn-IN',
+      'te-IN': 'te-IN',
+      'ml-IN': 'ml-IN',
+      'kn-IN': 'kn-IN',
+      'mr-IN': 'mr-IN',
+      'pa-IN': 'pa-IN'
     };
 
-    let lang = TTS_MAP[languageCode] || languageCode || 'en-IN';
+    let effectiveLangCode = languageCode || 'en-IN';
+    let lang = TTS_MAP[effectiveLangCode] || 'en-IN'; // Default to en-IN if missing
     
     console.log(`[DIAGNOSTICS] TTS Mapping: Requested UI Locale [${languageCode}] -> Mapped Provider Language [${lang}]`);
     
-    if (languageCode && !TTS_MAP[languageCode]) {
+    if (languageCode && !TTS_MAP[languageCode] && !SUPPORTED_LANGUAGES.includes(languageCode)) {
       console.warn(`[VOICE] TTS language fallback from ${languageCode} to en-IN`);
     }
 
-    // Get Base64 Audio - Try multiple regional hosts to bypass Vercel IP blocks
-    const hosts = [
-      'https://translate.google.co.in',
-      'https://translate.google.com', 
-      'https://translate.google.co.uk'
-    ];
-    
-    let results;
-    let lastError;
-    
-    for (const host of hosts) {
-      try {
-        results = await googleTTS.getAllAudioBase64(cleanText, {
-          lang: lang,
-          slow: false,
-          host: host,
-          timeout: 10000,
-        });
-        break; // Success
-      } catch (err) {
-        lastError = err;
-        console.warn(`[DIAGNOSTICS] TTS failed on host ${host}: ${err.message}`);
-      }
-    }
-    
-    if (!results) throw lastError;
-
-    const audioBuffers = results.map(result => Buffer.from(result.base64, 'base64'));
-    const finalBuffer = Buffer.concat(audioBuffers);
+    // Generate speech using Sarvam AI service
+    const finalBuffer = await generateSpeech(cleanText, lang);
 
     res.set({
-      'Content-Type': 'audio/mpeg',
+      'Content-Type': 'audio/mpeg', // Sarvam defaults to mp3
       'Content-Length': finalBuffer.length,
     });
     
+    console.log(`[HTTP TTS] response bytes: ${finalBuffer.length}`);
+    console.log(`[HTTP TTS] content-type: audio/mpeg`);
     console.log(`[DIAGNOSTICS] /api/tts upstream success, returning audio. Upstream Status: OK`);
     res.send(finalBuffer);
   } catch (error) {

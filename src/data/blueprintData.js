@@ -3,7 +3,7 @@ export const BLUEPRINT_DATA = {
     category: "REGISTRATION",
     title: "Entity Formation & Compliance Blueprint",
     tagline: "FOUNDATION → COMPLIANCE → READY TO GROW",
-    image: "/services/reg_company_hero_final.png",
+    image: "/registration2.png",
     executionPath: [
       { step: "01", label: "Limited Liability Partnership (LLP)" },
       { step: "02", label: "Proprietorship Registration" },
@@ -25,7 +25,7 @@ export const BLUEPRINT_DATA = {
     category: "FINANCE & FUNDING",
     title: "Capital Advisory & Funding Blueprint",
     tagline: "ANALYSIS → DOCUMENTATION → DISBURSEMENT",
-    image: "/blueprints/02_finance.png",
+    image: "/funding3.png",
     executionPath: [
       { step: "01", label: "IVP (TN)" },
       { step: "02", label: "Global AI Innovation Challenge" },
@@ -48,7 +48,7 @@ export const BLUEPRINT_DATA = {
     category: "CERTIFICATIONS",
     title: "Quality Accreditation & Standards Blueprint",
     tagline: "AUDIT → COMPLIANCE → CERTIFICATION",
-    image: "/blueprints/03_certifications.png",
+    image: "/certification2.png",
     executionPath: [
       { step: "01", label: "Eligibility" },
       { step: "02", label: "Documentation" },
@@ -66,7 +66,7 @@ export const BLUEPRINT_DATA = {
     category: "BRANDING",
     title: "Brand Identity & Digital Growth Blueprint",
     tagline: "STRATEGY → IDENTITY → DIGITAL SCALE",
-    image: "/blueprints/04_branding.png",
+    image: "/branding.png",
     executionPath: [
       { step: "01", label: "Strategy" },
       { step: "02", label: "Identity" },
@@ -85,7 +85,7 @@ export const BLUEPRINT_DATA = {
     category: "LEGAL & CA",
     title: "Statutory Governance & IP Blueprint",
     tagline: "REVIEW → AGREEMENTS → AUDIT COMPLIANT",
-    image: "/blueprints/05_legal.png",
+    image: "/legal.png",
     executionPath: [
       { step: "01", label: "Review" },
       { step: "02", label: "Documentation" },
@@ -104,7 +104,7 @@ export const BLUEPRINT_DATA = {
     category: "OPERATIONS",
     title: "Operational Infrastructure & HR Blueprint",
     tagline: "AUDIT → INFRASTRUCTURE → SCALABLE WORKFLOW",
-    image: "/blueprints/06_operations.png",
+    image: "/operationpng.png",
     executionPath: [
       { step: "01", label: "Audit" },
       { step: "02", label: "Systems" },
@@ -123,7 +123,7 @@ export const BLUEPRINT_DATA = {
     category: "MSME BENEFITS",
     title: "MSME Scheme & Government Subsidy Blueprint",
     tagline: "MAPPING → SCHEME SUBMISSION → DISBURSEMENT",
-    image: "/blueprints/07_msme.png",
+    image: "/msme.png",
     executionPath: [
       { step: "01", label: "Eligibility" },
       { step: "02", label: "Scheme Mapping" },
@@ -142,7 +142,7 @@ export const BLUEPRINT_DATA = {
     category: "IPO",
     title: "Capital Markets & IPO Launch Blueprint",
     tagline: "PREPARATION → DRHP FILING → LISTING",
-    image: "/blueprints/08_ipo.png",
+    image: "/ipo.png",
     executionPath: [
       { step: "01", label: "IPO Planning" },
       { step: "02", label: "Preparation" },
@@ -161,7 +161,7 @@ export const BLUEPRINT_DATA = {
     category: "VALUATION & FINANCIAL MODELING",
     title: "Valuation & DCF Modelling Blueprint",
     tagline: "DATA MODEL → DEFENSIBLE REPORT → REGULATORY ACCEPTANCE",
-    image: "/blueprints/09_valuation.png",
+    image: "/valuation.png",
     executionPath: [
       { step: "01", label: "Data" },
       { step: "02", label: "Financial Model" },

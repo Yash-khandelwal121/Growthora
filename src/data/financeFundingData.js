@@ -412,8 +412,8 @@ export const FINANCE_FUNDING_DATA = {
     title: "VC / Angel Funding",
     subtitle: "Secure Smart Capital for Exponential Growth",
     description: "Prepare for the highest level of scrutiny. We provide end-to-end advisory for startups aiming to raise capital from Angel Networks and Venture Capital funds.",
-    heroImage: "/services/ff_chart.jpg",
-    cardImage: "/services/ff_chart.jpg",
+    heroImage: "/funding3.png",
+    cardImage: "/funding3.png",
     overview: {
       whatItIs: "High-risk, high-return investments made by institutional funds (VCs) or high-net-worth individuals (Angels) in exchange for equity.",
       whyImportant: "Beyond capital, VCs and Angels bring crucial strategic guidance, industry connections, and credibility to help you dominate the market.",

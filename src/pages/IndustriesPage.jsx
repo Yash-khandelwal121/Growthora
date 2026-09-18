@@ -75,6 +75,7 @@ const IndustryIcon = ({ iconName, size = 22, className = '' }) => {
 };
 
 export default function IndustriesPage() {
+  const [isFlipped, setIsFlipped] = useState(false);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -393,13 +394,40 @@ export default function IndustriesPage() {
             </div>
           </div>
 
-          {/* Hero Right Visual & Stats Composition */}
           <div className="ind-hero-visual-wrapper">
-            <div className="ind-hero-image-card">
-              <img
-                src="/growthora_industries_hero_building.png"
-                alt="Growthora Corporate Industry Advisory Building"
-              />
+            <div className="industry-flip-hint">↻ Hover to flip</div>
+            
+            <div 
+              className={`industry-flip-scene ${isFlipped ? 'is-flipped' : ''}`}
+              onMouseEnter={() => { if (window.innerWidth >= 1024) setIsFlipped(true); }}
+              onMouseLeave={() => { if (window.innerWidth >= 1024) setIsFlipped(false); }}
+              onClick={() => { if (window.innerWidth < 1024) setIsFlipped(!isFlipped); }}
+              tabIndex={0}
+              role="button"
+              aria-pressed={isFlipped}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsFlipped(!isFlipped);
+                }
+              }}
+            >
+              <div className={`industry-flip-card ${isFlipped ? 'is-flipped' : ''}`}>
+                <div className="industry-card-front ind-hero-image-card">
+                  <img
+                    src="/g1111111.png"
+                    alt="Growthora Corporate Industry Advisory Building"
+                  />
+                </div>
+                
+                <div className="industry-card-back">
+                  <img
+                    src="/image hower.png"
+                    alt="Growthora business growth"
+                    className="industry-flip-back-image"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Vertical Stats Stack */}
@@ -889,7 +917,7 @@ export default function IndustriesPage() {
           <div className="ind-cta-image-col">
             <div className="ind-cta-image-wrap">
               <img
-                src="/growthora_industries_hero_building.png"
+                src="/g1111111.png"
                 alt="Growthora Industry Opportunities Consultation"
               />
             </div>

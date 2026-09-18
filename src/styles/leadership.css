@@ -1,0 +1,427 @@
+.leadership-section {
+  padding: 60px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden; /* Avoid horizontal scroll on entire section */
+}
+
+.leadership-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.leadership-header h2 {
+  color: #0B132B;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.leadership-header p {
+  color: #4a5568;
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.leadership-container {
+  display: flex;
+  justify-content: center;
+}
+
+.leadership-cards-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  transition: all 450ms cubic-bezier(0.25, 1, 0.5, 1);
+  /* The slot widths expanding will naturally push siblings */
+}
+
+/* The expanding slot wrapper */
+.leadership-card-slot {
+  position: relative;
+  width: 280px;
+  transition: width 450ms cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 2;
+}
+
+/* When active, expand width to hold card + drawer - overlap */
+/* 280px (card) + 380px (drawer) - 24px (overlap) = 636px */
+.leadership-card-slot.active {
+  width: 636px;
+  z-index: 10;
+}
+
+/* Main Card */
+.leadership-card {
+  width: 280px;
+  height: 100%;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  border: 1px solid #edf2f7;
+  transition: all 300ms ease;
+  position: relative;
+  border-top: 4px solid transparent;
+  display: flex;
+  flex-direction: column;
+  z-index: 10; /* Keep above the inner drawer */
+}
+
+.leadership-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.leadership-card.active {
+  border-color: #FF5A00;
+  border-top: 4px solid #FF5A00;
+  box-shadow: 0 15px 35px rgba(255, 90, 0, 0.15);
+  /* Active card should NOT lift so the drawer stays aligned */
+  transform: translateY(0); 
+}
+
+.leadership-image-wrapper {
+  height: 260px;
+  width: 100%;
+  background: #0B132B;
+  overflow: hidden;
+  position: relative;
+}
+
+.leadership-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.leadership-card:hover:not(.active) .leadership-image-wrapper img {
+  transform: scale(1.03);
+}
+
+.leadership-initials {
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #0B132B;
+  color: white;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.active-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #FF5A00;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.leadership-info {
+  padding: 24px 20px;
+  text-align: left;
+  flex: 1;
+}
+
+.leadership-info h3 {
+  color: #0B132B;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.leadership-info p {
+  color: #FF5A00;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Desktop Detail Drawer (Absolute inside the slot) */
+.desktop-drawer-inner {
+  position: absolute;
+  top: 0;
+  left: 256px; /* 280px (card) - 24px (overlap behind card) */
+  width: 380px;
+  height: 100%; /* Match height of card precisely */
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #edf2f7;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-40px);
+  transition: all 450ms cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 5; /* Behind the card (z-index 10) */
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-drawer-inner.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Connect Pointer */
+.drawer-pointer {
+  position: absolute;
+  left: -7px;
+  top: 40%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: white;
+  border-left: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
+  z-index: 1;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 200ms ease;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background: #f7fafc;
+  color: #0B132B;
+}
+
+.drawer-content-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  padding-left: 48px; /* Extra padding on left because 24px of drawer is hidden behind card */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar for drawer content */
+.drawer-content-scrollable::-webkit-scrollbar {
+  width: 4px;
+}
+.drawer-content-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+.drawer-content-scrollable::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.drawer-header-content {
+  margin-bottom: 24px;
+}
+
+.drawer-header-content h3 {
+  color: #0B132B;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.designation-text {
+  color: #FF5A00;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.drawer-body-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.drawer-data-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.drawer-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff5f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.drawer-data-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-data-text span.value {
+  font-size: 0.9rem;
+  color: #0B132B;
+  font-weight: 700;
+}
+
+.drawer-data-text span.label {
+  font-size: 0.75rem;
+  color: #718096;
+}
+
+.drawer-bio {
+  font-size: 0.85rem;
+  color: #4a5568;
+  line-height: 1.5;
+  border-top: 1px solid #edf2f7;
+  padding-top: 16px;
+  margin-bottom: auto; /* Push actions to bottom */
+}
+
+.drawer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.btn-view-profile {
+  background: #FF5A00;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 10px rgba(255, 90, 0, 0.2);
+}
+
+.btn-view-profile:hover {
+  background: #e65100;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 90, 0, 0.3);
+}
+
+.btn-linkedin-connect {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #FF5A00;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: opacity 200ms ease;
+}
+
+.btn-linkedin-connect:hover {
+  opacity: 0.8;
+}
+
+.linkedin-icon {
+  width: 20px;
+  height: 20px;
+  background: #FF5A00;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+/* Mobile Accordion Details */
+.mobile-detail-accordion {
+  display: none;
+  overflow: hidden;
+  transition: max-height 400ms ease, opacity 400ms ease;
+  max-height: 0;
+  opacity: 0;
+  background: white;
+  border-top: 1px solid #edf2f7;
+  padding: 0 24px;
+}
+
+.mobile-detail-accordion.open {
+  max-height: 1000px;
+  opacity: 1;
+  padding: 24px;
+}
+
+.close-mobile-btn {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .leadership-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .leadership-cards-wrapper {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .leadership-card-slot,
+  .leadership-card-slot.active {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .leadership-card {
+    width: 100%;
+  }
+  
+  .desktop-drawer-inner {
+    display: none !important;
+  }
+  
+  .mobile-detail-accordion {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leadership-cards-wrapper,
+  .leadership-card-slot,
+  .leadership-card,
+  .desktop-drawer-inner,
+  .leadership-image-wrapper img,
+  .mobile-detail-accordion {
+    transition: none !important;
+  }
+}
