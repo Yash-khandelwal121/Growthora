@@ -6,6 +6,7 @@ import { initSpeechService } from './services/speechService.js';
 import chatRoutes from './routes/chat.js';
 import transcribeRoutes from './routes/transcribe.js';
 import ttsRoutes from './routes/tts.js';
+import leadsRoutes from './routes/leads.js';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ try {
 app.use('/api/chat', chatRoutes);
 app.use('/api/transcribe', transcribeRoutes);
 app.use('/api/tts', ttsRoutes);
+app.use('/api/leads', leadsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
