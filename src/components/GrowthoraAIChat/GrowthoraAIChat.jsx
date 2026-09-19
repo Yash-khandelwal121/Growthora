@@ -9,7 +9,7 @@ import './growthoraAIChat.css';
 
 const INITIAL_MESSAGE = {
   role: 'ai',
-  content: "Hello! Welcome to Growthora AI. Which language would you like to continue in?",
+  content: "Namaste! Main Growthora AI Assistant hoon. Main aapki business aur funding related queries mein madad kar sakti hoon.\n\nWhich language would you like to continue in?",
   isLanguagePrompt: true
 };
 
@@ -37,7 +37,7 @@ export const VOICE_LANGUAGES = {
 
 export const CONFIRMATION_MESSAGES = {
   'en-IN': "Great! I'll continue in English. How can I help you today?",
-  'hi-IN': "बहुत अच्छा! अब मैं आपसे हिंदी में बात करूंगा। मैं आपकी कैसे सहायता कर सकता हूँ?",
+  'hi-IN': "बिल्कुल, अब से मैं आपसे हिंदी में बात करूंगी। मैं आपकी कैसे सहायता कर सकती हूँ?",
   'te-IN': "చాలా బాగుంది! ఇకపై నేను మీతో తెలుగులో మాట్లాడతాను. నేను మీకు ఎలా సహాయం చేయగలను?",
   'ml-IN': "വളരെ നല്ലത്! ഇനി ഞാൻ നിങ്ങളോട് മലയാളത്തിൽ സംസാരിക്കും. ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായിക്കാം?",
   'kn-IN': "ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! ಇನ್ನು ಮುಂದೆ ನಾನು ನಿಮ್ಮೊಂದಿಗೆ ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡುತ್ತೇನೆ. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
@@ -61,6 +61,10 @@ export function GrowthoraAIChat() {
 
   const [isLiveVoiceMode, setIsLiveVoiceMode] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const [convState, setConvState] = useState('language_selection');
+  const [sessionId, setSessionId] = useState(() => 'sess_' + Date.now());
+  const [leadData, setLeadData] = useState({});
 
   const groqAbortControllerRef = React.useRef(null);
   const ttsAbortControllerRef = React.useRef(null);
@@ -135,12 +139,20 @@ export function GrowthoraAIChat() {
   }, []);
 
   const clearChat = () => {
+    const newSession = 'sess_' + Date.now();
+    setSessionId(newSession);
+    setLeadData({});
     if (selectedLanguage) {
+      setConvState('collect_name');
+      const msg = getLocalizedPrompt('ask_name', selectedLanguage.code);
       setMessages([{
         role: 'ai',
-        content: `Welcome back to Growthora AI! I am ready to help you in ${selectedLanguage.name}.`
+        content: msg,
+        id: Date.now()
       }]);
+      playAudio(msg, Date.now());
     } else {
+      setConvState('language_selection');
       setMessages([INITIAL_MESSAGE]);
     }
     setErrorMsg(null);
@@ -151,6 +163,7 @@ export function GrowthoraAIChat() {
     stopAudio();
     setIsLiveVoiceMode(false);
     setSelectedLanguage(null);
+    setConvState('language_selection');
     setMessages([INITIAL_MESSAGE]);
     setShowLangMenu(false);
   };
@@ -164,13 +177,95 @@ export function GrowthoraAIChat() {
     }
   }, [isOpen]);
 
+  const getLocalizedPrompt = (promptType, langCode) => {
+    const prompts = {
+      'ask_name': {
+        'en-IN': "Great! What is your name?",
+        'hi-IN': "बहुत अच्छा! क्या मैं आपका नाम जान सकती हूँ?",
+        'te-IN': "చాలా బాగుంది! మీ పేరు ఏమిటి?",
+        'ml-IN': "വളരെ നല്ലത്! നിങ്ങളുടെ പേരെന്താണ്?",
+        'kn-IN': "ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ! ನಿಮ್ಮ ಹೆಸರೇನು?",
+        'mr-IN': "खूप छान! मी तुमचे नाव जाणून घेऊ शकतो का?",
+        'bn-IN': "খুব ভালো! আপনার নাম কী?",
+        'pa-IN': "ਬਹੁਤ ਵਧੀਆ! ਤੁਹਾਡਾ ਨਾਮ ਕੀ ਹੈ?"
+      },
+      'ask_mobile': {
+        'en-IN': "Thank you. Could you please provide your 10-digit mobile number?",
+        'hi-IN': "धन्यवाद। क्या आप अपना 10 अंकों का मोबाइल नंबर बता सकते हैं?",
+        'te-IN': "ధన్యవాదాలు. దయచేసి మీ 10 అంకెల మొబైల్ నంబర్‌ను చెప్పగలరా?",
+        'ml-IN': "നന്ദി. ദയവായി നിങ്ങളുടെ 10 അക്ക മൊബൈൽ നമ്പർ നൽകാമോ?",
+        'kn-IN': "ಧನ್ಯವಾದಗಳು. ದಯವಿಟ್ಟು ನಿಮ್ಮ 10 ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ಒದಗಿಸಬಹುದೇ?",
+        'mr-IN': "धन्यवाद. कृपया तुम्ही तुमचा १० अंकी मोबाईल नंबर सांगू शकता का?",
+        'bn-IN': "ধন্যবাদ। আপনি কি আপনার ১০-সংখ্যার মোবাইল নম্বর দিতে পারেন?",
+        'pa-IN': "ਧੰਨਵਾਦ। ਕੀ ਤੁਸੀਂ ਆਪਣਾ 10 ਅੰਕਾਂ ਦਾ ਮੋਬਾਈਲ ਨੰਬਰ ਦੇ ਸਕਦੇ ਹੋ?"
+      },
+      'invalid_mobile': {
+        'en-IN': "That doesn't seem like a valid 10-digit number. Please provide your mobile number again.",
+        'hi-IN': "यह सही 10 अंकों का नंबर नहीं लग रहा है। कृपया अपना मोबाइल नंबर फिर से बताएं।",
+        'te-IN': "ఇది సరైన 10 అంకెల నంబర్ లాగా లేదు. దయచేసి మళ్లీ చెప్పండి.",
+        'ml-IN': "ഇതൊരു ശരിയായ 10 അക്ക നമ്പർ അല്ല. ദയവായി നിങ്ങളുടെ നമ്പർ വീണ്ടും പറയുക.",
+        'kn-IN': "ಇದು ಸರಿಯಾದ 10 ಅಂಕಿಗಳ ಸಂಖ್ಯೆ ಎಂದು ತೋರುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಹೇಳಿ.",
+        'mr-IN': "हा योग्य १० अंकी नंबर वाटत नाही. कृपया तुमचा मोबाईल नंबर पुन्हा सांगा.",
+        'bn-IN': "এটি সঠিক ১০-সংখ্যার নম্বর বলে মনে হচ্ছে না। অনুগ্রহ করে আবার বলুন।",
+        'pa-IN': "ਇਹ ਸਹੀ 10 ਅੰਕਾਂ ਦਾ ਨੰਬਰ ਨਹੀਂ ਲੱਗ ਰਿਹਾ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਮੋਬਾਈਲ ਨੰਬਰ ਦੁਬਾਰਾ ਦੱਸੋ।"
+      },
+      'ask_state': {
+        'en-IN': "Got it. Which state are you from?",
+        'hi-IN': "समझ गया। आप किस राज्य (स्टेट) से बात कर रहे हैं?",
+        'te-IN': "అర్థమైంది. మీరు ఏ రాష్ట్రం నుండి మాట్లాడుతున్నారు?",
+        'ml-IN': "മനസ്സിലായി. നിങ്ങൾ ഏത് സംസ്ഥാനത്തുനിന്നാണ്?",
+        'kn-IN': "ಅರ್ಥವಾಯಿತು. ನೀವು ಯಾವ ರಾಜ್ಯದವರು?",
+        'mr-IN': "समजले. तुम्ही कोणत्या राज्यातून बोलत आहात?",
+        'bn-IN': "বুঝতে পেরেছি। আপনি কোন রাজ্য থেকে বলছেন?",
+        'pa-IN': "ਸਮਝ ਗਿਆ। ਤੁਸੀਂ ਕਿਹੜੇ ਰਾਜ ਤੋਂ ਹੋ?"
+      },
+      'ask_topic': {
+        'en-IN': "Thank you. Now, what topic would you like to know about? For example: Government schemes, Business loans, or MSME registrations.",
+        'hi-IN': "धन्यवाद। अब बताएं, आप किस टॉपिक के बारे में जानकारी चाहते हैं? जैसे: गवर्नमेंट स्कीम्स, बिजनेस लोन या MSME रजिस्ट्रेशन।",
+        'te-IN': "ధన్యవాదాలు. ఇప్పుడు చెప్పండి, మీరు దేని గురించి తెలుసుకోవాలనుకుంటున్నారు? ఉదాహరణకు: ప్రభుత్వ పథకాలు లేదా వ్యాపార రుణాలు.",
+        'ml-IN': "നന്ദി. ഇനി പറയൂ, നിങ്ങൾക്ക് എന്തിനെക്കുറിച്ചാണ് അറിയേണ്ടത്? ഉദാഹരണത്തിന്: സർക്കാർ പദ്ധതികൾ അല്ലെങ്കിൽ ബിസിനസ് ലോണുകൾ.",
+        'kn-IN': "ಧನ್ಯವಾದಗಳು. ಈಗ ಹೇಳಿ, ನೀವು ಯಾವ ವಿಷಯದ ಬಗ್ಗೆ ತಿಳಿಯಲು ಬಯಸುತ್ತೀರಿ? ಉದಾಹರಣೆಗೆ: ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಅಥವಾ ವ್ಯಾಪಾರ ಸಾಲಗಳು.",
+        'mr-IN': "धन्यवाद. आता सांगा, तुम्हाला कोणत्या विषयाबद्दल माहिती हवी आहे? उदा: सरकारी योजना किंवा व्यवसाय कर्ज.",
+        'bn-IN': "ধন্যবাদ। এখন বলুন, আপনি কোন বিষয়ে জানতে চান? যেমন: সরকারি স্কিম বা ব্যবসা ঋণ।",
+        'pa-IN': "ਧੰਨਵਾਦ। ਹੁਣ ਦੱਸੋ, ਤੁਸੀਂ ਕਿਸ ਵਿਸ਼ੇ ਬਾਰੇ ਜਾਣਕਾਰੀ ਚਾਹੁੰਦੇ ਹੋ? ਜਿਵੇਂ: ਸਰਕਾਰੀ ਸਕੀਮਾਂ ਜਾਂ ਬਿਜ਼ਨਸ ਲੋਨ।"
+      },
+      'closing': {
+        'en-IN': "Thank you for speaking with Growthora. I hope I was able to help. Wishing you success and growth in your business. Have a great day.",
+        'hi-IN': "ग्रोथोरा से बात करने के लिए धन्यवाद। आशा है मैं आपकी मदद कर पाई। आपके बिज़नेस और ग्रोथ के लिए शुभकामनाएँ। आपका दिन शुभ हो।",
+        'te-IN': "గ్రోథోరాతో మాట్లాడినందుకు ధన్యవాదాలు. నేను మీకు సహాయం చేయగలిగానని ఆశిస్తున్నాను. శుభ దినం.",
+        'ml-IN': "ഗ്രോത്തോറയുമായി സംസാരിച്ചതിന് നന്ദി. ശുഭദിനം.",
+        'kn-IN': "ಗ್ರೋಥೋರಾ ಜೊತೆ ಮಾತನಾಡಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದಗಳು. ಶುಭ ದಿನ.",
+        'mr-IN': "ग्रोथोरा सोबत बोलल्याबद्दल धन्यवाद. तुमचा दिवस शुभ असो.",
+        'bn-IN': "গ্রোথোরার সাথে কথা বলার জন্য ধন্যবাদ। আপনার দিনটি শুভ হোক।",
+        'pa-IN': "Growthora ਨਾਲ ਗੱਲ ਕਰਨ ਲਈ ਧੰਨਵਾਦ। ਤੁਹਾਡਾ ਦਿਨ ਸ਼ੁਭ ਰਹੇ।"
+      }
+    };
+    return prompts[promptType][langCode] || prompts[promptType]['en-IN'];
+  };
+
+  const saveLeadProgress = async (data) => {
+    try {
+      const mergedData = { ...leadData, ...data, language: selectedLanguage?.name };
+      setLeadData(mergedData);
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, data: mergedData })
+      });
+    } catch (e) {
+      console.error('Failed to save lead progress', e);
+    }
+  };
+
   const handleLanguageSelect = async (langObj) => {
     console.log(`[VOICE TIMING] ${Date.now()} - languageDetected: ${langObj.name}`);
     setSelectedLanguage(langObj);
     setIsLiveVoiceMode(true);
+    setConvState('collect_name');
     
-    const confirmText = CONFIRMATION_MESSAGES[langObj.code];
-    console.log(`[VOICE TIMING] ${Date.now()} - confirmationGenerated: ${confirmText}`);
+    await saveLeadProgress({ language: langObj.name });
+    
+    const confirmText = getLocalizedPrompt('ask_name', langObj.code);
     
     const messageId = Date.now();
     const newAiMessage = { role: 'ai', content: confirmText, id: messageId, isVoiceResponse: true, isSystemAlert: true };
@@ -373,7 +468,7 @@ export function GrowthoraAIChat() {
   const handleSendMessage = async ({ text, image, imagePreview, isVoiceQuery = false }) => {
     if (isTyping) return;
     
-    if (!selectedLanguage) {
+    if (!selectedLanguage && convState === 'language_selection') {
       setMessages(prev => [...prev, { role: 'ai', content: 'Please select a language first!' }]);
       return;
     }
@@ -382,8 +477,100 @@ export function GrowthoraAIChat() {
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
     setErrorMsg(null);
-    
     stopAudio();
+    
+    const langCode = selectedLanguage?.code || 'en-IN';
+    const lowerText = text ? text.toLowerCase() : '';
+
+    // Check for Closing Intent (not including stop)
+    const closingRegex = /(?:^|\s)(bye|goodbye|that's all|bas itna hi|no thanks|nahi chahiye|thank you, i am done)(?:\s|$|[.,!?])/i;
+    if (closingRegex.test(lowerText) && convState !== 'language_selection') {
+       const msg = getLocalizedPrompt('closing', langCode);
+       setConvState('closed');
+       const msgId = Date.now();
+       setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+       setIsTyping(false);
+       setIsLiveVoiceMode(false);
+       if (isVoiceQuery) playAudio(msg, msgId);
+       return;
+    }
+
+    // State Machine Processing
+    if (convState === 'collect_name') {
+      await saveLeadProgress({ name: text });
+      const msg = getLocalizedPrompt('ask_mobile', langCode);
+      setConvState('collect_mobile');
+      const msgId = Date.now();
+      setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+      setIsTyping(false);
+      if (isVoiceQuery) playAudio(msg, msgId);
+      return;
+    }
+
+    if (convState === 'collect_mobile') {
+      // Validate 10-digit number
+      const digits = text.replace(/\D/g, '');
+      if (digits.length >= 10) {
+         const mobile = digits.slice(-10);
+         await saveLeadProgress({ mobile });
+         const msg = getLocalizedPrompt('ask_state', langCode);
+         setConvState('collect_state');
+         const msgId = Date.now();
+         setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+         setIsTyping(false);
+         if (isVoiceQuery) playAudio(msg, msgId);
+      } else {
+         const msg = getLocalizedPrompt('invalid_mobile', langCode);
+         const msgId = Date.now();
+         setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+         setIsTyping(false);
+         if (isVoiceQuery) playAudio(msg, msgId);
+      }
+      return;
+    }
+
+    if (convState === 'collect_state') {
+      await saveLeadProgress({ state: text });
+      const msg = getLocalizedPrompt('ask_topic', langCode);
+      setConvState('ready_for_questions');
+      const msgId = Date.now();
+      setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+      setIsTyping(false);
+      if (isVoiceQuery) playAudio(msg, msgId);
+      return;
+    }
+
+    if (convState === 'consultation_booking') {
+      // User replied to consultation offer
+      if (/(yes|book|haan|theek hai|ok)/i.test(lowerText)) {
+        try {
+          await fetch('/api/leads/consultation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId, consultationData: { topic: text } })
+          });
+          const successMsg = langCode.startsWith('hi') 
+            ? "Thank you. Aapki free consultation request successfully register ho gayi hai. Growthora team aapse aapke registered mobile number par contact karegi."
+            : "Thank you. Your free consultation request has been successfully registered. The Growthora team will contact you on your registered mobile number.";
+          const msgId = Date.now();
+          setMessages((prev) => [...prev, { role: 'ai', content: successMsg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+          setIsTyping(false);
+          setConvState('ready_for_questions');
+          if (isVoiceQuery) playAudio(successMsg, msgId);
+          return;
+        } catch (e) {
+           console.error("Consultation booking failed", e);
+        }
+      } else if (/(no|nahi)/i.test(lowerText)) {
+         setConvState('ready_for_questions');
+         const msgId = Date.now();
+         const msg = langCode.startsWith('hi') ? "Koi baat nahi. Batayein, main aapki aur kya madad kar sakti hoon?" : "No problem. How else can I help you?";
+         setMessages((prev) => [...prev, { role: 'ai', content: msg, id: msgId, isVoiceResponse: isVoiceQuery }]);
+         setIsTyping(false);
+         if (isVoiceQuery) playAudio(msg, msgId);
+         return;
+      }
+    }
 
     try {
       console.log(`[VOICE_PRODUCTION_LOG] CHAT_REQUEST_START - Query: ${text}`);
@@ -437,15 +624,28 @@ export function GrowthoraAIChat() {
         throw new Error(data.error || `Failed to fetch AI response: ${response.status}`);
       }
 
+      let aiResponseText = data.reply;
+      
+      // If AI offered consultation, transition to booking state and ask for confirmation
+      if (aiResponseText.includes("[OFFER_CONSULTATION]")) {
+         aiResponseText = aiResponseText.replace(/\[OFFER_CONSULTATION\]/gi, '').trim();
+         const mobileStr = leadData.mobile ? leadData.mobile.slice(-4) : '';
+         const consultMsg = langCode.startsWith('hi')
+           ? `\n\nMere paas aapka naam ${leadData.name || ''}, mobile number ending ${mobileStr}, aur state ${leadData.state || ''} saved hai. Kya main isi details ke sath free consultation book kar doon? (Haan / Nahi)`
+           : `\n\nI have your name ${leadData.name || ''}, mobile ending in ${mobileStr}, and state ${leadData.state || ''} saved. Shall I book a free consultation with these details? (Yes / No)`;
+         aiResponseText += consultMsg;
+         setConvState('consultation_booking');
+      }
+
       const messageId = Date.now();
-      const newAiMessage = { role: 'ai', content: data.reply, id: messageId, isVoiceResponse: isVoiceQuery };
+      const newAiMessage = { role: 'ai', content: aiResponseText, id: messageId, isVoiceResponse: isVoiceQuery };
       
       setMessages((prev) => [...prev, newAiMessage]);
       setIsTyping(false); // Clear typing state immediately so text is visible!
 
-      if (isVoiceQuery && data.reply) {
+      if (isVoiceQuery && aiResponseText) {
         try {
-          await playAudio(data.reply, messageId);
+          await playAudio(aiResponseText, messageId);
         } catch (ttsError) {
           console.error('[VOICE] Non-fatal TTS error during chat:', ttsError);
         }

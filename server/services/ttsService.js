@@ -46,7 +46,7 @@ export const generateSpeech = async (text, languageCode) => {
         body: JSON.stringify({
           inputs: [chunk],
           target_language_code: languageCode,
-          speaker: 'ritu',
+          speaker: 'meera',
           pace: 1.0,
           speech_sample_rate: 8000,
           enable_preprocessing: true,

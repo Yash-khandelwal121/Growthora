@@ -110,7 +110,7 @@
   font-size: 0.95rem;
   font-weight: 600;
   text-align: left;
-  transition: all 0.25s ease;
+  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .blueprint-nav-item:hover {
@@ -146,11 +146,29 @@
   border-radius: 2px;
   background: #FF7200;
   box-shadow: 0 0 8px #FF7200;
+  transform-origin: top;
+}
+
+@keyframes indicatorProgress {
+  0% { transform: scaleY(0); opacity: 0.5; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+.active-orange-indicator.auto-progress {
+  animation: indicatorProgress 5s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-orange-indicator.auto-progress {
+    animation: none;
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* 3D Blueprint Table Container */
 .blueprint-main-content {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   min-width: 0;
 }
 

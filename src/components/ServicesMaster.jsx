@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SERVICES_DATA } from '../data/servicesData';
 import { BlueprintCanvas } from './BusinessBlueprint/BlueprintCanvas';
 import { BlueprintPanels } from './BusinessBlueprint/BlueprintPanels';
@@ -6,21 +6,60 @@ import { Layers } from 'lucide-react';
 
 export const ServicesMaster = ({ activeId, setActiveId, onOpenConsultation }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
 
   const activeService = SERVICES_DATA.find((s) => s.id === activeId) || SERVICES_DATA[0];
   const activeIndex = SERVICES_DATA.findIndex((s) => s.id === activeId);
 
-  const handleSelectCategory = (id) => {
+  const handleSelectCategory = useCallback((id) => {
     if (id === activeId) return;
     setIsTransitioning(true);
     setActiveId(id);
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 600);
-  };
+    }, 400); // smooth content transition
+  }, [activeId, setActiveId]);
+
+  const advanceToNext = useCallback(() => {
+    const nextIndex = (activeIndex + 1) % SERVICES_DATA.length;
+    handleSelectCategory(SERVICES_DATA[nextIndex].id);
+  }, [activeIndex, handleSelectCategory]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsPaused(true);
+      } else {
+        setIsPaused(false);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      advanceToNext();
+    }, 5000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, advanceToNext]);
 
   return (
-    <section className="services-master-section blueprint-mode" id="services-master">
+    <section 
+      className="services-master-section blueprint-mode" 
+      id="services-master"
+      onMouseEnter={() => { if (window.innerWidth >= 1024) setIsPaused(true); }}
+      onMouseLeave={() => { if (window.innerWidth >= 1024) setIsPaused(false); }}
+    >
       {/* Redesigned Light Section Header */}
       <div className="blueprint-section-header">
         <div className="eyebrow-badge">
@@ -63,7 +102,13 @@ export const ServicesMaster = ({ activeId, setActiveId, onOpenConsultation }) =>
                 >
                   <span className="nav-num">{service.num}</span>
                   <span className="nav-text">{service.navLabel}</span>
-                  {isActive && <span className="active-orange-indicator" />}
+                  {isActive && (
+                    <span 
+                      className="active-orange-indicator auto-progress"
+                      key={`indicator-${service.id}`}
+                      style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+                    />
+                  )}
                 </button>
               );
             })}
