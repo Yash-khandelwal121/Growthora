@@ -1,0 +1,106 @@
+[
+  {
+    "id": "lead_1789801272107",
+    "sessionId": "sess_1789801242023",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T07:01:12.106Z",
+    "updatedAt": "2026-09-19T07:01:12.106Z"
+  },
+  {
+    "id": "lead_1789801336773",
+    "sessionId": "sess_1789801300176",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T07:02:16.773Z",
+    "updatedAt": "2026-09-19T07:03:45.270Z",
+    "language": "Hindi",
+    "name": "Rahul",
+    "mobile": "9876543210",
+    "state": "Maharashtra"
+  },
+  {
+    "id": "lead_1789801825649",
+    "sessionId": "sess_1789801804439",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T07:10:25.648Z",
+    "updatedAt": "2026-09-19T07:12:22.490Z",
+    "language": "English",
+    "name": "cashkaro",
+    "mobile": "8769556805",
+    "state": "Jaipur"
+  },
+  {
+    "id": "lead_1789806465191",
+    "sessionId": "sess_1789806312898",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T08:27:45.190Z",
+    "updatedAt": "2026-09-19T08:28:14.358Z",
+    "language": "Hindi",
+    "name": "यश खंडेलवाल",
+    "mobile": "7695566801",
+    "state": "जयपुर राजस्थान"
+  },
+  {
+    "id": "lead_1789806885481",
+    "sessionId": "sess_1789806761733",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T08:34:45.475Z",
+    "updatedAt": "2026-09-19T08:34:45.475Z"
+  },
+  {
+    "id": "lead_1789808602399",
+    "sessionId": "sess_1789808582447",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T09:03:22.399Z",
+    "updatedAt": "2026-09-19T09:03:22.399Z"
+  },
+  {
+    "id": "lead_1789808739282",
+    "sessionId": "sess_1789808652992",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T09:05:39.282Z",
+    "updatedAt": "2026-09-19T09:05:45.470Z",
+    "language": "English",
+    "name": "taraf se Tej bola"
+  },
+  {
+    "id": "lead_1789808782158",
+    "sessionId": "sess_1789808750339",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T09:06:22.158Z",
+    "updatedAt": "2026-09-19T09:07:11.352Z",
+    "language": "English",
+    "name": "Naresh calling",
+    "mobile": "7417416461",
+    "state": "Haryana"
+  },
+  {
+    "id": "lead_1789811454230",
+    "sessionId": "sess_1789811241793",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T09:50:54.229Z",
+    "updatedAt": "2026-09-19T09:51:02.412Z",
+    "language": "Bengali",
+    "name": "বাবু মশাই মেরা নাম যাস হে"
+  },
+  {
+    "id": "lead_1789811504949",
+    "sessionId": "sess_1789811486197",
+    "source": "Growthora AI",
+    "status": "Onboarding",
+    "createdAt": "2026-09-19T09:51:44.949Z",
+    "updatedAt": "2026-09-19T09:53:08.691Z",
+    "language": "Hindi",
+    "name": "यू कैन'टी हेल्प मी",
+    "mobile": "6789101112",
+    "state": "स्टेट बताओ"
+  }
+]

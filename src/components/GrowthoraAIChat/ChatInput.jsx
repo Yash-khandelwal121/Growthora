@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Image as ImageIcon, Mic, X, Loader2, Square, Keyboard, AudioLines } from 'lucide-react';
 import { VOICE_LANGUAGES } from './GrowthoraAIChat';
-
-
+import { ROBOT_VIDEO_SRC } from './constants';
 
 export default function ChatInput({ 
   onSendMessage, 
@@ -16,7 +15,9 @@ export default function ChatInput({
   selectedLanguage,
   onLanguageSelect,
   onStopAudio,
-  onStopAssistant
+  onStopAssistant,
+  robotContainerRef,
+  unlockAudio
 }) {
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);
@@ -87,24 +88,6 @@ export default function ChatInput({
       setVoiceState('listening');
     };
 
-    recognition.onsoundstart = () => {
-      // 1. Only allow barge-in if the bot is actually speaking
-      if (!isSpeakingRef.current) return;
-
-      // 2. 500ms grace period check (echo prevention)
-      const elapsed = Date.now() - ttsStartTimeRef.current;
-      if (elapsed < 500) {
-          console.log("[VOICE] Sound detected during grace period. Ignoring (echo prevention).");
-          return;
-      }
-      
-      // 3. Barge-in trigger
-      console.log("[VOICE] Barge-in detected! But keeping audio playing for debugging.");
-      // if (onStopAudioRef.current) {
-      //   onStopAudioRef.current();
-      // }
-    };
-
     recognition.onresult = (event) => {
       let finalTranscript = "";
       let interimTranscript = "";
@@ -119,46 +102,47 @@ export default function ChatInput({
       
       const fullTranscriptForLang = (finalTranscript + " " + interimTranscript).trim();
 
-      // INTERRUPT/BARGE-IN DETECTION: Check immediately on both interim and final
-      const stopRegex = /(?:\b|\s|^)(stop|stop speaking|bas|बस|रुक|रुको|चुप|बंद करो|बोलना बंद करो|ruk|ruko|chup|band karo|shh|quiet)(?:\b|\s|$)/i;
-      const stopMatch = stopRegex.exec(fullTranscriptForLang);
-      
-      if (stopMatch) {
-         console.log("[VOICE] Stop command detected in transcript! Halting AI.");
-         if (onStopAssistantRef.current) {
-            onStopAssistantRef.current(); // Central abort
-         }
-         
-         const remainingText = fullTranscriptForLang.substring(stopMatch.index + stopMatch[0].length).trim();
-         
-         try { recognition.stop(); } catch(e){}
-         recognitionRunningRef.current = false;
-         isProcessingRef.current = false;
-         setVoiceState('listening');
-         
-         if (remainingText.length > 2) {
-             console.log("[VOICE] Text after stop detected, processing as new query:", remainingText);
-             isProcessingRef.current = true;
-             setVoiceState('thinking');
+      // INTERRUPT/BARGE-IN DETECTION: Unicode-aware stop word detection
+      if (isSpeakingRef.current || isProcessingRef.current) {
+          const STOP_WORDS = new Set([
+            'stop', 'wait', 'quiet', 'shh',
+            'रुको', 'रुक', 'बस', 'बंद', 'स्टॉप',
+            'थांबा',
+            'থামো', 'থামুন', 'স্টপ',
+            'ఆపు', 'ఆపండి', 'స్టాప్',
+            'ನಿಲ್ಲಿಸು', 'ನಿಲ್ಲಿಸಿ', 'ಸ್ಟಾప్',
+            'നിർത്തൂ', 'നിർത്തുക', 'സ്റ്റോപ്പ്',
+            'ਰੁਕੋ', 'ਬੱਸ', 'ਸਟਾਪ',
+            'ruk', 'ruko', 'chup'
+          ]);
+          const tokens = fullTranscriptForLang.split(/[\s,.;!?]+/).filter(Boolean);
+          const lowerTranscript = fullTranscriptForLang.toLowerCase();
+          const hasStopWord = tokens.some(t => STOP_WORDS.has(t.toLowerCase())) || lowerTranscript.includes('band karo') || lowerTranscript.includes('बंद करो');
+          
+          if (hasStopWord && tokens.length <= 4) {
+             console.log("[VOICE] Stop command detected in transcript! Halting AI.");
+             if (onStopAssistantRef.current) {
+                onStopAssistantRef.current(); // Central abort
+             }
              
-             onSendMessageRef.current({
-               text: remainingText,
-               image: null,
-               imagePreview: null,
-               isVoiceQuery: true
-             });
-         } else {
+             try { recognition.stop(); } catch(e){}
+             recognitionRunningRef.current = false;
+             isProcessingRef.current = false;
+             setVoiceState('listening');
+             
              const langName = selectedLanguageRef.current?.name?.toLowerCase() || 'english';
-             const ackMsg = langName.startsWith('hi') ? 'Ji, main ruk gayi. Batayein.' : 'I have stopped. Please go ahead.';
+             const ackMsg = langName.startsWith('hi') ? 'Ji, boliye.' : 'Okay, go ahead.';
              isProcessingRef.current = true;
              setVoiceState('speaking');
              playAudio(ackMsg, 'ack-stop').then(() => {
-                 isProcessingRef.current = false;
-                 setVoiceState('listening');
-                 startRecognition();
+                 setTimeout(() => {
+                     isProcessingRef.current = false;
+                     setVoiceState('listening');
+                     startRecognition();
+                 }, 1500); // 1.5 second cooldown before stop detection is armed again
              });
-         }
-         return; // Early return to prevent chat call
+             return; // Early return to prevent chat call
+          }
       }
 
       // Prevent duplicate processing if already thinking/processing or speaking
@@ -252,7 +236,16 @@ export default function ChatInput({
       recognitionRunningRef.current = false;
 
       if (!isLiveVoiceModeRef.current) return;
-      if (isSpeakingRef.current) return;
+      if (isSpeakingRef.current) {
+        // Restart in stop-only mode (onresult ignores everything else when isSpeakingRef is true)
+        setTimeout(() => {
+           if (isLiveVoiceModeRef.current && isSpeakingRef.current && !recognitionRunningRef.current) {
+              console.log("[VOICE] Restarting recognition in stop-only mode");
+              startRecognition();
+           }
+        }, 150);
+        return;
+      }
       if (isProcessingRef.current) return;
 
       const elapsed = Date.now() - lastTtsEndTimeRef.current;
@@ -498,21 +491,60 @@ export default function ChatInput({
             onClick={() => setIsLiveVoiceMode(false)}
             title="Switch to Text Chat"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
           
-          <div className={`ai-robot-container ${voiceState}`}>
+          <div className={`ai-robot-container ${voiceState}`} ref={robotContainerRef}>
             <div className="ai-robot-glow-bg"></div>
             <video 
-              src="/aivideo.mp4" 
+              src={ROBOT_VIDEO_SRC}
               className="ai-robot-icon" 
               autoPlay
               loop
               muted
               playsInline
-              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '24px' }}
             />
+            
+            <div className={`audio-reactive-waveform ${isAudioPlaying ? 'active' : ''}`}>
+               <div className="audio-reactive-bar" style={{ '--bar-factor': '0.6' }}></div>
+               <div className="audio-reactive-bar" style={{ '--bar-factor': '0.9' }}></div>
+               <div className="audio-reactive-bar" style={{ '--bar-factor': '1.2' }}></div>
+               <div className="audio-reactive-bar" style={{ '--bar-factor': '0.8' }}></div>
+               <div className="audio-reactive-bar" style={{ '--bar-factor': '0.5' }}></div>
+            </div>
           </div>
+          
+          {(voiceState === 'speaking' || voiceState === 'thinking') && (
+            <button 
+              type="button"
+              onClick={() => {
+                console.log("[VOICE] Manual Stop button tapped");
+                if (onStopAssistantRef.current) onStopAssistantRef.current();
+                isProcessingRef.current = false;
+                isSpeakingRef.current = false;
+                clearTimeout(listeningUnlockTimerRef.current);
+                setVoiceState('listening');
+                if (!recognitionRunningRef.current) startRecognition();
+              }}
+              style={{
+                marginTop: '24px',
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 12px rgba(239,68,68,0.4)',
+                cursor: 'pointer'
+              }}
+              title="Stop Assistant"
+            >
+              <Square size={24} fill="currentColor" />
+            </button>
+          )}
         </div>
       </div>
     );
@@ -560,7 +592,7 @@ export default function ChatInput({
         <button 
           type="button" 
           className="icon-button" 
-          onClick={() => setIsLiveVoiceMode(true)}
+          onClick={() => { unlockAudio(); setIsLiveVoiceMode(true); }}
           title="Live Voice Mode"
         >
           <Mic size={20} />

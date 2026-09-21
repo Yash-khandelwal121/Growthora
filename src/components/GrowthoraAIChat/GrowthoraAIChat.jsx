@@ -6,6 +6,10 @@ import { FundingSolutionPopup } from '../FundingSolutionPopup';
 import aiLogo from '../../assets/growthora_chatbot_logo.jpg';
 import cleanLogo from '../../assets/growthora_logo_clean.png';
 import './growthoraAIChat.css';
+import { ROBOT_VIDEO_SRC } from './constants';
+
+let sharedAudioContext = null;
+let activeLoops = 0;
 
 const INITIAL_MESSAGE = {
   role: 'ai',
@@ -68,6 +72,24 @@ export function GrowthoraAIChat() {
 
   const groqAbortControllerRef = React.useRef(null);
   const ttsAbortControllerRef = React.useRef(null);
+  
+  const robotContainerRef = React.useRef(null);
+  const playbackTokenRef = React.useRef(0);
+  const ttsResolveRef = React.useRef(null);
+  const activeAudioCleanupRef = React.useRef(null);
+
+  const unlockAudio = async () => {
+    try {
+      if (!sharedAudioContext) {
+        sharedAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (sharedAudioContext.state === 'suspended') {
+        await sharedAudioContext.resume();
+      }
+    } catch (e) {
+      console.warn('[VOICE] unlockAudio failed', e);
+    }
+  };
 
   const stopAssistantSpeech = () => {
     console.log('[VOICE] Stop command detected (Central Stop Function)');
@@ -96,6 +118,14 @@ export function GrowthoraAIChat() {
     const audio = audioPlayerRef.current;
     
     ttsCancelledRef.current = true;
+    playbackTokenRef.current += 1;
+
+    if (activeAudioCleanupRef.current) {
+        activeAudioCleanupRef.current();
+        activeAudioCleanupRef.current = null;
+    }
+
+    ttsResolveRef.current?.();
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
@@ -275,16 +305,36 @@ export function GrowthoraAIChat() {
   };
 
   const playAudio = (text, id, forceLangCode = null) => {
-    return new Promise(async (resolve, reject) => {
-      let url = null;
-      
-      ttsCancelledRef.current = false;
+    return new Promise((resolve, reject) => {
+      (async () => {
+        let url = null;
+        
+        ttsResolveRef.current?.();
+        
+        stopAudio();
+        ttsCancelledRef.current = false;
+        
+        let currentToken = playbackTokenRef.current;
+        
+        const finish = () => {
+           if (ttsResolveRef.current === finish) {
+              ttsResolveRef.current = null;
+           }
+           resolve();
+        };
 
-      try {
-        if (audioPlayerRef.current) {
-          stopAudio();
-          ttsCancelledRef.current = false;
-        }
+        const playNativeFallback = () => {
+          if (!('speechSynthesis' in window)) {
+            console.error('[VOICE] Speech Synthesis not supported in this browser.');
+            finish();
+            return;
+          };
+        };
+        
+        ttsResolveRef.current = finish;
+
+        try {
+          currentToken = playbackTokenRef.current;
 
         console.log(`[VOICE TIMING] ${Date.now()} - playAudio Started (fetching /api/tts)`);
         setPlayingMessageId(id);
@@ -350,6 +400,45 @@ export function GrowthoraAIChat() {
           console.log(`[VOICE TIMING] ${Date.now()} - audioPlaying (Cloud)`);
           setIsAudioPlaying(true);
         };
+        
+        if (sharedAudioContext && sharedAudioContext.state === 'suspended') {
+           try { await sharedAudioContext.resume(); } catch(e) {}
+        }
+        
+        let sourceNode = null;
+        let analyser = null;
+        let animFrameId = null;
+
+        if (sharedAudioContext && sharedAudioContext.state === 'running') {
+            try {
+                sourceNode = sharedAudioContext.createMediaElementSource(audio);
+                analyser = sharedAudioContext.createAnalyser();
+                analyser.fftSize = 256;
+                sourceNode.connect(analyser);
+                analyser.connect(sharedAudioContext.destination);
+            } catch (e) {
+                console.warn('[VOICE] AudioContext attach failed', e);
+            }
+        }
+
+        const cleanupAudio = () => {
+            if (animFrameId) {
+                cancelAnimationFrame(animFrameId);
+                activeLoops--;
+                console.log(`[VOICE DEBUG] activeLoops after stop: ${activeLoops}`);
+                animFrameId = null;
+            }
+            if (robotContainerRef.current) robotContainerRef.current.style.setProperty('--voice-level', '0');
+            if (sourceNode) {
+                try { sourceNode.disconnect(); } catch (e) {}
+                sourceNode = null;
+            }
+            if (analyser) {
+                try { analyser.disconnect(); } catch (e) {}
+                analyser = null;
+            }
+        };
+        activeAudioCleanupRef.current = cleanupAudio;
 
         audio.onended = () => {
           console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Cloud)`);
@@ -357,14 +446,14 @@ export function GrowthoraAIChat() {
 
           setPlayingMessageId(null);
           setIsAudioPlaying(false);
+          cleanupAudio();
 
           if (audioPlayerRef.current === audio) {
             audioPlayerRef.current = null;
           }
 
           URL.revokeObjectURL(url);
-
-          resolve();
+          finish();
         };
 
         audio.onstalled = () => console.log(`[AUDIO STALLED]`);
@@ -372,6 +461,32 @@ export function GrowthoraAIChat() {
         
         audio.onplay = () => {
            console.log(`[VOICE DEBUG] AUDIO STARTED`);
+           if (analyser) {
+              const dataArray = new Uint8Array(analyser.frequencyBinCount);
+              const updateLevel = () => {
+                 if (!analyser) return;
+                 analyser.getByteTimeDomainData(dataArray);
+                 let sumSquares = 0;
+                 for (let i = 0; i < dataArray.length; i++) {
+                     let v = (dataArray[i] - 128) / 128.0;
+                     sumSquares += v * v;
+                 }
+                 let rms = Math.sqrt(sumSquares / dataArray.length);
+                 let target = Math.min(1, rms * 4);
+                 
+                 if (robotContainerRef.current) {
+                    let currentRaw = robotContainerRef.current.style.getPropertyValue('--voice-level') || '0';
+                    let current = parseFloat(currentRaw);
+                    if (isNaN(current)) current = 0;
+                    let smoothed = current * 0.75 + target * 0.25;
+                    robotContainerRef.current.style.setProperty('--voice-level', smoothed);
+                 }
+                 animFrameId = requestAnimationFrame(updateLevel);
+              };
+              animFrameId = requestAnimationFrame(updateLevel);
+              activeLoops++;
+              console.log(`[VOICE DEBUG] activeLoops after start: ${activeLoops}`);
+           }
         };
 
         audio.onloadedmetadata = () => {
@@ -383,6 +498,7 @@ export function GrowthoraAIChat() {
 
           setPlayingMessageId(null);
           setIsAudioPlaying(false);
+          cleanupAudio();
 
           if (audioPlayerRef.current === audio) {
             audioPlayerRef.current = null;
@@ -399,6 +515,12 @@ export function GrowthoraAIChat() {
         await audio.play();
 
       } catch (error) {
+        if (currentToken !== playbackTokenRef.current || error.name === 'AbortError') {
+           console.log('[VOICE] Playback skipped or aborted cleanly.', error);
+           finish();
+           return;
+        }
+
         console.log(`[VOICE_PRODUCTION_LOG] VOICE_ERROR during TTS API`, error);
         console.error('[VOICE] Cloud TTS error, falling back to native Web Speech API:', error);
 
@@ -411,7 +533,7 @@ export function GrowthoraAIChat() {
             
             // Deep sanitize for speech to avoid native voices pronouncing markdown symbols
             const speechSafeText = text
-              .replace(/[*#_>`~\[\]={}]/g, '')
+              .replace(/[*#_>`~[\]={}]/g, '')
               .replace(/(?:\s-\s|--+)/g, ' ')
               .replace(/\n+/g, '. ')
               .trim();
@@ -431,18 +553,29 @@ export function GrowthoraAIChat() {
               console.log(`[VOICE TIMING] ${Date.now()} - audioPlaying (Native)`);
               setIsAudioPlaying(true);
             };
+            
+            utterance.onboundary = () => {
+                if (robotContainerRef.current) {
+                    robotContainerRef.current.style.setProperty('--voice-level', '0.6');
+                    setTimeout(() => {
+                        if (robotContainerRef.current) robotContainerRef.current.style.setProperty('--voice-level', '0.1');
+                    }, 100);
+                }
+            };
 
             utterance.onend = () => {
               console.log(`[VOICE TIMING] ${Date.now()} - audioEnded (Native)`);
               setPlayingMessageId(null);
               setIsAudioPlaying(false);
-              resolve();
+              if (robotContainerRef.current) robotContainerRef.current.style.setProperty('--voice-level', '0');
+              finish();
             };
 
             utterance.onerror = (e) => {
               console.error('[VOICE] Native TTS error:', e);
               setPlayingMessageId(null);
               setIsAudioPlaying(false);
+              if (robotContainerRef.current) robotContainerRef.current.style.setProperty('--voice-level', '0');
               reject(e);
             };
 
@@ -462,6 +595,7 @@ export function GrowthoraAIChat() {
 
         reject(error);
       }
+      })();
     });
   };
 
@@ -652,6 +786,10 @@ export function GrowthoraAIChat() {
       }
 
     } catch (error) {
+      if (error.name === 'AbortError') {
+         setIsTyping(false);
+         return;
+      }
       console.error(`[VOICE_PRODUCTION_LOG] VOICE_ERROR during /api/chat`, error);
       setErrorMsg('Sorry, I am having trouble connecting right now. Please try again in a moment.');
       setMessages((prev) => [...prev, { role: 'ai', content: 'Sorry, I am having trouble connecting right now. Please try again in a moment.' }]);
@@ -729,12 +867,14 @@ export function GrowthoraAIChat() {
               onStopAudio={stopAudio}
               onStopAssistant={stopAssistantSpeech}
               onLanguageSelect={handleLanguageSelect}
+              robotContainerRef={robotContainerRef}
+              unlockAudio={unlockAudio}
             />
           </div>
         ) : (
           <>
-            <button className="growthora-ai-button" onClick={() => setIsOpen(true)} style={{ padding: 0, overflow: 'visible', border: '2px solid rgba(255,107,0,0.3)', position: 'relative' }}>
-              <img src={aiLogo} alt="Growthora AI Chat" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+            <button className="growthora-ai-button" onClick={() => { unlockAudio(); setIsOpen(true); }} style={{ padding: 0, overflow: 'visible', border: '2px solid rgba(255,107,0,0.3)', position: 'relative' }}>
+              <video src={ROBOT_VIDEO_SRC} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
               <div className="ai-chat-badge" style={{
                 position: 'absolute',
                 top: '-4px',
@@ -752,7 +892,7 @@ export function GrowthoraAIChat() {
                 <Sparkles size={12} color="white" />
               </div>
             </button>
-            <div className="growthora-welcome-bubble" onClick={() => setIsOpen(true)}>
+            <div className="growthora-welcome-bubble" onClick={() => { unlockAudio(); setIsOpen(true); }}>
               <div className="welcome-sparkles">
                 <Sparkles size={22} className="welcome-sparkles-icon-main" />
                 <Sparkles size={12} className="welcome-sparkles-icon-sub" />

@@ -11,16 +11,30 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup, 
     }
   }, [messages, isTyping]);
 
-  // Very simple markdown parser
+  // Secure markdown parser
   const parseMarkdown = (text) => {
     if (!text) return { __html: '' };
+    
     let html = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+      
+    html = html
       .replace(/### (.*)/g, '<h3>$1</h3>')
       .replace(/## (.*)/g, '<h2>$1</h2>')
       .replace(/# (.*)/g, '<h1>$1</h1>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, (match, label, url) => {
+         const cleanUrl = url.trim();
+         if (/^(https?|mailto|tel):/i.test(cleanUrl)) {
+             return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+         }
+         return label;
+      })
       .replace(/\n/g, '<br/>')
       .replace(/- (.*?)<br\/>/g, '<li>$1</li>');
     

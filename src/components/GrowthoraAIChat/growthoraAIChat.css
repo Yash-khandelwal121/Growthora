@@ -557,8 +557,9 @@
   right: 0;
   bottom: 0;
   z-index: 100;
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(255, 253, 249, 0.72);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -573,17 +574,17 @@
 
 .voice-modal-box {
   position: relative;
-  width: 280px;
-  height: 280px;
-  background: transparent;
-  border-radius: 24px;
-  box-shadow: none;
+  width: 320px;
+  max-width: 90%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: none;
-  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 32px 24px 20px;
   animation: modalPopIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -594,9 +595,8 @@
 
 @media (max-width: 480px) {
   .voice-modal-box {
-    width: 260px;
-    height: 260px;
-    max-width: 90%;
+    width: 280px;
+    padding: 28px 20px 16px;
   }
 }
 
@@ -604,24 +604,24 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.04);
+  color: #64748b;
   border: none;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   z-index: 101;
 }
 
 .close-voice-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.08);
+  color: #1e293b;
+  transform: scale(1.05);
 }
 
 /* PREMIUM AI ROBOT ICON */
@@ -631,25 +631,30 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  aspect-ratio: 16/9;
 }
 
 .ai-robot-glow-bg {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  background: #ff6b00;
-  filter: blur(25px);
-  opacity: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #a855f7, #ff6b00);
+  filter: blur(16px);
+  opacity: 0.4;
   transition: all 0.4s ease;
+  z-index: 1;
 }
 
 .ai-robot-icon {
   position: relative;
   z-index: 2;
-  transform-origin: bottom center;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* States */
@@ -908,10 +913,52 @@
   color: white;
 }
 
+/* Audio-Reactive Avatar */
+.ai-robot-container {
+  --voice-level: 0;
+}
+
+.ai-robot-glow-bg {
+  transform: scale(calc(1 + var(--voice-level) * 0.25));
+  transition: transform 0.05s linear;
+}
+
+.ai-robot-icon {
+  transform: scale(calc(1 + var(--voice-level) * 0.015));
+  transition: transform 0.05s linear;
+}
+
+.audio-reactive-waveform {
+  position: absolute;
+  bottom: 24px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  height: 24px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.audio-reactive-waveform.active {
+  opacity: 1;
+}
+
+.audio-reactive-bar {
+  width: 4px;
+  background: white;
+  border-radius: 2px;
+  height: calc(4px + (var(--voice-level) * var(--bar-factor, 1) * 20px));
+  transition: height 0.05s linear;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
 @media (max-width: 480px) {
   .growthora-ai-wrapper {
     bottom: 16px;
     right: 16px;
+    z-index: 10000;
   }
   .growthora-ai-panel {
     position: fixed;
@@ -927,5 +974,47 @@
   }
   .chat-header {
     padding: 18px 20px;
+  }
+
+  /* Live Voice Popup Mobile Full Screen */
+  .live-voice-overlay {
+    background: #fffdf9;
+  }
+  .live-voice-overlay .voice-modal-box {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    animation: none;
+  }
+  .live-voice-overlay .ai-robot-container {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .live-voice-overlay .ai-robot-glow-bg {
+    display: none;
+  }
+  .live-voice-overlay .ai-robot-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none !important;
+  }
+  .live-voice-overlay .close-voice-btn {
+    width: 44px;
+    height: 44px;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 12px;
+    background: rgba(255,255,255,0.8);
+    color: #0f172a;
+    z-index: 10;
   }
 }
