@@ -17,6 +17,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/home-preview') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/home-preview');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleServicesClick = (e) => {
     e.preventDefault();
     if (location.pathname === '/') {
@@ -91,12 +101,20 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
         {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Main Navigation">
           <a 
+            href="/home-preview" 
+            className={`nav-link ${location.pathname === '/home-preview' ? 'active' : ''}`}
+            onClick={handleHomeClick}
+          >
+            Home
+            {location.pathname === '/home-preview' && <span className="active-dot" />}
+          </a>
+          <a 
             href="/#services-master" 
-            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' ? 'active' : ''}`} 
+            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' ? 'active' : ''}`} 
             onClick={handleServicesClick}
           >
             Services
-            {location.pathname !== '/industries' && location.pathname !== '/insights' && <span className="active-dot" />}
+            {location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && <span className="active-dot" />}
           </a>
           <a 
             href="/industries" 
@@ -163,8 +181,18 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
       {mobileMenuOpen && (
         <div className="mobile-drawer animate-fade-in">
           <a 
+            href="/home-preview" 
+            className={`mobile-nav-link ${location.pathname === '/home-preview' ? 'active' : ''}`}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleHomeClick(e);
+            }}
+          >
+            Home
+          </a>
+          <a 
             href="#services-master" 
-            className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            className={`mobile-nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' ? 'active' : ''}`}
             onClick={(e) => {
               setMobileMenuOpen(false);
               handleServicesClick(e);
