@@ -466,12 +466,38 @@ export default function ChatInput({
     }
   };
 
+  const closeLiveVoice = () => {
+    console.log('[VOICE] Live voice closed by user');
+    if (onStopAssistantRef.current) onStopAssistantRef.current();
+    isSpeakingRef.current = false;
+    isProcessingRef.current = false;
+    clearTimeout(listeningUnlockTimerRef.current);
+    try { recognitionRef.current?.abort(); } catch(e) {};
+    recognitionRunningRef.current = false;
+    setVoiceState('idle');
+    setIsLiveVoiceMode(false);
+  };
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isLiveVoiceMode) {
+        closeLiveVoice();
+      }
+    };
+    if (isLiveVoiceMode) {
+      window.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [isLiveVoiceMode, setIsLiveVoiceMode]);
+
   if (isLiveVoiceMode) {
     if (voiceError) {
       return (
         <div className="live-voice-overlay error-state">
           <div className="voice-modal-box">
-            <button type="button" className="close-voice-btn" onClick={() => setIsLiveVoiceMode(false)}>
+            <button type="button" className="close-voice-btn" onClick={closeLiveVoice}>
               <X size={16} />
             </button>
             <div className="voice-status-text error-text">
@@ -488,7 +514,7 @@ export default function ChatInput({
           <button 
             type="button" 
             className="close-voice-btn" 
-            onClick={() => setIsLiveVoiceMode(false)}
+            onClick={closeLiveVoice}
             title="Switch to Text Chat"
           >
             <X size={18} />

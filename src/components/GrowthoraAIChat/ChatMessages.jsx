@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Bot, Copy, ThumbsUp, ThumbsDown } from 'lucide-react';
 import cleanLogo from '../../assets/growthora_logo_clean.png';
 
-export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio, onStopAudio }) {
+export default function ChatMessages({ messages, isTyping, setShowFundingPopup, playingMessageId, setPlayingMessageId, audioPlayerRef, playAudio, onStopAudio, supportedLanguages, selectedLanguage, onLanguageSelect }) {
   const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -79,6 +79,20 @@ export default function ChatMessages({ messages, isTyping, setShowFundingPopup, 
                   className="chat-message-content"
                   dangerouslySetInnerHTML={parseMarkdown(msg.content)} 
                 />
+                
+                {msg.isLanguagePrompt && !selectedLanguage && supportedLanguages && (
+                  <div className="language-selector-grid" style={{ marginTop: '16px' }}>
+                    {supportedLanguages.map(lang => (
+                      <button 
+                        key={lang.code}
+                        className="language-chip"
+                        onClick={() => onLanguageSelect(lang)}
+                      >
+                        {lang.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
 
                 {msg.role === 'ai' && index !== 0 && (
                   <div className="chat-message-actions">

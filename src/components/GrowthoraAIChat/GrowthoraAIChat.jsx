@@ -64,6 +64,10 @@ export function GrowthoraAIChat() {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const [isLiveVoiceMode, setIsLiveVoiceMode] = useState(false);
+  const isLiveVoiceModeRef = React.useRef(isLiveVoiceMode);
+  React.useEffect(() => {
+    isLiveVoiceModeRef.current = isLiveVoiceMode;
+  }, [isLiveVoiceMode]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const [convState, setConvState] = useState('language_selection');
@@ -103,6 +107,8 @@ export function GrowthoraAIChat() {
       ttsAbortControllerRef.current.abort();
       ttsAbortControllerRef.current = null;
     }
+
+    playbackTokenRef.current += 1;
 
     stopAudio();
     setIsTyping(false);
@@ -777,7 +783,7 @@ export function GrowthoraAIChat() {
       setMessages((prev) => [...prev, newAiMessage]);
       setIsTyping(false); // Clear typing state immediately so text is visible!
 
-      if (isVoiceQuery && aiResponseText) {
+      if (isVoiceQuery && isLiveVoiceModeRef.current && aiResponseText) {
         try {
           await playAudio(aiResponseText, messageId);
         } catch (ttsError) {
@@ -847,6 +853,9 @@ export function GrowthoraAIChat() {
               setShowFundingPopup={setShowFundingPopup}
               playingMessageId={playingMessageId}
               setPlayingMessageId={setPlayingMessageId}
+              supportedLanguages={SUPPORTED_LANGUAGES}
+              selectedLanguage={selectedLanguage}
+              onLanguageSelect={handleLanguageSelect}
               audioPlayerRef={audioPlayerRef}
               playAudio={playAudio}
               onStopAudio={stopAudio}

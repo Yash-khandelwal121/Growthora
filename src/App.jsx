@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import EcosystemPreviewPage from './pages/EcosystemPreviewPage';
 import RegistrationCategoryPage from './pages/RegistrationCategoryPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import FinanceFundingCategoryPage from './pages/FinanceFundingCategoryPage';
@@ -41,6 +42,7 @@ export function App() {
       <GrowthoraAIChat />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/home-preview" element={<EcosystemPreviewPage />} />
         <Route path="/industries" element={<IndustriesPage />} />
         <Route path="/industries/agriculture" element={<AgriculturePage />} />
         <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
