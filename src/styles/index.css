@@ -2757,7 +2757,8 @@ img, svg, video {
   background-color: #fcfaf7 !important;
   color: #1c2331;
   font-family: 'Inter', sans-serif;
-  padding: 40px 4% 0; /* Reduced top whitespace */
+  padding: 40px 0 0;
+  margin-bottom: 0;
   border-top: 1px solid #e5e5e5;
   position: relative;
   overflow: hidden;
@@ -2767,7 +2768,7 @@ img, svg, video {
 .premium-footer::after {
   content: '';
   position: absolute;
-  bottom: 50px;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 250px;
@@ -2781,13 +2782,15 @@ img, svg, video {
 .premium-footer-top {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px) 12px;
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
 }
 
 .premium-footer-grid {
   display: grid;
-  grid-template-columns: 1.8fr 1.2fr 1.2fr 1.1fr 1.5fr 3.5fr; /* Better proportioned */
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1.1fr 1.3fr;
   grid-template-areas: "brand services schemes company contact map";
   gap: 32px;
   margin-bottom: 24px; 
@@ -2800,11 +2803,11 @@ img, svg, video {
 }
 
 .footer-brand-logo {
-  width: 90px;
-  max-width: 90px;
+  width: 130px;
+  max-width: 130px;
   cursor: pointer;
   margin-top: 0px; 
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   margin-left: 0px; 
   mix-blend-mode: multiply; 
   border: none;
@@ -2814,7 +2817,7 @@ img, svg, video {
 
 .footer-tagline {
   font-family: 'Georgia', serif;
-  font-size: 20px;
+  font-size: clamp(18px, 1.5vw, 22px);
   font-weight: 700;
   color: #1a153a;
   margin-bottom: 10px;
@@ -2825,7 +2828,7 @@ img, svg, video {
   font-size: 13px;
   line-height: 1.5;
   color: #4a5568;
-  padding-right: 15px;
+  max-width: 260px;
 }
 
 /* Links Columns */
@@ -2973,12 +2976,12 @@ img, svg, video {
   height: 100%;
   display: flex;
   justify-content: flex-end;
-  padding-right: 20px;
+  clip-path: inset(-1000px -1000px 0 -1000px);
 }
 
 .map-container {
   position: relative;
-  width: 320px; /* Reduced width */
+  width: 340px;
   max-width: 100%;
   height: auto; 
   margin-top: 0px; 
@@ -3087,47 +3090,50 @@ img, svg, video {
 
 .skyline-layer { 
   position: absolute;
-  bottom: -60px;
-  right: -40px;
-  width: 130%;
-  height: 180px;
+  bottom: -10px;
+  right: -50px;
+  width: 160%;
+  height: 260px;
   background: url('/images/footer_skyline_monuments.png') bottom right no-repeat;
   background-size: contain;
-  opacity: 0.7;
+  opacity: 0.95;
   z-index: 1;
   mix-blend-mode: multiply;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%);
   pointer-events: none;
 }
 
 .map-caption { 
   position: absolute;
   bottom: 10px; 
-  right: -50px; 
+  right: -55px; 
   font-family: "Georgia", serif;
-  font-size: 18px; 
-  font-weight: 500; 
+  font-size: clamp(18px, 1.8vw, 22px); 
+  font-weight: 600; 
   font-style: italic;
   color: #1a153a;
   text-align: left;
   line-height: 1.3; 
   border-left: 2px solid #ea580c;
   padding-left: 12px;
-  white-space: nowrap; 
+  text-shadow: 0px 1px 6px rgba(255, 255, 255, 0.8);
   z-index: 5; 
 }
 
 /* Middle Section: Newsletter & Offices */
 
 .footer-middle-section {
-  display: flex;
-  gap: 20px; 
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) 1fr;
+  gap: 24px;
+  align-items: stretch;
   max-width: 1400px;
-  margin: 0 auto 30px; 
+  margin: 20px auto 0;
+  padding: 0 clamp(20px, 4vw, 56px);
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
-  padding-right: 75px; 
 }
 
 .newsletter-card {
@@ -3135,7 +3141,6 @@ img, svg, video {
   border-radius: 12px;
   padding: 20px;
   color: #fff;
-  flex: 0 0 280px; /* Reduced width */
   display: flex;
   flex-direction: column;
   position: relative;
@@ -3144,8 +3149,8 @@ img, svg, video {
 
 .newsletter-icon {
   background: rgba(255,255,255,0.1);
-  width: 34px; 
-  height: 34px; 
+  width: 36px; 
+  height: 36px; 
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -3159,7 +3164,7 @@ img, svg, video {
 }
 
 .newsletter-content h3 {
-  font-size: 18px; 
+  font-size: 17px; 
   font-weight: 700;
   margin-bottom: 6px;
   line-height: 1.3;
@@ -3179,7 +3184,7 @@ img, svg, video {
   padding: 4px;
   margin-bottom: 10px;
   width: 100%;
-  height: 44px;
+  height: 42px;
 }
 
 .newsletter-form input {
@@ -3229,11 +3234,10 @@ img, svg, video {
 
 /* Offices Section */
 .offices-section {
-  flex: 1;
-  background: transparent;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
+  background: transparent;
+  border-radius: 12px;
 }
 
 .offices-header-row {
@@ -3248,18 +3252,21 @@ img, svg, video {
 }
 
 .offices-grid {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px; 
+  gap: 16px;
+  align-items: stretch;
 }
 
 .office-card {
   background: #fff;
   border-radius: 12px;
-  padding: 8px; /* More compact */
+  padding: 8px; 
   box-shadow: 0 4px 15px rgba(0,0,0,0.04);
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
@@ -3271,8 +3278,8 @@ img, svg, video {
 }
 
 .office-image {
-  width: 100%;
-  height: 80px; 
+  flex: 1 1 auto;
+  min-height: 90px;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 8px; 
@@ -3325,6 +3332,7 @@ img, svg, video {
   background: #231245; 
   color: #fff;
   padding: 12px 4%; 
+  margin-top: 0;
   position: relative;
   z-index: 10;
 }
@@ -3390,8 +3398,8 @@ img, svg, video {
     margin: 0;
   }
   .footer-middle-section {
+    display: flex;
     flex-direction: column;
-    padding-right: 0; 
   }
   .newsletter-card {
     flex: auto;
@@ -3464,19 +3472,21 @@ img, svg, video {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 0;
-  margin-top: -20px;
+  padding: 14px 0 10px;
+  margin: 0;
+  text-align: center;
   position: relative;
   z-index: 10;
 }
 
 .hindi-bottom-tagline {
   font-family: "Inter", sans-serif;
-  font-size: clamp(24px, 2.6vw, 34px);
+  font-size: clamp(22px, 2.4vw, 32px);
   font-weight: 800;
   color: #1a153a;
   letter-spacing: 0.5px;
   text-align: center;
   margin: 0;
+  line-height: 1.3;
 }
 
