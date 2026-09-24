@@ -1,0 +1,505 @@
+/* Premium Footer Redesign */
+.premium-footer {
+  background-color: #FDFBF8; /* warm ivory */
+  color: #1c2331; /* deep navy/purple */
+  font-family: 'Inter', sans-serif;
+  padding: 80px 4% 0;
+  border-top: 1px solid #e5e5e5;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-footer-top {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.premium-footer-grid {
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr 3fr;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+/* Brand Section */
+.footer-brand-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand-logo {
+  width: 160px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2e185c;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5568;
+}
+
+/* Links Columns */
+.footer-links-col h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2e185c;
+  margin-bottom: 20px;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links-list li {
+  font-size: 14px;
+  color: #4a5568;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.footer-links-list li:hover {
+  color: #ea580c; /* Orange accent */
+}
+
+.footer-links-list li svg {
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.footer-links-list li:hover svg {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.highlight-link {
+  color: #ea580c !important;
+  font-weight: 600;
+}
+.highlight-link svg {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Contact Column */
+.footer-contact-col h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2e185c;
+  margin-bottom: 20px;
+}
+
+.mt-6 { margin-top: 30px; }
+
+.contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.contact-icon-wrapper {
+  background: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ea580c;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info strong {
+  font-size: 14px;
+  color: #1c2331;
+}
+
+.contact-info span {
+  font-size: 12px;
+  color: #718096;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover { transform: translateY(-3px); }
+.social-icon.linkedin { background: #0077b5; }
+.social-icon.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.social-icon.youtube { background: #ff0000; }
+
+
+/* India Map Section */
+.footer-map-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
+}
+
+.india-map-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.15;
+}
+
+.map-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.map-pin {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.map-pin span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1c2331;
+  background: rgba(255,255,255,0.8);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Approximate positions - adjust based on SVG */
+.pin-jaipur { top: 35%; left: 30%; }
+.pin-ahmedabad { top: 50%; left: 20%; }
+.pin-pune { top: 65%; left: 25%; }
+.pin-bengaluru { top: 75%; left: 40%; }
+
+.pan-india-badge {
+  position: absolute;
+  right: -20px;
+  top: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.badge-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2);
+  margin-bottom: 8px;
+}
+
+.pan-india-badge span {
+  font-family: "Caveat", "Brush Script MT", cursive;
+  font-size: 18px;
+  color: #2e185c;
+  transform: rotate(-10deg);
+}
+
+.map-caption {
+  font-family: "Georgia", serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #2e185c;
+  text-align: right;
+  align-self: flex-end;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* Middle Section: Newsletter & Offices */
+.footer-middle-section {
+  display: flex;
+  gap: 30px;
+  max-width: 1320px;
+  margin: 0 auto 60px;
+}
+
+.newsletter-card {
+  background: #2e185c;
+  border-radius: 16px;
+  padding: 30px;
+  color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-icon {
+  background: rgba(255,255,255,0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.newsletter-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.newsletter-content p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 20px;
+}
+
+.newsletter-form {
+  display: flex;
+  background: #fff;
+  border-radius: 30px;
+  padding: 6px;
+  margin-bottom: 16px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 16px;
+  outline: none;
+  font-size: 14px;
+  color: #1c2331;
+}
+
+.newsletter-form button {
+  background: #ea580c;
+  color: #fff;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.newsletter-form button:hover { background: #c2410c; }
+
+.newsletter-consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+/* Offices Section */
+.offices-section {
+  flex: 2;
+}
+
+.offices-section h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2e185c;
+  margin-bottom: 20px;
+}
+
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.office-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.office-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.office-image {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.office-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.office-details .office-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.office-header h5 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1c2331;
+}
+
+.ext-icon {
+  color: #ea580c;
+  opacity: 0.6;
+}
+
+.office-card:hover .ext-icon { opacity: 1; }
+
+.office-details p {
+  font-size: 11px;
+  color: #4a5568;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.office-details p svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #ea580c;
+}
+
+/* Bottom Legal Bar */
+.premium-footer-bottom {
+  background: #231245; /* Deep Purple */
+  color: #fff;
+  padding: 20px 4%;
+}
+
+.legal-bar-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+
+.legal-links {
+  display: flex;
+  gap: 20px;
+}
+
+.legal-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.legal-links a:hover { color: #fff; }
+
+.designed-for {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orange-dash {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: #ea580c;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .premium-footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .footer-map-section {
+    grid-column: 1 / -1;
+  }
+  .offices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .premium-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-middle-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .premium-footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .offices-grid {
+    grid-template-columns: 1fr;
+  }
+  .legal-bar-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}

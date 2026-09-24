@@ -1,0 +1,130 @@
+/* India Map Section */
+.footer-map-section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.map-container {
+  position: relative;
+  width: 380px; /* Increased 25-30% */
+  height: 350px; 
+  margin-top: -30px; /* Better centering vertically */
+}
+
+.india-map-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.18;
+}
+
+.map-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.map-pin {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  z-index: 3;
+  transform: translate(-50%, -100%);
+}
+
+.map-pin-icon {
+  width: 20px;
+  height: 24px;
+  filter: drop-shadow(0 4px 6px rgba(234,88,12,0.3));
+}
+
+.map-pin-shadow {
+  width: 12px;
+  height: 3px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  filter: blur(1px);
+  margin-bottom: 2px;
+}
+
+.map-pin span {
+  font-size: 13px; /* Slightly larger for readability */
+  font-weight: 800;
+  color: #1a153a;
+  text-shadow: 0 1px 3px rgba(255,255,255,1);
+  position: absolute;
+  left: 24px;
+  top: 4px;
+}
+
+/* Exact placement matching reference image */
+.pin-jaipur { top: 32%; left: 38%; }
+.pin-ahmedabad { top: 50%; left: 16%; }
+.pin-pune { top: 68%; left: 24%; }
+.pin-bengaluru { top: 82%; left: 45%; }
+
+.pan-india-badge {
+  position: absolute;
+  right: 15px; /* Brought closer */
+  top: 38%; /* Better vertical centering */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 4;
+}
+
+.badge-arrow {
+  display: flex;
+  transform: rotate(5deg); /* Adjusted for new custom arrow */
+}
+
+.pan-india-badge span {
+  font-family: "Caveat", "Brush Script MT", cursive;
+  font-size: 24px; 
+  color: #1a153a;
+  transform: rotate(-10deg);
+  line-height: 1.1;
+}
+
+.skyline-layer {
+  position: absolute;
+  bottom: -40px; 
+  right: 0;
+  width: 95%; /* 85-100% of map section as requested */
+  height: 140px; /* 120-160px requested */
+  background: url('/images/footer_skyline_monuments.png') bottom right no-repeat;
+  background-size: cover;
+  opacity: 0.35; /* 25-35% opacity requested */
+  z-index: 1; /* Below caption and pins */
+  mix-blend-mode: multiply; /* Blends perfectly with ivory bg */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 50%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%); /* Soft top fade */
+}
+
+.map-caption {
+  position: absolute;
+  bottom: -10px; 
+  right: -20px; 
+  font-family: "Georgia", serif;
+  font-size: 18px; 
+  font-style: italic;
+  color: #1a153a;
+  text-align: left;
+  line-height: 1.3;
+  border-left: 3px solid #ea580c;
+  padding-left: 12px;
+  white-space: nowrap; 
+  z-index: 5; /* Above skyline */
+}
+
+/* Middle Section: Newsletter & Offices */
