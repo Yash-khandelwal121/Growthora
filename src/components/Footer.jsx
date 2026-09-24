@@ -277,6 +277,11 @@ export const Footer = ({ onSelectCategory }) => {
 
         </div>
 
+        {/* Hindi Tagline centered below office images */}
+        <div className="hindi-bottom-tagline-wrapper">
+          <h3 className="hindi-bottom-tagline">हम बढ़ाएँ आपका बिज़नेस</h3>
+        </div>
+
       </div>
 
       {/* 8. Bottom Legal Bar */}
