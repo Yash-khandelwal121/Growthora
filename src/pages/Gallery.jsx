@@ -280,6 +280,13 @@ const albums = [
       "/officetour.mp4"
     ],
   },
+  {
+    title: "Client Testimonial",
+    category: "Client Testimonials",
+    images: [
+      "/Raj Shekhar Testimonial reel 2.mp4"
+    ],
+  },
 
   {
     title: "Awards & Recognition",
@@ -323,7 +330,6 @@ const mediaFilters = [
   "Office",
   "Awards",
   "Client Testimonials",
-  "Behind the Scenes",
 ];
 
 const AlbumImageSlider = ({ images, delay }) => {
