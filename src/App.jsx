@@ -23,6 +23,7 @@ import AgriculturePage from './pages/AgriculturePage';
 import ManufacturingPage from './pages/ManufacturingPage';
 import InsightsPage from './pages/InsightsPage';
 import AboutPage from './pages/AboutPage';
+import Gallery from './pages/Gallery';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -93,6 +94,9 @@ export function App() {
 
         {/* About Page */}
         <Route path="/about" element={<AboutPage />} />
+
+        {/* Gallery Page */}
+        <Route path="/gallery" element={<Gallery />} />
       </Routes>
     </BrowserRouter>
   );

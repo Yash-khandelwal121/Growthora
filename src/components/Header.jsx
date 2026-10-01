@@ -69,6 +69,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleGalleryClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/gallery') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/gallery');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleAboutClick = (e) => {
     e.preventDefault();
     if (location.pathname === '/about') {
@@ -110,11 +120,11 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="/#services-master" 
-            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' ? 'active' : ''}`} 
+            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' ? 'active' : ''}`} 
             onClick={handleServicesClick}
           >
             Services
-            {location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && <span className="active-dot" />}
+            {location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' && <span className="active-dot" />}
           </a>
           <a 
             href="/industries" 
@@ -134,6 +144,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             Insights
             {location.pathname === '/insights' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/gallery" 
+            className={`nav-link ${location.pathname === '/gallery' ? 'active' : ''}`}
+            onClick={handleGalleryClick}
+          >
+            Gallery
+            {location.pathname === '/gallery' && <span className="active-dot" />}
           </a>
           <a 
             href="/about" 
@@ -192,7 +210,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="#services-master" 
-            className={`mobile-nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' ? 'active' : ''}`}
+            className={`mobile-nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' ? 'active' : ''}`}
             onClick={(e) => {
               setMobileMenuOpen(false);
               handleServicesClick(e);
@@ -219,6 +237,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Growthora Insights
+          </a>
+          <a 
+            href="/gallery" 
+            className={`mobile-nav-link ${location.pathname === '/gallery' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleGalleryClick(e);
+            }}
+          >
+            Gallery
           </a>
           <a 
             href="/about" 
