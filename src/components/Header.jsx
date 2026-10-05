@@ -89,6 +89,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleBlogClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/blog') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/blog');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -120,11 +130,11 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="/#services-master" 
-            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' ? 'active' : ''}`} 
+            className={`nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' && location.pathname !== '/blog' ? 'active' : ''}`} 
             onClick={handleServicesClick}
           >
             Services
-            {location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' && <span className="active-dot" />}
+            {location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' && location.pathname !== '/blog' && <span className="active-dot" />}
           </a>
           <a 
             href="/industries" 
@@ -160,6 +170,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             About
             {location.pathname === '/about' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/blog" 
+            className={`nav-link ${location.pathname === '/blog' ? 'active' : ''}`}
+            onClick={handleBlogClick}
+          >
+            Blog
+            {location.pathname === '/blog' && <span className="active-dot" />}
           </a>
         </nav>
 
@@ -210,7 +228,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="#services-master" 
-            className={`mobile-nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' ? 'active' : ''}`}
+            className={`mobile-nav-link ${location.pathname !== '/industries' && location.pathname !== '/insights' && location.pathname !== '/about' && location.pathname !== '/home-preview' && location.pathname !== '/gallery' && location.pathname !== '/blog' ? 'active' : ''}`}
             onClick={(e) => {
               setMobileMenuOpen(false);
               handleServicesClick(e);
@@ -257,6 +275,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             About Growthora
+          </a>
+          <a 
+            href="/blog" 
+            className={`mobile-nav-link ${location.pathname === '/blog' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleBlogClick(e);
+            }}
+          >
+            Blog
           </a>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?

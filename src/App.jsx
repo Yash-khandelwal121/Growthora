@@ -24,6 +24,7 @@ import ManufacturingPage from './pages/ManufacturingPage';
 import InsightsPage from './pages/InsightsPage';
 import AboutPage from './pages/AboutPage';
 import Gallery from './pages/Gallery';
+import { BlogPage } from './pages/BlogPage';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -52,6 +53,10 @@ export function App() {
         {/* Growthora Insights Routes */}
         <Route path="/insights" element={<InsightsPage />} />
         <Route path="/insights/:slug" element={<InsightsPage />} />
+
+        {/* Blog Routes */}
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPage />} />
 
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />
