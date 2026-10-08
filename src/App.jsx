@@ -25,6 +25,7 @@ import InsightsPage from './pages/InsightsPage';
 import AboutPage from './pages/AboutPage';
 import Gallery from './pages/Gallery';
 import { BlogPage } from './pages/BlogPage';
+import HSNCodeFinder from './pages/HSNCodeFinder';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/index.css';
@@ -57,6 +58,9 @@ export function App() {
         {/* Blog Routes */}
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
+
+        {/* HSN Code Finder Route */}
+        <Route path="/hsn-code-finder" element={<HSNCodeFinder />} />
 
         <Route path="/services/registration" element={<RegistrationCategoryPage />} />
         <Route path="/services/registration/:serviceId" element={<ServiceDetailPage />} />

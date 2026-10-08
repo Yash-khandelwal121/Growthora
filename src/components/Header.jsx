@@ -99,6 +99,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleHsnClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/hsn-code-finder') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/hsn-code-finder');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -178,6 +188,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             Blog
             {location.pathname === '/blog' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/hsn-code-finder" 
+            className={`nav-link ${location.pathname === '/hsn-code-finder' ? 'active' : ''}`}
+            onClick={handleHsnClick}
+          >
+            HSN Code Finder
+            {location.pathname === '/hsn-code-finder' && <span className="active-dot" />}
           </a>
         </nav>
 
@@ -285,6 +303,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Blog
+          </a>
+          <a 
+            href="/hsn-code-finder" 
+            className={`mobile-nav-link ${location.pathname === '/hsn-code-finder' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleHsnClick(e);
+            }}
+          >
+            HSN Code Finder
           </a>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?

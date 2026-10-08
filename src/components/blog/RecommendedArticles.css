@@ -56,16 +56,21 @@
 }
 
 .recommended-image {
-  width: 38%;
-  min-width: 38%;
-  height: 100%;
+  width: 176px;
+  height: 132px;
+  flex: 0 0 176px;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px 0 0 12px;
   overflow: hidden;
+  background: #f8f8f8;
+  align-self: center;
 }
 
 .recommended-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -167,8 +172,11 @@
   }
 
   .recommended-image {
-    width: 39%;
-    min-width: 39%;
+    width: 35%;
+    flex: 0 0 35%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px 0 0 12px;
   }
 
   .recommended-content h4 {
