@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from "chart.js";
-import { Doughnut, Bar } from "react-chartjs-2";
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, PointElement, LineElement, Filler } from "chart.js";
+import { Doughnut, Bar, Line } from "react-chartjs-2";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { AskGrowthoraModal } from '../components/AskGrowthoraModal';
@@ -29,7 +29,7 @@ const hsnData = [
   { code: "3402", description: "Cleaning and chemical preparations", gst: 18, category: "Chemicals", type: "HSN", tags: ["chemical", "cleaning", "detergent"] }
 ];
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title, PointElement, LineElement, Filler);
 
 export default function HSNCodeFinder() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,6 +41,27 @@ export default function HSNCodeFinder() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+
+  const [chartsVisible, setChartsVisible] = useState(false);
+  const analyticsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setChartsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: '0px 0px -25% 0px' }
+    );
+
+    if (analyticsRef.current) {
+      observer.observe(analyticsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const filteredData = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
@@ -76,7 +97,7 @@ export default function HSNCodeFinder() {
     datasets: [
       {
         data: gstChartData,
-        backgroundColor: ["#FFD2B8", "#FFB17A", "#FF914D", "#FF5A0A", "#D83E00"],
+        backgroundColor: ["#FEE5D3", "#FFC9A3", "#FFB27A", "#FF8A3D", "#FF6B1A"],
         borderColor: "#ffffff",
         borderWidth: 2
       }
@@ -101,8 +122,31 @@ export default function HSNCodeFinder() {
       {
         label: "Number of Codes",
         data: categoryValues,
-        backgroundColor: "#FF5A0A",
+        backgroundColor: "#FF8A3D",
+        hoverBackgroundColor: "#FF6B1A",
         borderRadius: 8
+      }
+    ]
+  };
+  const cumulativeGstData = useMemo(() => {
+    let sum = 0;
+    return gstChartData.map(val => {
+      sum += val;
+      return sum;
+    });
+  }, [gstChartData]);
+
+  const trendData = {
+    labels: ["0%", "≤5%", "≤12%", "≤18%", "≤28%"],
+    datasets: [
+      {
+        label: "Cumulative Items",
+        data: cumulativeGstData,
+        borderColor: "#FF7A2F",
+        backgroundColor: "rgba(254, 229, 211, 0.55)",
+        pointBackgroundColor: "#FF7A2F",
+        fill: true,
+        tension: 0.4
       }
     ]
   };
@@ -334,9 +378,9 @@ export default function HSNCodeFinder() {
       </section>
 
       {/* LIVE CHARTS */}
-      <section>
-        <div className="hsn-container hsn-analytics-grid">
-          <div className="hsn-card">
+      <section className="hsn-analytics-section">
+        <div ref={analyticsRef} className="hsn-container hsn-analytics-grid">
+          <div className="hsn-analytics-item">
             <h2 className="hsn-chart-title">GST Rate Distribution (Live)</h2>
             <div className="hsn-chart-subtitle">
               Based on {filteredData.length} current search result{filteredData.length === 1 ? "" : "s"}
@@ -346,22 +390,30 @@ export default function HSNCodeFinder() {
                 <div style={{ textAlign: "center", padding: "40px 20px", color: "#718096", fontSize: "14px" }}>
                   No chart data for current search.
                 </div>
-              ) : (
+              ) : chartsVisible ? (
                 <Doughnut
                   data={gstData}
                   options={{
                     responsive: true,
                     maintainAspectRatio: false,
                     cutout: "65%",
+                    animation: {
+                      animateRotate: true,
+                      animateScale: false,
+                      duration: 1400,
+                      easing: 'easeOutQuart'
+                    },
                     plugins: {
                       legend: { position: "bottom" }
                     }
                   }}
                 />
+              ) : (
+                <div className="chart-placeholder" />
               )}
             </div>
           </div>
-          <div className="hsn-card">
+          <div className="hsn-analytics-item">
             <h2 className="hsn-chart-title">Category-wise Distribution (Live)</h2>
             <div className="hsn-chart-subtitle">
               Updates automatically from search results
@@ -371,12 +423,26 @@ export default function HSNCodeFinder() {
                 <div style={{ textAlign: "center", padding: "40px 20px", color: "#718096", fontSize: "14px" }}>
                   No chart data for current search.
                 </div>
-              ) : (
+              ) : chartsVisible ? (
                 <Bar
                   data={categoryData}
                   options={{
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                      duration: 1200,
+                      easing: 'easeOutQuart',
+                      delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.chart && !context.chart.alreadyAnimated) {
+                          delay = context.dataIndex * 150;
+                        }
+                        return delay;
+                      },
+                      onComplete: (context) => {
+                        if(context.chart) context.chart.alreadyAnimated = true;
+                      }
+                    },
                     plugins: {
                       legend: { display: false }
                     },
@@ -397,6 +463,61 @@ export default function HSNCodeFinder() {
                     }
                   }}
                 />
+              ) : (
+                <div className="chart-placeholder" />
+              )}
+            </div>
+          </div>
+          <div className="hsn-analytics-item">
+            <h2 className="hsn-chart-title">Items Trend (Live)</h2>
+            <div className="hsn-chart-subtitle">
+              Based on current search results
+            </div>
+            <div className="hsn-chart-box">
+              {filteredData.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "40px 20px", color: "#718096", fontSize: "14px" }}>
+                  No chart data for current search.
+                </div>
+              ) : chartsVisible ? (
+                <Line
+                  data={trendData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                      onComplete: (context) => {
+                        if (context.chart) context.chart.alreadyAnimated = true;
+                      }
+                    },
+                    animations: {
+                      x: {
+                        type: 'number',
+                        easing: 'linear',
+                        duration: 1600 / 5,
+                        from: NaN,
+                        delay(ctx) {
+                          if (ctx.type !== 'data' || (ctx.chart && ctx.chart.alreadyAnimated)) return 0;
+                          return ctx.index * (1600 / 5);
+                        }
+                      }
+                    },
+                    plugins: {
+                      legend: { display: false }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        grid: { color: "#E8E8E8" },
+                        ticks: { precision: 0 }
+                      },
+                      x: {
+                        grid: { display: false }
+                      }
+                    }
+                  }}
+                />
+              ) : (
+                <div className="chart-placeholder" />
               )}
             </div>
           </div>

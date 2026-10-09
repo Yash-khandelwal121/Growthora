@@ -99,6 +99,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleEligibilityClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/eligibility') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/eligibility');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleHsnClick = (e) => {
     e.preventDefault();
     if (location.pathname === '/hsn-code-finder') {
@@ -188,6 +198,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             Blog
             {location.pathname === '/blog' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/eligibility" 
+            className={`nav-link ${location.pathname === '/eligibility' ? 'active' : ''}`}
+            onClick={handleEligibilityClick}
+          >
+            Eligibility
+            {location.pathname === '/eligibility' && <span className="active-dot" />}
           </a>
           <a 
             href="/hsn-code-finder" 
@@ -303,6 +321,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Blog
+          </a>
+          <a 
+            href="/eligibility" 
+            className={`mobile-nav-link ${location.pathname === '/eligibility' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleEligibilityClick(e);
+            }}
+          >
+            Eligibility
           </a>
           <a 
             href="/hsn-code-finder" 
