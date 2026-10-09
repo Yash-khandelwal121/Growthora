@@ -43,8 +43,8 @@ HSN Code Finder Styles
 .hsnHeroInner {
   max-width: 1380px;
 
-  height: 390px;
-  min-height: 390px;
+  height: 480px;
+  min-height: 480px;
 
   margin: 0 auto;
 
@@ -158,8 +158,8 @@ HSN Code Finder Styles
 /* RIGHT IMAGE */
 
 .hsnHeroImage {
-  height: 390px;
-  min-height: 390px;
+  height: 480px;
+  min-height: 480px;
 
   overflow: hidden;
 
@@ -170,12 +170,13 @@ HSN Code Finder Styles
 .hsnHeroImage img {
   width: 100%;
   height: 100%;
+  padding-top: 10px;
 
   min-height: 0;
 
-  object-fit: cover;
+  object-fit: contain;
 
-  object-position: center;
+  object-position: right center;
 
   display: block;
 }
@@ -768,20 +769,19 @@ RESPONSIVE
   }
 }
 
-/* TABLET */
 @media (max-width: 1100px) {
 
   .hsnHeroInner {
-    height: 360px;
-    min-height: 360px;
+    height: 400px;
+    min-height: 400px;
 
     grid-template-columns:
       57% 43%;
   }
 
   .hsnHeroImage {
-    height: 360px;
-    min-height: 360px;
+    height: 400px;
+    min-height: 400px;
   }
 
   .hsnHeroContent {
