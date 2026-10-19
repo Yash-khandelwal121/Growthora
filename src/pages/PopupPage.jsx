@@ -1,5 +1,5 @@
 /*
-  GROWTHORA — EXACT 449.2 × 528.4 POPUP (desktop)
+  GROWTHORA — 449.2 × 528.4 POPUP — CLEAN LIGHT ORANGE CITY LABEL
   Replace ONLY src/pages/PopupPage.jsx with this complete file.
   React + react-simple-maps. All styles are included below.
   Leave existing header, routes and other pages unchanged.
@@ -56,7 +56,7 @@ const CSS = `
 .gp7-photo-fade { animation:gp7Fade .5s ease both; }
 @keyframes gp7Fade { from {opacity:.4} to {opacity:1} }
 .gp7-inner { height:100%; position:relative; z-index:1; display:grid; min-height:0;
-  grid-template-rows:32px 124px 34px minmax(0,1fr) 32px 12px; gap:4px; }
+  grid-template-rows:32px 124px 34px minmax(0,1fr) 47px; gap:4px; }
 .gp7-header { display:flex; align-items:center; justify-content:space-between;
   gap:6px; min-width:0; }
 .gp7-logo { display:block; width:175px; max-width:49%; height:36px;
@@ -85,23 +85,28 @@ const CSS = `
 .gp7-marker:focus-visible .gp7-hit { stroke:#f97316; stroke-width:2; }
 .gp7-pulse { transform-box:fill-box; transform-origin:center; animation:gp7Pulse 2.2s ease-out infinite; }
 @keyframes gp7Pulse { 0% {opacity:.48;transform:scale(.75)} 75%,100% {opacity:0;transform:scale(1.8)} }
-.gp7-city-caption { display:flex; align-items:center; justify-content:space-between;
-  width:fit-content; max-width:90%; margin:0 auto; box-sizing:border-box;
-  padding:3px 12px; border-radius:12px; justify-content:center; text-align:center;
-  background:rgba(9,43,34,.83); color:#fff; gap:6px; }
-.gp7-city-caption strong { font-size:14px; letter-spacing:.5px; line-height:1; }
-.gp7-city-caption small { display:block; font-size:9px; line-height:1.2; margin-top:3px; }
-.gp7-progress button:focus-visible {
-  outline:2px solid #f97316; outline-offset:2px; }
-.gp7-progress { display:flex; align-items:center; justify-content:center; gap:6px; }
-.gp7-progress button { width:17px; height:7px; border:0; border-radius:20px;
-  background:rgba(255,255,255,.78); box-shadow:0 0 0 1px rgba(0,0,0,.12);
-  padding:0; cursor:pointer; transition:background .25s,width .25s; }
-.gp7-progress button[aria-current='true'] { width:28px; background:#f97316; }
+.gp7-city-caption {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative; align-self:stretch; box-sizing:border-box;
+  width:200px; max-width:95%; min-width:0; min-height:0;
+  height:100%; margin:0 auto; padding:6px 12px;
+  border-radius:12px; text-align:center; overflow:visible;
+  background:rgba(255,227,200,.94); color:#79370c;
+  border:1px solid rgba(245,149,72,.4);
+  box-shadow:0 2px 9px rgba(80,45,12,.08);
+}
+.gp7-city-caption strong {
+  display:block; font-size:14px; letter-spacing:.35px;
+  line-height:1.25; white-space:nowrap; margin:0;
+}
+.gp7-city-caption small {
+  display:block; font-size:9.5px; line-height:1.25;
+  margin-top:3px; white-space:nowrap; color:#713c1e;
+}
 @media(max-width:480px) {
  .gp7-card { width:calc(100vw - 24px); height:calc((100vw - 24px) * 1.17631345);
    max-height:none; padding:9px 10px; border-radius:14px; }
- .gp7-inner { grid-template-rows:26px 108px 35px minmax(0,1fr) 29px 10px; gap:3px; }
+ .gp7-inner { grid-template-rows:26px 108px 35px minmax(0,1fr) 42px; gap:3px; }
  .gp7-logo { height:26px; width:140px; }
  .gp7-hindi { font-size:10px; }
  .gp7-title h1 { font-size:17.5px; }
@@ -109,13 +114,12 @@ const CSS = `
  .gp7-presence strong { font-size:8px; }
  .gp7-names { font-size:7px; gap:1px 4px; }
  .gp7-names span + span::before { margin-right:5px; }
- .gp7-city-caption { padding:2px 8px; }
+ .gp7-city-caption { width:180px; max-width:95%; padding:5px 8px; }
  .gp7-city-caption strong { font-size:12px; }
  .gp7-city-caption small { font-size:8px; }
 }
 @media(prefers-reduced-motion:reduce) {
  .gp7-photo-fade,.gp7-pulse { animation:none; }
- .gp7-progress button { transition:none; }
 }
 `;
 
@@ -281,15 +285,7 @@ function GrowthoraBanner() {
       <div className="gp7-inner">
         <header className="gp7-header">
           {/* Keep the existing logo path or replace only this src with its actual asset path. */}
-          <img
-            src="/growthora-logo.webp"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = "/logofooter.png";
-            }}
-            className="gp7-logo"
-            alt="Growthora"
-          />
+          <img src="/growthora-logo.webp" className="gp7-logo" alt="Growthora" />
           <a href="https://growthora.co.in/" className="gp7-hindi" lang="hi">
             हम बढ़ाएँ आपका बिज़नेस
           </a>
@@ -329,18 +325,6 @@ function GrowthoraBanner() {
           </div>
         </div>
 
-        <nav className="gp7-progress" aria-label="Select a city">
-          {CITIES.map((city) => (
-            <button
-              type="button"
-              key={city.name}
-              aria-label={`Show ${city.name}`}
-              aria-current={shownCity.name === city.name ? "true" : undefined}
-              onClick={() => chooseCity(city.name)}
-              title={city.name}
-            />
-          ))}
-        </nav>
       </div>
     </section>
   );
