@@ -3490,3 +3490,35 @@ img, svg, video {
   line-height: 1.3;
 }
 
+/* ─────────────────────────────────────────
+   NAV SPACING ADJUSTMENT (Scheme Guide addition)
+   Tightens gap at intermediate viewport widths
+   so all nav items remain on one line without
+   overlapping or wrapping.
+───────────────────────────────────────── */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .desktop-nav {
+    gap: 1.2rem;
+  }
+  .nav-link {
+    font-size: 0.84rem;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 769px) {
+  .desktop-nav {
+    gap: 0.85rem;
+  }
+  .nav-link {
+    font-size: 0.78rem;
+  }
+  .btn-ask-growthora span,
+  .btn-primary-header span {
+    font-size: 0.8rem;
+  }
+  .btn-ask-growthora,
+  .btn-primary-header {
+    padding: 0.5rem 0.85rem;
+  }
+}
+

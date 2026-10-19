@@ -1,0 +1,1537 @@
+/* =================================================================
+   SCHEME GUIDE PAGE — REFINED DESIGN
+   Matches Growthora's existing design language:
+   Dark Navy headings · Orange accents · White cards · Light grey borders
+   All classes prefixed .sg- to prevent global conflicts.
+================================================================= */
+
+/* ── Scoped Variables — mirroring Growthora's global tokens ── */
+.sg-page {
+  /* Brand colours (matching existing site CSS variables) */
+  --sg-navy:          #0F172A;
+  --sg-navy-mid:      #1E293B;
+  --sg-navy-light:    #334155;
+  --sg-orange:        #FF6B00;
+  --sg-orange-hover:  #E05600;
+  --sg-orange-light:  rgba(255, 107, 0, 0.08);
+  --sg-orange-glow:   rgba(255, 107, 0, 0.22);
+
+  /* Backgrounds */
+  --sg-bg:            #FAF9F6;
+  --sg-bg-alt:        #F3F1EB;
+  --sg-white:         #FFFFFF;
+
+  /* Text */
+  --sg-text-dark:     #0F172A;
+  --sg-text-body:     #475569;
+  --sg-text-muted:    #64748B;
+
+  /* Borders & shadows */
+  --sg-border:        rgba(15, 23, 42, 0.10);
+  --sg-border-soft:   rgba(15, 23, 42, 0.06);
+  --sg-shadow-xs:     0 1px 4px rgba(15, 23, 42, 0.05);
+  --sg-shadow-sm:     0 2px 10px rgba(15, 23, 42, 0.06);
+  --sg-shadow-md:     0 8px 30px rgba(15, 23, 42, 0.08);
+  --sg-shadow-lg:     0 20px 56px rgba(15, 23, 42, 0.10);
+
+  /* Radii (matching site tokens) */
+  --sg-radius-sm:  8px;
+  --sg-radius-md:  14px;
+  --sg-radius-lg:  20px;
+  --sg-radius-xl:  24px;
+
+  /* Typography */
+  --sg-font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sg-font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  font-family: var(--sg-font-body);
+  background: var(--sg-bg);
+  color: var(--sg-text-dark);
+  overflow-x: hidden;
+}
+
+/* ── Shared container ── */
+.sg-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* =================================================================
+   SECTION 1 — COMPACT HERO
+   Light off-white background · Navy heading · Orange accent · White form card
+================================================================= */
+.sg-hero {
+  background: var(--sg-bg);
+  padding: 44px 0 44px;
+  border-bottom: 1px solid var(--sg-border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative dot pattern — top-right */
+.sg-hero::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -60px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sg-hero-decor {
+  display: none; /* was used for green circles — no longer needed */
+}
+
+.sg-hero-grid {
+  display: grid;
+  grid-template-columns: 54fr 42fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── LEFT COLUMN ── */
+.sg-hero-left {
+  color: var(--sg-text-dark);
+}
+
+.sg-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.85rem;
+  border-radius: 30px;
+  background: var(--sg-orange-light);
+  border: 1px solid rgba(255, 107, 0, 0.2);
+  color: var(--sg-orange);
+  font-family: var(--sg-font-heading);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+
+.sg-category-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sg-orange);
+  flex-shrink: 0;
+}
+
+.sg-hero-title {
+  font-family: var(--sg-font-heading);
+  font-size: clamp(2rem, 3.2vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--sg-navy);
+  margin-bottom: 0.65rem;
+}
+
+.sg-hero-title-highlight {
+  color: var(--sg-orange);
+}
+
+.sg-hero-subtitle {
+  font-family: var(--sg-font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--sg-orange);
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.sg-hero-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--sg-text-body);
+  max-width: 500px;
+  margin-bottom: 1.65rem;
+}
+
+.sg-hero-ctas {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Primary CTA — Orange (matching site's .btn-hero-primary) */
+.sg-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.55rem;
+  height: 44px;
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-orange);
+  color: #FFFFFF;
+  font-family: var(--sg-font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px var(--sg-orange-glow);
+  white-space: nowrap;
+}
+
+.sg-btn-primary:hover {
+  background: var(--sg-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+}
+
+/* Secondary CTA — Navy outlined */
+.sg-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.4rem;
+  height: 44px;
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-white);
+  color: var(--sg-navy);
+  font-family: var(--sg-font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--sg-border);
+  text-decoration: none;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+  box-shadow: var(--sg-shadow-xs);
+}
+
+.sg-btn-secondary:hover {
+  border-color: var(--sg-orange);
+  color: var(--sg-orange);
+  transform: translateY(-1px);
+  box-shadow: var(--sg-shadow-sm);
+}
+
+/* ── RIGHT COLUMN — Compact Enquiry Card ── */
+.sg-hero-form-card {
+  background: var(--sg-white);
+  border-radius: var(--sg-radius-xl);
+  padding: 1.6rem 1.6rem 1.4rem;
+  border: 1px solid var(--sg-border);
+  box-shadow: var(--sg-shadow-lg);
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  width: 100%;
+}
+
+.sg-form-card-heading {
+  font-family: var(--sg-font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.sg-form-card-sub {
+  font-size: 0.8rem;
+  color: var(--sg-text-muted);
+  margin-bottom: 1.1rem;
+  line-height: 1.5;
+}
+
+/* 2-column form grid */
+.sg-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sg-form-full {
+  margin-bottom: 12px;
+}
+
+.sg-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sg-form-label {
+  display: block;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--sg-text-body);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.01em;
+}
+
+.sg-form-input,
+.sg-form-select {
+  width: 100%;
+  height: 42px;
+  padding: 0 0.85rem;
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-sm);
+  font-family: var(--sg-font-body);
+  font-size: 0.85rem;
+  color: var(--sg-text-dark);
+  background: #FAFAF8;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sg-form-input:focus,
+.sg-form-select:focus {
+  border-color: var(--sg-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+  background: var(--sg-white);
+}
+
+.sg-form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+.sg-form-input::placeholder {
+  color: var(--sg-text-muted);
+  opacity: 0.7;
+}
+
+.sg-form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.sg-form-consent input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--sg-orange);
+  cursor: pointer;
+}
+
+.sg-consent-text {
+  font-size: 0.73rem;
+  color: var(--sg-text-muted);
+  line-height: 1.55;
+}
+
+.sg-consent-text a {
+  color: var(--sg-orange);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sg-btn-form-submit {
+  width: 100%;
+  height: 46px;
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-orange);
+  color: #FFFFFF;
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px var(--sg-orange-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.sg-btn-form-submit:hover:not(:disabled) {
+  background: var(--sg-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+}
+
+.sg-btn-form-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success state */
+.sg-form-success {
+  text-align: center;
+  padding: 1.25rem 0;
+}
+
+.sg-success-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--sg-orange-light);
+  color: var(--sg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem;
+}
+
+.sg-success-title {
+  font-family: var(--sg-font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  margin-bottom: 0.4rem;
+}
+
+.sg-success-text {
+  font-size: 0.83rem;
+  color: var(--sg-text-muted);
+  line-height: 1.6;
+}
+
+/* =================================================================
+   SHARED SECTION TOKENS
+================================================================= */
+.sg-highlights-section,
+.sg-about-section,
+.sg-benefits-section,
+.sg-eligibility-section,
+.sg-process-section,
+.sg-documents-section,
+.sg-why-section,
+.sg-faq-section,
+.sg-final-cta-section {
+  padding: 4rem 0;
+}
+
+.sg-section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--sg-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.sg-section-title {
+  font-family: var(--sg-font-heading);
+  font-size: clamp(1.55rem, 2.8vw, 2rem);
+  font-weight: 800;
+  color: var(--sg-navy);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.sg-section-desc {
+  font-size: 0.95rem;
+  color: var(--sg-text-body);
+  line-height: 1.72;
+  max-width: 680px;
+}
+
+.sg-section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.sg-section-header .sg-section-desc {
+  margin: 0 auto;
+}
+
+/* =================================================================
+   SECTION 2 — FUNDING HIGHLIGHTS
+================================================================= */
+.sg-highlights-section {
+  background: var(--sg-white);
+}
+
+.sg-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.sg-highlight-card {
+  background: var(--sg-bg);
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-lg);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sg-highlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--sg-orange);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.sg-highlight-card:hover {
+  border-color: rgba(255, 107, 0, 0.25);
+  box-shadow: var(--sg-shadow-md);
+  transform: translateY(-3px);
+  background: var(--sg-white);
+}
+
+.sg-highlight-card:hover::before {
+  opacity: 1;
+}
+
+.sg-highlight-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--sg-orange-light);
+  color: var(--sg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.9rem;
+  transition: all 0.22s ease;
+}
+
+.sg-highlight-card:hover .sg-highlight-icon {
+  background: var(--sg-orange);
+  color: #FFFFFF;
+}
+
+.sg-highlight-amount {
+  font-family: var(--sg-font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.3rem;
+}
+
+.sg-highlight-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--sg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+}
+
+/* =================================================================
+   SECTION 3 — ABOUT THE SCHEME
+================================================================= */
+.sg-about-section {
+  background: var(--sg-bg);
+}
+
+.sg-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.sg-about-body {
+  font-size: 0.93rem;
+  color: var(--sg-text-body);
+  line-height: 1.8;
+}
+
+.sg-about-body p {
+  margin-bottom: 1.1rem;
+}
+
+.sg-about-body p:last-child {
+  margin-bottom: 0;
+}
+
+.sg-about-body strong {
+  color: var(--sg-navy);
+  font-weight: 700;
+}
+
+.sg-about-info-card {
+  background: var(--sg-white);
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: 90px;
+  box-shadow: var(--sg-shadow-md);
+}
+
+.sg-info-card-header {
+  background: var(--sg-navy);
+  padding: 1rem 1.4rem;
+}
+
+.sg-info-card-header-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+}
+
+.sg-info-card-body {
+  padding: 0.5rem 1.4rem 1rem;
+}
+
+.sg-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--sg-border-soft);
+  gap: 0.75rem;
+}
+
+.sg-info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sg-info-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--sg-text-muted);
+  flex-shrink: 0;
+  min-width: 90px;
+}
+
+.sg-info-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sg-navy);
+  text-align: right;
+  line-height: 1.4;
+}
+
+.sg-info-badge {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 20px;
+  background: var(--sg-orange-light);
+  color: var(--sg-orange);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.sg-info-badge.active {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+/* =================================================================
+   SECTION 4 — KEY BENEFITS
+================================================================= */
+.sg-benefits-section {
+  background: var(--sg-white);
+}
+
+.sg-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.sg-benefit-card {
+  background: var(--sg-bg);
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-lg);
+  padding: 1.6rem 1.35rem;
+  transition: all 0.22s ease;
+}
+
+.sg-benefit-card:hover {
+  border-color: rgba(255, 107, 0, 0.25);
+  box-shadow: var(--sg-shadow-md);
+  transform: translateY(-3px);
+  background: var(--sg-white);
+}
+
+.sg-benefit-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: var(--sg-orange-light);
+  color: var(--sg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.22s ease;
+}
+
+.sg-benefit-card:hover .sg-benefit-icon {
+  background: var(--sg-orange);
+  color: #FFFFFF;
+}
+
+.sg-benefit-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.sg-benefit-desc {
+  font-size: 0.845rem;
+  color: var(--sg-text-body);
+  line-height: 1.65;
+}
+
+/* =================================================================
+   SECTION 5 — ELIGIBILITY
+================================================================= */
+.sg-eligibility-section {
+  background: var(--sg-bg-alt);
+}
+
+.sg-eligibility-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.sg-checklist-card {
+  background: var(--sg-white);
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--sg-shadow-sm);
+}
+
+.sg-checklist-card-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--sg-border-soft);
+}
+
+.sg-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--sg-border-soft);
+}
+
+.sg-checklist-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sg-check-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sg-orange-light);
+  color: var(--sg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sg-checklist-text {
+  font-size: 0.845rem;
+  color: var(--sg-text-body);
+  line-height: 1.5;
+}
+
+.sg-eligibility-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Shared CTA button — orange (reused across sections) */
+.sg-btn-cta-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.75rem;
+  height: 46px;
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-orange);
+  color: #FFFFFF;
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px var(--sg-orange-glow);
+}
+
+.sg-btn-cta-green:hover {
+  background: var(--sg-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+}
+
+/* =================================================================
+   SECTION 6 — APPLICATION PROCESS
+================================================================= */
+.sg-process-section {
+  background: var(--sg-white);
+}
+
+.sg-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 2.5rem;
+  position: relative;
+  list-style: none;
+  padding: 0;
+}
+
+/* Connector line */
+.sg-timeline::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: calc(10% + 26px);
+  right: calc(10% + 26px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--sg-orange), rgba(255, 107, 0, 0.25));
+  z-index: 0;
+}
+
+.sg-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 0.25rem;
+}
+
+.sg-step-num {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--sg-orange);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sg-font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 14px var(--sg-orange-glow);
+  border: 3px solid var(--sg-white);
+  outline: 2px solid rgba(255, 107, 0, 0.2);
+  transition: all 0.22s ease;
+}
+
+.sg-step:hover .sg-step-num {
+  background: var(--sg-orange-hover);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(255, 107, 0, 0.4);
+}
+
+.sg-step-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.sg-step-desc {
+  font-size: 0.74rem;
+  color: var(--sg-text-muted);
+  line-height: 1.5;
+  max-width: 120px;
+}
+
+/* =================================================================
+   SECTION 7 — REQUIRED DOCUMENTS
+================================================================= */
+.sg-documents-section {
+  background: var(--sg-bg);
+}
+
+.sg-docs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.sg-doc-group {
+  background: var(--sg-white);
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--sg-shadow-sm);
+}
+
+.sg-doc-group-header {
+  padding: 0.9rem 1.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-bottom: 1px solid var(--sg-border-soft);
+}
+
+.sg-doc-group-header.required {
+  background: var(--sg-orange-light);
+}
+
+.sg-doc-group-header.optional {
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.sg-doc-group-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--sg-navy);
+}
+
+.sg-doc-tag {
+  display: inline-block;
+  padding: 0.17rem 0.55rem;
+  border-radius: 20px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-left: auto;
+}
+
+.sg-doc-tag.required {
+  background: rgba(255, 107, 0, 0.12);
+  color: var(--sg-orange);
+}
+
+.sg-doc-tag.optional {
+  background: rgba(245, 158, 11, 0.12);
+  color: #B45309;
+}
+
+.sg-doc-list {
+  padding: 0.25rem 1.35rem 0.85rem;
+  list-style: none;
+}
+
+.sg-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--sg-border-soft);
+  font-size: 0.845rem;
+  color: var(--sg-text-body);
+  line-height: 1.45;
+}
+
+.sg-doc-item:last-child {
+  border-bottom: none;
+}
+
+.sg-doc-icon {
+  color: var(--sg-orange);
+  flex-shrink: 0;
+}
+
+.sg-doc-icon.optional-icon {
+  color: #B45309;
+}
+
+/* =================================================================
+   SECTION 8 — WHY GROWTHORA
+   Dark Navy background (replaces green)
+================================================================= */
+.sg-why-section {
+  background: var(--sg-navy);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle orange glow top-right */
+.sg-why-section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sg-why-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.sg-why-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--sg-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.sg-why-title {
+  font-family: var(--sg-font-heading);
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.sg-why-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.sg-why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.sg-why-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--sg-radius-lg);
+  padding: 1.5rem 1.35rem;
+  transition: all 0.22s ease;
+}
+
+.sg-why-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 107, 0, 0.4);
+  transform: translateY(-3px);
+}
+
+.sg-why-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: rgba(255, 107, 0, 0.15);
+  color: var(--sg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.22s ease;
+}
+
+.sg-why-card:hover .sg-why-card-icon {
+  background: var(--sg-orange);
+  color: #FFFFFF;
+}
+
+.sg-why-card-title {
+  font-family: var(--sg-font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.sg-why-card-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.65;
+}
+
+/* =================================================================
+   SECTION 9 — FAQ
+================================================================= */
+.sg-faq-section {
+  background: var(--sg-white);
+}
+
+.sg-faq-wrapper {
+  max-width: 760px;
+  margin: 2.5rem auto 0;
+}
+
+.sg-faq-item {
+  border: 1.5px solid var(--sg-border);
+  border-radius: var(--sg-radius-md);
+  margin-bottom: 0.65rem;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--sg-bg);
+}
+
+.sg-faq-item.open {
+  border-color: rgba(255, 107, 0, 0.3);
+  background: var(--sg-white);
+  box-shadow: var(--sg-shadow-sm);
+}
+
+.sg-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.35rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+}
+
+.sg-faq-question {
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--sg-navy);
+  line-height: 1.4;
+}
+
+.sg-faq-chevron {
+  flex-shrink: 0;
+  color: var(--sg-text-muted);
+  transition: transform 0.22s ease;
+}
+
+.sg-faq-item.open .sg-faq-chevron {
+  transform: rotate(180deg);
+  color: var(--sg-orange);
+}
+
+.sg-faq-answer {
+  padding: 0 1.35rem 1.1rem;
+  font-size: 0.875rem;
+  color: var(--sg-text-body);
+  line-height: 1.75;
+}
+
+/* =================================================================
+   SECTION 10 — FINAL CTA
+================================================================= */
+.sg-final-cta-section {
+  background: var(--sg-bg);
+}
+
+/* Dark Navy card (replaces green gradient) */
+.sg-final-cta-card {
+  background: var(--sg-navy);
+  border-radius: var(--sg-radius-xl);
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sg-shadow-lg);
+}
+
+.sg-final-cta-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sg-cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--sg-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 2;
+}
+
+.sg-cta-title {
+  font-family: var(--sg-font-heading);
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sg-cta-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 2rem;
+  line-height: 1.65;
+  position: relative;
+  z-index: 2;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sg-cta-btns {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+/* Primary CTA in dark section */
+.sg-btn-cta-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.6rem;
+  height: 46px;
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-orange);
+  color: #FFFFFF;
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(255, 107, 0, 0.4);
+}
+
+.sg-btn-cta-white:hover {
+  background: var(--sg-orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+}
+
+/* Outline CTA in dark section */
+.sg-btn-cta-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1.5rem;
+  height: 46px;
+  border-radius: var(--sg-radius-md);
+  background: transparent;
+  color: #FFFFFF;
+  font-family: var(--sg-font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.sg-btn-cta-outline-white:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+/* =================================================================
+   DISCLAIMER
+================================================================= */
+.sg-disclaimer {
+  background: #FFFBF5;
+  border-top: 1px solid rgba(245, 158, 11, 0.18);
+  padding: 0.9rem 0;
+  text-align: center;
+}
+
+.sg-disclaimer-text {
+  font-size: 0.74rem;
+  color: #92400E;
+  line-height: 1.6;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN
+================================================================= */
+
+/* 1200px — 4-col steps start squishing */
+@media (max-width: 1200px) {
+  .sg-hero-grid {
+    grid-template-columns: 54fr 44fr;
+    gap: 32px;
+  }
+}
+
+/* 1024px — stack hero & about */
+@media (max-width: 1024px) {
+  .sg-hero {
+    padding: 36px 0;
+  }
+
+  .sg-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sg-hero-form-card {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .sg-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sg-about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sg-about-info-card {
+    position: static;
+    max-width: 560px;
+  }
+
+  .sg-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sg-why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sg-timeline::before {
+    display: none;
+  }
+
+  .sg-timeline {
+    flex-direction: column;
+    gap: 1.1rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+  }
+
+  .sg-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 1.1rem;
+    width: 100%;
+    background: var(--sg-bg);
+    border: 1.5px solid var(--sg-border);
+    border-radius: var(--sg-radius-md);
+    padding: 1.1rem 1.25rem;
+    align-items: center;
+  }
+
+  .sg-step-num {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .sg-step-desc {
+    max-width: 100%;
+  }
+
+  .sg-docs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 768px */
+@media (max-width: 768px) {
+  .sg-container {
+    padding: 0 1.25rem;
+  }
+
+  .sg-hero {
+    padding: 28px 0;
+  }
+
+  .sg-hero-title {
+    font-size: clamp(1.75rem, 5.5vw, 2.2rem);
+  }
+
+  .sg-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sg-btn-primary,
+  .sg-btn-secondary {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Stack 2-col form grid on mobile */
+  .sg-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+
+  .sg-eligibility-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-final-cta-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .sg-highlights-section,
+  .sg-about-section,
+  .sg-benefits-section,
+  .sg-eligibility-section,
+  .sg-process-section,
+  .sg-documents-section,
+  .sg-why-section,
+  .sg-faq-section,
+  .sg-final-cta-section {
+    padding: 3rem 0;
+  }
+}
+
+/* 430px */
+@media (max-width: 430px) {
+  .sg-container {
+    padding: 0 1rem;
+  }
+
+  .sg-hero {
+    padding: 24px 0;
+  }
+
+  .sg-section-title {
+    font-size: 1.4rem;
+  }
+
+  .sg-highlights-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .sg-highlight-card {
+    padding: 1.1rem 0.9rem;
+  }
+
+  .sg-highlight-amount {
+    font-size: 1.25rem;
+  }
+
+  .sg-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-cta-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sg-btn-cta-white,
+  .sg-btn-cta-outline-white {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sg-final-cta-card {
+    padding: 2rem 1.1rem;
+  }
+
+  .sg-docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-highlights-section,
+  .sg-about-section,
+  .sg-benefits-section,
+  .sg-eligibility-section,
+  .sg-process-section,
+  .sg-documents-section,
+  .sg-why-section,
+  .sg-faq-section,
+  .sg-final-cta-section {
+    padding: 2.5rem 0;
+  }
+}
+
+/* 375px */
+@media (max-width: 375px) {
+  .sg-hero-title {
+    font-size: 1.65rem;
+  }
+
+  .sg-form-card-heading {
+    font-size: 1.05rem;
+  }
+
+  .sg-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -27,7 +27,9 @@ import Gallery from './pages/Gallery';
 import { BlogPage } from './pages/BlogPage';
 import HSNCodeFinder from './pages/HSNCodeFinder';
 import Eligibility from './pages/Eligibility';
+import SchemeGuidePage from './pages/SchemeGuidePage';
 import ScrollToTop from './components/ScrollToTop';
+import PopupPage from './pages/PopupPage';
 
 import './styles/index.css';
 import './styles/animations.css';
@@ -62,6 +64,9 @@ export function App() {
 
         {/* HSN Code Finder Route */}
         <Route path="/hsn-code-finder" element={<HSNCodeFinder />} />
+
+        {/* Scheme Guide Route */}
+        <Route path="/scheme-guide" element={<SchemeGuidePage />} />
 
         {/* Eligibility Route */}
         <Route path="/eligibility" element={<Eligibility />} />
@@ -110,6 +115,9 @@ export function App() {
 
         {/* Gallery Page */}
         <Route path="/gallery" element={<Gallery />} />
+
+        {/* Popup Page */}
+        <Route path="/popup" element={<PopupPage />} />
       </Routes>
     </BrowserRouter>
   );

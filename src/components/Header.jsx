@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { ArrowRight, Sparkles, Menu, X } from 'lucide-react';
 
 export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
@@ -119,6 +119,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleSchemeGuideClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/scheme-guide') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/scheme-guide');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleConsultationClick = (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -215,6 +225,21 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             HSN Code Finder
             {location.pathname === '/hsn-code-finder' && <span className="active-dot" />}
           </a>
+          <a 
+            href="/scheme-guide" 
+            className={`nav-link ${location.pathname === '/scheme-guide' ? 'active' : ''}`}
+            onClick={handleSchemeGuideClick}
+          >
+            Scheme Guide
+            {location.pathname === '/scheme-guide' && <span className="active-dot" />}
+          </a>
+          <NavLink 
+            to="/popup" 
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            Popup
+            {location.pathname === '/popup' && <span className="active-dot" />}
+          </NavLink>
         </nav>
 
         {/* Right Actions */}
@@ -342,6 +367,23 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             HSN Code Finder
           </a>
+          <a 
+            href="/scheme-guide" 
+            className={`mobile-nav-link ${location.pathname === '/scheme-guide' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleSchemeGuideClick(e);
+            }}
+          >
+            Scheme Guide
+          </a>
+          <NavLink 
+            to="/popup" 
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Popup
+          </NavLink>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?
           </a>
