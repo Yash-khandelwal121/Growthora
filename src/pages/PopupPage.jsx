@@ -1,5 +1,5 @@
 /*
-  GROWTHORA — 449.2 × 528.4 POPUP — CLEAN LIGHT ORANGE CITY LABEL
+  GROWTHORA — RIGHT-SIDE ENDLESS OPPORTUNITIES — 449.2 × 528.4
   Replace ONLY src/pages/PopupPage.jsx with this complete file.
   React + react-simple-maps. All styles are included below.
   Leave existing header, routes and other pages unchanged.
@@ -12,10 +12,14 @@ const INDIA_GEOJSON =
 
 // Coordinates are real [longitude, latitude], not arbitrary pixel positions.
 // Replace the photo URLs with licensed /images/cities/*.webp assets when ready.
+// Jaipur: Jal Mahal by Ritesh Salian; Pune: Aga Khan Palace by Mrigank Das.
+// Wikimedia Commons: Jaipur CC BY-SA 3.0; Pune CC BY-SA 4.0. Attribution + share-alike apply.
+// Jaipur: https://commons.wikimedia.org/wiki/File:Jal_Mahal_@Jaipur.JPG
+// Pune:   https://commons.wikimedia.org/wiki/File:Aga_Khan_Palace,_Pune.jpg
 const CITIES = [
   {
     name: "Jaipur", coords: [75.7873, 26.9124],
-    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/JAIPUR_HAWA_MAHAL_IN_DECEMBER_2024.jpg?width=1200",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Jal_Mahal_%40Jaipur.JPG?width=960",
   },
   {
     name: "Lucknow", coords: [80.9462, 26.8467],
@@ -27,7 +31,7 @@ const CITIES = [
   },
   {
     name: "Pune", coords: [73.8567, 18.5204],
-    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Shaniwar_Wada_Main_Gate_01.jpg?width=1200",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Aga_Khan_Palace%2C_Pune.jpg?width=960",
   },
   {
     name: "Bengaluru", coords: [77.5946, 12.9716],
@@ -38,6 +42,10 @@ const CITIES = [
     photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Chennai_central_view.jpg?width=1200",
   },
 ];
+
+// Map is shown only once after mounting. Then only photographs rotate.
+const MAP_INTRO_MS = 4000;
+const PHOTO_INTERVAL_MS = 4000;
 
 const CSS = `
 .gp7-page { display:flex; justify-content:center; padding:18px 12px; min-height:100vh;
@@ -56,7 +64,7 @@ const CSS = `
 .gp7-photo-fade { animation:gp7Fade .5s ease both; }
 @keyframes gp7Fade { from {opacity:.4} to {opacity:1} }
 .gp7-inner { height:100%; position:relative; z-index:1; display:grid; min-height:0;
-  grid-template-rows:32px 124px 34px minmax(0,1fr) 47px; gap:4px; }
+  grid-template-rows:32px 94px 34px minmax(0,1fr) 47px; gap:4px; }
 .gp7-header { display:flex; align-items:center; justify-content:space-between;
   gap:6px; min-width:0; }
 .gp7-logo { display:block; width:175px; max-width:49%; height:36px;
@@ -66,10 +74,15 @@ const CSS = `
   text-decoration:none; text-align:right; line-height:1.2; }
 .gp7-hindi:hover { color:#f97316; }
 .gp7-title { min-width:0; }
-.gp7-title h1 { font-size:21px; letter-spacing:-.4px; line-height:1.03;
-  margin:0; font-weight:900; color:#111b40; }
+/* Two-column headline: left = ONE VISION / ONE INDIA,
+   right = ENDLESS / OPPORTUNITIES. No extra row below. */
+.gp7-title h1.gp7-headline { display:grid; grid-template-columns:minmax(0, 43fr) minmax(0, 57fr);
+  align-items:start; gap:7px; width:100%; margin:0; font-size:21px;
+  letter-spacing:-.4px; line-height:1.03; font-weight:900; color:#111b40; }
+.gp7-headline-left,.gp7-headline-right { display:block; min-width:0; white-space:nowrap; }
+.gp7-headline-right { text-align:right; }
 .gp7-title h1 .gp7-orange { color:#f97316; font-size:inherit; }
-.gp7-title p { margin:5px 0 0; font-size:9.5px; font-weight:700;
+.gp7-title p { margin:6px 0 0; font-size:9.5px; font-weight:700;
   line-height:1.2; color:#234786; }
 .gp7-title p .gp7-promise { color:#f97316; }
 .gp7-presence { display:flex; flex-direction:column; align-items:center;
@@ -79,7 +92,15 @@ const CSS = `
 .gp7-names { display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
   gap:2px 8px; font-size:9px; font-weight:700; line-height:1.1; }
 .gp7-names span + span::before { content:'•'; color:#f97316; margin-right:7px; }
-.gp7-map { width:100%; height:100%; min-height:0; min-width:0; }
+.gp7-map-stage { width:100%; height:100%; min-height:0; min-width:0; }
+.gp7-map { width:100%; height:100%; min-height:0; min-width:0; animation:gp7MapAppear .45s ease both; }
+@keyframes gp7MapAppear { from{opacity:0;transform:scale(.985)} to{opacity:1;transform:scale(1)} }
+.gp7-intro-prompt { display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+.gp7-intro-prompt .gp7-map { flex:1; }
+.gp7-intro-background { position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(180deg,#fffefa 0%,#fffefa 34%,#eef3ef 85%,#e6eee7 100%); }
+.gp7-intro-city { opacity:.75; }
+
 .gp7-map svg { width:100%; height:100%; display:block; }
 .gp7-marker { cursor:pointer; outline:none; }
 .gp7-marker:focus-visible .gp7-hit { stroke:#f97316; stroke-width:2; }
@@ -106,11 +127,11 @@ const CSS = `
 @media(max-width:480px) {
  .gp7-card { width:calc(100vw - 24px); height:calc((100vw - 24px) * 1.17631345);
    max-height:none; padding:9px 10px; border-radius:14px; }
- .gp7-inner { grid-template-rows:26px 108px 35px minmax(0,1fr) 42px; gap:3px; }
+ .gp7-inner { grid-template-rows:26px 78px 35px minmax(0,1fr) 42px; gap:3px; }
  .gp7-logo { height:26px; width:140px; }
  .gp7-hindi { font-size:10px; }
- .gp7-title h1 { font-size:17.5px; }
- .gp7-title p { margin-top:3px; font-size:8px; line-height:1.17; }
+ .gp7-title h1.gp7-headline { font-size:16.5px; gap:5px; }
+ .gp7-title p { margin-top:4px; font-size:8px; line-height:1.17; }
  .gp7-presence strong { font-size:8px; }
  .gp7-names { font-size:7px; gap:1px 4px; }
  .gp7-names span + span::before { margin-right:5px; }
@@ -119,7 +140,7 @@ const CSS = `
  .gp7-city-caption small { font-size:8px; }
 }
 @media(prefers-reduced-motion:reduce) {
- .gp7-photo-fade,.gp7-pulse { animation:none; }
+ .gp7-photo-fade,.gp7-pulse,.gp7-map { animation:none; }
 }
 `;
 
@@ -220,51 +241,48 @@ function IndiaCityMap({ activeName, onHover, onSelect }) {
 
 function GrowthoraBanner() {
   const [index, setIndex] = useState(0);
-  const [hovered, setHovered] = useState(null);
-  const [locked, setLocked] = useState(null);
+  const [showIntroMap, setShowIntroMap] = useState(true);
 
-  // Auto cycle through six photographs. Hover pauses temporarily; click locks.
-  // Clicking the same selected marker again resumes autoplay (no visible Auto button).
+  // 1) A one-time India map introduction. The map does NOT return every cycle.
   useEffect(() => {
-    if (hovered || locked) return undefined;
+    const timeout = window.setTimeout(() => setShowIntroMap(false), MAP_INTRO_MS);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  // 2) Start the photo slideshow only AFTER the introduction is finished.
+  useEffect(() => {
+    if (showIntroMap) return undefined;
     const timer = window.setInterval(() => {
-      setIndex((old) => (old + 1) % CITIES.length);
-    }, 4000);
+      setIndex((current) => (current + 1) % CITIES.length);
+    }, PHOTO_INTERVAL_MS);
     return () => window.clearInterval(timer);
-  }, [hovered, locked]);
+  }, [showIntroMap]);
 
+  // Preload city photographs so the transitions are smoother.
   useEffect(() => {
-    CITIES.forEach((city) => {
-      const image = new Image();
-      image.src = city.photo;
+    CITIES.forEach(({ photo }) => {
+      const preload = new Image();
+      preload.src = photo;
     });
   }, []);
 
-  const chooseCity = (cityName) => {
-    const next = CITIES.findIndex((city) => city.name === cityName);
-    if (next < 0) return;
-    setIndex(next);
-    setLocked((old) => (old === cityName ? null : cityName));
+  // A visitor can skip the introduction by clicking one of the map markers.
+  const openSelectedCity = (name) => {
+    const target = CITIES.findIndex((city) => city.name === name);
+    if (target === -1) return;
+    setIndex(target);
+    setShowIntroMap(false);
   };
 
-  const previewCity = (cityName) => {
-    setHovered(cityName);
-    if (cityName) {
-      const next = CITIES.findIndex((city) => city.name === cityName);
-      if (next >= 0) setIndex(next);
-    }
-  };
-
-  const shownCity = CITIES.find((city) => city.name === (hovered || locked)) || CITIES[index];
+  const activeCity = CITIES[index];
 
   return (
-    <section className="gp7-card" aria-label="Growthora's presence across six Indian cities">
-      {/* A white-key filter for the existing logo; use a real transparent logo when possible. */}
-      <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: "absolute" }}>
+    <section className="gp7-card" aria-label="Growthora presence in six Indian cities">
+      {/* Transparent appearance for the existing Growthora logo. */}
+      <svg width="0" height="0" aria-hidden="true" focusable="false" style={{position:"absolute"}}>
         <filter id="gp7-white-key" colorInterpolationFilters="sRGB">
           <feColorMatrix
-            in="SourceGraphic"
-            type="matrix"
+            in="SourceGraphic" type="matrix"
             values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3"
             result="keyed"
           />
@@ -272,19 +290,25 @@ function GrowthoraBanner() {
         </filter>
       </svg>
 
-      <div className="gp7-bg" aria-hidden="true">
-        <img
-          key={shownCity.name}
-          src={shownCity.photo}
-          alt=""
-          className="gp7-photo gp7-photo-fade"
-        />
-        <div className="gp7-shade" />
-      </div>
+      {/* Show a clean map first; then show the full-height city photo background. */}
+      {showIntroMap ? (
+        <div className="gp7-intro-background" aria-hidden="true" />
+      ) : (
+        <div className="gp7-bg" aria-hidden="true">
+          <img
+            key={activeCity.name}
+            src={activeCity.photo}
+            alt=""
+            className="gp7-photo gp7-photo-fade"
+            loading="eager"
+          />
+          <div className="gp7-shade" />
+        </div>
+      )}
 
       <div className="gp7-inner">
         <header className="gp7-header">
-          {/* Keep the existing logo path or replace only this src with its actual asset path. */}
+          {/* Keep this original Growthora asset path as in your project. */}
           <img src="/growthora-logo.webp" className="gp7-logo" alt="Growthora" />
           <a href="https://growthora.co.in/" className="gp7-hindi" lang="hi">
             हम बढ़ाएँ आपका बिज़नेस
@@ -292,11 +316,15 @@ function GrowthoraBanner() {
         </header>
 
         <div className="gp7-title">
-          <h1>
-            ONE VISION.<br />
-            <span className="gp7-orange">ONE INDIA.</span><br />
-            ENDLESS<br />
-            <span className="gp7-orange">OPPORTUNITIES.</span>
+          <h1 className="gp7-headline">
+            <span className="gp7-headline-left">
+              ONE VISION.<br />
+              <span className="gp7-orange">ONE INDIA.</span>
+            </span>
+            <span className="gp7-headline-right">
+              ENDLESS<br />
+              <span className="gp7-orange">OPPORTUNITIES.</span>
+            </span>
           </h1>
           <p>
             Your Ambition. Our Expertise. Your Growth.<br />
@@ -312,19 +340,32 @@ function GrowthoraBanner() {
           </div>
         </div>
 
-        <IndiaCityMap
-          activeName={shownCity.name}
-          onHover={previewCity}
-          onSelect={chooseCity}
-        />
+        {/* First four seconds: large interactive map. Later: only city photos. */}
+        <div className="gp7-map-stage">
+          {showIntroMap && (
+            <IndiaCityMap
+              activeName={null}
+              onHover={() => {}}
+              onSelect={openSelectedCity}
+            />
+          )}
+        </div>
 
         <div className="gp7-city-caption" aria-live="polite">
           <div>
-            <strong>📍 {shownCity.name.toUpperCase()}</strong>
-            <small>Growthora Presence</small>
+            {showIntroMap ? (
+              <>
+                <strong>📍 SIX INDIAN CITIES</strong>
+                <small>Growthora Across India</small>
+              </>
+            ) : (
+              <>
+                <strong>📍 {activeCity.name.toUpperCase()}</strong>
+                <small>Growthora Presence</small>
+              </>
+            )}
           </div>
         </div>
-
       </div>
     </section>
   );
