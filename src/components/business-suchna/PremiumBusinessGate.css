@@ -1,0 +1,934 @@
+/* --------------------------------------------------------------------------
+   GROWTHORA — EXACT PREMIUM ARCHITECTURAL GATE (REFERENCE IMAGE 2)
+   Neoclassical Double-Door Entrance, Layered Arch & Botanical Greenery
+   -------------------------------------------------------------------------- */
+
+:root {
+  --gate-ivory: #fffaf3;
+  --gate-cream: #f7efe4;
+  --gate-warm-white: #fffdf8;
+  --gate-border: #e6d5c0;
+  --gate-orange: #ff650d;
+  --gate-gold: #d4a345;
+  --gate-navy: #111b34;
+  --gate-green: #4f733b;
+}
+
+.premium-gate {
+  --gate-orange: #ff650d;
+  --gate-navy: #111b34;
+
+  position: relative;
+  width: 100%;
+  max-width: 690px;
+  margin-inline: auto;
+  isolation: isolate;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  color: var(--gate-navy);
+}
+
+/* Control Bar & Accessible Pill */
+.premium-gate__control-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.premium-gate__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 101, 13, 0.35);
+  color: var(--gate-orange);
+  font-size: 0.86rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(255, 101, 13, 0.14);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.premium-gate__toggle:hover {
+  background: #FFF7ED;
+  border-color: var(--gate-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 101, 13, 0.22);
+}
+
+/* 3D Scene Perspective */
+.premium-gate__scene {
+  position: relative;
+  width: 100%;
+  perspective: 1600px;
+  padding: 25px 20px 35px;
+}
+
+/* Layered Neoclassical Arch Frame */
+.premium-gate__arch {
+  position: relative;
+  width: 100%;
+  height: 690px;
+
+  border-radius:
+    48% 48% 4px 4px /
+    20% 20% 4px 4px;
+
+  border: 12px solid #f2e5d5;
+
+  background:
+    linear-gradient(
+      125deg,
+      #fffefa,
+      #f4e5d3 48%,
+      #fffaf2
+    );
+
+  box-shadow:
+    0 30px 55px rgba(75, 49, 22, 0.13),
+    inset 0 0 0 3px #ffffff,
+    inset 0 0 0 8px #e7d0b4;
+
+  transform-style: preserve-3d;
+}
+
+.premium-gate__arch::before {
+  content: "";
+  position: absolute;
+  inset: -21px;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Interior Glowing Sanctuary */
+.premium-gate__interior {
+  position: absolute;
+  inset: 10px;
+
+  border-radius:
+    47% 47% 3px 3px /
+    20% 20% 3px 3px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 12%,
+      #ffe3ad 0%,
+      #fff2dd 28%,
+      #fffaf3 60%,
+      #ffffff 100%
+    );
+
+  box-shadow:
+    inset 0 15px 35px rgba(177, 104, 32, 0.16);
+}
+
+.premium-gate__glow {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 18%,
+      rgba(255, 160, 45, 0.30),
+      transparent 65%
+    );
+
+  pointer-events: none;
+}
+
+/* Form Container inside Interior */
+.premium-gate__form {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 50px 24px 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms ease 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium-gate--open .premium-gate__form {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 3D Double Doors System */
+.premium-gate__doors {
+  position: absolute;
+  inset: 10px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.premium-gate__door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: auto;
+  transition:
+    transform 1000ms
+    cubic-bezier(0.22, 0.68, 0, 1.02);
+  will-change: transform;
+}
+
+.premium-gate__door--left {
+  left: 0;
+  transform-origin: left center;
+  border-radius:
+    95% 0 0 0 /
+    22% 0 0 0;
+}
+
+.premium-gate__door--right {
+  right: 0;
+  transform-origin: right center;
+  border-radius:
+    0 95% 0 0 /
+    0 22% 0 0;
+}
+
+/* 3D Outward Rotation */
+.premium-gate--open .premium-gate__door--left {
+  transform: rotateY(-112deg);
+}
+
+.premium-gate--open .premium-gate__door--right {
+  transform: rotateY(112deg);
+}
+
+.premium-gate--open .premium-gate__door {
+  pointer-events: none;
+}
+
+/* Door Face Surfaces */
+.premium-gate__door-surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      110deg,
+      #fffefa 0%,
+      #fff8ef 40%,
+      #efe2d1 100%
+    );
+
+  border: 2px solid #e4d1b8;
+
+  box-shadow:
+    inset 5px 0 10px rgba(255, 255, 255, 0.9),
+    inset -8px 0 14px rgba(110, 75, 35, 0.10),
+    0 8px 18px rgba(70, 45, 20, 0.10);
+}
+
+/* 3D Door Depth Edge Thickness */
+.premium-gate__door--left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -3px;
+  width: 5px;
+  background: linear-gradient(180deg, #d8c3aa 0%, #bba286 100%);
+  transform: rotateY(90deg);
+  transform-origin: right center;
+}
+
+.premium-gate__door--right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 5px;
+  background: linear-gradient(180deg, #d8c3aa 0%, #bba286 100%);
+  transform: rotateY(-90deg);
+  transform-origin: left center;
+}
+
+/* Recessed Panels */
+.premium-gate__upper-panel,
+.premium-gate__lower-panel {
+  position: absolute;
+  left: 11%;
+  right: 11%;
+
+  border: 2px solid #e5d2ba;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fffdfa,
+      #f5eadc
+    );
+
+  box-shadow:
+    inset 3px 3px 7px rgba(255, 255, 255, 0.95),
+    inset -4px -4px 9px rgba(130, 91, 45, 0.10),
+    0 3px 7px rgba(85, 55, 24, 0.06);
+}
+
+.premium-gate__upper-panel {
+  top: 27%;
+  height: 34%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+  font-size: 25px;
+  font-weight: 800;
+  color: #111b34;
+  letter-spacing: -0.02em;
+}
+
+.premium-gate__lower-panel {
+  top: 65%;
+  bottom: 5%;
+}
+
+/* Icon Design */
+.premium-gate__icon {
+  width: 76px;
+  height: 76px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff8f1,
+      #ffecdc
+    );
+
+  border: 1px solid #ffd0aa;
+  color: #ff650d;
+  box-shadow: 0 4px 14px rgba(255, 101, 13, 0.14);
+}
+
+.premium-gate__icon svg {
+  width: 38px;
+  height: 38px;
+}
+
+/* Golden Door Handles */
+.premium-gate__handle {
+  position: absolute;
+  top: 48%;
+
+  width: 15px;
+  height: 95px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #91601b 0%,
+      #d6a13e 20%,
+      #fff0a5 48%,
+      #c28b2b 78%,
+      #8b5c19 100%
+    );
+
+  border: 1px solid #a97b2d;
+
+  box-shadow:
+    2px 4px 9px rgba(62, 40, 13, 0.24),
+    inset 2px 0 3px rgba(255, 255, 255, 0.55);
+  z-index: 5;
+}
+
+.premium-gate__handle--left {
+  right: 7px;
+}
+
+.premium-gate__handle--right {
+  left: 7px;
+}
+
+/* Botanical Arch Greenery */
+.premium-gate__greenery-wrapper {
+  position: absolute;
+  top: -45px;
+  left: -6%;
+  width: 112%;
+  height: 250px;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+.premium-gate__greenery-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Entrance Steps */
+.premium-gate__steps {
+  position: relative;
+  width: 108%;
+  margin-left: -4%;
+  margin-top: -4px;
+}
+
+.premium-gate__step-one {
+  height: 15px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf8,
+      #e8d6bf
+    );
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 5px 12px rgba(85, 56, 26, 0.10);
+}
+
+.premium-gate__step-two {
+  height: 15px;
+  margin-inline: -10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f6eadb,
+      #dbc5a9
+    );
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 10px 20px rgba(85, 56, 26, 0.13);
+}
+
+/* Ground Flankers (Potted Plants & Floor Reflection) */
+.premium-gate__ground-flankers {
+  position: relative;
+  width: 100%;
+  height: 52px;
+  margin-top: 10px;
+  pointer-events: none;
+}
+
+.premium-planter {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+}
+
+.planter-left {
+  left: -20px;
+}
+
+.planter-right {
+  right: -20px;
+}
+
+.ceramic-urn {
+  width: 44px;
+  height: 38px;
+  border-radius: 4px 4px 16px 16px;
+  background: linear-gradient(180deg, #F4EFE6 0%, #E3D9C9 100%);
+  border: 1.5px solid #C8BCAC;
+  box-shadow: 0 6px 14px rgba(17, 27, 52, 0.12);
+}
+
+.planter-leaves {
+  position: relative;
+  width: 52px;
+  height: 48px;
+  margin-bottom: -4px;
+}
+
+.foliage-leaf {
+  position: absolute;
+  background: linear-gradient(135deg, #4A7A3A 0%, #204518 100%);
+  border-radius: 100% 0 100% 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+}
+
+.fl-1 { width: 24px; height: 32px; top: 10px; left: 2px; transform: rotate(-38deg); }
+.fl-2 { width: 26px; height: 36px; top: 2px; left: 13px; transform: rotate(4deg); }
+.fl-3 { width: 24px; height: 32px; top: 10px; right: 2px; transform: rotate(42deg); }
+.fl-4 { width: 20px; height: 26px; top: 18px; left: 8px; background: #5C9449; }
+.fl-5 { width: 20px; height: 26px; top: 18px; right: 8px; background: #5C9449; }
+
+.premium-floor-reflection {
+  position: absolute;
+  bottom: -8px;
+  left: 12%;
+  right: 12%;
+  height: 18px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 101, 13, 0.1) 0%, transparent 70%);
+  filter: blur(8px);
+}
+
+/* --------------------------------------------------------------------------
+   MSME SCHEME FINDER FORM STYLING (NESTED IN GATE FORM)
+   -------------------------------------------------------------------------- */
+.scheme-finder-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px 22px;
+  box-shadow:
+    0 12px 34px rgba(15, 23, 42, 0.08),
+    0 1px 3px rgba(15, 23, 42, 0.04),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+.scheme-finder-head {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.scheme-finder-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 101, 13, 0.08);
+  border: 1px solid rgba(255, 101, 13, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 10px rgba(255, 101, 13, 0.1);
+}
+
+.scheme-finder-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--gate-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.scheme-finder-desc {
+  font-size: 0.84rem;
+  color: #64748B;
+  line-height: 1.4;
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+.scheme-finder-error-bar {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.scheme-finder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+  margin-bottom: 16px;
+}
+
+.scheme-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scheme-field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gate-navy);
+  letter-spacing: -0.01em;
+}
+
+.scheme-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scheme-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 0.88rem;
+  pointer-events: none;
+}
+
+.scheme-select {
+  width: 100%;
+  padding: 8px 24px 8px 10px;
+  background: #FAFAFA;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: var(--gate-navy);
+  font-family: inherit;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.scheme-select:focus {
+  border-color: var(--gate-orange);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 101, 13, 0.12);
+}
+
+.scheme-finder-submit-btn {
+  width: 100%;
+  padding: 11px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF7A00 0%, #FF5A00 100%);
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 6px 18px rgba(255, 90, 0, 0.32);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.scheme-finder-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FF881A 0%, #E64D00 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(255, 90, 0, 0.4);
+}
+
+.scheme-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.scheme-finder-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #E2E8F0;
+}
+
+.scheme-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.trust-icon-zap { color: #EC4899; }
+.trust-icon-shield { color: var(--gate-orange); }
+.trust-icon-brain { color: #8B5CF6; }
+
+.scheme-finder-disclaimer {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-top: 8px;
+  letter-spacing: 0.01em;
+}
+
+/* Results Overlay inside the Finder */
+.finder-results-overlay {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 18px 16px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.15);
+}
+
+.finder-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.finder-results-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 101, 13, 0.1);
+  color: var(--gate-orange);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.finder-close-results-btn {
+  color: #94A3B8;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.finder-close-results-btn:hover {
+  color: var(--gate-navy);
+  background: #F1F5F9;
+}
+
+.finder-results-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gate-navy);
+  margin-bottom: 2px;
+}
+
+.finder-results-sub {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin-bottom: 10px;
+}
+
+.finder-matched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 220px;
+  padding-right: 4px;
+  margin-bottom: 12px;
+}
+
+.matched-scheme-row {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.matched-scheme-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.matched-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.03em;
+}
+
+.matched-amount-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--gate-orange);
+}
+
+.matched-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gate-navy);
+  margin-bottom: 2px;
+}
+
+.matched-desc {
+  font-size: 0.7rem;
+  color: #475569;
+  line-height: 1.3;
+}
+
+.finder-results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finder-claim-btn {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--gate-orange);
+  color: #FFFFFF;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.finder-claim-btn:hover {
+  background: #E05600;
+}
+
+.finder-recheck-btn {
+  width: 100%;
+  padding: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.finder-recheck-btn:hover {
+  color: var(--gate-navy);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN ADAPTATIONS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .premium-gate {
+    max-width: 500px;
+  }
+
+  .premium-gate__arch {
+    height: 590px;
+  }
+
+  .premium-gate__upper-panel {
+    font-size: 20px;
+  }
+
+  .premium-gate__icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .premium-gate__icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .premium-gate__handle {
+    height: 75px;
+    width: 12px;
+  }
+
+  .premium-gate__form {
+    padding: 35px 16px 18px;
+  }
+
+  .premium-gate__greenery-wrapper {
+    top: -35px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .premium-gate {
+    max-width: 100%;
+  }
+
+  .premium-gate__scene {
+    padding: 20px 8px 30px;
+  }
+
+  .premium-gate__arch {
+    height: 520px;
+    border-width: 8px;
+  }
+
+  .premium-gate__upper-panel {
+    font-size: 16px;
+    gap: 10px;
+  }
+
+  .premium-gate__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .premium-gate__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .premium-gate__handle {
+    width: 10px;
+    height: 60px;
+  }
+
+  .premium-gate__form {
+    padding: 20px 10px 14px;
+  }
+
+  .scheme-finder-card {
+    padding: 16px 14px;
+  }
+
+  .scheme-finder-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .premium-planter {
+    display: none;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .premium-gate__door,
+  .premium-gate__form {
+    transition: none !important;
+  }
+}
+

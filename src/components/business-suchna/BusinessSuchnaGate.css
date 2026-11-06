@@ -1,0 +1,794 @@
+/* --------------------------------------------------------------------------
+   GROWTHORA — COMPLETE BUSINESS SUCHNA GATE REDESIGN
+   Realistic 3D Architectural Double-Door Entrance
+   -------------------------------------------------------------------------- */
+
+.bsg-wrapper {
+  --bsg-orange: #ff650d;
+  --bsg-navy: #111b34;
+  --bsg-ivory: #fffaf3;
+  --bsg-cream: #f7efe4;
+  --bsg-border: #e6d5c0;
+
+  width: 100%;
+  max-width: 540px;
+  margin-inline: auto;
+  position: relative;
+  isolation: isolate;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--bsg-navy);
+}
+
+/* Accessibility & Mobile Trigger Bar */
+.bsg-trigger-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.bsg-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 22px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 101, 13, 0.28);
+  color: var(--bsg-orange);
+  font-size: 0.84rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(255, 101, 13, 0.12);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.bsg-trigger:hover {
+  background: #FFF7ED;
+  border-color: var(--bsg-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 101, 13, 0.2);
+}
+
+/* 3D Scene Perspective */
+.bsg-scene {
+  position: relative;
+  width: 100%;
+  padding: 8px 10px 20px;
+  perspective: 1500px;
+}
+
+/* Layered Architectural Arch Frame */
+.bsg-arch {
+  position: relative;
+  width: 100%;
+  height: 590px;
+
+  border-radius:
+    48% 48% 5px 5px /
+    22% 22% 5px 5px;
+
+  background: linear-gradient(
+    125deg,
+    #fffdf9 0%,
+    #f5e8d8 45%,
+    #fff9f1 100%
+  );
+
+  border: 10px solid #f4e9dc;
+
+  box-shadow:
+    0 28px 48px rgba(60, 43, 27, 0.14),
+    0 8px 16px rgba(60, 43, 27, 0.08),
+    inset 0 0 0 3px #ffffff,
+    inset 0 0 0 7px #ead7c0;
+
+  transform-style: preserve-3d;
+}
+
+/* Inner Arch Glowing Alcove */
+.bsg-arch-inner {
+  position: absolute;
+  inset: 12px;
+
+  border-radius:
+    47% 47% 4px 4px /
+    22% 22% 4px 4px;
+
+  background: radial-gradient(
+    ellipse at 50% 10%,
+    #ffe6b9 0%,
+    #fffaf4 45%,
+    #ffffff 100%
+  );
+
+  box-shadow:
+    inset 0 12px 28px rgba(178, 112, 40, 0.12),
+    inset 0 0 0 2px #ecd8be;
+
+  overflow: hidden;
+}
+
+/* Revealed Form Container Nestled Inside Arch */
+.bsg-content {
+  position: absolute;
+  inset: 0;
+
+  padding: 30px 16px 18px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 350ms ease 250ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bsg-open .bsg-content {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   SCHEME FINDER FORM NESTED INSIDE THE ARCH
+   -------------------------------------------------------------------------- */
+.scheme-finder-card {
+  position: relative;
+  width: 100%;
+  max-width: 410px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px 18px;
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.08),
+    0 1px 3px rgba(15, 23, 42, 0.04),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+.scheme-finder-head {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.scheme-finder-icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 101, 13, 0.08);
+  border: 1px solid rgba(255, 101, 13, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  box-shadow: 0 4px 10px rgba(255, 101, 13, 0.1);
+}
+
+.scheme-finder-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--bsg-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.scheme-finder-desc {
+  font-size: 0.8rem;
+  color: #64748B;
+  line-height: 1.35;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.scheme-finder-error-bar {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #DC2626;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.scheme-finder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 10px;
+  margin-bottom: 14px;
+}
+
+.scheme-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.scheme-field-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--bsg-navy);
+  letter-spacing: -0.01em;
+}
+
+.scheme-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scheme-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.scheme-select {
+  width: 100%;
+  padding: 7px 22px 7px 9px;
+  background: #FAFAFA;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  font-size: 0.76rem;
+  color: var(--bsg-navy);
+  font-family: inherit;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.scheme-select:focus {
+  border-color: var(--bsg-orange);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 101, 13, 0.12);
+}
+
+.scheme-finder-submit-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF7A00 0%, #FF5A00 100%);
+  color: #FFFFFF;
+  font-size: 0.86rem;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 6px 18px rgba(255, 90, 0, 0.32);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.scheme-finder-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FF881A 0%, #E64D00 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(255, 90, 0, 0.4);
+}
+
+.scheme-btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.scheme-finder-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #E2E8F0;
+}
+
+.scheme-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.trust-icon-zap { color: #EC4899; }
+.trust-icon-shield { color: var(--bsg-orange); }
+.trust-icon-brain { color: #8B5CF6; }
+
+.scheme-finder-disclaimer {
+  text-align: center;
+  font-size: 0.66rem;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-top: 6px;
+  letter-spacing: 0.01em;
+}
+
+/* Results Overlay inside the Finder */
+.finder-results-overlay {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 16px 14px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.15);
+}
+
+.finder-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.finder-results-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 101, 13, 0.1);
+  color: var(--bsg-orange);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.finder-close-results-btn {
+  color: #94A3B8;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.finder-close-results-btn:hover {
+  color: var(--bsg-navy);
+  background: #F1F5F9;
+}
+
+.finder-results-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--bsg-navy);
+  margin-bottom: 2px;
+}
+
+.finder-results-sub {
+  font-size: 0.72rem;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.finder-matched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 200px;
+  padding-right: 4px;
+  margin-bottom: 10px;
+}
+
+.matched-scheme-row {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 7px 9px;
+}
+
+.matched-scheme-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.matched-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.03em;
+}
+
+.matched-amount-pill {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--bsg-orange);
+}
+
+.matched-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--bsg-navy);
+  margin-bottom: 2px;
+}
+
+.matched-desc {
+  font-size: 0.68rem;
+  color: #475569;
+  line-height: 1.3;
+}
+
+.finder-results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finder-claim-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--bsg-orange);
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.finder-claim-btn:hover {
+  background: #E05600;
+}
+
+.finder-recheck-btn {
+  width: 100%;
+  padding: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.finder-recheck-btn:hover {
+  color: var(--bsg-navy);
+}
+
+/* 3D Double Doors */
+.bsg-door {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: calc(50% - 12px);
+  z-index: 3;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+
+  transition:
+    transform 850ms cubic-bezier(
+      0.22,
+      0.68,
+      0,
+      1.02
+    );
+  will-change: transform;
+}
+
+.bsg-door-left {
+  left: 12px;
+  transform-origin: left center;
+
+  border-radius:
+    90% 0 0 0 /
+    22% 0 0 0;
+}
+
+.bsg-door-right {
+  right: 12px;
+  transform-origin: right center;
+
+  border-radius:
+    0 90% 0 0 /
+    0 22% 0 0;
+}
+
+/* Door 3D Open States */
+.bsg-open .bsg-door-left {
+  transform: rotateY(-112deg);
+}
+
+.bsg-open .bsg-door-right {
+  transform: rotateY(112deg);
+}
+
+.bsg-open .bsg-door {
+  pointer-events: none;
+}
+
+/* Door Face Surface */
+.bsg-door-surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  background: linear-gradient(
+    105deg,
+    #fffdf8 0%,
+    #fff8ef 35%,
+    #f1e6d8 100%
+  );
+
+  border: 2px solid #e4d2bc;
+
+  box-shadow:
+    inset 5px 0 10px rgba(255, 255, 255, 0.9),
+    inset -6px 0 13px rgba(122, 86, 45, 0.08),
+    0 8px 16px rgba(69, 48, 27, 0.08);
+
+  border-radius: inherit;
+}
+
+/* Realistic 3D Door Thickness Edges */
+.bsg-door-left::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -2px;
+  width: 4px;
+  background: linear-gradient(180deg, #d8c3aa 0%, #bba286 100%);
+  transform: rotateY(90deg);
+  transform-origin: right center;
+}
+
+.bsg-door-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2px;
+  width: 4px;
+  background: linear-gradient(180deg, #d8c3aa 0%, #bba286 100%);
+  transform: rotateY(-90deg);
+  transform-origin: left center;
+}
+
+/* Embossed Door Panels */
+.bsg-upper-panel,
+.bsg-lower-panel {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+
+  border: 2px solid #e6d5c0;
+  border-radius: 17px;
+
+  background: linear-gradient(
+    145deg,
+    #fffdfa,
+    #f6efe5
+  );
+
+  box-shadow:
+    inset 3px 3px 6px rgba(255, 255, 255, 0.95),
+    inset -3px -3px 8px rgba(151, 119, 78, 0.10),
+    0 2px 4px rgba(80, 55, 30, 0.04);
+}
+
+.bsg-upper-panel {
+  top: 27%;
+  height: 34%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+  font-size: clamp(17px, 2vw, 25px);
+  font-weight: 800;
+  color: var(--bsg-navy);
+  letter-spacing: -0.02em;
+}
+
+.bsg-lower-panel {
+  top: 65%;
+  bottom: 5%;
+}
+
+/* Orange Icon Container */
+.bsg-icon {
+  width: 65px;
+  height: 65px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 16px;
+
+  background: #fff1e6;
+  border: 1px solid #ffd0aa;
+
+  color: var(--bsg-orange);
+  box-shadow: 0 4px 12px rgba(255, 101, 13, 0.12);
+}
+
+.bsg-icon svg {
+  width: 35px;
+  height: 35px;
+}
+
+/* Premium Metallic Brass Handles */
+.bsg-handle {
+  position: absolute;
+  top: 47%;
+
+  width: 13px;
+  height: 74px;
+
+  border-radius: 8px;
+
+  background: linear-gradient(
+    90deg,
+    #986a1d 0%,
+    #e6bd5c 25%,
+    #fff0a2 50%,
+    #c69231 78%,
+    #8b601c 100%
+  );
+
+  border: 1px solid #a47b2c;
+
+  box-shadow:
+    1px 3px 7px rgba(63, 41, 11, 0.25),
+    inset 1px 0 2px rgba(255, 255, 255, 0.6);
+  z-index: 5;
+}
+
+.bsg-left-handle {
+  right: 6px;
+}
+
+.bsg-right-handle {
+  left: 6px;
+}
+
+/* Lightweight Organic SVG Vines */
+.bsg-vines {
+  position: absolute;
+  top: -24px;
+  left: -8px;
+  right: -8px;
+  height: 220px;
+  width: calc(100% + 16px);
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+  filter: drop-shadow(0 4px 6px rgba(35, 50, 20, 0.18));
+}
+
+/* Subtle Architectural Doorstep */
+.bsg-step {
+  position: relative;
+  width: 106%;
+  margin-left: -3%;
+  height: 24px;
+  margin-top: -3px;
+}
+
+.bsg-step-top {
+  height: 12px;
+
+  background: linear-gradient(
+    180deg,
+    #fffdf9,
+    #e8d8c5
+  );
+
+  border: 1px solid #e4d3bf;
+  border-radius: 4px;
+}
+
+.bsg-step-bottom {
+  height: 12px;
+  margin-inline: -8px;
+
+  background: linear-gradient(
+    180deg,
+    #f5e9d9,
+    #d9c4ab
+  );
+
+  border-radius: 3px;
+
+  box-shadow:
+    0 10px 18px rgba(66, 45, 25, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN ADAPTATIONS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .bsg-wrapper {
+    max-width: 480px;
+  }
+
+  .bsg-arch {
+    height: 550px;
+  }
+
+  .bsg-vines {
+    top: -22px;
+    height: 190px;
+  }
+
+  .bsg-content {
+    padding: 24px 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bsg-wrapper {
+    max-width: 100%;
+  }
+
+  .bsg-scene {
+    padding-inline: 5px;
+  }
+
+  .bsg-arch {
+    height: 510px;
+    border-width: 7px;
+  }
+
+  .bsg-upper-panel {
+    font-size: 16px;
+    gap: 10px;
+  }
+
+  .bsg-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .bsg-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .bsg-handle {
+    height: 56px;
+    width: 10px;
+  }
+
+  .bsg-content {
+    padding: 16px 8px 10px;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .bsg-door,
+  .bsg-content {
+    transition: none !important;
+  }
+}

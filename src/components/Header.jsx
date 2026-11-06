@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
-import { ArrowRight, Sparkles, Menu, X } from 'lucide-react';
+import { ArrowRight, Sparkles, Menu, X, ChevronDown } from 'lucide-react';
 
 export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const moreDropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (moreDropdownRef.current && !moreDropdownRef.current.contains(event.target)) {
+        setMoreDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
@@ -121,10 +133,35 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
 
   const handleSchemeGuideClick = (e) => {
     e.preventDefault();
+    setMoreDropdownOpen(false);
     if (location.pathname === '/scheme-guide') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       navigate('/scheme-guide');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleBusinessSuchnaClick = (e) => {
+    e.preventDefault();
+    setMoreDropdownOpen(false);
+    setMobileMenuOpen(false);
+    if (location.pathname === '/business-suchna') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/business-suchna');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleService2Click = (e) => {
+    e.preventDefault();
+    setMoreDropdownOpen(false);
+    setMobileMenuOpen(false);
+    if (location.pathname === '/service-2') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/service-2');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -211,7 +248,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="/eligibility" 
-            className={`nav-link ${location.pathname === '/eligibility' ? 'active' : ''}`}
+            className={`nav-link nav-link-desktop-collapsible ${location.pathname === '/eligibility' ? 'active' : ''}`}
             onClick={handleEligibilityClick}
           >
             Eligibility
@@ -219,7 +256,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="/hsn-code-finder" 
-            className={`nav-link ${location.pathname === '/hsn-code-finder' ? 'active' : ''}`}
+            className={`nav-link nav-link-desktop-collapsible ${location.pathname === '/hsn-code-finder' ? 'active' : ''}`}
             onClick={handleHsnClick}
           >
             HSN Code Finder
@@ -227,7 +264,7 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <a 
             href="/scheme-guide" 
-            className={`nav-link ${location.pathname === '/scheme-guide' ? 'active' : ''}`}
+            className={`nav-link nav-link-desktop-collapsible ${location.pathname === '/scheme-guide' ? 'active' : ''}`}
             onClick={handleSchemeGuideClick}
           >
             Scheme Guide
@@ -235,11 +272,125 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           </a>
           <NavLink 
             to="/popup" 
-            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `nav-link nav-link-desktop-collapsible ${isActive ? 'active' : ''}`}
           >
             Popup
             {location.pathname === '/popup' && <span className="active-dot" />}
           </NavLink>
+          <NavLink 
+            to="/business-suchna" 
+            className={({ isActive }) => `nav-link nav-link-desktop-collapsible ${isActive ? 'active' : ''}`}
+            onClick={handleBusinessSuchnaClick}
+          >
+            Business Suchna
+            {location.pathname === '/business-suchna' && <span className="active-dot" />}
+          </NavLink>
+          <NavLink 
+            to="/service-2" 
+            className={({ isActive }) => `nav-link nav-link-desktop-collapsible ${isActive ? 'active' : ''}`}
+            onClick={handleService2Click}
+          >
+            Service 2
+            {location.pathname === '/service-2' && <span className="active-dot" />}
+          </NavLink>
+
+          {/* Responsive "More ▾" Dropdown for viewports between 981px and 1440px */}
+          <div className="nav-more-dropdown-wrapper" ref={moreDropdownRef}>
+            <button
+              type="button"
+              className={`nav-link nav-more-trigger ${
+                ['/eligibility', '/hsn-code-finder', '/scheme-guide', '/popup', '/business-suchna', '/service-2'].includes(location.pathname) ? 'active' : ''
+              }`}
+              onClick={() => setMoreDropdownOpen(!moreDropdownOpen)}
+              aria-expanded={moreDropdownOpen}
+              aria-haspopup="true"
+            >
+              <span>More</span>
+              <ChevronDown size={14} className={`dropdown-chevron ${moreDropdownOpen ? 'open' : ''}`} />
+              {['/eligibility', '/hsn-code-finder', '/scheme-guide', '/popup', '/business-suchna', '/service-2'].includes(location.pathname) && (
+                <span className="active-dot" />
+              )}
+            </button>
+
+            {moreDropdownOpen && (
+              <div className="nav-dropdown-menu animate-fade-in" role="menu">
+                <a 
+                  href="/eligibility" 
+                  className={`nav-dropdown-item ${location.pathname === '/eligibility' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMoreDropdownOpen(false);
+                    handleEligibilityClick(e);
+                  }}
+                  role="menuitem"
+                >
+                  <span>Eligibility</span>
+                  {location.pathname === '/eligibility' && <span className="item-active-dot" />}
+                </a>
+
+                <a 
+                  href="/hsn-code-finder" 
+                  className={`nav-dropdown-item ${location.pathname === '/hsn-code-finder' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMoreDropdownOpen(false);
+                    handleHsnClick(e);
+                  }}
+                  role="menuitem"
+                >
+                  <span>HSN Code Finder</span>
+                  {location.pathname === '/hsn-code-finder' && <span className="item-active-dot" />}
+                </a>
+
+                <a 
+                  href="/scheme-guide" 
+                  className={`nav-dropdown-item ${location.pathname === '/scheme-guide' ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMoreDropdownOpen(false);
+                    handleSchemeGuideClick(e);
+                  }}
+                  role="menuitem"
+                >
+                  <span>Scheme Guide</span>
+                  {location.pathname === '/scheme-guide' && <span className="item-active-dot" />}
+                </a>
+
+                <NavLink 
+                  to="/popup" 
+                  className={({ isActive }) => `nav-dropdown-item ${isActive ? 'active' : ''}`}
+                  onClick={() => setMoreDropdownOpen(false)}
+                  role="menuitem"
+                >
+                  <span>Popup</span>
+                  {location.pathname === '/popup' && <span className="item-active-dot" />}
+                </NavLink>
+
+                <NavLink 
+                  to="/business-suchna" 
+                  className={({ isActive }) => `nav-dropdown-item highlight-item ${isActive ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMoreDropdownOpen(false);
+                    handleBusinessSuchnaClick(e);
+                  }}
+                  role="menuitem"
+                >
+                  <span>Business Suchna</span>
+                  {location.pathname === '/business-suchna' && <span className="item-active-dot" />}
+                </NavLink>
+
+                <NavLink 
+                  to="/service-2" 
+                  className={({ isActive }) => `nav-dropdown-item highlight-item ${isActive ? 'active' : ''}`}
+                  onClick={(e) => {
+                    setMoreDropdownOpen(false);
+                    handleService2Click(e);
+                  }}
+                  role="menuitem"
+                >
+                  <span>Service 2</span>
+                  {location.pathname === '/service-2' && <span className="item-active-dot" />}
+                </NavLink>
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Right Actions */}
@@ -383,6 +534,26 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             onClick={() => setMobileMenuOpen(false)}
           >
             Popup
+          </NavLink>
+          <NavLink 
+            to="/business-suchna" 
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleBusinessSuchnaClick(e);
+            }}
+          >
+            Business Suchna
+          </NavLink>
+          <NavLink 
+            to="/service-2" 
+            className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleService2Click(e);
+            }}
+          >
+            Service 2
           </NavLink>
           <a href="#finder" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
             Which Service Do I Need?

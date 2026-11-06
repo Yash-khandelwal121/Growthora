@@ -1,0 +1,763 @@
+/* ==========================================================================
+   GROWTHORA "ONE PARTNER. EVERY STAGE." & ADVISORY FINDER SECTION
+   Clean Balanced Design (Reference: media_1793942403874_50fc4ba6.jpg)
+   ========================================================================== */
+
+.s2-journey-finder-section {
+  position: relative;
+  width: 100%;
+  background-color: #FFF8F3;
+  padding: clamp(32px, 3.6vw, 48px) 1.5rem;
+  box-sizing: border-box;
+  font-family: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
+}
+
+@media (min-width: 1024px) {
+  .s2-journey-finder-section {
+    padding: clamp(40px, 4vw, 54px) 2rem;
+  }
+}
+
+.s2-journey-finder-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .s2-journey-finder-container {
+    padding: 0 32px;
+  }
+}
+
+/* ==========================================================================
+   BALANCED TWO-COLUMN GRID: 52% LEFT / 48% RIGHT, 28px GAP
+   ========================================================================== */
+.s2-journey-finder-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .s2-journey-finder-grid {
+    grid-template-columns: 52% 48%;
+    gap: 28px;
+    align-items: start;
+  }
+}
+
+/* ==========================================================================
+   LEFT COLUMN — 52%: BUSINESS GROWTH JOURNEY (ELEPHANT & 5 STAGES)
+   ========================================================================== */
+.s2-journey-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid #FFE4D0;
+  border-radius: 30px;
+  box-shadow: 
+    0 16px 45px rgba(255, 101, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.02);
+  padding: 32px 30px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .s2-journey-card {
+    padding: 24px 18px 20px 18px;
+    border-radius: 24px;
+  }
+}
+
+/* Small Orange Tag: — ONE */
+.s2-journey-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.s2-journey-dash {
+  width: 22px;
+  height: 2.5px;
+  background: #FF6500;
+  border-radius: 9999px;
+  display: block;
+}
+
+.s2-journey-tag-text {
+  font-size: 13px;
+  font-weight: 850;
+  color: #FF6500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Main Heading: ONE PARTNER. EVERY STAGE. */
+.s2-journey-heading-wrap {
+  margin-bottom: 10px;
+}
+
+.s2-journey-main-heading {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px 0;
+}
+
+.s2-heading-purple {
+  color: #310B55;
+}
+
+.s2-heading-orange-wrap {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.s2-heading-orange {
+  color: #FF6500;
+}
+
+.s2-heading-underline-svg {
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  height: 12px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.s2-journey-description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #4A5568;
+  margin: 0;
+  max-width: 500px;
+}
+
+/* Responsive Illustration Wrapper (Reduced ~35-40% in size, perfectly contained) */
+.growth-illustration {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 10px auto 14px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.growth-illustration-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 16px;
+  filter: drop-shadow(0 6px 20px rgba(255, 101, 0, 0.05));
+}
+
+/* --------------------------------------------------------------------------
+   "FROM VISION TO VICTORY." HEADING & SUBTITLE (MATCHING REFERENCE)
+   -------------------------------------------------------------------------- */
+.s2-vision-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 14px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.s2-vision-dash {
+  width: 28px;
+  height: 2px;
+  background-color: #FF6500;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+
+.s2-vision-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(23px, 2.3vw, 29px);
+  font-weight: 600;
+  color: #4B1164;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 0 0 6px 0;
+}
+
+.s2-vision-subtitle {
+  font-family: var(--font-body, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
+  font-size: clamp(13px, 1.05vw, 14.5px);
+  color: #64748B;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   FIVE-STAGE CONNECTED TIMELINE: 01 START -> 05 SCALE
+   -------------------------------------------------------------------------- */
+.s2-timeline-container {
+  position: relative;
+  width: 100%;
+  padding: 6px 0 10px 0;
+  margin-bottom: 20px;
+}
+
+/* Connecting track lines centered vertically through the circles */
+.s2-timeline-track-base {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background-color: #FFE2CF;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.s2-timeline-track-fill {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background-color: #FF6500;
+  pointer-events: none;
+  z-index: 2;
+  transform-origin: left center;
+}
+
+/* Intermediate milestone connection dots */
+.s2-timeline-mid-dot {
+  position: absolute;
+  top: 24px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #FF6500;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 0 0 2px #FFFFFF;
+}
+
+/* 5 Connected Milestone Nodes */
+.s2-timeline-stages-row {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.s2-timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 52px;
+}
+
+.s2-timeline-circle {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  border: 1.5px solid #FFD6BF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(255, 101, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background-color: #FFF7F1;
+  margin-bottom: 8px;
+}
+
+.s2-timeline-node:hover .s2-timeline-circle {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 20px rgba(255, 101, 0, 0.18);
+}
+
+.s2-timeline-stage-num {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #FF6500;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  letter-spacing: 0.02em;
+}
+
+.s2-timeline-stage-label {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 11.5px;
+  font-weight: 850;
+  color: #35104F;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+@media (max-width: 480px) {
+  .s2-timeline-circle {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+  .s2-timeline-circle svg {
+    width: 17px;
+    height: 17px;
+  }
+  .s2-timeline-track-base,
+  .s2-timeline-track-fill {
+    top: 19px;
+    left: 19px;
+    right: 19px;
+  }
+  .s2-timeline-mid-dot {
+    top: 19px;
+    width: 5px;
+    height: 5px;
+  }
+  .s2-timeline-stage-num {
+    font-size: 10px;
+  }
+  .s2-timeline-stage-label {
+    font-size: 10px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MILESTONE TAGLINE: — ONE PARTNER. EVERY MILESTONE —
+   -------------------------------------------------------------------------- */
+.s2-milestone-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.s2-tagline-dash {
+  width: 22px;
+  height: 1.5px;
+  background-color: #FF6500;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.s2-tagline-text {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Bottom 3 Horizontal Benefits */
+.s2-journey-benefits-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1.5px solid #FFDFC8;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+@media (max-width: 580px) {
+  .s2-journey-benefits-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+.s2-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.s2-benefit-icon-wrap {
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s2-benefit-title {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: #101B35;
+  white-space: nowrap;
+}
+
+.s2-benefit-divider {
+  width: 1.5px;
+  height: 20px;
+  background: #FFDFC8;
+}
+
+@media (max-width: 580px) {
+  .s2-benefit-divider {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   RIGHT COLUMN — 48%: SERVICE RECOMMENDATION & ADVISORY FINDER
+   (No large empty space, natural content height, ~24px gap between grid & card)
+   ========================================================================== */
+.s2-finder-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1.5px solid #FFE4D0;
+  border-radius: 30px;
+  box-shadow: 
+    0 16px 45px rgba(255, 101, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.02);
+  padding: 30px 28px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .s2-finder-card {
+    padding: 24px 18px 20px 18px;
+    border-radius: 24px;
+  }
+}
+
+/* Header */
+.s2-finder-header {
+  margin-bottom: 16px;
+}
+
+.s2-finder-main-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(23px, 2.4vw, 30px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px 0;
+}
+
+.s2-title-purple {
+  color: #310B55;
+}
+
+.s2-title-orange {
+  color: #FF6500;
+}
+
+.s2-finder-subtext {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #4A5568;
+  margin: 0;
+}
+
+/* 9 Clickable Service Options (2-Column Grid, ~52px button height, 12px gap) */
+.s2-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 480px) {
+  .s2-services-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.s2-service-opt-btn {
+  background: #FFFDFB;
+  border: 1.5px solid #FFE1CE;
+  border-radius: 14px;
+  height: 52px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.04);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.s2-service-opt-btn:hover {
+  transform: translateY(-2px);
+  border-color: #FFB380;
+  background: #FFFFFF;
+  box-shadow: 0 6px 16px rgba(255, 101, 0, 0.12);
+}
+
+.s2-service-opt-btn.selected {
+  background: #FFF5EC;
+  border: 2px solid #FF6500;
+  box-shadow: 0 4px 14px rgba(255, 101, 0, 0.16);
+}
+
+.s2-service-opt-icon {
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.s2-service-opt-label {
+  font-size: 13px;
+  font-weight: 750;
+  color: #101B35;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+/* Recommended Practice Panel (Directly below grid with ~24px spacing, no gap) */
+.s2-recommendation-panel {
+  background: #FFFFFF;
+  border: 1.5px solid #FFE4D0;
+  border-radius: 22px;
+  padding: 20px 20px;
+  box-shadow: 0 10px 28px rgba(255, 101, 0, 0.06);
+  margin-top: 0;
+}
+
+.s2-rec-content-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Row: Sparkle Badge & Number */
+.s2-rec-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.s2-rec-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF1E6;
+  border: 1px solid #FFD8BC;
+  color: #FF6500;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 10.5px;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+}
+
+.s2-sparkle-icon {
+  color: #FF6500;
+}
+
+.s2-rec-number-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFF1E6;
+  border: 1px solid #FFD8BC;
+  font-size: 12.5px;
+  font-weight: 850;
+  color: #FF6500;
+}
+
+/* Service Header: 44px Icon Box + Title */
+.s2-rec-hero-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.s2-rec-icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF6F0A 0%, #FF5000 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(255, 101, 0, 0.28);
+}
+
+.s2-rec-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.s2-rec-main-title {
+  font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 19px;
+  font-weight: 800;
+  color: #310B55;
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* Description */
+.s2-rec-description-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4A5568;
+  margin: 0 0 14px 0;
+}
+
+/* Key Included Offerings */
+.s2-rec-offerings-box {
+  margin-bottom: 16px;
+}
+
+.s2-offerings-label {
+  font-size: 10.5px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  color: #718096;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.s2-offerings-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 480px) {
+  .s2-offerings-chips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.s2-offering-chip {
+  background: #FFFDFB;
+  border: 1px solid #FFE4D0;
+  border-radius: 9999px;
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.s2-chip-check-icon {
+  color: #FF6500;
+  flex-shrink: 0;
+}
+
+.s2-chip-text {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #101B35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Action Buttons */
+.s2-rec-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.s2-btn-explore-practice {
+  background: linear-gradient(135deg, #FF6E0A 0%, #FF5000 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 750;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 101, 0, 0.32);
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.s2-btn-explore-practice:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 101, 0, 0.42);
+  background: linear-gradient(135deg, #FF7B1E 0%, #E64800 100%);
+}
+
+.s2-btn-explore-practice:active {
+  transform: translateY(0);
+}
+
+.s2-btn-consultation {
+  background: #FFFFFF;
+  border: 1.5px solid #4B075C;
+  color: #4B075C;
+  border-radius: 9999px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 750;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.s2-btn-consultation:hover {
+  background: #F9EFFC;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(75, 7, 92, 0.12);
+}
+
+.s2-btn-consultation:active {
+  transform: translateY(0);
+}
+
+.s2-consult-cal-icon {
+  color: #4B075C;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .s2-service-opt-btn,
+  .s2-btn-explore-practice,
+  .s2-btn-consultation,
+  .s2-timeline-track-fill,
+  .s2-timeline-node,
+  .s2-timeline-mid-dot {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
