@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 /**
  * ServiceTooltip renders the connected status panel below the semicircular graph.
  * Displays the current active stage details and consultation navigation.
+ * Uses dedicated CSS classes (.service-tooltip-*) in service2.css for robust layout.
  */
 export const ServiceTooltip = ({
   activeSegment,
@@ -21,56 +22,57 @@ export const ServiceTooltip = ({
   };
 
   const isComplete = activeStageIndex >= 6;
-  const stageColor = activeSegment?.color || '#FF5A00';
+  const stageColor = activeSegment?.color || '#F07126';
 
   return (
-    <div className="w-full max-w-[520px] mx-auto mt-2.5 sm:mt-3 px-1 select-none">
+    <div className="service-tooltip-wrapper">
       <div
-        className="relative bg-white/95 backdrop-blur-md border border-[#F2DCC8] rounded-2xl p-3.5 sm:p-4 shadow-md shadow-navy-950/5 transition-all duration-300"
+        className="service-tooltip-card"
         style={{
-          boxShadow: `0 8px 24px ${stageColor}12, 0 2px 8px rgba(16, 26, 55, 0.04)`,
+          boxShadow: `0 10px 28px ${stageColor}18, 0 2px 8px rgba(17, 27, 52, 0.04)`,
+          borderColor: `${stageColor}28`,
         }}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="service-tooltip-row">
           {/* Left info area */}
-          <div className="flex items-start gap-3 flex-1 min-w-0">
-            {/* Stage Number Badge */}
+          <div className="service-tooltip-left">
+            {/* Compact Stage Number Badge */}
             <div
-              className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-white font-extrabold text-xs sm:text-sm shrink-0 shadow-md transition-all duration-300"
+              className="service-tooltip-badge"
               style={{
                 backgroundColor: stageColor,
-                boxShadow: `0 4px 12px ${stageColor}35`,
+                boxShadow: `0 4px 14px ${stageColor}38`,
               }}
             >
               {activeSegment ? activeSegment.code : '00'}
             </div>
 
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+            <div className="service-tooltip-info">
+              <div className="service-tooltip-meta">
                 <span
-                  className="text-[10px] sm:text-[11px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-full border transition-colors"
+                  className="service-tooltip-pill"
                   style={{
                     color: stageColor,
                     borderColor: `${stageColor}35`,
-                    backgroundColor: `${stageColor}10`,
+                    backgroundColor: `${stageColor}12`,
                   }}
                 >
                   Stage {activeSegment ? activeSegment.code : '00'} / 06
                 </span>
 
                 {isComplete && (
-                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="service-tooltip-complete-tag">
                     <Sparkles size={11} />
                     Complete Ecosystem
                   </span>
                 )}
               </div>
 
-              <h4 className="text-sm sm:text-base font-extrabold text-[#101A37] leading-tight mb-0.5 truncate">
+              <h4 className="service-tooltip-title">
                 {activeSegment ? activeSegment.name : 'Complete Business Advisory Ecosystem'}
               </h4>
 
-              <p className="text-xs sm:text-[13px] text-slate-600 line-clamp-2 leading-relaxed">
+              <p className="service-tooltip-desc">
                 {activeSegment
                   ? activeSegment.description
                   : 'A sequential advisory journey guiding your business from setup to scaling.'}
@@ -79,11 +81,11 @@ export const ServiceTooltip = ({
           </div>
 
           {/* Right Action Button */}
-          <div className="flex items-center gap-2 sm:self-center shrink-0">
+          <div className="service-tooltip-action">
             <button
               type="button"
               onClick={handleExplore}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5"
+              className="service-tooltip-btn"
               style={{
                 backgroundColor: stageColor,
                 boxShadow: `0 4px 14px ${stageColor}30`,
@@ -98,4 +100,5 @@ export const ServiceTooltip = ({
     </div>
   );
 };
+
 

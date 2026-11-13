@@ -12,6 +12,14 @@ import { ServiceArc } from './ServiceArc';
 import { ServiceTooltip } from './ServiceTooltip';
 
 /**
+ * Refined, eye-friendly brand colors:
+ * Soft royal amethyst plum and warm sunset amber orange
+ * (lighter, gentle on the eyes, removes harsh glare and high-contrast tension)
+ */
+const COLOR_PURPLE = '#803886'; // Soft Amethyst Plum (lighter, easy on eyes)
+const COLOR_ORANGE = '#F07126'; // Warm Sunset Amber Orange (soft, non-glaring)
+
+/**
  * 6 Advisory Service Segments according to the Growthora Master Specification
  */
 const SERVICE_SEGMENTS = [
@@ -22,7 +30,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Registration'],
     a1: 180,
     a2: 150,
-    color: '#65005F', // Primary Growthora Purple
+    color: COLOR_PURPLE,
     icon: FileText,
     description: 'Set up your business with the right legal structure.',
   },
@@ -33,7 +41,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Finance &', 'Funding'],
     a1: 150,
     a2: 120,
-    color: '#FF5A00', // Vibrant Growthora Orange
+    color: COLOR_ORANGE,
     icon: Coins,
     description: 'Access the right funding and financial support.',
   },
@@ -44,7 +52,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Certifications'],
     a1: 120,
     a2: 90,
-    color: '#65005F', // Primary Growthora Purple
+    color: COLOR_PURPLE,
     icon: Award,
     description: 'Obtain essential licences and industry certifications.',
   },
@@ -55,7 +63,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Branding'],
     a1: 90,
     a2: 60,
-    color: '#FF5A00', // Vibrant Growthora Orange
+    color: COLOR_ORANGE,
     icon: Megaphone,
     description: 'Build a strong and credible brand identity.',
   },
@@ -66,7 +74,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Legal & CA'],
     a1: 60,
     a2: 30,
-    color: '#65005F', // Primary Growthora Purple
+    color: COLOR_PURPLE,
     icon: Scale,
     description: 'Stay compliant with legal, tax and regulatory requirements.',
   },
@@ -77,7 +85,7 @@ const SERVICE_SEGMENTS = [
     lines: ['Growth &', 'Expansion'],
     a1: 30,
     a2: 0,
-    color: '#FF5A00', // Vibrant Growthora Orange
+    color: COLOR_ORANGE,
     icon: TrendingUp,
     description: 'Scale with operations, MSME benefits, IPO and valuation support.',
   },

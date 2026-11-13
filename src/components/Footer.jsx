@@ -176,13 +176,13 @@ export const Footer = ({ onSelectCategory }) => {
           <div className="footer-links-col">
             <h4>Company</h4>
             <ul className="footer-links-list">
-              <li onClick={() => navItemClick('/')}>About</li>
-              <li onClick={() => navItemClick('/')}>Success Stories</li>
+              <li onClick={() => navItemClick('/about')}>About</li>
+              <li onClick={() => navItemClick('/success-stories')}>Success Stories</li>
               <li onClick={() => navItemClick('/insights')}>Growthora Insights</li>
-              <li onClick={() => navItemClick('/')}>Blogs</li>
-              <li onClick={() => navItemClick('/')}>Careers</li>
-              <li onClick={() => navItemClick('/')}>Contact</li>
-              <li onClick={() => navItemClick('/')}>Case Studies</li>
+              <li onClick={() => navItemClick('/blog')}>Blogs</li>
+              <li onClick={() => navItemClick('/book-consultation')}>Careers</li>
+              <li onClick={() => navItemClick('/book-consultation')}>Contact</li>
+              <li onClick={() => navItemClick('/success-stories#case-studies')}>Case Studies</li>
               <li>Company Profile (PDF)</li>
             </ul>
           </div>

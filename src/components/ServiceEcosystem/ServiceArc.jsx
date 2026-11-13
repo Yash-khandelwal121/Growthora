@@ -47,9 +47,9 @@ export const ServiceArc = ({
 
           {/* Speedometer Track Linear Gradient */}
           <linearGradient id="gaugeTrackGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#65005F" />
-            <stop offset="50%" stopColor="#FF5A00" />
-            <stop offset="100%" stopColor="#EA580C" />
+            <stop offset="0%" stopColor="#803886" />
+            <stop offset="50%" stopColor="#F07126" />
+            <stop offset="100%" stopColor="#F58742" />
           </linearGradient>
 
           {/* Central Hub Radial Glow */}
@@ -72,7 +72,7 @@ export const ServiceArc = ({
             <tspan fill="#101A37" fontWeight="800" fontSize="22">
               Complete Business{' '}
             </tspan>
-            <tspan fill="#FF5A00" fontWeight="800" fontSize="22">
+            <tspan fill="#F07126" fontWeight="800" fontSize="22">
               Advisory Ecosystem
             </tspan>
           </text>
@@ -110,8 +110,8 @@ export const ServiceArc = ({
               transform: `translate(${beadX}px, ${beadY}px)`,
             }}
           >
-            <circle r="7" fill="#FF5A00" stroke="#FFFFFF" strokeWidth="2" />
-            <circle r="12" fill="#FF5A00" opacity="0.25" className="animate-ping" />
+            <circle r="7" fill="#F07126" stroke="#FFFFFF" strokeWidth="2" />
+            <circle r="12" fill="#F07126" opacity="0.25" className="animate-ping" />
           </g>
         )}
 
@@ -119,7 +119,7 @@ export const ServiceArc = ({
         <path
           d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy} Z`}
           fill="url(#centerHubGlow)"
-          stroke="#F3E3D3"
+          stroke="#F0DFD1"
           strokeWidth="1.5"
         />
 

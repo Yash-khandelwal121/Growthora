@@ -32,6 +32,7 @@ import ScrollToTop from './components/ScrollToTop';
 import PopupPage from './pages/PopupPage';
 import BusinessSuchna from './pages/BusinessSuchna';
 import Service2 from './pages/Service2';
+import SuccessStoriesPage from './pages/SuccessStoriesPage';
 
 import './styles/index.css';
 import './styles/animations.css';
@@ -126,6 +127,9 @@ export function App() {
 
         {/* Service 2 Page */}
         <Route path="/service-2" element={<Service2 />} />
+
+        {/* Success Stories Page */}
+        <Route path="/success-stories" element={<SuccessStoriesPage />} />
       </Routes>
     </BrowserRouter>
   );

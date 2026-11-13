@@ -71,6 +71,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleSuccessStoriesClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/success-stories') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/success-stories');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleInsightsClick = (e) => {
     e.preventDefault();
     if (location.pathname === '/insights') {
@@ -210,6 +220,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             Industries
             {location.pathname === '/industries' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/success-stories" 
+            className={`nav-link ${location.pathname === '/success-stories' ? 'active' : ''}`}
+            onClick={handleSuccessStoriesClick}
+          >
+            Success Stories
+            {location.pathname === '/success-stories' && <span className="active-dot" />}
           </a>
           <span className="nav-link disabled" title="Services Page Only Redesign">
             Govt Schemes
@@ -457,6 +475,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Industries
+          </a>
+          <a 
+            href="/success-stories" 
+            className={`mobile-nav-link ${location.pathname === '/success-stories' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleSuccessStoriesClick(e);
+            }}
+          >
+            Success Stories
           </a>
           <a 
             href="/insights" 

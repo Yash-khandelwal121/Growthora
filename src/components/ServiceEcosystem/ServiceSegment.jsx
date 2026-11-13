@@ -46,7 +46,7 @@ export const ServiceSegment = ({
   const my = Math.round(cy - labelRadius * Math.sin(toRad(midA)));
 
   // Determine active fill color
-  const activeColor = segment.color; // #65005F (Purple) or #FF5A00 (Orange)
+  const activeColor = segment.color;
   const inactiveColor = '#EAE7E8';
   const hoverColor = '#DFDCDE';
 
@@ -88,9 +88,7 @@ export const ServiceSegment = ({
         style={{
           filter:
             isActive || isSelected
-              ? activeColor === '#65005F'
-                ? 'drop-shadow(0 4px 12px rgba(101, 0, 95, 0.32))'
-                : 'drop-shadow(0 4px 12px rgba(255, 90, 0, 0.32))'
+              ? `drop-shadow(0 4px 12px ${activeColor}38)`
               : 'none',
         }}
       />
@@ -103,7 +101,15 @@ export const ServiceSegment = ({
         height="28"
         className="pointer-events-none"
       >
-        <div className="w-full h-full flex items-center justify-center">
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Icon
             size={20}
             strokeWidth={2.4}
