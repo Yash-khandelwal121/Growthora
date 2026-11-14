@@ -13,6 +13,9 @@ import {
   Star,
   ExternalLink,
   Phone,
+  PhoneCall,
+  Headphones,
+  Mail,
   ShieldCheck,
   Sparkles,
   Building2,
@@ -1393,16 +1396,27 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
-        {/* 12. Final CTA Section (Deep Purple #251039) */}
+        {/* 12. Final CTA Section (Deep Purple #2B103D) */}
         <section className="ss-final-cta-section" aria-labelledby="cta-title">
           <div className="ss-container">
             <div className="ss-cta-card">
               <div className="ss-cta-grid">
-                <div>
-                  <span className="ss-cta-kicker">Your Turn to Grow</span>
+                <div className="ss-cta-content">
+                  <div className="ss-cta-kicker-wrap">
+                    <span className="ss-cta-kicker-bar" aria-hidden="true" />
+                    <span className="ss-cta-kicker">YOUR TURN TO GROW</span>
+                  </div>
+
                   <h2 id="cta-title" className="ss-cta-h2">
-                    Your Next Success Story <em>Starts Here.</em>
+                    <span className="ss-cta-h2-main">Your Next Success Story</span>
+                    <span className="ss-cta-h2-em-wrap">
+                      <em>Starts Here.</em>
+                      <svg className="ss-cta-swoosh" viewBox="0 0 240 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 14C65 4 175 4 236 14" stroke="#FF8A45" strokeWidth="4.5" strokeLinecap="round" />
+                      </svg>
+                    </span>
                   </h2>
+
                   <p className="ss-cta-desc">
                     From business registration to funding advisory, take your next step with Growthora. The first 30-minute consultation is free.
                   </p>
@@ -1410,7 +1424,7 @@ export default function SuccessStoriesPage() {
                   <div className="ss-cta-buttons">
                     <button
                       type="button"
-                      className="ss-btn-primary"
+                      className="ss-cta-btn-primary"
                       onClick={() => setIsConsultationOpen(true)}
                     >
                       <span>Book a Consultation</span>
@@ -1422,23 +1436,39 @@ export default function SuccessStoriesPage() {
                     </a>
                   </div>
 
-                  <div className="ss-cta-contacts">
-                    <span>Direct: <a href="tel:+919005427979">+91 90054 27979</a></span>
-                    <span>Toll-Free: <a href="tel:18004102598">1800 410 2598</a></span>
-                    <span>Email: <a href="mailto:info@growthora.co.in">info@growthora.co.in</a></span>
+                  <div className="ss-cta-contacts-row">
+                    <a href="tel:+919005427979" className="ss-cta-contact-item">
+                      <PhoneCall size={14} className="ss-cta-contact-icon" />
+                      <span>+91 90054 27979</span>
+                    </a>
+                    <span className="ss-cta-contact-divider" aria-hidden="true" />
+                    <a href="tel:18004102598" className="ss-cta-contact-item">
+                      <Headphones size={14} className="ss-cta-contact-icon" />
+                      <span>1800 410 2598</span>
+                    </a>
+                    <span className="ss-cta-contact-divider" aria-hidden="true" />
+                    <a href="mailto:info@growthora.co.in" className="ss-cta-contact-item">
+                      <Mail size={14} className="ss-cta-contact-icon" />
+                      <span>info@growthora.co.in</span>
+                    </a>
                   </div>
 
-                  <div className="ss-cta-hindi">
-                    हम बढ़ाएँ आपका बिज़नेस
+                  <div className="ss-cta-hindi-row">
+                    <span className="ss-cta-hindi-text">हम बढ़ाएँ आपका बिज़नेस</span>
+                    <span className="ss-cta-hindi-line" aria-hidden="true" />
                   </div>
                 </div>
 
-                <div className="ss-cta-visual-frame">
-                  <img
-                    src="/services/ff_meeting.jpg"
-                    alt="Growthora advisory consultation"
-                    loading="lazy"
-                  />
+                <div className="ss-cta-visual-col">
+                  <div className="ss-cta-visual-frame">
+                    <img
+                      src="/images/cta/cta_growthora_desk.png"
+                      srcSet="/images/cta/cta_growthora_desk.png 1x, /images/cta/cta_growthora_desk@2x.png 2x"
+                      alt="Growthora Financial Growth & Consultation Desk"
+                      className="ss-cta-desk-img"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
