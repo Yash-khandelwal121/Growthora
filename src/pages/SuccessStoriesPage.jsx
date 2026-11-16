@@ -138,6 +138,9 @@ export default function SuccessStoriesPage() {
   // FAQ Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
+  // Client Satisfaction Journey Interactive State
+  const [activeMilestoneId, setActiveMilestoneId] = useState(null);
+
   // Google Reviews Carousel State
   const [currentReviewSlide, setCurrentReviewSlide] = useState(0);
   const reviewTouchStartX = useRef(null);
@@ -1433,25 +1436,41 @@ export default function SuccessStoriesPage() {
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <span className="ss-cs-graph-title">Client Satisfaction Journey</span>
+                    <div>
+                      <span className="ss-cs-graph-title">Client Satisfaction Journey</span>
+                      {activeMilestoneId && (
+                        <span className="ss-cs-graph-stage-hint">
+                          {activeMilestoneId === 'initial' && 'Advisory onboarding & readiness assessment (Illustrative milestone)'}
+                          {activeMilestoneId === 'reg' && 'Entity incorporation & scheme mapping complete (Illustrative milestone)'}
+                          {activeMilestoneId === 'funding' && 'DPR approved & funding disbursed (Illustrative milestone)'}
+                          {activeMilestoneId === 'satisfaction' && 'Advisory excellence & verified client satisfaction benchmark'}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="ss-cs-sat-badge">
+                  <div
+                    className={`ss-cs-sat-badge ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                    onMouseEnter={() => setActiveMilestoneId('satisfaction')}
+                    onMouseLeave={() => setActiveMilestoneId(null)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <span className="ss-cs-sat-val">97%</span>
                     <span className="ss-cs-sat-lbl">Client Satisfaction</span>
                   </div>
                 </div>
 
                 <div className="ss-cs-chart-wrap">
-                  <svg className="ss-cs-chart-svg" viewBox="0 0 520 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Client satisfaction journey chart showing progression from 0% initial stage to 97% client satisfaction">
+                  <svg className="ss-cs-chart-svg" viewBox="0 0 520 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive client satisfaction journey chart showing progression from 0% initial stage to 97% client satisfaction benchmark">
                     <defs>
-                      <linearGradient id="csGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#C4B0D0" stopOpacity="0.45" />
-                        <stop offset="60%" stopColor="#EDE4F2" stopOpacity="0.25" />
-                        <stop offset="100%" stopColor="#F7F1FB" stopOpacity="0.05" />
+                      {/* Premium light-orange gradient below the curve */}
+                      <linearGradient id="csOrangeGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#FF7A24" stopOpacity="0.32" />
+                        <stop offset="60%" stopColor="#FF7A24" stopOpacity="0.10" />
+                        <stop offset="100%" stopColor="#FFF1E6" stopOpacity="0.02" />
                       </linearGradient>
                       <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7518" />
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7A24" />
                       </marker>
                     </defs>
 
@@ -1474,51 +1493,147 @@ export default function SuccessStoriesPage() {
                     {/* Y-axis vertical line */}
                     <line x1="42" y1="18" x2="42" y2="161" stroke="#EBDFF0" strokeWidth="1.2" />
 
-                    {/* Smooth Gradient Fill under curve */}
+                    {/* Smooth Light-Orange Gradient Fill under curve */}
                     <path
+                      className="ss-cs-animated-fill"
                       d="M 42 161 L 44 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 476 22 L 476 161 Z"
-                      fill="url(#csGradient)"
+                      fill="url(#csOrangeGradient)"
                     />
 
-                    {/* Orange Curve Line */}
+                    {/* Smooth Orange Curve Line — Animated 1.5s from left to right */}
                     <path
+                      className="ss-cs-animated-curve"
                       d="M 42 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 474 23"
-                      stroke="#FF7518"
-                      strokeWidth="2.8"
+                      stroke="#FF7A24"
+                      strokeWidth="3"
                       strokeLinecap="round"
                       fill="none"
                       markerEnd="url(#csArrow)"
                     />
 
-                    {/* Milestone 1: 0% Origin */}
-                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+                    {/* Milestone 0: Origin */}
+                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" />
 
-                    {/* Milestone 2: 0% Initial Stage */}
-                    <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
-                    <g transform="translate(86, 96)">
-                      <rect width="68" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
-                      <text x="34" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
-                      <text x="34" y="33" fill="#7A6882" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
+                    {/* Milestone 1: 0% Initial Stage (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ${activeMilestoneId === 'initial' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('initial')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="0% Initial Stage: Illustrative journey milestone"
+                    >
+                      <circle cx="120" cy="154" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
+                      <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(86, 96)">
+                        <rect
+                          width="68"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'initial' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
+                          stroke={activeMilestoneId === 'initial' ? "#FF7A24" : "none"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
+                        <text x="34" y="33" fill="#7A6882" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
+                      </g>
+
+                      {activeMilestoneId === 'initial' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(56, 38)">
+                          <rect width="130" height="48" rx="8" fill="#2D123B" />
+                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                        </g>
+                      )}
                     </g>
 
-                    {/* Milestone 3: 56% After Registration */}
-                    <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
-                    <g transform="translate(186, 50)">
-                      <rect width="88" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
-                      <text x="44" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
-                      <text x="44" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
+                    {/* Milestone 2: 56% After Registration (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ${activeMilestoneId === 'reg' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('reg')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="56% After Registration: Illustrative journey milestone"
+                    >
+                      <circle cx="230" cy="110" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
+                      <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(186, 50)">
+                        <rect
+                          width="88"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'reg' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
+                          stroke={activeMilestoneId === 'reg' ? "#FF7A24" : "none"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
+                        <text x="44" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
+                      </g>
+
+                      {activeMilestoneId === 'reg' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(165, -4)">
+                          <rect width="130" height="48" rx="8" fill="#2D123B" />
+                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                        </g>
+                      )}
                     </g>
 
-                    {/* Milestone 4: 78% After Funding */}
-                    <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
-                    <g transform="translate(294, 14)">
-                      <rect width="72" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
-                      <text x="36" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
-                      <text x="36" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
+                    {/* Milestone 3: 78% After Funding (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ${activeMilestoneId === 'funding' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('funding')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="78% After Funding: Illustrative journey milestone"
+                    >
+                      <circle cx="330" cy="72" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
+                      <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(294, 14)">
+                        <rect
+                          width="72"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'funding' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
+                          stroke={activeMilestoneId === 'funding' ? "#FF7A24" : "none"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
+                        <text x="36" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
+                      </g>
+
+                      {activeMilestoneId === 'funding' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(265, -40)">
+                          <rect width="130" height="48" rx="8" fill="#2D123B" />
+                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                        </g>
+                      )}
                     </g>
 
-                    {/* Milestone 5: 97% Tip Indicator */}
-                    <circle cx="478" cy="22" r="5.5" fill="#FF7518" stroke="#FFFFFF" strokeWidth="2.5" />
+                    {/* Milestone 4: 97% Tip Indicator */}
+                    <g
+                      className={`ss-cs-point-group ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('satisfaction')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="97% Client Satisfaction: Verified satisfaction benchmark"
+                    >
+                      <circle cx="478" cy="22" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
+                      <circle cx="478" cy="22" r="6" fill="#FF7A24" stroke="#FFFFFF" strokeWidth="2.5" className="ss-cs-dot-core" />
+                    </g>
                   </svg>
                 </div>
               </div>
@@ -1592,11 +1707,11 @@ export default function SuccessStoriesPage() {
 
             </div>
 
-            {/* Bottom: Achievement Statistics Row */}
+            {/* Bottom: Achievement Statistics Row in Premium Light-Orange Theme */}
             <div className="ss-cs-stats-row">
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-purple">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <div className="ss-cs-stat-card">
+                <div className="ss-cs-stat-icon-wrap">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -1609,11 +1724,9 @@ export default function SuccessStoriesPage() {
                 </div>
               </div>
 
-              <div className="ss-cs-stat-divider" />
-
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-orange">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <div className="ss-cs-stat-card">
+                <div className="ss-cs-stat-icon-wrap">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <ellipse cx="12" cy="5" rx="8" ry="3" />
                     <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
                     <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
@@ -1625,11 +1738,9 @@ export default function SuccessStoriesPage() {
                 </div>
               </div>
 
-              <div className="ss-cs-stat-divider" />
-
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-orange">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <div className="ss-cs-stat-card">
+                <div className="ss-cs-stat-icon-wrap">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
                     <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
                     <path d="M4 22h16" />

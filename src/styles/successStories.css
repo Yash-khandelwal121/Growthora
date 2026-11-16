@@ -4362,7 +4362,7 @@
   white-space: nowrap;
 }
 
-/* Chart Wrap */
+/* Chart Wrap & Animation */
 .ss-cs-chart-wrap {
   width: 100%;
   position: relative;
@@ -4373,6 +4373,99 @@
   height: auto;
   display: block;
   overflow: visible;
+}
+
+/* 1.5s smooth curve line animation from left to right on page load */
+.ss-cs-animated-curve {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: ssDrawCurve 1.5s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes ssDrawCurve {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ss-cs-animated-fill {
+  opacity: 0;
+  animation: ssFadeFill 1.5s ease-out 0.25s forwards;
+}
+
+@keyframes ssFadeFill {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Interactive milestone points & tooltips */
+.ss-cs-point-group {
+  cursor: pointer;
+  outline: none;
+}
+
+.ss-cs-dot-core {
+  transition: r 0.2s ease, stroke-width 0.2s ease;
+}
+
+.ss-cs-point-group:hover .ss-cs-dot-core,
+.ss-cs-point-group:focus-visible .ss-cs-dot-core {
+  r: 7.5;
+  stroke-width: 3.5;
+}
+
+.ss-cs-dot-ring {
+  transition: opacity 0.25s ease, r 0.25s ease;
+}
+
+.ss-cs-point-group:hover .ss-cs-dot-ring,
+.ss-cs-point-group.is-active .ss-cs-dot-ring {
+  opacity: 0.45;
+  animation: ssPulseRing 1.3s infinite ease-out;
+}
+
+@keyframes ssPulseRing {
+  0% {
+    r: 6;
+    opacity: 0.6;
+  }
+  100% {
+    r: 15;
+    opacity: 0;
+  }
+}
+
+.ss-cs-tooltip-bubble {
+  pointer-events: none;
+  animation: ssPopTooltip 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+@keyframes ssPopTooltip {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ss-cs-graph-stage-hint {
+  display: block;
+  font-size: 11.5px;
+  color: #FF7A24;
+  font-weight: 500;
+  margin-top: 2px;
+  animation: ssFadeFill 0.25s ease forwards;
+}
+
+/* Orange Floating 97% Badge */
+.ss-cs-sat-badge.is-active {
+  box-shadow: 0 6px 18px rgba(255, 122, 36, 0.45);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
 }
 
 /* ---------- Testimonial Cards Grid ---------- */
@@ -4540,37 +4633,54 @@
   flex-shrink: 0;
 }
 
-/* ---------- Bottom Stats Row ---------- */
+/* ---------- Bottom Stats Row in Premium Light-Orange Theme ---------- */
 
 .ss-cs-stats-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 48px;
-  padding-top: 8px;
+  gap: 24px;
+  padding-top: 12px;
 }
 
-.ss-cs-stat-item {
+.ss-cs-stat-card {
+  background: #FFF1E6;
+  border: 1.5px solid rgba(255, 122, 36, 0.22);
+  border-radius: 16px;
+  padding: 16px 28px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(255, 122, 36, 0.06);
+  cursor: default;
+}
+
+.ss-cs-stat-card:hover {
+  transform: translateY(-4px);
+  background: #FFE8D6;
+  border-color: #FF7A24;
+  box-shadow: 0 10px 24px rgba(255, 122, 36, 0.16);
 }
 
 .ss-cs-stat-icon-wrap {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #FF7A24;
+  box-shadow: 0 2px 8px rgba(255, 122, 36, 0.12);
+  transition: transform 0.28s ease, background-color 0.28s ease, color 0.28s ease;
   flex-shrink: 0;
 }
 
-.ss-cs-stat-icon-purple {
-  color: #310B40;
-}
-
-.ss-cs-stat-icon-orange {
-  color: #FF7518;
+.ss-cs-stat-card:hover .ss-cs-stat-icon-wrap {
+  transform: scale(1.08) rotate(-3deg);
+  background: #FF7A24;
+  color: #FFFFFF;
 }
 
 .ss-cs-stat-text-group {
@@ -4580,25 +4690,18 @@
 
 .ss-cs-stat-num {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  font-size: 27px;
-  font-weight: 700;
-  color: #310B40;
+  font-size: 28px;
+  font-weight: 800;
+  color: #FF7A24;
   line-height: 1.15;
 }
 
 .ss-cs-stat-tag {
-  font-size: 13px;
-  color: #310B40;
-  font-weight: 500;
+  font-size: 13.5px;
+  color: #2D123B;
+  font-weight: 600;
   margin-top: 2px;
   white-space: nowrap;
-}
-
-.ss-cs-stat-divider {
-  width: 1px;
-  height: 38px;
-  background: #E0D4E4;
-  flex-shrink: 0;
 }
 
 /* ---------- Responsive — Tablet (max 1023px) ---------- */
@@ -4644,7 +4747,16 @@
   }
 
   .ss-cs-stats-row {
-    gap: 32px;
+    gap: 16px;
+  }
+
+  .ss-cs-stat-card {
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .ss-cs-stat-num {
+    font-size: 24px;
   }
 }
 
@@ -4734,17 +4846,13 @@
 
   .ss-cs-stats-row {
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
   }
 
-  .ss-cs-stat-item {
+  .ss-cs-stat-card {
     width: 100%;
     justify-content: flex-start;
-  }
-
-  .ss-cs-stat-divider {
-    width: 100%;
-    height: 1px;
+    padding: 14px 20px;
   }
 }
 
