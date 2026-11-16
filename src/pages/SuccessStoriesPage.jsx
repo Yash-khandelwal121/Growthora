@@ -481,7 +481,7 @@ export default function SuccessStoriesPage() {
                   </a>
                   <a href="#video-testimonials" className="ss-hero-btn-secondary">
                     <span className="ss-play-icon-wrap">
-                      <Play size={12} fill="#70278D" color="#70278D" />
+                      <Play size={12} fill="#FF782B" color="#FF782B" />
                     </span>
                     <span>Watch Client Experiences</span>
                   </a>
@@ -968,9 +968,9 @@ export default function SuccessStoriesPage() {
                   {displayedRecords.map((rec, index) => {
                     const avatarBg =
                       index % 3 === 0
-                        ? '#251039'
+                        ? '#E85D16'
                         : index % 3 === 1
-                        ? '#F26522'
+                        ? '#FF782B'
                         : '#8A5A1E';
 
                     return (
@@ -1192,7 +1192,7 @@ export default function SuccessStoriesPage() {
                               <span className="ss-support-stars">★★★★★</span>
                             </div>
                             <div className="ss-support-quote-icon" aria-hidden="true">
-                              <QuoteIcon size={26} color="#E2D0E8" />
+                              <QuoteIcon size={26} color="#FFD9BF" />
                             </div>
                           </div>
 
@@ -1581,17 +1581,17 @@ export default function SuccessStoriesPage() {
                           stroke={activeMilestoneId === 'initial' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
+                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7518" : "#30251F"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
                         <text x="34" y="33" fill="#7A5239" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
                       </g>
 
                       {activeMilestoneId === 'initial' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(56, 38)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <rect width="130" height="48" rx="8" fill="#30251F" />
                           <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
                           <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                          <polygon points="61,48 65,53 69,48" fill="#30251F" />
                         </g>
                       )}
                     </g>
@@ -1617,17 +1617,17 @@ export default function SuccessStoriesPage() {
                           stroke={activeMilestoneId === 'reg' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
+                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7518" : "#30251F"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
                         <text x="44" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
                       </g>
 
                       {activeMilestoneId === 'reg' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(165, -4)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <rect width="130" height="48" rx="8" fill="#30251F" />
                           <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
                           <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                          <polygon points="61,48 65,53 69,48" fill="#30251F" />
                         </g>
                       )}
                     </g>
@@ -1653,17 +1653,17 @@ export default function SuccessStoriesPage() {
                           stroke={activeMilestoneId === 'funding' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
+                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7518" : "#30251F"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
                         <text x="36" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
                       </g>
 
                       {activeMilestoneId === 'funding' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(265, -40)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <rect width="130" height="48" rx="8" fill="#30251F" />
                           <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
                           <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                          <polygon points="61,48 65,53 69,48" fill="#30251F" />
                         </g>
                       )}
                     </g>
@@ -1948,17 +1948,17 @@ export default function SuccessStoriesPage() {
                 {selectedCaseModal.scheme} &bull; {selectedCaseModal.amount}
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '15px', lineHeight: 1.6, color: '#E2D9E8' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '15px', lineHeight: 1.6, color: '#FFEAD9' }}>
                 <p><strong>Challenge:</strong> {selectedCaseModal.challenge}</p>
                 <p><strong>Advisory Strategy:</strong> {selectedCaseModal.strategy}</p>
                 <p><strong>Measurable Outcome:</strong> {selectedCaseModal.outcome}</p>
               </div>
 
               <div style={{ marginTop: '24px', padding: '16px', background: 'rgba(255,255,255,0.06)', borderRadius: '12px' }}>
-                <p style={{ fontStyle: 'italic', margin: 0, color: '#F3E8FA' }}>
+                <p style={{ fontStyle: 'italic', margin: 0, color: '#FFF0E3' }}>
                   &ldquo;{selectedCaseModal.quote}&rdquo;
                 </p>
-                <span style={{ display: 'block', fontSize: '13px', marginTop: '8px', color: '#BBAEC5' }}>
+                <span style={{ display: 'block', fontSize: '13px', marginTop: '8px', color: '#FFEAD9' }}>
                   &mdash; {selectedCaseModal.founder}, {selectedCaseModal.founderRole}
                 </span>
               </div>
