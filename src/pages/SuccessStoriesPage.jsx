@@ -1668,107 +1668,131 @@ export default function SuccessStoriesPage() {
 
             </div>
 
-            {/* Middle: Testimonial Cards Grid */}
+            {/* Middle: Testimonial Cards Grid (3 Equal-Height Cards) */}
             <div className="ss-cs-cards-grid">
 
               {/* Card 1: Strategic Scaling (Raj Shekhar) */}
-              <div className="ss-cs-card">
-                <div className="ss-cs-card-photo-wrap">
+              <article className="ss-cs-card">
+                <div className="ss-cs-card-media">
                   <img
-                    className="ss-cs-card-photo"
+                    className="ss-cs-card-img ss-cs-card-img-raj"
                     src="/images/stories/raj_shekhar_clean.jpg"
                     alt="Raj Shekhar — Founder, Strategic Scaling"
                     loading="lazy"
                   />
+                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
                 </div>
-                <div className="ss-cs-card-body">
-                  <div className="ss-cs-quote-mark" aria-hidden="true">
-                    ““
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
                   </div>
-                  <p className="ss-cs-card-quote">
-                    Working with Growthora has been a game-changer for our business. Their strategic insights, professional approach and genuine commitment towards our growth have helped us scale with confidence.
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Working with Growthora has been a game-changer for our business. Their strategic insights, professional approach and genuine commitment towards our growth have helped us scale with confidence.&rdquo;
                   </p>
-                  <div className="ss-cs-author-group">
-                    <div className="ss-cs-author-line" />
-                    <div className="ss-cs-author-name">Raj Shekhar</div>
-                    <div className="ss-cs-author-role">Founder, Strategic Scaling</div>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Raj Shekhar</h4>
+                      <p className="ss-cs-author-designation">Founder, Strategic Scaling</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
+                      aria-label="Play Raj Shekhar video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="ss-cs-arrow-btn"
-                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
-                    aria-label="Watch Raj Shekhar testimonial video"
-                  >
-                    <ArrowUpRight size={17} strokeWidth={2.4} />
-                  </button>
                 </div>
-              </div>
+              </article>
 
               {/* Card 2: Institutional Grants (Yoshita Saxena) */}
-              <div className="ss-cs-card ss-cs-card-gradient">
-                <div className="ss-cs-card-photo-wrap">
+              <article className="ss-cs-card">
+                <div className="ss-cs-card-media">
                   <img
-                    className="ss-cs-card-photo"
+                    className="ss-cs-card-img ss-cs-card-img-yoshita"
                     src="/images/stories/yoshita_saxena_clean.jpg"
                     alt="Yoshita Saxena — President, Kastha Foundation"
                     loading="lazy"
                   />
+                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
                 </div>
-                <div className="ss-cs-card-body">
-                  <div className="ss-cs-quote-mark" aria-hidden="true">
-                    ““
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
                   </div>
-                  <p className="ss-cs-card-quote">
-                    Growthora helped Kastha Foundation navigate institutional support, grants, and compliance with utmost professionalism and speed.
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Growthora helped Kastha Foundation navigate institutional support, grants, and compliance with utmost professionalism and speed.&rdquo;
                   </p>
-                  <div className="ss-cs-author-group">
-                    <div className="ss-cs-author-line" />
-                    <div className="ss-cs-author-name">Yoshita Saxena</div>
-                    <div className="ss-cs-author-role">President, Kastha Foundation</div>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Yoshita Saxena</h4>
+                      <p className="ss-cs-author-designation">President, Kastha Foundation</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
+                      aria-label="Play Yoshita Saxena video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="ss-cs-arrow-btn"
-                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
-                    aria-label="Watch Yoshita Saxena testimonial video"
-                  >
-                    <ArrowUpRight size={17} strokeWidth={2.4} />
-                  </button>
                 </div>
-              </div>
+              </article>
 
               {/* Card 3: Tech MSME & Subsidies (Pragnesh) */}
-              <div className="ss-cs-card">
-                <div className="ss-cs-card-photo-wrap">
+              <article className="ss-cs-card">
+                <div className="ss-cs-card-media">
                   <img
-                    className="ss-cs-card-photo"
-                    src="/images/stories/pragnesh.jpg"
+                    className="ss-cs-card-img ss-cs-card-img-pragnesh"
+                    src="/images/stories/pragnesh_clean.jpg"
                     alt="Pragnesh — Founder, Shikhodiya Technology"
                     loading="lazy"
                   />
+                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
                 </div>
-                <div className="ss-cs-card-body">
-                  <div className="ss-cs-quote-mark" aria-hidden="true">
-                    ““
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
                   </div>
-                  <p className="ss-cs-card-quote">
-                    Growthora guided us step-by-step through technology enterprise certifications, MSME benefits, and business financing with full transparency.
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Growthora guided us step-by-step through technology enterprise certifications, MSME benefits, and business financing with full transparency.&rdquo;
                   </p>
-                  <div className="ss-cs-author-group">
-                    <div className="ss-cs-author-line" />
-                    <div className="ss-cs-author-name">Pragnesh</div>
-                    <div className="ss-cs-author-role">Founder, Shikhodiya Technology</div>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Pragnesh</h4>
+                      <p className="ss-cs-author-designation">Founder, Shikhodiya Technology</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
+                      aria-label="Play Pragnesh video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="ss-cs-arrow-btn"
-                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
-                    aria-label="Watch Pragnesh testimonial video"
-                  >
-                    <ArrowUpRight size={17} strokeWidth={2.4} />
-                  </button>
                 </div>
-              </div>
+              </article>
 
             </div>
 

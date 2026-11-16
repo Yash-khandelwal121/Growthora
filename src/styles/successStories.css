@@ -4496,132 +4496,159 @@
   transition: all 0.2s ease;
 }
 
-/* ---------- Testimonial Cards Grid (3 Verified Clients) ---------- */
+/* ---------- Testimonial Cards Grid (3 Equal-Height Cards) ---------- */
 
 .ss-cs-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 26px;
   align-items: stretch;
-  margin-bottom: 36px;
+  margin-bottom: 38px;
 }
 
 .ss-cs-card {
-  background: #FFF1E6;
+  background: #FFF4EA;
   border: 1px solid #FFD6BA;
-  border-radius: 20px;
-  padding: 16px;
+  border-radius: 22px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 18px rgba(255, 117, 24, 0.06);
-  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  height: 100%;
+  box-shadow: 0 4px 18px rgba(255, 117, 24, 0.05);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.28s ease;
   position: relative;
 }
 
-.ss-cs-card.ss-cs-card-gradient {
-  background: linear-gradient(145deg, #FFF4EA 0%, #FFE5D1 100%);
-}
-
 .ss-cs-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(255, 117, 24, 0.14);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px rgba(255, 117, 24, 0.14);
   border-color: #FF7518;
 }
 
-.ss-cs-card-photo-wrap {
+/* Image Section: Consistent ~220px Height */
+.ss-cs-card-media {
   width: 100%;
-  height: 190px;
-  border-radius: 14px;
+  height: 220px;
+  position: relative;
   overflow: hidden;
-  margin-bottom: 14px;
   background: #FFEAD9;
+  flex-shrink: 0;
 }
 
-.ss-cs-card-photo {
+.ss-cs-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
   display: block;
+  transition: transform 0.4s ease;
 }
 
-.ss-cs-card-body {
+.ss-cs-card:hover .ss-cs-card-img {
+  transform: scale(1.03);
+}
+
+.ss-cs-card-img-raj {
+  object-position: center 18%;
+}
+
+.ss-cs-card-img-yoshita {
+  object-position: center 20%;
+}
+
+.ss-cs-card-img-pragnesh {
+  object-position: center 18%;
+}
+
+/* Subtle Gradient Transition between Image and Card Content */
+.ss-cs-card-img-gradient {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 54px;
+  background: linear-gradient(to bottom, rgba(255, 244, 234, 0) 0%, #FFF4EA 100%);
+  pointer-events: none;
+}
+
+/* Card Content / Body */
+.ss-cs-card-content {
+  padding: 18px 24px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-  position: relative;
-  padding: 4px 4px 6px;
 }
 
-.ss-cs-quote-mark {
-  font-family: Georgia, serif;
-  font-size: 34px;
-  line-height: 1;
-  margin-bottom: -4px;
-  user-select: none;
+.ss-cs-quote-badge {
   color: #FF7518;
-  opacity: 0.5;
-}
-
-.ss-cs-card-quote {
-  font-size: 13.2px;
-  line-height: 1.55;
-  color: #2D1538;
-  margin: 0 0 16px;
-  font-weight: 450;
-}
-
-.ss-cs-author-group {
-  position: relative;
-  padding-right: 48px;
-}
-
-.ss-cs-author-line {
-  width: 28px;
-  height: 2px;
-  background: #FF7518;
-  border-radius: 1px;
+  opacity: 0.85;
   margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ss-cs-card-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #2D1538;
+  margin: 0 0 20px;
+  font-weight: 450;
+  flex: 1;
+}
+
+.ss-cs-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 214, 186, 0.7);
+  margin-top: auto;
+}
+
+.ss-cs-author-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .ss-cs-author-name {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #2D1538;
+  margin: 0;
+  line-height: 1.25;
 }
 
-.ss-cs-author-role {
+.ss-cs-author-designation {
   font-size: 12.5px;
   color: #7A5239;
   font-weight: 500;
-  margin-top: 2px;
+  margin: 3px 0 0;
+  line-height: 1.3;
 }
 
-.ss-cs-arrow-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 34px;
-  height: 34px;
-  background: #FFFFFF;
-  border: 1px solid #FFD6BA;
+.ss-cs-card-btn {
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
+  background: #FFFFFF;
+  border: 1.5px solid #FFD6BA;
+  color: #FF7518;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FF7518;
-  text-decoration: none;
-  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 6px rgba(255, 117, 24, 0.1);
 }
 
-.ss-cs-arrow-btn:hover {
-  transform: translateY(-2px);
+.ss-cs-card-btn:hover {
   background: #FF7518;
   color: #FFFFFF;
   border-color: #FF7518;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(255, 117, 24, 0.28);
 }
 
 /* ---------- Bottom Stats Row in Premium Light-Orange Theme ---------- */
@@ -4721,13 +4748,13 @@
   }
 
   .ss-cs-cards-grid {
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 22px;
     margin-bottom: 36px;
   }
 
-  .ss-cs-card-photo-wrap {
-    height: 180px;
+  .ss-cs-card-media {
+    height: 210px;
   }
 
   .ss-cs-stats-row {
@@ -4794,8 +4821,12 @@
     margin-bottom: 28px;
   }
 
-  .ss-cs-card-photo-wrap {
-    height: 200px;
+  .ss-cs-card-media {
+    height: 220px;
+  }
+
+  .ss-cs-card-content {
+    padding: 16px 18px 20px;
   }
 
   .ss-cs-stats-row {
