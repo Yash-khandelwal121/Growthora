@@ -4190,7 +4190,7 @@
 
 .ss-cs-section {
   background: #FFF9F4;
-  padding: 68px 0 76px;
+  padding: 56px 0 64px;
   position: relative;
   overflow: hidden;
 }
@@ -4206,9 +4206,9 @@
 .ss-cs-top-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 36px;
+  gap: 32px;
   align-items: stretch;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .ss-cs-head-col {
@@ -4381,19 +4381,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-bottom: 44px;
+  align-items: stretch;
+  margin-bottom: 36px;
 }
 
 /* Card 1: Manufacturing (Photo left + Warm Ivory Card right) */
 .ss-cs-card-mfg {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   align-items: stretch;
 }
 
 .ss-cs-card-mfg-photo {
-  width: 225px;
-  min-width: 210px;
+  width: 215px;
+  min-width: 195px;
   height: auto;
   min-height: 220px;
   align-self: stretch;
@@ -4530,8 +4531,8 @@
 }
 
 .ss-cs-card-agri-photo {
-  width: 155px;
-  min-width: 140px;
+  width: 165px;
+  min-width: 145px;
   height: 100%;
   min-height: 200px;
   object-fit: cover;
