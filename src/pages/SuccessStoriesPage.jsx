@@ -32,7 +32,9 @@ import {
   Laptop,
   HardHat,
   Package,
-  Code2
+  Code2,
+  Users,
+  Trophy
 } from 'lucide-react';
 
 import { Header } from '../components/Header';
@@ -168,6 +170,32 @@ export default function SuccessStoriesPage() {
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
+
+  // Achievement Statistics animated count-up (2,137+, ₹33+ Cr, 97%)
+  const [statsCounts, setStatsCounts] = useState({ businesses: 2137, loan: 33, satisfaction: 97 });
+
+  useEffect(() => {
+    if (!isGraphVisible) return;
+    let startTimestamp = null;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setStatsCounts({
+        businesses: Math.floor(easeOut * 2137),
+        loan: Math.floor(easeOut * 33),
+        satisfaction: Math.floor(easeOut * 97)
+      });
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        setStatsCounts({ businesses: 2137, loan: 33, satisfaction: 97 });
+      }
+    };
+    const animId = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(animId);
+  }, [isGraphVisible]);
 
   // Google Reviews Carousel State
   const [currentReviewSlide, setCurrentReviewSlide] = useState(0);
@@ -1668,24 +1696,43 @@ export default function SuccessStoriesPage() {
 
             </div>
 
-            {/* Middle: Testimonial Cards Grid (3 Equal-Height Cards) */}
+            {/* Middle: Testimonial Cards Grid (3 Equal-Height Cards matching Reference Design) */}
             <div className="ss-cs-cards-grid">
 
-              {/* Card 1: Strategic Scaling (Raj Shekhar) */}
+              {/* Card 1: Manufacturing (Raj Shekhar) */}
               <article className="ss-cs-card">
-                <div className="ss-cs-card-media">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[0]); } }}
+                  aria-label="Play Raj Shekhar video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Factory size={12} strokeWidth={2.4} />
+                    <span>Manufacturing</span>
+                  </span>
+
                   <img
                     className="ss-cs-card-img ss-cs-card-img-raj"
                     src="/images/stories/raj_shekhar_clean.jpg"
                     alt="Raj Shekhar — Founder, Strategic Scaling"
                     loading="lazy"
                   />
-                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">01:02</span>
                 </div>
 
                 <div className="ss-cs-card-content">
                   <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                     </svg>
                   </div>
@@ -1703,7 +1750,10 @@ export default function SuccessStoriesPage() {
                     <button
                       type="button"
                       className="ss-cs-card-btn"
-                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[0]);
+                      }}
                       aria-label="Play Raj Shekhar video testimonial"
                     >
                       <ArrowUpRight size={17} strokeWidth={2.4} />
@@ -1712,21 +1762,40 @@ export default function SuccessStoriesPage() {
                 </div>
               </article>
 
-              {/* Card 2: Institutional Grants (Yoshita Saxena) */}
+              {/* Card 2: Foundation / NGO (Yoshita Saxena) */}
               <article className="ss-cs-card">
-                <div className="ss-cs-card-media">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[1]); } }}
+                  aria-label="Play Yoshita Saxena video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Handshake size={12} strokeWidth={2.4} />
+                    <span>Foundation / NGO</span>
+                  </span>
+
                   <img
                     className="ss-cs-card-img ss-cs-card-img-yoshita"
                     src="/images/stories/yoshita_saxena_clean.jpg"
                     alt="Yoshita Saxena — President, Kastha Foundation"
                     loading="lazy"
                   />
-                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">01:00</span>
                 </div>
 
                 <div className="ss-cs-card-content">
                   <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                     </svg>
                   </div>
@@ -1744,7 +1813,10 @@ export default function SuccessStoriesPage() {
                     <button
                       type="button"
                       className="ss-cs-card-btn"
-                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[1]);
+                      }}
                       aria-label="Play Yoshita Saxena video testimonial"
                     >
                       <ArrowUpRight size={17} strokeWidth={2.4} />
@@ -1753,21 +1825,40 @@ export default function SuccessStoriesPage() {
                 </div>
               </article>
 
-              {/* Card 3: Tech MSME & Subsidies (Pragnesh) */}
+              {/* Card 3: Technology (Pragnesh) */}
               <article className="ss-cs-card">
-                <div className="ss-cs-card-media">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[2]); } }}
+                  aria-label="Play Pragnesh video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Laptop size={12} strokeWidth={2.4} />
+                    <span>Technology</span>
+                  </span>
+
                   <img
                     className="ss-cs-card-img ss-cs-card-img-pragnesh"
                     src="/images/stories/pragnesh_clean.jpg"
                     alt="Pragnesh — Founder, Shikhodiya Technology"
                     loading="lazy"
                   />
-                  <div className="ss-cs-card-img-gradient" aria-hidden="true" />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">00:53</span>
                 </div>
 
                 <div className="ss-cs-card-content">
                   <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
                       <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                     </svg>
                   </div>
@@ -1785,7 +1876,10 @@ export default function SuccessStoriesPage() {
                     <button
                       type="button"
                       className="ss-cs-card-btn"
-                      onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[2]);
+                      }}
                       aria-label="Play Pragnesh video testimonial"
                     >
                       <ArrowUpRight size={17} strokeWidth={2.4} />
@@ -1796,49 +1890,38 @@ export default function SuccessStoriesPage() {
 
             </div>
 
-            {/* Bottom: Achievement Statistics Row in Premium Light-Orange Theme */}
-            <div className="ss-cs-stats-row">
-              <div className="ss-cs-stat-card">
-                <div className="ss-cs-stat-icon-wrap">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
+            {/* Bottom: Achievement Statistics Row in Premium White/Light-Orange Pill Theme */}
+            <div className="ss-cs-stats-bar">
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Users size={24} strokeWidth={2} />
                 </div>
                 <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">2,137+</span>
+                  <span className="ss-cs-stat-num">{statsCounts.businesses.toLocaleString()}+</span>
                   <span className="ss-cs-stat-tag">Businesses Guided</span>
                 </div>
               </div>
 
-              <div className="ss-cs-stat-card">
-                <div className="ss-cs-stat-icon-wrap">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <ellipse cx="12" cy="5" rx="8" ry="3" />
-                    <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
-                    <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
-                  </svg>
+              <div className="ss-cs-stat-divider" aria-hidden="true" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Coins size={24} strokeWidth={2} />
                 </div>
                 <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">₹33+ Cr</span>
+                  <span className="ss-cs-stat-num">₹{statsCounts.loan}+ Cr</span>
                   <span className="ss-cs-stat-tag">Loan Approvals</span>
                 </div>
               </div>
 
-              <div className="ss-cs-stat-card">
-                <div className="ss-cs-stat-icon-wrap">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                    <path d="M4 22h16" />
-                    <path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34" />
-                    <path d="M6 4h12v7a6 6 0 0 1-12 0V4Z" />
-                  </svg>
+              <div className="ss-cs-stat-divider" aria-hidden="true" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Trophy size={24} strokeWidth={2} />
                 </div>
                 <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">97%</span>
+                  <span className="ss-cs-stat-num">{statsCounts.satisfaction}%</span>
                   <span className="ss-cs-stat-tag">Success Rate</span>
                 </div>
               </div>
