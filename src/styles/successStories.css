@@ -4189,7 +4189,7 @@
    ============================================================ */
 
 .ss-cs-section {
-  background: #FFF9F4;
+  background: #FFF9F5;
   padding: 56px 0 64px;
   position: relative;
   overflow: hidden;
@@ -4229,6 +4229,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #FF7518;
+  background: rgba(255, 117, 24, 0.08);
   margin-bottom: 20px;
 }
 
@@ -4244,7 +4245,7 @@
   font-size: clamp(2.1rem, 3.1vw, 2.75rem);
   font-weight: 700;
   line-height: 1.12;
-  color: #310B40;
+  color: #2D1538;
   margin: 0;
   white-space: nowrap;
 }
@@ -4270,14 +4271,14 @@
 .ss-cs-divider-line {
   width: 1px;
   height: 95px;
-  background: #D9CEDF;
+  background: #FFD6BA;
   flex-shrink: 0;
 }
 
 .ss-cs-desc-text {
   font-size: 13.5px;
   line-height: 1.48;
-  color: #4A3E4E;
+  color: #6E5242;
   max-width: 175px;
   margin: 0;
   font-weight: 450;
@@ -4286,12 +4287,12 @@
 /* ---------- Satisfaction Journey Graph Card ---------- */
 
 .ss-cs-graph-card {
-  background: #F7F1FB;
+  background: linear-gradient(135deg, #FFF9F5 0%, #FFF1E6 100%);
   border-radius: 20px;
   padding: 22px 24px 16px;
   position: relative;
-  border: 1px solid rgba(49, 11, 64, 0.05);
-  box-shadow: 0 4px 20px rgba(49, 11, 64, 0.03);
+  border: 1px solid #FFD6BA;
+  box-shadow: 0 4px 20px rgba(255, 117, 24, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -4313,7 +4314,7 @@
 .ss-cs-graph-icon {
   width: 22px;
   height: 22px;
-  color: #310B40;
+  color: #FF7518;
   flex-shrink: 0;
 }
 
@@ -4321,10 +4322,10 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 18px;
   font-weight: 700;
-  color: #310B40;
+  color: #2D1538;
 }
 
-/* Orange Floating 97% Badge */
+/* Orange Floating 97% Badge with progressive pop */
 .ss-cs-sat-badge {
   background: #FF7518;
   border-radius: 12px;
@@ -4333,6 +4334,14 @@
   color: #fff;
   box-shadow: 0 4px 14px rgba(255, 117, 24, 0.28);
   position: relative;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease 1.95s, transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) 1.95s;
+}
+
+.ss-cs-sat-badge.is-drawn {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .ss-cs-sat-badge::after {
@@ -4375,34 +4384,55 @@
   overflow: visible;
 }
 
-/* 1.5s smooth curve line animation from left to right on page load */
-.ss-cs-animated-curve {
+/* 2-second smooth curve line animation from bottom-left (0%) to top-right (97%) */
+.ss-cs-graph-curve {
   stroke-dasharray: 600;
   stroke-dashoffset: 600;
-  animation: ssDrawCurve 1.5s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+  transition: stroke-dashoffset 2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes ssDrawCurve {
-  to {
-    stroke-dashoffset: 0;
-  }
+.ss-cs-graph-curve.is-drawn {
+  stroke-dashoffset: 0;
 }
 
-.ss-cs-animated-fill {
+.ss-cs-graph-fill {
   opacity: 0;
-  animation: ssFadeFill 1.5s ease-out 0.25s forwards;
+  transition: opacity 1.6s ease-out 0.4s;
 }
 
-@keyframes ssFadeFill {
-  to {
-    opacity: 1;
-  }
+.ss-cs-graph-fill.is-drawn {
+  opacity: 1;
 }
 
-/* Interactive milestone points & tooltips */
+/* Progressive Milestone reveals triggered by viewport entry */
 .ss-cs-point-group {
   cursor: pointer;
   outline: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: center;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.ss-cs-point-group.is-drawn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ss-cs-point-delay-1.is-drawn {
+  transition-delay: 0.35s;
+}
+
+.ss-cs-point-delay-2.is-drawn {
+  transition-delay: 0.9s;
+}
+
+.ss-cs-point-delay-3.is-drawn {
+  transition-delay: 1.45s;
+}
+
+.ss-cs-point-delay-4.is-drawn {
+  transition-delay: 1.95s;
 }
 
 .ss-cs-dot-core {
@@ -4455,86 +4485,97 @@
 .ss-cs-graph-stage-hint {
   display: block;
   font-size: 11.5px;
-  color: #FF7A24;
+  color: #FF7518;
   font-weight: 500;
   margin-top: 2px;
-  animation: ssFadeFill 0.25s ease forwards;
 }
 
-/* Orange Floating 97% Badge */
 .ss-cs-sat-badge.is-active {
-  box-shadow: 0 6px 18px rgba(255, 122, 36, 0.45);
+  box-shadow: 0 6px 18px rgba(255, 117, 24, 0.45);
   transform: translateY(-2px);
   transition: all 0.2s ease;
 }
 
-/* ---------- Testimonial Cards Grid ---------- */
+/* ---------- Testimonial Cards Grid (3 Verified Clients) ---------- */
 
 .ss-cs-cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   align-items: stretch;
   margin-bottom: 36px;
 }
 
-/* Card 1: Manufacturing (Photo left + Warm Ivory Card right) */
-.ss-cs-card-mfg {
+.ss-cs-card {
+  background: #FFF1E6;
+  border: 1px solid #FFD6BA;
+  border-radius: 20px;
+  padding: 16px;
   display: flex;
-  gap: 16px;
-  align-items: stretch;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(255, 117, 24, 0.06);
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
 }
 
-.ss-cs-card-mfg-photo {
-  width: 215px;
-  min-width: 195px;
-  height: auto;
-  min-height: 220px;
-  align-self: stretch;
+.ss-cs-card.ss-cs-card-gradient {
+  background: linear-gradient(145deg, #FFF4EA 0%, #FFE5D1 100%);
+}
+
+.ss-cs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(255, 117, 24, 0.14);
+  border-color: #FF7518;
+}
+
+.ss-cs-card-photo-wrap {
+  width: 100%;
+  height: 190px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: #FFEAD9;
+}
+
+.ss-cs-card-photo {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 20px;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(49, 11, 64, 0.05);
+  object-position: top center;
+  display: block;
 }
 
-.ss-cs-card-mfg-body {
-  background: #FAF3EC;
-  border-radius: 20px;
-  padding: 22px 22px;
+.ss-cs-card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
   position: relative;
-  box-shadow: 0 4px 16px rgba(49, 11, 64, 0.03);
+  padding: 4px 4px 6px;
 }
 
 .ss-cs-quote-mark {
   font-family: Georgia, serif;
-  font-size: 38px;
+  font-size: 34px;
   line-height: 1;
   margin-bottom: -4px;
   user-select: none;
+  color: #FF7518;
+  opacity: 0.5;
 }
 
-.ss-cs-quote-mark-lavender {
-  color: #C4B0D0;
-}
-
-.ss-cs-quote-mark-purple {
-  color: #7B558C;
-}
-
-.ss-cs-card-mfg-quote {
+.ss-cs-card-quote {
   font-size: 13.2px;
   line-height: 1.55;
-  color: #2E1E34;
+  color: #2D1538;
   margin: 0 0 16px;
   font-weight: 450;
 }
 
 .ss-cs-author-group {
   position: relative;
+  padding-right: 48px;
 }
 
 .ss-cs-author-line {
@@ -4545,92 +4586,42 @@
   margin-bottom: 8px;
 }
 
-.ss-cs-author-name-dark {
+.ss-cs-author-name {
   font-size: 15px;
   font-weight: 700;
-  color: #310B40;
+  color: #2D1538;
 }
 
-.ss-cs-author-role-dark {
+.ss-cs-author-role {
   font-size: 12.5px;
-  color: #7A6882;
+  color: #7A5239;
   font-weight: 500;
   margin-top: 2px;
 }
 
 .ss-cs-arrow-btn {
   position: absolute;
-  bottom: 18px;
-  right: 18px;
-  width: 32px;
-  height: 32px;
-  background: #EDE4F2;
-  border-radius: 8px;
+  bottom: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  background: #FFFFFF;
+  border: 1px solid #FFD6BA;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #310B40;
+  color: #FF7518;
   text-decoration: none;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  border: none;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 }
 
 .ss-cs-arrow-btn:hover {
   transform: translateY(-2px);
-  background: #E3D6EB;
-}
-
-/* Card 2: Agriculture & Food (Deep Purple Container) */
-.ss-cs-card-agri {
-  background: #36113E;
-  border-radius: 20px;
-  padding: 16px;
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-  box-shadow: 0 4px 20px rgba(49, 11, 64, 0.12);
-}
-
-.ss-cs-card-agri-body {
-  padding: 10px 4px 6px 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  position: relative;
-}
-
-.ss-cs-card-agri-quote {
-  font-size: 13.2px;
-  line-height: 1.55;
+  background: #FF7518;
   color: #FFFFFF;
-  margin: 0 0 16px;
-  font-weight: 400;
-  opacity: 0.95;
-}
-
-.ss-cs-author-name-light {
-  font-size: 15px;
-  font-weight: 700;
-  color: #FFFFFF;
-}
-
-.ss-cs-author-role-light {
-  font-size: 12.5px;
-  color: #C7B6D1;
-  font-weight: 400;
-  margin-top: 2px;
-}
-
-.ss-cs-card-agri-photo {
-  width: 165px;
-  min-width: 145px;
-  height: 100%;
-  min-height: 200px;
-  object-fit: cover;
-  border-radius: 16px;
-  flex-shrink: 0;
+  border-color: #FF7518;
 }
 
 /* ---------- Bottom Stats Row in Premium Light-Orange Theme ---------- */
@@ -4645,22 +4636,22 @@
 
 .ss-cs-stat-card {
   background: #FFF1E6;
-  border: 1.5px solid rgba(255, 122, 36, 0.22);
-  border-radius: 16px;
+  border: 1.5px solid #FFD6BA;
+  border-radius: 18px;
   padding: 16px 28px;
   display: flex;
   align-items: center;
   gap: 16px;
   transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(255, 122, 36, 0.06);
+  box-shadow: 0 4px 16px rgba(255, 117, 24, 0.06);
   cursor: default;
 }
 
 .ss-cs-stat-card:hover {
   transform: translateY(-4px);
-  background: #FFE8D6;
-  border-color: #FF7A24;
-  box-shadow: 0 10px 24px rgba(255, 122, 36, 0.16);
+  background: #FFE5D1;
+  border-color: #FF7518;
+  box-shadow: 0 10px 24px rgba(255, 117, 24, 0.16);
 }
 
 .ss-cs-stat-icon-wrap {
@@ -4671,15 +4662,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FF7A24;
-  box-shadow: 0 2px 8px rgba(255, 122, 36, 0.12);
+  color: #FF7518;
+  box-shadow: 0 2px 8px rgba(255, 117, 24, 0.12);
   transition: transform 0.28s ease, background-color 0.28s ease, color 0.28s ease;
   flex-shrink: 0;
 }
 
 .ss-cs-stat-card:hover .ss-cs-stat-icon-wrap {
   transform: scale(1.08) rotate(-3deg);
-  background: #FF7A24;
+  background: #FF7518;
   color: #FFFFFF;
 }
 
@@ -4692,13 +4683,13 @@
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 800;
-  color: #FF7A24;
+  color: #FF7518;
   line-height: 1.15;
 }
 
 .ss-cs-stat-tag {
   font-size: 13.5px;
-  color: #2D123B;
+  color: #2D1538;
   font-weight: 600;
   margin-top: 2px;
   white-space: nowrap;
@@ -4730,20 +4721,13 @@
   }
 
   .ss-cs-cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 22px;
     margin-bottom: 36px;
   }
 
-  .ss-cs-card-mfg-photo {
-    width: 190px;
-    min-width: 170px;
-    height: auto;
-  }
-
-  .ss-cs-card-agri-photo {
-    width: 140px;
-    min-width: 120px;
+  .ss-cs-card-photo-wrap {
+    height: 180px;
   }
 
   .ss-cs-stats-row {
@@ -4810,38 +4794,8 @@
     margin-bottom: 28px;
   }
 
-  .ss-cs-card-mfg {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .ss-cs-card-mfg-photo {
-    width: 100%;
-    min-width: unset;
-    height: 220px;
-    border-radius: 20px 20px 0 0;
-  }
-
-  .ss-cs-card-mfg-body {
-    border-radius: 0 0 20px 20px;
-    padding: 20px 18px;
-  }
-
-  .ss-cs-card-agri {
-    flex-direction: column-reverse;
-    padding: 16px;
-    gap: 14px;
-  }
-
-  .ss-cs-card-agri-photo {
-    width: 100%;
-    min-width: unset;
-    height: 220px;
-    border-radius: 14px;
-  }
-
-  .ss-cs-card-agri-body {
-    padding: 8px 4px 6px 4px;
+  .ss-cs-card-photo-wrap {
+    height: 200px;
   }
 
   .ss-cs-stats-row {

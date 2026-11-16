@@ -138,8 +138,36 @@ export default function SuccessStoriesPage() {
   // FAQ Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
-  // Client Satisfaction Journey Interactive State
+  // Client Satisfaction Journey Interactive State & Viewport Animation Ref
   const [activeMilestoneId, setActiveMilestoneId] = useState(null);
+  const graphRef = useRef(null);
+  const [isGraphVisible, setIsGraphVisible] = useState(false);
+
+  useEffect(() => {
+    const node = graphRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsGraphVisible(false);
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                setIsGraphVisible(true);
+              });
+            });
+          } else {
+            setIsGraphVisible(false);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   // Google Reviews Carousel State
   const [currentReviewSlide, setCurrentReviewSlide] = useState(0);
@@ -524,7 +552,7 @@ export default function SuccessStoriesPage() {
                               }}
                               aria-label={`Watch ${card.clientName} story`}
                             >
-                              <ArrowRight size={16} />
+                              <ArrowUpRight size={16} />
                             </button>
                           </div>
                         </div>
@@ -1427,7 +1455,7 @@ export default function SuccessStoriesPage() {
               </div>
 
               {/* Right Column — Client Satisfaction Journey Graph Card */}
-              <div className="ss-cs-graph-card">
+              <div className="ss-cs-graph-card" ref={graphRef}>
                 <div className="ss-cs-graph-head">
                   <div className="ss-cs-graph-title-group">
                     <svg className="ss-cs-graph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -1450,7 +1478,7 @@ export default function SuccessStoriesPage() {
                   </div>
 
                   <div
-                    className={`ss-cs-sat-badge ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                    className={`ss-cs-sat-badge ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
                     onMouseEnter={() => setActiveMilestoneId('satisfaction')}
                     onMouseLeave={() => setActiveMilestoneId(null)}
                     style={{ cursor: 'pointer' }}
@@ -1465,174 +1493,174 @@ export default function SuccessStoriesPage() {
                     <defs>
                       {/* Premium light-orange gradient below the curve */}
                       <linearGradient id="csOrangeGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#FF7A24" stopOpacity="0.32" />
-                        <stop offset="60%" stopColor="#FF7A24" stopOpacity="0.10" />
+                        <stop offset="0%" stopColor="#FF7518" stopOpacity="0.32" />
+                        <stop offset="60%" stopColor="#FF7518" stopOpacity="0.10" />
                         <stop offset="100%" stopColor="#FFF1E6" stopOpacity="0.02" />
                       </linearGradient>
                       <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7A24" />
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7518" />
                       </marker>
                     </defs>
 
                     {/* Y-axis Labels */}
-                    <text x="32" y="165" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">0%</text>
-                    <text x="32" y="137" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">20%</text>
-                    <text x="32" y="109" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">40%</text>
-                    <text x="32" y="81" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">60%</text>
-                    <text x="32" y="53" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">80%</text>
-                    <text x="32" y="25" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">100%</text>
+                    <text x="32" y="165" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">0%</text>
+                    <text x="32" y="137" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">20%</text>
+                    <text x="32" y="109" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">40%</text>
+                    <text x="32" y="81" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">60%</text>
+                    <text x="32" y="53" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">80%</text>
+                    <text x="32" y="25" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">100%</text>
 
                     {/* Horizontal Grid lines */}
-                    <line x1="42" y1="21" x2="490" y2="21" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="49" x2="490" y2="49" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="77" x2="490" y2="77" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="105" x2="490" y2="105" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="133" x2="490" y2="133" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="161" x2="490" y2="161" stroke="#EBDFF0" strokeWidth="1.2" />
+                    <line x1="42" y1="21" x2="490" y2="21" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="49" x2="490" y2="49" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="77" x2="490" y2="77" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="105" x2="490" y2="105" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="133" x2="490" y2="133" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="161" x2="490" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
 
                     {/* Y-axis vertical line */}
-                    <line x1="42" y1="18" x2="42" y2="161" stroke="#EBDFF0" strokeWidth="1.2" />
+                    <line x1="42" y1="18" x2="42" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
 
                     {/* Smooth Light-Orange Gradient Fill under curve */}
                     <path
-                      className="ss-cs-animated-fill"
+                      className={`ss-cs-graph-fill ${isGraphVisible ? 'is-drawn' : ''}`}
                       d="M 42 161 L 44 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 476 22 L 476 161 Z"
                       fill="url(#csOrangeGradient)"
                     />
 
-                    {/* Smooth Orange Curve Line — Animated 1.5s from left to right */}
+                    {/* Smooth Orange Curve Line — Animated 2s from bottom-left (0%) to top-right (97%) */}
                     <path
-                      className="ss-cs-animated-curve"
+                      className={`ss-cs-graph-curve ${isGraphVisible ? 'is-drawn' : ''}`}
                       d="M 42 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 474 23"
-                      stroke="#FF7A24"
-                      strokeWidth="3"
+                      stroke="#FF7518"
+                      strokeWidth="3.2"
                       strokeLinecap="round"
                       fill="none"
                       markerEnd="url(#csArrow)"
                     />
 
                     {/* Milestone 0: Origin */}
-                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" />
+                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
 
                     {/* Milestone 1: 0% Initial Stage (Illustrative) */}
                     <g
-                      className={`ss-cs-point-group ${activeMilestoneId === 'initial' ? 'is-active' : ''}`}
+                      className={`ss-cs-point-group ss-cs-point-delay-1 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'initial' ? 'is-active' : ''}`}
                       onMouseEnter={() => setActiveMilestoneId('initial')}
                       onMouseLeave={() => setActiveMilestoneId(null)}
                       tabIndex={0}
                       role="button"
                       aria-label="0% Initial Stage: Illustrative journey milestone"
                     >
-                      <circle cx="120" cy="154" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
-                      <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <circle cx="120" cy="154" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
                       <g transform="translate(86, 96)">
                         <rect
                           width="68"
                           height="42"
                           rx="10"
                           fill="#FFFFFF"
-                          filter={activeMilestoneId === 'initial' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
-                          stroke={activeMilestoneId === 'initial' ? "#FF7A24" : "none"}
+                          filter={activeMilestoneId === 'initial' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'initial' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
-                        <text x="34" y="33" fill="#7A6882" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
+                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
+                        <text x="34" y="33" fill="#7A5239" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
                       </g>
 
                       {activeMilestoneId === 'initial' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(56, 38)">
-                          <rect width="130" height="48" rx="8" fill="#2D123B" />
-                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
                         </g>
                       )}
                     </g>
 
                     {/* Milestone 2: 56% After Registration (Illustrative) */}
                     <g
-                      className={`ss-cs-point-group ${activeMilestoneId === 'reg' ? 'is-active' : ''}`}
+                      className={`ss-cs-point-group ss-cs-point-delay-2 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'reg' ? 'is-active' : ''}`}
                       onMouseEnter={() => setActiveMilestoneId('reg')}
                       onMouseLeave={() => setActiveMilestoneId(null)}
                       tabIndex={0}
                       role="button"
                       aria-label="56% After Registration: Illustrative journey milestone"
                     >
-                      <circle cx="230" cy="110" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
-                      <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <circle cx="230" cy="110" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
                       <g transform="translate(186, 50)">
                         <rect
                           width="88"
                           height="42"
                           rx="10"
                           fill="#FFFFFF"
-                          filter={activeMilestoneId === 'reg' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
-                          stroke={activeMilestoneId === 'reg' ? "#FF7A24" : "none"}
+                          filter={activeMilestoneId === 'reg' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'reg' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
-                        <text x="44" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
+                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
+                        <text x="44" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
                       </g>
 
                       {activeMilestoneId === 'reg' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(165, -4)">
-                          <rect width="130" height="48" rx="8" fill="#2D123B" />
-                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
                         </g>
                       )}
                     </g>
 
                     {/* Milestone 3: 78% After Funding (Illustrative) */}
                     <g
-                      className={`ss-cs-point-group ${activeMilestoneId === 'funding' ? 'is-active' : ''}`}
+                      className={`ss-cs-point-group ss-cs-point-delay-3 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'funding' ? 'is-active' : ''}`}
                       onMouseEnter={() => setActiveMilestoneId('funding')}
                       onMouseLeave={() => setActiveMilestoneId(null)}
                       tabIndex={0}
                       role="button"
                       aria-label="78% After Funding: Illustrative journey milestone"
                     >
-                      <circle cx="330" cy="72" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
-                      <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7A24" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <circle cx="330" cy="72" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
                       <g transform="translate(294, 14)">
                         <rect
                           width="72"
                           height="42"
                           rx="10"
                           fill="#FFFFFF"
-                          filter={activeMilestoneId === 'funding' ? "drop-shadow(0 4px 10px rgba(255,122,36,0.3))" : "drop-shadow(0 2px 6px rgba(49,11,64,0.08))"}
-                          stroke={activeMilestoneId === 'funding' ? "#FF7A24" : "none"}
+                          filter={activeMilestoneId === 'funding' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'funding' ? "#FF7518" : "#FFD6BA"}
                           strokeWidth="1.5"
                         />
-                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7A24" : "#310B40"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
-                        <text x="36" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
+                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
+                        <text x="36" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
                       </g>
 
                       {activeMilestoneId === 'funding' && (
                         <g className="ss-cs-tooltip-bubble" transform="translate(265, -40)">
-                          <rect width="130" height="48" rx="8" fill="#2D123B" />
-                          <text x="65" y="18" fill="#FF7A24" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
                           <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#E8D5F0" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D123B" />
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
                         </g>
                       )}
                     </g>
 
                     {/* Milestone 4: 97% Tip Indicator */}
                     <g
-                      className={`ss-cs-point-group ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                      className={`ss-cs-point-group ss-cs-point-delay-4 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
                       onMouseEnter={() => setActiveMilestoneId('satisfaction')}
                       onMouseLeave={() => setActiveMilestoneId(null)}
                       tabIndex={0}
                       role="button"
                       aria-label="97% Client Satisfaction: Verified satisfaction benchmark"
                     >
-                      <circle cx="478" cy="22" r="10" fill="#FF7A24" className="ss-cs-dot-ring" />
-                      <circle cx="478" cy="22" r="6" fill="#FF7A24" stroke="#FFFFFF" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <circle cx="478" cy="22" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="478" cy="22" r="6" fill="#FF7518" stroke="#FFFFFF" strokeWidth="2.5" className="ss-cs-dot-core" />
                     </g>
                   </svg>
                 </div>
@@ -1644,30 +1672,32 @@ export default function SuccessStoriesPage() {
             <div className="ss-cs-cards-grid">
 
               {/* Card 1: Strategic Scaling (Raj Shekhar) */}
-              <div className="ss-cs-card-mfg">
-                <img
-                  className="ss-cs-card-mfg-photo"
-                  src="/images/stories/raj_shekhar_clean.jpg"
-                  alt="Raj Shekhar — Founder, Strategic Scaling"
-                  loading="lazy"
-                />
-                <div className="ss-cs-card-mfg-body">
-                  <div className="ss-cs-quote-mark ss-cs-quote-mark-lavender" aria-hidden="true">
+              <div className="ss-cs-card">
+                <div className="ss-cs-card-photo-wrap">
+                  <img
+                    className="ss-cs-card-photo"
+                    src="/images/stories/raj_shekhar_clean.jpg"
+                    alt="Raj Shekhar — Founder, Strategic Scaling"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="ss-cs-card-body">
+                  <div className="ss-cs-quote-mark" aria-hidden="true">
                     ““
                   </div>
-                  <p className="ss-cs-card-mfg-quote">
+                  <p className="ss-cs-card-quote">
                     Working with Growthora has been a game-changer for our business. Their strategic insights, professional approach and genuine commitment towards our growth have helped us scale with confidence.
                   </p>
                   <div className="ss-cs-author-group">
                     <div className="ss-cs-author-line" />
-                    <div className="ss-cs-author-name-dark">Raj Shekhar</div>
-                    <div className="ss-cs-author-role-dark">Founder, Strategic Scaling</div>
+                    <div className="ss-cs-author-name">Raj Shekhar</div>
+                    <div className="ss-cs-author-role">Founder, Strategic Scaling</div>
                   </div>
                   <button
                     type="button"
                     className="ss-cs-arrow-btn"
-                    onClick={() => setIsConsultationOpen(true)}
-                    aria-label="View Raj Shekhar success story"
+                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
+                    aria-label="Watch Raj Shekhar testimonial video"
                   >
                     <ArrowUpRight size={17} strokeWidth={2.4} />
                   </button>
@@ -1675,34 +1705,69 @@ export default function SuccessStoriesPage() {
               </div>
 
               {/* Card 2: Institutional Grants (Yoshita Saxena) */}
-              <div className="ss-cs-card-agri">
-                <div className="ss-cs-card-agri-body">
-                  <div className="ss-cs-quote-mark ss-cs-quote-mark-purple" aria-hidden="true">
+              <div className="ss-cs-card ss-cs-card-gradient">
+                <div className="ss-cs-card-photo-wrap">
+                  <img
+                    className="ss-cs-card-photo"
+                    src="/images/stories/yoshita_saxena_clean.jpg"
+                    alt="Yoshita Saxena — President, Kastha Foundation"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="ss-cs-card-body">
+                  <div className="ss-cs-quote-mark" aria-hidden="true">
                     ““
                   </div>
-                  <p className="ss-cs-card-agri-quote">
+                  <p className="ss-cs-card-quote">
                     Growthora helped Kastha Foundation navigate institutional support, grants, and compliance with utmost professionalism and speed.
                   </p>
                   <div className="ss-cs-author-group">
                     <div className="ss-cs-author-line" />
-                    <div className="ss-cs-author-name-light">Yoshita Saxena</div>
-                    <div className="ss-cs-author-role-light">President, Kastha Foundation</div>
+                    <div className="ss-cs-author-name">Yoshita Saxena</div>
+                    <div className="ss-cs-author-role">President, Kastha Foundation</div>
                   </div>
                   <button
                     type="button"
                     className="ss-cs-arrow-btn"
-                    onClick={() => setIsConsultationOpen(true)}
-                    aria-label="View Yoshita Saxena success story"
+                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
+                    aria-label="Watch Yoshita Saxena testimonial video"
                   >
                     <ArrowUpRight size={17} strokeWidth={2.4} />
                   </button>
                 </div>
-                <img
-                  className="ss-cs-card-agri-photo"
-                  src="/images/stories/yoshita_saxena_clean.jpg"
-                  alt="Yoshita Saxena — President, Kastha Foundation"
-                  loading="lazy"
-                />
+              </div>
+
+              {/* Card 3: Tech MSME & Subsidies (Pragnesh) */}
+              <div className="ss-cs-card">
+                <div className="ss-cs-card-photo-wrap">
+                  <img
+                    className="ss-cs-card-photo"
+                    src="/images/stories/pragnesh.jpg"
+                    alt="Pragnesh — Founder, Shikhodiya Technology"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="ss-cs-card-body">
+                  <div className="ss-cs-quote-mark" aria-hidden="true">
+                    ““
+                  </div>
+                  <p className="ss-cs-card-quote">
+                    Growthora guided us step-by-step through technology enterprise certifications, MSME benefits, and business financing with full transparency.
+                  </p>
+                  <div className="ss-cs-author-group">
+                    <div className="ss-cs-author-line" />
+                    <div className="ss-cs-author-name">Pragnesh</div>
+                    <div className="ss-cs-author-role">Founder, Shikhodiya Technology</div>
+                  </div>
+                  <button
+                    type="button"
+                    className="ss-cs-arrow-btn"
+                    onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
+                    aria-label="Watch Pragnesh testimonial video"
+                  >
+                    <ArrowUpRight size={17} strokeWidth={2.4} />
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -1828,7 +1893,7 @@ export default function SuccessStoriesPage() {
           aria-modal="true"
           aria-label={`${selectedVideoModal.clientName || selectedVideoModal.name} Testimonial Video`}
         >
-          <div className="ss-video-modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="ss-video-modal-card" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
               className="ss-video-modal-close"
@@ -1837,18 +1902,18 @@ export default function SuccessStoriesPage() {
             >
               <X size={20} />
             </button>
-            <video
-              src={selectedVideoModal.videoSrc || selectedVideoModal.videoUrl}
-              controls
-              autoPlay
-              playsInline
-              className="ss-modal-video-player"
-            />
-            <div className="ss-video-modal-footer">
-              <div>
-                <h4>{selectedVideoModal.clientName || selectedVideoModal.name}</h4>
-                <p>{selectedVideoModal.subtext || selectedVideoModal.role}</p>
-              </div>
+            <div className="ss-video-modal-player-wrap">
+              <video
+                src={selectedVideoModal.videoSrc || selectedVideoModal.videoUrl}
+                controls
+                autoPlay
+                playsInline
+                className="ss-modal-video-player"
+              />
+            </div>
+            <div className="ss-video-modal-details">
+              <h4>{selectedVideoModal.clientName || selectedVideoModal.name}</h4>
+              <p>{selectedVideoModal.subtext || selectedVideoModal.role}</p>
             </div>
           </div>
         </div>
