@@ -4509,12 +4509,12 @@
 .ss-cs-card {
   background: #FFF5ED;
   border: 1px solid #FFD6BA;
-  border-radius: 22px;
+  border-radius: 18px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  box-shadow: 0 4px 20px rgba(255, 116, 23, 0.05);
+  box-shadow: 0 4px 18px rgba(255, 116, 23, 0.05);
   transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), 
               box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), 
               border-color 0.28s ease;
@@ -4522,17 +4522,17 @@
 }
 
 .ss-cs-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(255, 116, 23, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(255, 116, 23, 0.12);
   border-color: #FF7417;
 }
 
-/* Image Section: Consistent ~210px Height with internal rounded frame */
+/* Image Section: 250px Height on Desktop with 14px rounded frame */
 .ss-cs-card-media {
   width: 100%;
-  height: 210px;
+  height: 250px;
   position: relative;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   background: #FFEAD9;
   flex-shrink: 0;
@@ -4553,15 +4553,15 @@
 }
 
 .ss-cs-card-img-raj {
-  object-position: center 20%;
+  object-position: center 25%;
 }
 
 .ss-cs-card-img-yoshita {
-  object-position: center 22%;
+  object-position: center 20%;
 }
 
 .ss-cs-card-img-pragnesh {
-  object-position: center 20%;
+  object-position: center 22%;
 }
 
 /* Industry Category Badge (Top-Left of photo) */
@@ -4819,7 +4819,7 @@
   }
 
   .ss-cs-card-media {
-    height: 200px;
+    height: 230px;
   }
 
   .ss-cs-stats-bar {
@@ -4879,7 +4879,7 @@
   }
 
   .ss-cs-card-media {
-    height: 210px;
+    height: 220px;
   }
 
   .ss-cs-stats-bar {
