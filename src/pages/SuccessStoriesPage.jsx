@@ -611,6 +611,257 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
+        {/* 4. Client Success Stories — Premium Testimonial Grid with Satisfaction Graph */}
+        <section className="ss-cs-section" aria-labelledby="cs-title">
+          <div className="ss-cs-container">
+
+            {/* Top Grid: Heading Row + Satisfaction Journey Graph */}
+            <div className="ss-cs-top-grid">
+
+              {/* Left Column — Badge & Heading Row */}
+              <div className="ss-cs-head-col">
+                <span className="ss-cs-badge">SUCCESS STORIES</span>
+
+                <div className="ss-cs-head-row">
+                  <h2 className="ss-cs-heading" id="cs-title">
+                    <span>Real Businesses.</span>
+                    <span>Real Progress.</span>
+                    <span className="ss-cs-highlight">Real Impact.</span>
+                  </h2>
+
+                  <div className="ss-cs-divider-col">
+                    <div className="ss-cs-divider-line" />
+                    <p className="ss-cs-desc-text">
+                      See how our support turns business challenges into measurable success.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column — Client Satisfaction Journey Graph Card */}
+              <div className="ss-cs-graph-card">
+                <div className="ss-cs-graph-head">
+                  <div className="ss-cs-graph-title-group">
+                    <svg className="ss-cs-graph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span className="ss-cs-graph-title">Client Satisfaction Journey</span>
+                  </div>
+
+                  <div className="ss-cs-sat-badge">
+                    <span className="ss-cs-sat-val">97%</span>
+                    <span className="ss-cs-sat-lbl">Client Satisfaction</span>
+                  </div>
+                </div>
+
+                <div className="ss-cs-chart-wrap">
+                  <svg className="ss-cs-chart-svg" viewBox="0 0 520 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Client satisfaction journey chart showing progression from 0% initial stage to 97% client satisfaction">
+                    <defs>
+                      <linearGradient id="csGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#C4B0D0" stopOpacity="0.45" />
+                        <stop offset="60%" stopColor="#EDE4F2" stopOpacity="0.25" />
+                        <stop offset="100%" stopColor="#F7F1FB" stopOpacity="0.05" />
+                      </linearGradient>
+                      <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7518" />
+                      </marker>
+                    </defs>
+
+                    {/* Y-axis Labels */}
+                    <text x="32" y="165" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">0%</text>
+                    <text x="32" y="137" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">20%</text>
+                    <text x="32" y="109" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">40%</text>
+                    <text x="32" y="81" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">60%</text>
+                    <text x="32" y="53" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">80%</text>
+                    <text x="32" y="25" fill="#9E8FA3" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">100%</text>
+
+                    {/* Horizontal Grid lines */}
+                    <line x1="42" y1="21" x2="490" y2="21" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="49" x2="490" y2="49" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="77" x2="490" y2="77" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="105" x2="490" y2="105" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="133" x2="490" y2="133" stroke="#EBDFF0" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="161" x2="490" y2="161" stroke="#EBDFF0" strokeWidth="1.2" />
+
+                    {/* Y-axis vertical line */}
+                    <line x1="42" y1="18" x2="42" y2="161" stroke="#EBDFF0" strokeWidth="1.2" />
+
+                    {/* Smooth Gradient Fill under curve */}
+                    <path
+                      d="M 42 161 L 44 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 476 22 L 476 161 Z"
+                      fill="url(#csGradient)"
+                    />
+
+                    {/* Orange Curve Line */}
+                    <path
+                      d="M 42 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 474 23"
+                      stroke="#FF7518"
+                      strokeWidth="2.8"
+                      strokeLinecap="round"
+                      fill="none"
+                      markerEnd="url(#csArrow)"
+                    />
+
+                    {/* Milestone 1: 0% Origin */}
+                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+
+                    {/* Milestone 2: 0% Initial Stage */}
+                    <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+                    <g transform="translate(86, 96)">
+                      <rect width="68" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
+                      <text x="34" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
+                      <text x="34" y="33" fill="#7A6882" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
+                    </g>
+
+                    {/* Milestone 3: 56% After Registration */}
+                    <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+                    <g transform="translate(186, 50)">
+                      <rect width="88" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
+                      <text x="44" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
+                      <text x="44" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
+                    </g>
+
+                    {/* Milestone 4: 78% After Funding */}
+                    <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+                    <g transform="translate(294, 14)">
+                      <rect width="72" height="42" rx="10" fill="#FFFFFF" filter="drop-shadow(0 2px 6px rgba(49,11,64,0.08))" />
+                      <text x="36" y="20" fill="#310B40" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
+                      <text x="36" y="33" fill="#7A6882" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
+                    </g>
+
+                    {/* Milestone 5: 97% Tip Indicator */}
+                    <circle cx="478" cy="22" r="5.5" fill="#FF7518" stroke="#FFFFFF" strokeWidth="2.5" />
+                  </svg>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Middle: Testimonial Cards Grid */}
+            <div className="ss-cs-cards-grid">
+
+              {/* Card 1: Manufacturing (Amit Verma) */}
+              <div className="ss-cs-card-mfg">
+                <img
+                  className="ss-cs-card-mfg-photo"
+                  src="/images/stories/amit_verma.jpg"
+                  alt="Amit Verma — Manufacturing Business founder"
+                  loading="lazy"
+                />
+                <div className="ss-cs-card-mfg-body">
+                  <div className="ss-cs-quote-mark ss-cs-quote-mark-lavender" aria-hidden="true">
+                    ““
+                  </div>
+                  <p className="ss-cs-card-mfg-quote">
+                    Growthora helped us register our business and secure funding at the right time. Their team made the entire process simple and stress-free.
+                  </p>
+                  <div className="ss-cs-author-group">
+                    <div className="ss-cs-author-line" />
+                    <div className="ss-cs-author-name-dark">Amit Verma</div>
+                    <div className="ss-cs-author-role-dark">Manufacturing Business</div>
+                  </div>
+                  <button
+                    type="button"
+                    className="ss-cs-arrow-btn"
+                    onClick={() => setIsConsultationOpen(true)}
+                    aria-label="View Amit Verma success story"
+                  >
+                    <ArrowUpRight size={17} strokeWidth={2.4} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Card 2: Agriculture & Food (Neha Sharma) */}
+              <div className="ss-cs-card-agri">
+                <div className="ss-cs-card-agri-body">
+                  <div className="ss-cs-quote-mark ss-cs-quote-mark-purple" aria-hidden="true">
+                    ““
+                  </div>
+                  <p className="ss-cs-card-agri-quote">
+                    The expert guidance from Growthora helped us access a government scheme and scale our operations within months.
+                  </p>
+                  <div className="ss-cs-author-group">
+                    <div className="ss-cs-author-line" />
+                    <div className="ss-cs-author-name-light">Neha Sharma</div>
+                    <div className="ss-cs-author-role-light">Agri &amp; Food Business</div>
+                  </div>
+                  <button
+                    type="button"
+                    className="ss-cs-arrow-btn"
+                    onClick={() => setIsConsultationOpen(true)}
+                    aria-label="View Neha Sharma success story"
+                  >
+                    <ArrowUpRight size={17} strokeWidth={2.4} />
+                  </button>
+                </div>
+                <img
+                  className="ss-cs-card-agri-photo"
+                  src="/images/stories/neha_sharma.jpg"
+                  alt="Neha Sharma — Agri and Food Business founder"
+                  loading="lazy"
+                />
+              </div>
+
+            </div>
+
+            {/* Bottom: Achievement Statistics Row */}
+            <div className="ss-cs-stats-row">
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-purple">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">2,137+</span>
+                  <span className="ss-cs-stat-tag">Businesses Guided</span>
+                </div>
+              </div>
+
+              <div className="ss-cs-stat-divider" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-orange">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <ellipse cx="12" cy="5" rx="8" ry="3" />
+                    <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
+                    <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+                  </svg>
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">₹33+ Cr</span>
+                  <span className="ss-cs-stat-tag">Loan Approvals</span>
+                </div>
+              </div>
+
+              <div className="ss-cs-stat-divider" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap ss-cs-stat-icon-orange">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                    <path d="M4 22h16" />
+                    <path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34" />
+                    <path d="M6 4h12v7a6 6 0 0 1-12 0V4Z" />
+                  </svg>
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">97%</span>
+                  <span className="ss-cs-stat-tag">Success Rate</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
         {/* 5. Client Video Testimonials ("Watch Real Founders Share Their Journey.") */}
         <section id="video-testimonials" className="ss-theatre-section" aria-labelledby="theatre-title">
           <div className="ss-container">
