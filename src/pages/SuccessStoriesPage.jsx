@@ -1702,7 +1702,7 @@ export default function SuccessStoriesPage() {
               {/* Card 1: Manufacturing (Raj Shekhar) */}
               <article className="ss-cs-card">
                 <div
-                  className="ss-cs-card-media"
+                  className="ss-cs-card-media ss-cs-card-media-raj"
                   onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
                   role="button"
                   tabIndex={0}
@@ -1765,7 +1765,7 @@ export default function SuccessStoriesPage() {
               {/* Card 2: Foundation / NGO (Yoshita Saxena) */}
               <article className="ss-cs-card">
                 <div
-                  className="ss-cs-card-media"
+                  className="ss-cs-card-media ss-cs-card-media-yoshita"
                   onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
                   role="button"
                   tabIndex={0}
@@ -1828,7 +1828,7 @@ export default function SuccessStoriesPage() {
               {/* Card 3: Technology (Pragnesh) */}
               <article className="ss-cs-card">
                 <div
-                  className="ss-cs-card-media"
+                  className="ss-cs-card-media ss-cs-card-media-pragnesh"
                   onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
                   role="button"
                   tabIndex={0}

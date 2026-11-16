@@ -4534,35 +4534,53 @@
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  background: #FFEAD9;
+  background: #F6EDE5;
   flex-shrink: 0;
   cursor: pointer;
   margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ss-cs-card-media-raj {
+  background: #EAE2DB;
+}
+
+.ss-cs-card-media-yoshita {
+  background: #EFE8DC;
+}
+
+.ss-cs-card-media-pragnesh {
+  background: #FAF3EB;
 }
 
 .ss-cs-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.35s ease;
 }
 
 .ss-cs-card-media:hover .ss-cs-card-img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .ss-cs-card-img-raj {
-  object-position: center center;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 .ss-cs-card-img-yoshita {
-  object-position: center center;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 .ss-cs-card-img-pragnesh {
-  object-position: center center;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 /* Industry Category Badge (Top-Left of photo) */
