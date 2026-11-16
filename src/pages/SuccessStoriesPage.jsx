@@ -223,6 +223,146 @@ export default function SuccessStoriesPage() {
     reviewTouchStartX.current = null;
   };
 
+  // Hero Video Cards State & Refs (Hover to Play Client Video)
+  const heroVideoRefs = useRef([]);
+  const heroPlayPromises = useRef([]);
+  const [activeHeroVideo, setActiveHeroVideo] = useState(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  // Cleanup hero videos on unmount
+  useEffect(() => {
+    return () => {
+      heroVideoRefs.current.forEach((v) => {
+        if (v) {
+          v.pause();
+          v.currentTime = 0;
+        }
+      });
+    };
+  }, []);
+
+  const HERO_VIDEO_CARDS = [
+    {
+      id: 'raj-shekhar',
+      cls: 'card-mfg',
+      category: 'Growth & Scale',
+      clientName: 'Raj Shekhar',
+      subtext: 'Strategic Scaling',
+      duration: '2:16',
+      icon: TrendingUp,
+      poster: '/images/hero/hero_card_1.jpg',
+      videoSrc: '/videos/hero/testimonial_1.mp4',
+      alt: 'Raj Shekhar - Founder & Entrepreneur Testimonial Video'
+    },
+    {
+      id: 'yoshita-saxena',
+      cls: 'card-food',
+      category: 'Institutional Grants',
+      clientName: 'Yoshita Saxena',
+      subtext: 'Kastha Foundation',
+      duration: '1:48',
+      icon: Award,
+      poster: '/images/hero/hero_card_2.jpg',
+      videoSrc: '/videos/hero/testimonial_2.mp4',
+      alt: 'Yoshita Saxena - Kastha Foundation Testimonial Video'
+    },
+    {
+      id: 'pragnesh',
+      cls: 'card-agri',
+      category: 'Tech MSME & Subsidies',
+      clientName: 'Pragnesh',
+      subtext: 'Shikhodiya Technology',
+      duration: '2:03',
+      icon: Layers,
+      poster: '/images/hero/hero_card_3.jpg',
+      videoSrc: '/videos/hero/testimonial_3.mp4',
+      alt: 'Pragnesh - Shikhodiya Technology Testimonial Video'
+    }
+  ];
+
+  const handleOpenFullVideo = (card) => {
+    // Pause any playing hero card video
+    heroVideoRefs.current.forEach((v) => {
+      if (v) {
+        v.pause();
+        try { v.currentTime = 0; } catch (e) {}
+      }
+    });
+    setActiveHeroVideo(null);
+    setSelectedVideoModal(card);
+  };
+
+  const handleHeroCardMouseEnter = (index) => {
+    // Pause any other playing video
+    heroVideoRefs.current.forEach((v, idx) => {
+      if (v && idx !== index) {
+        v.pause();
+        try { v.currentTime = 0; } catch (e) {}
+      }
+    });
+
+    const targetVideo = heroVideoRefs.current[index];
+    if (targetVideo) {
+      setActiveHeroVideo(index);
+      try { targetVideo.currentTime = 0; } catch (e) {}
+      const playPromise = targetVideo.play();
+      heroPlayPromises.current[index] = playPromise;
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  };
+
+  const handleHeroCardMouseLeave = (index) => {
+    const targetVideo = heroVideoRefs.current[index];
+    if (targetVideo) {
+      const p = heroPlayPromises.current[index];
+      if (p !== undefined && typeof p.then === 'function') {
+        p.then(() => {
+          targetVideo.pause();
+          try { targetVideo.currentTime = 0; } catch (e) {}
+        }).catch(() => {
+          targetVideo.pause();
+          try { targetVideo.currentTime = 0; } catch (e) {}
+        });
+      } else {
+        targetVideo.pause();
+        try { targetVideo.currentTime = 0; } catch (e) {}
+      }
+    }
+    setActiveHeroVideo((prev) => (prev === index ? null : prev));
+  };
+
+  const handleHeroCardTouchToggle = (index, e) => {
+    e.stopPropagation();
+    const targetVideo = heroVideoRefs.current[index];
+    if (!targetVideo) return;
+
+    if (activeHeroVideo === index) {
+      targetVideo.pause();
+      try { targetVideo.currentTime = 0; } catch (err) {}
+      setActiveHeroVideo(null);
+    } else {
+      heroVideoRefs.current.forEach((v, idx) => {
+        if (v && idx !== index) {
+          v.pause();
+          try { v.currentTime = 0; } catch (err) {}
+        }
+      });
+      setActiveHeroVideo(index);
+      try { targetVideo.currentTime = 0; } catch (err) {}
+      const p = targetVideo.play();
+      heroPlayPromises.current[index] = p;
+      if (p !== undefined) {
+        p.catch(() => {});
+      }
+    }
+  };
+
   // Set Page Title & SEO Meta
   useEffect(() => {
     document.title = 'Client Success Stories & Case Studies | Growthora Advisory';
@@ -302,478 +442,205 @@ export default function SuccessStoriesPage() {
       />
 
       <main id="main-content">
-        {/* 12. Client Success Stories — Premium Testimonial Section with Satisfaction Graph */}
-        <section className="ss-cs-section" aria-labelledby="cs-title">
-          <div className="ss-cs-container">
+        {/* 2. Hero Section — Exact Replica of Reference Image 1 */}
+        <section className="ss-hero" aria-labelledby="hero-title">
+          {/* Ambient Background Glows */}
+          <div className="ss-hero-ambient-tl" aria-hidden="true" />
+          <div className="ss-hero-ambient-br" aria-hidden="true" />
 
-            {/* Top Grid: Heading Row + Satisfaction Journey Graph */}
-            <div className="ss-cs-top-grid">
+          {/* Faint Concentric Contour Waves in Bottom-Left */}
+          <svg className="ss-hero-contour-waves" viewBox="0 0 620 340" fill="none" aria-hidden="true">
+            <path d="M-60,180 C120,160 220,240 440,200 C520,185 580,210 660,200" stroke="rgba(112, 39, 141, 0.09)" strokeWidth="1.2" />
+            <path d="M-60,215 C130,195 240,270 470,230 C550,215 610,240 690,230" stroke="rgba(112, 39, 141, 0.08)" strokeWidth="1.2" />
+            <path d="M-60,250 C140,230 260,300 500,260 C580,245 640,270 720,260" stroke="rgba(112, 39, 141, 0.07)" strokeWidth="1.2" />
+            <path d="M-60,285 C150,265 280,330 530,290 C610,275 670,300 750,290" stroke="rgba(112, 39, 141, 0.06)" strokeWidth="1.2" />
+          </svg>
 
-              {/* Left Column — Badge & Heading Row */}
-              <div className="ss-cs-head-col">
-                <span className="ss-cs-badge">SUCCESS STORIES</span>
+          <div className="ss-container ss-hero-container">
+            <div className="ss-hero-grid">
+              {/* Left Column: Heading, Subtitle, CTAs & Trust Indicator */}
+              <div className="ss-hero-content">
+                <div className="ss-hero-tag">
+                  <span className="ss-hero-tag-text">SUCCESS STORIES</span>
+                  <span className="ss-hero-tag-dash" />
+                </div>
 
-                <div className="ss-cs-head-row">
-                  <h2 className="ss-cs-heading" id="cs-title">
-                    <span>Real Businesses.</span>
-                    <span>Real Progress.</span>
-                    <span className="ss-cs-highlight">Real Impact.</span>
-                  </h2>
+                <h1 id="hero-title" className="ss-hero-title">
+                  <span className="ss-title-primary">Real Businesses.</span>
+                  <span className="ss-title-accent">Real Growth.</span>
+                </h1>
 
-                  <div className="ss-cs-divider-col">
-                    <div className="ss-cs-divider-line" />
-                    <p className="ss-cs-desc-text">
-                      See how our support turns business challenges into measurable success.
-                    </p>
+                <p className="ss-hero-desc">
+                  From first consultation to final approval, explore how entrepreneurs across India have turned challenges into measurable success with Growthora Advisory.
+                </p>
+
+                <div className="ss-hero-actions">
+                  <a href="#featured-cases" className="ss-hero-btn-primary">
+                    <span>Explore Success Stories</span>
+                    <ArrowRight size={17} />
+                  </a>
+                  <a href="#video-testimonials" className="ss-hero-btn-secondary">
+                    <span className="ss-play-icon-wrap">
+                      <Play size={12} fill="#70278D" color="#70278D" />
+                    </span>
+                    <span>Watch Client Experiences</span>
+                  </a>
+                </div>
+
+                {/* Trust Indicator */}
+                <div className="ss-hero-trust">
+                  <div className="ss-trust-avatars" aria-hidden="true">
+                    <img src="/images/hero/avatar1.jpg" alt="Client 1" className="ss-trust-avatar" />
+                    <img src="/images/hero/avatar2.jpg" alt="Client 2" className="ss-trust-avatar" />
+                    <img src="/images/hero/avatar3.jpg" alt="Client 3" className="ss-trust-avatar" />
+                  </div>
+                  <div className="ss-trust-divider" aria-hidden="true" />
+                  <div className="ss-trust-details">
+                    <div className="ss-trust-count">2,137+</div>
+                    <div className="ss-trust-labels">
+                      <span className="ss-trust-line-1">Businesses Supported</span>
+                      <span className="ss-trust-line-2">Across India</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column — Client Satisfaction Journey Graph Card */}
-              <div className="ss-cs-graph-card" ref={graphRef}>
-                <div className="ss-cs-graph-head">
-                  <div className="ss-cs-graph-title-group">
-                    <svg className="ss-cs-graph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                    <div>
-                      <span className="ss-cs-graph-title">Client Satisfaction Journey</span>
-                      {activeMilestoneId && (
-                        <span className="ss-cs-graph-stage-hint">
-                          {activeMilestoneId === 'initial' && 'Advisory onboarding & readiness assessment (Illustrative milestone)'}
-                          {activeMilestoneId === 'reg' && 'Entity incorporation & scheme mapping complete (Illustrative milestone)'}
-                          {activeMilestoneId === 'funding' && 'DPR approved & funding disbursed (Illustrative milestone)'}
-                          {activeMilestoneId === 'satisfaction' && 'Advisory excellence & verified client satisfaction benchmark'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+              {/* Right Column: Three Angled Overlapping Testimonial Video Cards */}
+              <div className="ss-hero-showcase">
+                <div className="ss-cards-wrapper">
+                  {HERO_VIDEO_CARDS.map((card, idx) => {
+                    const IconComp = card.icon;
+                    const hasVideo = Boolean(card.videoSrc);
+                    const isPlaying = hasVideo && activeHeroVideo === idx;
 
-                  <div
-                    className={`ss-cs-sat-badge ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
-                    onMouseEnter={() => setActiveMilestoneId('satisfaction')}
-                    onMouseLeave={() => setActiveMilestoneId(null)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <span className="ss-cs-sat-val">97%</span>
-                    <span className="ss-cs-sat-lbl">Client Satisfaction</span>
-                  </div>
-                </div>
+                    return (
+                      <article
+                        key={card.id}
+                        className={`ss-angled-card ${card.cls} ${isPlaying ? 'is-video-playing' : ''}`}
+                        onMouseEnter={() => handleHeroCardMouseEnter(idx)}
+                        onMouseLeave={() => handleHeroCardMouseLeave(idx)}
+                        onClick={() => handleOpenFullVideo(card)}
+                        tabIndex={0}
+                        role="region"
+                        aria-label={`View ${card.clientName} Testimonial: ${card.category} - ${card.subtext}`}
+                      >
+                        {/* Upper Video Area (Approx 70% height) */}
+                        <div className="ss-card-video-box">
+                          {/* Static Poster Image matching Master Reference */}
+                          <img
+                            src={card.poster}
+                            alt={card.alt}
+                            className={`ss-hero-card-poster ${isPlaying ? 'fade-out' : 'fade-in'}`}
+                            loading="eager"
+                          />
 
-                <div className="ss-cs-chart-wrap">
-                  <svg className="ss-cs-chart-svg" viewBox="0 0 520 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive client satisfaction journey chart showing progression from 0% initial stage to 97% client satisfaction benchmark">
-                    <defs>
-                      {/* Premium light-orange gradient below the curve */}
-                      <linearGradient id="csOrangeGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#FF7518" stopOpacity="0.32" />
-                        <stop offset="60%" stopColor="#FF7518" stopOpacity="0.10" />
-                        <stop offset="100%" stopColor="#FFF1E6" stopOpacity="0.02" />
-                      </linearGradient>
-                      <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7518" />
-                      </marker>
-                    </defs>
+                          {/* Inline Video on Hover */}
+                          {hasVideo && (
+                            <video
+                              ref={(el) => (heroVideoRefs.current[idx] = el)}
+                              src={card.videoSrc}
+                              muted
+                              playsInline
+                              loop
+                              preload="none"
+                              className={`testimonial-video ${isPlaying ? 'fade-in' : 'fade-out'}`}
+                              aria-hidden={!isPlaying}
+                            />
+                          )}
 
-                    {/* Y-axis Labels */}
-                    <text x="32" y="165" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">0%</text>
-                    <text x="32" y="137" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">20%</text>
-                    <text x="32" y="109" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">40%</text>
-                    <text x="32" y="81" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">60%</text>
-                    <text x="32" y="53" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">80%</text>
-                    <text x="32" y="25" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">100%</text>
+                          {/* Transparent Click Target for Accessibility / Play trigger */}
+                          <button
+                            type="button"
+                            className="ss-card-click-hitbox"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenFullVideo(card);
+                            }}
+                            aria-label={`Play full testimonial of ${card.clientName}`}
+                          />
+                        </div>
 
-                    {/* Horizontal Grid lines */}
-                    <line x1="42" y1="21" x2="490" y2="21" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="49" x2="490" y2="49" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="77" x2="490" y2="77" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="105" x2="490" y2="105" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="133" x2="490" y2="133" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="42" y1="161" x2="490" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
-
-                    {/* Y-axis vertical line */}
-                    <line x1="42" y1="18" x2="42" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
-
-                    {/* Smooth Light-Orange Gradient Fill under curve */}
-                    <path
-                      className={`ss-cs-graph-fill ${isGraphVisible ? 'is-drawn' : ''}`}
-                      d="M 42 161 L 44 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 476 22 L 476 161 Z"
-                      fill="url(#csOrangeGradient)"
-                    />
-
-                    {/* Smooth Orange Curve Line — Animated 2s from bottom-left (0%) to top-right (97%) */}
-                    <path
-                      className={`ss-cs-graph-curve ${isGraphVisible ? 'is-drawn' : ''}`}
-                      d="M 42 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 474 23"
-                      stroke="#FF7518"
-                      strokeWidth="3.2"
-                      strokeLinecap="round"
-                      fill="none"
-                      markerEnd="url(#csArrow)"
-                    />
-
-                    {/* Milestone 0: Origin */}
-                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
-
-                    {/* Milestone 1: 0% Initial Stage (Illustrative) */}
-                    <g
-                      className={`ss-cs-point-group ss-cs-point-delay-1 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'initial' ? 'is-active' : ''}`}
-                      onMouseEnter={() => setActiveMilestoneId('initial')}
-                      onMouseLeave={() => setActiveMilestoneId(null)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label="0% Initial Stage: Illustrative journey milestone"
-                    >
-                      <circle cx="120" cy="154" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
-                      <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
-                      <g transform="translate(86, 96)">
-                        <rect
-                          width="68"
-                          height="42"
-                          rx="10"
-                          fill="#FFFFFF"
-                          filter={activeMilestoneId === 'initial' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
-                          stroke={activeMilestoneId === 'initial' ? "#FF7518" : "#FFD6BA"}
-                          strokeWidth="1.5"
-                        />
-                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
-                        <text x="34" y="33" fill="#7A5239" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
-                      </g>
-
-                      {activeMilestoneId === 'initial' && (
-                        <g className="ss-cs-tooltip-bubble" transform="translate(56, 38)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
-                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
-                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
-                        </g>
-                      )}
-                    </g>
-
-                    {/* Milestone 2: 56% After Registration (Illustrative) */}
-                    <g
-                      className={`ss-cs-point-group ss-cs-point-delay-2 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'reg' ? 'is-active' : ''}`}
-                      onMouseEnter={() => setActiveMilestoneId('reg')}
-                      onMouseLeave={() => setActiveMilestoneId(null)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label="56% After Registration: Illustrative journey milestone"
-                    >
-                      <circle cx="230" cy="110" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
-                      <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
-                      <g transform="translate(186, 50)">
-                        <rect
-                          width="88"
-                          height="42"
-                          rx="10"
-                          fill="#FFFFFF"
-                          filter={activeMilestoneId === 'reg' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
-                          stroke={activeMilestoneId === 'reg' ? "#FF7518" : "#FFD6BA"}
-                          strokeWidth="1.5"
-                        />
-                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
-                        <text x="44" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
-                      </g>
-
-                      {activeMilestoneId === 'reg' && (
-                        <g className="ss-cs-tooltip-bubble" transform="translate(165, -4)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
-                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
-                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
-                        </g>
-                      )}
-                    </g>
-
-                    {/* Milestone 3: 78% After Funding (Illustrative) */}
-                    <g
-                      className={`ss-cs-point-group ss-cs-point-delay-3 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'funding' ? 'is-active' : ''}`}
-                      onMouseEnter={() => setActiveMilestoneId('funding')}
-                      onMouseLeave={() => setActiveMilestoneId(null)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label="78% After Funding: Illustrative journey milestone"
-                    >
-                      <circle cx="330" cy="72" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
-                      <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
-                      <g transform="translate(294, 14)">
-                        <rect
-                          width="72"
-                          height="42"
-                          rx="10"
-                          fill="#FFFFFF"
-                          filter={activeMilestoneId === 'funding' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
-                          stroke={activeMilestoneId === 'funding' ? "#FF7518" : "#FFD6BA"}
-                          strokeWidth="1.5"
-                        />
-                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
-                        <text x="36" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
-                      </g>
-
-                      {activeMilestoneId === 'funding' && (
-                        <g className="ss-cs-tooltip-bubble" transform="translate(265, -40)">
-                          <rect width="130" height="48" rx="8" fill="#2D1538" />
-                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
-                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
-                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
-                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
-                        </g>
-                      )}
-                    </g>
-
-                    {/* Milestone 4: 97% Tip Indicator */}
-                    <g
-                      className={`ss-cs-point-group ss-cs-point-delay-4 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
-                      onMouseEnter={() => setActiveMilestoneId('satisfaction')}
-                      onMouseLeave={() => setActiveMilestoneId(null)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label="97% Client Satisfaction: Verified satisfaction benchmark"
-                    >
-                      <circle cx="478" cy="22" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
-                      <circle cx="478" cy="22" r="6" fill="#FF7518" stroke="#FFFFFF" strokeWidth="2.5" className="ss-cs-dot-core" />
-                    </g>
-                  </svg>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Middle: Testimonial Cards Grid (3 Equal-Height Cards matching Reference Design) */}
-            <div className="ss-cs-cards-grid">
-
-              {/* Card 1: Manufacturing (Raj Shekhar) */}
-              <article className="ss-cs-card">
-                <div
-                  className="ss-cs-card-media"
-                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[0]); } }}
-                  aria-label="Play Raj Shekhar video testimonial"
-                >
-                  <span className="ss-cs-card-badge">
-                    <Factory size={12} strokeWidth={2.4} />
-                    <span>Manufacturing</span>
-                  </span>
-
-                  <img
-                    className="ss-cs-card-img ss-cs-card-img-raj"
-                    src="/images/stories/raj_shekhar_clean.jpg"
-                    alt="Raj Shekhar — Founder, Strategic Scaling"
-                    loading="lazy"
-                  />
-
-                  <div className="ss-cs-card-play-btn" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
-                      <polygon points="6,3 20,12 6,21" />
-                    </svg>
-                  </div>
-
-                  <span className="ss-cs-card-duration">01:02</span>
-                </div>
-
-                <div className="ss-cs-card-content">
-                  <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
-
-                  <p className="ss-cs-card-text">
-                    &ldquo;Working with Growthora has been a game-changer for our business. Their strategic insights, professional approach and genuine commitment towards our growth have helped us scale with confidence.&rdquo;
-                  </p>
-
-                  <div className="ss-cs-card-footer">
-                    <div className="ss-cs-author-info">
-                      <h4 className="ss-cs-author-name">Raj Shekhar</h4>
-                      <p className="ss-cs-author-designation">Founder, Strategic Scaling</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="ss-cs-card-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedVideoModal(CLIENT_VIDEOS[0]);
-                      }}
-                      aria-label="Play Raj Shekhar video testimonial"
-                    >
-                      <ArrowUpRight size={17} strokeWidth={2.4} />
-                    </button>
-                  </div>
-                </div>
-              </article>
-
-              {/* Card 2: Foundation / NGO (Yoshita Saxena) */}
-              <article className="ss-cs-card">
-                <div
-                  className="ss-cs-card-media"
-                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[1]); } }}
-                  aria-label="Play Yoshita Saxena video testimonial"
-                >
-                  <span className="ss-cs-card-badge">
-                    <Handshake size={12} strokeWidth={2.4} />
-                    <span>Foundation / NGO</span>
-                  </span>
-
-                  <img
-                    className="ss-cs-card-img ss-cs-card-img-yoshita"
-                    src="/images/stories/yoshita_saxena_clean.jpg"
-                    alt="Yoshita Saxena — President, Kastha Foundation"
-                    loading="lazy"
-                  />
-
-                  <div className="ss-cs-card-play-btn" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
-                      <polygon points="6,3 20,12 6,21" />
-                    </svg>
-                  </div>
-
-                  <span className="ss-cs-card-duration">01:00</span>
-                </div>
-
-                <div className="ss-cs-card-content">
-                  <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
-
-                  <p className="ss-cs-card-text">
-                    &ldquo;Growthora helped Kastha Foundation navigate institutional support, grants, and compliance with utmost professionalism and speed.&rdquo;
-                  </p>
-
-                  <div className="ss-cs-card-footer">
-                    <div className="ss-cs-author-info">
-                      <h4 className="ss-cs-author-name">Yoshita Saxena</h4>
-                      <p className="ss-cs-author-designation">President, Kastha Foundation</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="ss-cs-card-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedVideoModal(CLIENT_VIDEOS[1]);
-                      }}
-                      aria-label="Play Yoshita Saxena video testimonial"
-                    >
-                      <ArrowUpRight size={17} strokeWidth={2.4} />
-                    </button>
-                  </div>
-                </div>
-              </article>
-
-              {/* Card 3: Technology (Pragnesh) */}
-              <article className="ss-cs-card">
-                <div
-                  className="ss-cs-card-media"
-                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[2]); } }}
-                  aria-label="Play Pragnesh video testimonial"
-                >
-                  <span className="ss-cs-card-badge">
-                    <Laptop size={12} strokeWidth={2.4} />
-                    <span>Technology</span>
-                  </span>
-
-                  <img
-                    className="ss-cs-card-img ss-cs-card-img-pragnesh"
-                    src="/images/stories/pragnesh_clean.jpg"
-                    alt="Pragnesh — Founder, Shikhodiya Technology"
-                    loading="lazy"
-                  />
-
-                  <div className="ss-cs-card-play-btn" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
-                      <polygon points="6,3 20,12 6,21" />
-                    </svg>
-                  </div>
-
-                  <span className="ss-cs-card-duration">00:53</span>
-                </div>
-
-                <div className="ss-cs-card-content">
-                  <div className="ss-cs-quote-badge" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
-
-                  <p className="ss-cs-card-text">
-                    &ldquo;Growthora guided us step-by-step through technology enterprise certifications, MSME benefits, and business financing with full transparency.&rdquo;
-                  </p>
-
-                  <div className="ss-cs-card-footer">
-                    <div className="ss-cs-author-info">
-                      <h4 className="ss-cs-author-name">Pragnesh</h4>
-                      <p className="ss-cs-author-designation">Founder, Shikhodiya Technology</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="ss-cs-card-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedVideoModal(CLIENT_VIDEOS[2]);
-                      }}
-                      aria-label="Play Pragnesh video testimonial"
-                    >
-                      <ArrowUpRight size={17} strokeWidth={2.4} />
-                    </button>
-                  </div>
-                </div>
-              </article>
-
-            </div>
-
-            {/* Bottom: Achievement Statistics Row in Premium White/Light-Orange Pill Theme */}
-            <div className="ss-cs-stats-bar">
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
-                  <Users size={24} strokeWidth={2} />
-                </div>
-                <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">{statsCounts.businesses.toLocaleString()}+</span>
-                  <span className="ss-cs-stat-tag">Businesses Guided</span>
-                </div>
-              </div>
-
-              <div className="ss-cs-stat-divider" aria-hidden="true" />
-
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
-                  <Coins size={24} strokeWidth={2} />
-                </div>
-                <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">₹{statsCounts.loan}+ Cr</span>
-                  <span className="ss-cs-stat-tag">Loan Approvals</span>
-                </div>
-              </div>
-
-              <div className="ss-cs-stat-divider" aria-hidden="true" />
-
-              <div className="ss-cs-stat-item">
-                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
-                  <Trophy size={24} strokeWidth={2} />
-                </div>
-                <div className="ss-cs-stat-text-group">
-                  <span className="ss-cs-stat-num">{statsCounts.satisfaction}%</span>
-                  <span className="ss-cs-stat-tag">Success Rate</span>
+                        {/* Lower Purple Information Panel (Approx 30% height) */}
+                        <div className="ss-card-purple-panel">
+                          <div className="ss-card-category-row">
+                            <IconComp size={15} className="ss-card-category-icon" />
+                            <span>{card.category}</span>
+                          </div>
+                          <div className="ss-card-info-row">
+                            <div className="ss-card-name-group">
+                              <h3 className="ss-card-client-name">{card.clientName}</h3>
+                              <span className="ss-card-client-sub">{card.subtext}</span>
+                            </div>
+                            <button
+                              type="button"
+                              className="ss-card-arrow-circle-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleOpenFullVideo(card);
+                              }}
+                              aria-label={`Watch ${card.clientName} story`}
+                            >
+                              <ArrowUpRight size={16} />
+                            </button>
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
+            {/* Floating Bottom Statistics Bar — Exact 5 Columns matching Image 1 */}
+            <div className="ss-hero-stats-bar" aria-label="Key Achievements">
+              <div className="ss-hero-stat-col">
+                <Building2 size={30} className="ss-stat-icon-purple" strokeWidth={1.75} />
+                <div className="ss-hero-stat-details">
+                  <div className="ss-hero-stat-val">2,137+</div>
+                  <div className="ss-hero-stat-lbl">Businesses Supported</div>
+                </div>
+              </div>
+
+              <div className="ss-hero-stat-divider" aria-hidden="true" />
+
+              <div className="ss-hero-stat-col">
+                <Coins size={30} className="ss-stat-icon-orange" strokeWidth={1.75} />
+                <div className="ss-hero-stat-details">
+                  <div className="ss-hero-stat-val">₹190 Cr+</div>
+                  <div className="ss-hero-stat-lbl">Funding Facilitated</div>
+                </div>
+              </div>
+
+              <div className="ss-hero-stat-divider" aria-hidden="true" />
+
+              <div className="ss-hero-stat-col">
+                <Layers size={30} className="ss-stat-icon-purple" strokeWidth={1.75} />
+                <div className="ss-hero-stat-details">
+                  <div className="ss-hero-stat-val">12+</div>
+                  <div className="ss-hero-stat-lbl">Industries Served</div>
+                </div>
+              </div>
+
+              <div className="ss-hero-stat-divider" aria-hidden="true" />
+
+              <div className="ss-hero-stat-col">
+                <Star size={30} className="ss-stat-icon-orange" fill="#F26522" strokeWidth={1.5} />
+                <div className="ss-hero-stat-details">
+                  <div className="ss-hero-stat-val">4.9/5</div>
+                  <div className="ss-hero-stat-lbl">Google Rating</div>
+                </div>
+              </div>
+
+              <div className="ss-hero-stat-divider" aria-hidden="true" />
+
+              <div className="ss-hero-stat-col">
+                <Handshake size={30} className="ss-stat-icon-purple" strokeWidth={1.75} />
+                <div className="ss-hero-stat-details">
+                  <div className="ss-hero-stat-val">97%</div>
+                  <div className="ss-hero-stat-lbl">Success Rate</div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1588,85 +1455,480 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
-        {/* 10. Final CTA Section (Deep Purple #2B103D) */}
-        <section className="ss-final-cta-section" aria-labelledby="cta-title">
-          <div className="ss-container">
-            <div className="ss-cta-card">
-              <div className="ss-cta-grid">
-                <div className="ss-cta-content">
-                  <div className="ss-cta-kicker-wrap">
-                    <span className="ss-cta-kicker-bar" aria-hidden="true" />
-                    <span className="ss-cta-kicker">YOUR TURN TO GROW</span>
-                  </div>
+        {/* 12. Client Success Stories — Premium Testimonial Section with Satisfaction Graph */}
+        <section className="ss-cs-section" aria-labelledby="cs-title">
+          <div className="ss-cs-container">
 
-                  <h2 id="cta-title" className="ss-cta-h2">
-                    <span className="ss-cta-h2-main">Your Next Success Story</span>
-                    <span className="ss-cta-h2-em-wrap">
-                      <em>Starts Here.</em>
-                      <svg className="ss-cta-swoosh" viewBox="0 0 240 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 14C65 4 175 4 236 14" stroke="#FF8A45" strokeWidth="4.5" strokeLinecap="round" />
-                      </svg>
-                    </span>
+            {/* Top Grid: Heading Row + Satisfaction Journey Graph */}
+            <div className="ss-cs-top-grid">
+
+              {/* Left Column — Badge & Heading Row */}
+              <div className="ss-cs-head-col">
+                <span className="ss-cs-badge">SUCCESS STORIES</span>
+
+                <div className="ss-cs-head-row">
+                  <h2 className="ss-cs-heading" id="cs-title">
+                    <span>Real Businesses.</span>
+                    <span>Real Progress.</span>
+                    <span className="ss-cs-highlight">Real Impact.</span>
                   </h2>
 
-                  <p className="ss-cta-desc">
-                    From business registration to funding advisory, take your next step with Growthora. The first 30-minute consultation is free.
-                  </p>
-
-                  <div className="ss-cta-buttons">
-                    <button
-                      type="button"
-                      className="ss-cta-btn-primary"
-                      onClick={() => setIsConsultationOpen(true)}
-                    >
-                      <span>Book a Consultation</span>
-                      <ArrowRight size={16} />
-                    </button>
-                    <a href="tel:18004102598" className="ss-cta-btn-call">
-                      <Phone size={16} />
-                      <span>Talk to an Advisor</span>
-                    </a>
-                  </div>
-
-                  <div className="ss-cta-contacts-row">
-                    <a href="tel:+919005427979" className="ss-cta-contact-item">
-                      <PhoneCall size={14} className="ss-cta-contact-icon" />
-                      <span>+91 90054 27979</span>
-                    </a>
-                    <span className="ss-cta-contact-divider" aria-hidden="true" />
-                    <a href="tel:18004102598" className="ss-cta-contact-item">
-                      <Headphones size={14} className="ss-cta-contact-icon" />
-                      <span>1800 410 2598</span>
-                    </a>
-                    <span className="ss-cta-contact-divider" aria-hidden="true" />
-                    <a href="mailto:info@growthora.co.in" className="ss-cta-contact-item">
-                      <Mail size={14} className="ss-cta-contact-icon" />
-                      <span>info@growthora.co.in</span>
-                    </a>
-                  </div>
-
-                  <div className="ss-cta-hindi-row">
-                    <span className="ss-cta-hindi-text">हम बढ़ाएँ आपका बिज़नेस</span>
-                    <span className="ss-cta-hindi-line" aria-hidden="true" />
-                  </div>
-                </div>
-
-                <div className="ss-cta-visual-col">
-                  <div className="ss-cta-visual-frame">
-                    <img
-                      src="/images/cta/cta_growthora_desk.png"
-                      srcSet="/images/cta/cta_growthora_desk.png 1x, /images/cta/cta_growthora_desk@2x.png 2x"
-                      alt="Growthora Financial Growth & Consultation Desk"
-                      className="ss-cta-desk-img"
-                      loading="lazy"
-                    />
+                  <div className="ss-cs-divider-col">
+                    <div className="ss-cs-divider-line" />
+                    <p className="ss-cs-desc-text">
+                      See how our support turns business challenges into measurable success.
+                    </p>
                   </div>
                 </div>
               </div>
+
+              {/* Right Column — Client Satisfaction Journey Graph Card */}
+              <div className="ss-cs-graph-card" ref={graphRef}>
+                <div className="ss-cs-graph-head">
+                  <div className="ss-cs-graph-title-group">
+                    <svg className="ss-cs-graph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <div>
+                      <span className="ss-cs-graph-title">Client Satisfaction Journey</span>
+                      {activeMilestoneId && (
+                        <span className="ss-cs-graph-stage-hint">
+                          {activeMilestoneId === 'initial' && 'Advisory onboarding & readiness assessment (Illustrative milestone)'}
+                          {activeMilestoneId === 'reg' && 'Entity incorporation & scheme mapping complete (Illustrative milestone)'}
+                          {activeMilestoneId === 'funding' && 'DPR approved & funding disbursed (Illustrative milestone)'}
+                          {activeMilestoneId === 'satisfaction' && 'Advisory excellence & verified client satisfaction benchmark'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div
+                    className={`ss-cs-sat-badge ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                    onMouseEnter={() => setActiveMilestoneId('satisfaction')}
+                    onMouseLeave={() => setActiveMilestoneId(null)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <span className="ss-cs-sat-val">97%</span>
+                    <span className="ss-cs-sat-lbl">Client Satisfaction</span>
+                  </div>
+                </div>
+
+                <div className="ss-cs-chart-wrap">
+                  <svg className="ss-cs-chart-svg" viewBox="0 0 520 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Interactive client satisfaction journey chart showing progression from 0% initial stage to 97% client satisfaction benchmark">
+                    <defs>
+                      {/* Premium light-orange gradient below the curve */}
+                      <linearGradient id="csOrangeGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#FF7518" stopOpacity="0.32" />
+                        <stop offset="60%" stopColor="#FF7518" stopOpacity="0.10" />
+                        <stop offset="100%" stopColor="#FFF1E6" stopOpacity="0.02" />
+                      </linearGradient>
+                      <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FF7518" />
+                      </marker>
+                    </defs>
+
+                    {/* Y-axis Labels */}
+                    <text x="32" y="165" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">0%</text>
+                    <text x="32" y="137" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">20%</text>
+                    <text x="32" y="109" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">40%</text>
+                    <text x="32" y="81" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">60%</text>
+                    <text x="32" y="53" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">80%</text>
+                    <text x="32" y="25" fill="#8F7260" fontSize="10.5" textAnchor="end" fontFamily="sans-serif">100%</text>
+
+                    {/* Horizontal Grid lines */}
+                    <line x1="42" y1="21" x2="490" y2="21" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="49" x2="490" y2="49" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="77" x2="490" y2="77" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="105" x2="490" y2="105" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="133" x2="490" y2="133" stroke="#FFE5D1" strokeWidth="1" strokeDasharray="3 3" />
+                    <line x1="42" y1="161" x2="490" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
+
+                    {/* Y-axis vertical line */}
+                    <line x1="42" y1="18" x2="42" y2="161" stroke="#FFE5D1" strokeWidth="1.2" />
+
+                    {/* Smooth Light-Orange Gradient Fill under curve */}
+                    <path
+                      className={`ss-cs-graph-fill ${isGraphVisible ? 'is-drawn' : ''}`}
+                      d="M 42 161 L 44 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 476 22 L 476 161 Z"
+                      fill="url(#csOrangeGradient)"
+                    />
+
+                    {/* Smooth Orange Curve Line — Animated 2s from bottom-left (0%) to top-right (97%) */}
+                    <path
+                      className={`ss-cs-graph-curve ${isGraphVisible ? 'is-drawn' : ''}`}
+                      d="M 42 161 C 80 160 110 156 140 148 C 190 134 230 108 275 88 C 320 68 375 52 435 34 C 452 29 468 25 474 23"
+                      stroke="#FF7518"
+                      strokeWidth="3.2"
+                      strokeLinecap="round"
+                      fill="none"
+                      markerEnd="url(#csArrow)"
+                    />
+
+                    {/* Milestone 0: Origin */}
+                    <circle cx="42" cy="161" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" />
+
+                    {/* Milestone 1: 0% Initial Stage (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ss-cs-point-delay-1 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'initial' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('initial')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="0% Initial Stage: Illustrative journey milestone"
+                    >
+                      <circle cx="120" cy="154" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="120" cy="154" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(86, 96)">
+                        <rect
+                          width="68"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'initial' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'initial' ? "#FF7518" : "#FFD6BA"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="34" y="20" fill={activeMilestoneId === 'initial' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0%</text>
+                        <text x="34" y="33" fill="#7A5239" fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Initial Stage</text>
+                      </g>
+
+                      {activeMilestoneId === 'initial' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(56, 38)">
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">0% • Initial Stage</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Onboarding & readiness audit</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                        </g>
+                      )}
+                    </g>
+
+                    {/* Milestone 2: 56% After Registration (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ss-cs-point-delay-2 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'reg' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('reg')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="56% After Registration: Illustrative journey milestone"
+                    >
+                      <circle cx="230" cy="110" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="230" cy="110" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(186, 50)">
+                        <rect
+                          width="88"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'reg' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'reg' ? "#FF7518" : "#FFD6BA"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="44" y="20" fill={activeMilestoneId === 'reg' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56%</text>
+                        <text x="44" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Registration</text>
+                      </g>
+
+                      {activeMilestoneId === 'reg' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(165, -4)">
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">56% • After Registration</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">Incorporation & scheme mapped</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                        </g>
+                      )}
+                    </g>
+
+                    {/* Milestone 3: 78% After Funding (Illustrative) */}
+                    <g
+                      className={`ss-cs-point-group ss-cs-point-delay-3 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'funding' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('funding')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="78% After Funding: Illustrative journey milestone"
+                    >
+                      <circle cx="330" cy="72" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="330" cy="72" r="5" fill="#FFFFFF" stroke="#FF7518" strokeWidth="2.5" className="ss-cs-dot-core" />
+                      <g transform="translate(294, 14)">
+                        <rect
+                          width="72"
+                          height="42"
+                          rx="10"
+                          fill="#FFFFFF"
+                          filter={activeMilestoneId === 'funding' ? "drop-shadow(0 4px 10px rgba(255,117,24,0.3))" : "drop-shadow(0 2px 6px rgba(45,21,56,0.08))"}
+                          stroke={activeMilestoneId === 'funding' ? "#FF7518" : "#FFD6BA"}
+                          strokeWidth="1.5"
+                        />
+                        <text x="36" y="20" fill={activeMilestoneId === 'funding' ? "#FF7518" : "#2D1538"} fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78%</text>
+                        <text x="36" y="33" fill="#7A5239" fontSize="8.5" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">After Funding</text>
+                      </g>
+
+                      {activeMilestoneId === 'funding' && (
+                        <g className="ss-cs-tooltip-bubble" transform="translate(265, -40)">
+                          <rect width="130" height="48" rx="8" fill="#2D1538" />
+                          <text x="65" y="18" fill="#FF7518" fontSize="12" fontWeight="800" textAnchor="middle" fontFamily="sans-serif">78% • After Funding</text>
+                          <text x="65" y="32" fill="#FFFFFF" fontSize="8" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Illustrative Milestone</text>
+                          <text x="65" y="42" fill="#FFE5D1" fontSize="7" fontWeight="400" textAnchor="middle" fontFamily="sans-serif">DPR approved & funding cleared</text>
+                          <polygon points="61,48 65,53 69,48" fill="#2D1538" />
+                        </g>
+                      )}
+                    </g>
+
+                    {/* Milestone 4: 97% Tip Indicator */}
+                    <g
+                      className={`ss-cs-point-group ss-cs-point-delay-4 ${isGraphVisible ? 'is-drawn' : ''} ${activeMilestoneId === 'satisfaction' ? 'is-active' : ''}`}
+                      onMouseEnter={() => setActiveMilestoneId('satisfaction')}
+                      onMouseLeave={() => setActiveMilestoneId(null)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label="97% Client Satisfaction: Verified satisfaction benchmark"
+                    >
+                      <circle cx="478" cy="22" r="10" fill="#FF7518" className="ss-cs-dot-ring" />
+                      <circle cx="478" cy="22" r="6" fill="#FF7518" stroke="#FFFFFF" strokeWidth="2.5" className="ss-cs-dot-core" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
             </div>
+
+            {/* Middle: Testimonial Cards Grid (3 Equal-Height Cards matching Reference Design) */}
+            <div className="ss-cs-cards-grid">
+
+              {/* Card 1: Manufacturing (Raj Shekhar) */}
+              <article className="ss-cs-card">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[0])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[0]); } }}
+                  aria-label="Play Raj Shekhar video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Factory size={12} strokeWidth={2.4} />
+                    <span>Manufacturing</span>
+                  </span>
+
+                  <img
+                    className="ss-cs-card-img ss-cs-card-img-raj"
+                    src="/images/stories/raj_shekhar_clean.jpg"
+                    alt="Raj Shekhar — Founder, Strategic Scaling"
+                    loading="lazy"
+                  />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">01:02</span>
+                </div>
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Working with Growthora has been a game-changer for our business. Their strategic insights, professional approach and genuine commitment towards our growth have helped us scale with confidence.&rdquo;
+                  </p>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Raj Shekhar</h4>
+                      <p className="ss-cs-author-designation">Founder, Strategic Scaling</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[0]);
+                      }}
+                      aria-label="Play Raj Shekhar video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              {/* Card 2: Foundation / NGO (Yoshita Saxena) */}
+              <article className="ss-cs-card">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[1])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[1]); } }}
+                  aria-label="Play Yoshita Saxena video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Handshake size={12} strokeWidth={2.4} />
+                    <span>Foundation / NGO</span>
+                  </span>
+
+                  <img
+                    className="ss-cs-card-img ss-cs-card-img-yoshita"
+                    src="/images/stories/yoshita_saxena_clean.jpg"
+                    alt="Yoshita Saxena — President, Kastha Foundation"
+                    loading="lazy"
+                  />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">01:00</span>
+                </div>
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Growthora helped Kastha Foundation navigate institutional support, grants, and compliance with utmost professionalism and speed.&rdquo;
+                  </p>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Yoshita Saxena</h4>
+                      <p className="ss-cs-author-designation">President, Kastha Foundation</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[1]);
+                      }}
+                      aria-label="Play Yoshita Saxena video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+              {/* Card 3: Technology (Pragnesh) */}
+              <article className="ss-cs-card">
+                <div
+                  className="ss-cs-card-media"
+                  onClick={() => setSelectedVideoModal(CLIENT_VIDEOS[2])}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedVideoModal(CLIENT_VIDEOS[2]); } }}
+                  aria-label="Play Pragnesh video testimonial"
+                >
+                  <span className="ss-cs-card-badge">
+                    <Laptop size={12} strokeWidth={2.4} />
+                    <span>Technology</span>
+                  </span>
+
+                  <img
+                    className="ss-cs-card-img ss-cs-card-img-pragnesh"
+                    src="/images/stories/pragnesh_clean.jpg"
+                    alt="Pragnesh — Founder, Shikhodiya Technology"
+                    loading="lazy"
+                  />
+
+                  <div className="ss-cs-card-play-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF7417">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
+
+                  <span className="ss-cs-card-duration">00:53</span>
+                </div>
+
+                <div className="ss-cs-card-content">
+                  <div className="ss-cs-quote-badge" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF7417">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+
+                  <p className="ss-cs-card-text">
+                    &ldquo;Growthora guided us step-by-step through technology enterprise certifications, MSME benefits, and business financing with full transparency.&rdquo;
+                  </p>
+
+                  <div className="ss-cs-card-footer">
+                    <div className="ss-cs-author-info">
+                      <h4 className="ss-cs-author-name">Pragnesh</h4>
+                      <p className="ss-cs-author-designation">Founder, Shikhodiya Technology</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="ss-cs-card-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideoModal(CLIENT_VIDEOS[2]);
+                      }}
+                      aria-label="Play Pragnesh video testimonial"
+                    >
+                      <ArrowUpRight size={17} strokeWidth={2.4} />
+                    </button>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+            {/* Bottom: Achievement Statistics Row in Premium White/Light-Orange Pill Theme */}
+            <div className="ss-cs-stats-bar">
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Users size={24} strokeWidth={2} />
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">{statsCounts.businesses.toLocaleString()}+</span>
+                  <span className="ss-cs-stat-tag">Businesses Guided</span>
+                </div>
+              </div>
+
+              <div className="ss-cs-stat-divider" aria-hidden="true" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Coins size={24} strokeWidth={2} />
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">₹{statsCounts.loan}+ Cr</span>
+                  <span className="ss-cs-stat-tag">Loan Approvals</span>
+                </div>
+              </div>
+
+              <div className="ss-cs-stat-divider" aria-hidden="true" />
+
+              <div className="ss-cs-stat-item">
+                <div className="ss-cs-stat-icon-wrap" aria-hidden="true">
+                  <Trophy size={24} strokeWidth={2} />
+                </div>
+                <div className="ss-cs-stat-text-group">
+                  <span className="ss-cs-stat-num">{statsCounts.satisfaction}%</span>
+                  <span className="ss-cs-stat-tag">Success Rate</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
-
       </main>
 
       {/* 13. Case Study Details Modal */}
