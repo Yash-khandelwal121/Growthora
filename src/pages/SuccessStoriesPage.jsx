@@ -1068,7 +1068,7 @@ export default function SuccessStoriesPage() {
                     <button
                       type="button"
                       className="ss-btn-elig-cta"
-                      onClick={() => setIsConsultationOpen(true)}
+                      onClick={() => navigate('/eligibility')}
                     >
                       Check my eligibility
                     </button>
@@ -1344,16 +1344,6 @@ export default function SuccessStoriesPage() {
                   </a>
                 );
               })}
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="ss-ind-bottom-cta">
-              <span className="ss-ind-cta-line" aria-hidden="true" />
-              <a href="/industries" className="ss-ind-cta-btn">
-                <span>Explore All Industries</span>
-                <ArrowRight size={16} />
-              </a>
-              <span className="ss-ind-cta-line" aria-hidden="true" />
             </div>
           </div>
         </section>
