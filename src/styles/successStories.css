@@ -42,14 +42,39 @@
   position: relative;
 }
 
-.ss-container {
-  width: min(100% - 48px, 1320px);
-  margin-inline: auto;
+.ss-container,
+.ss-record-container,
+.ss-reviews-container,
+.ss-ind-container,
+.ss-cs-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  .ss-container {
-    width: min(100% - 64px, 1320px);
+@media (max-width: 1023px) {
+  .ss-container,
+  .ss-record-container,
+  .ss-reviews-container,
+  .ss-ind-container,
+  .ss-cs-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ss-container,
+  .ss-record-container,
+  .ss-reviews-container,
+  .ss-ind-container,
+  .ss-cs-container {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 
@@ -1014,9 +1039,15 @@
    4. CLIENT VIDEO TESTIMONIALS (THEATER & PLAYLIST)
    ========================================================================== */
 .ss-theatre-section {
-  padding: 60px 0 72px;
+  padding: 65px 0;
   background-color: var(--ss-warm-white);
   border-bottom: 1px solid var(--ss-border);
+}
+
+@media (max-width: 767px) {
+  .ss-theatre-section {
+    padding: 40px 0;
+  }
 }
 
 .ss-theatre-grid {
@@ -1306,9 +1337,15 @@
    5. FEATURED CASE STUDIES
    ========================================================================== */
 .ss-cases-section {
-  padding: 60px 0 72px;
+  padding: 65px 0;
   background-color: #FFFFFF;
   border-bottom: 1px solid var(--ss-border);
+}
+
+@media (max-width: 767px) {
+  .ss-cases-section {
+    padding: 40px 0;
+  }
 }
 
 .ss-case-tabs-nav {
@@ -1596,15 +1633,13 @@
    6. SUCCESS RECORD (CLIENT-BY-CLIENT PROOF) — EXACT REFERENCE SCREENSHOT 2
    ========================================================================== */
 .ss-record-section {
-  padding: 60px 0 72px;
+  padding: 65px 0;
   background-color: var(--ss-warm-white);
   border-bottom: 1px solid var(--ss-border);
 }
 
 .ss-record-container {
-  max-width: 1280px;
-  width: min(100% - 48px, 1280px);
-  margin-inline: auto;
+  /* Inherits universal 1280px container rules */
 }
 
 .ss-record-header-wrap {
@@ -2030,7 +2065,7 @@
 
 @media (max-width: 767px) {
   .ss-record-section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   .ss-record-card {
@@ -2051,7 +2086,7 @@
    7. GOOGLE REVIEWS SECTION (MASTER ASYMMETRIC 1 + 2x2 GRID REPLICATION)
    ========================================================================== */
 .ss-reviews-section {
-  padding: 65px 5%;
+  padding: 65px 0;
   background-color: #F8F2FC;
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(226, 178, 239, 0.28) 0%, transparent 42%),
@@ -2062,10 +2097,6 @@
 }
 
 .ss-reviews-container {
-  width: 100%;
-  max-width: 1480px;
-  margin: 0 auto;
-  box-sizing: border-box;
   position: relative;
   z-index: 2;
 }
@@ -2596,7 +2627,7 @@
 
 @media (max-width: 768px) {
   .ss-reviews-section {
-    padding: 50px 4%;
+    padding: 40px 0;
   }
   .ss-reviews-header-row {
     flex-direction: column;
@@ -2657,9 +2688,7 @@
 }
 
 .ss-ind-container {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 5%;
+  /* Inherits universal 1280px container rules */
 }
 
 /* --- Header Row --- */
@@ -3003,7 +3032,7 @@
 /* --- Industries Responsive: Mobile --- */
 @media (max-width: 767px) {
   .ss-industries-section {
-    padding: 45px 0;
+    padding: 40px 0;
   }
 
   .ss-ind-header-row {
@@ -3051,9 +3080,15 @@
    9. PROCESS: HOW EVERY STORY BEGINS
    ========================================================================== */
 .ss-process-section {
-  padding: 88px 0;
+  padding: 65px 0;
   background-color: var(--ss-warm-white);
   border-bottom: 1px solid var(--ss-border);
+}
+
+@media (max-width: 767px) {
+  .ss-process-section {
+    padding: 40px 0;
+  }
 }
 
 .ss-process-grid {
@@ -3611,9 +3646,15 @@
    10. FAQS ACCORDION
    ========================================================================== */
 .ss-faq-section {
-  padding: 60px 0 72px;
+  padding: 65px 0;
   background-color: #FFFFFF;
   border-bottom: 1px solid var(--ss-border);
+}
+
+@media (max-width: 767px) {
+  .ss-faq-section {
+    padding: 40px 0;
+  }
 }
 
 .ss-faq-grid {
@@ -3699,7 +3740,7 @@
    11. FINAL CTA SECTION (PREMIUM DEEP PURPLE #2B103D)
    ========================================================================== */
 .ss-final-cta-section {
-  padding: 48px 0 72px;
+  padding: 65px 0;
   background-color: #F9F5FF;
   position: relative;
   overflow: hidden;
@@ -4026,7 +4067,7 @@
 
 @media (max-width: 767px) {
   .ss-final-cta-section {
-    padding: 36px 0 48px;
+    padding: 40px 0;
   }
 
   .ss-cta-card {
@@ -4190,15 +4231,13 @@
 
 .ss-cs-section {
   background: #FFF9F5;
-  padding: 56px 0 64px;
+  padding: 65px 0;
   position: relative;
   overflow: hidden;
 }
 
 .ss-cs-container {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 0 40px;
+  /* Inherits universal 1280px container rules */
 }
 
 /* ---------- Top Grid: Heading Row (Left) + Graph (Right) ---------- */
@@ -4791,11 +4830,11 @@
 
 @media (max-width: 1023px) {
   .ss-cs-section {
-    padding: 52px 0 60px;
+    padding: 50px 0;
   }
 
-  .ss-cs-container {
-    padding: 0 28px;
+  .ss-cs-heading {
+    white-space: normal;
   }
 
   .ss-cs-top-grid {
@@ -4832,11 +4871,7 @@
 
 @media (max-width: 767px) {
   .ss-cs-section {
-    padding: 40px 0 48px;
-  }
-
-  .ss-cs-container {
-    padding: 0 20px;
+    padding: 40px 0;
   }
 
   .ss-cs-top-grid {
