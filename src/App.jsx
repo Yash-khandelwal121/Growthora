@@ -130,6 +130,7 @@ export function App() {
 
         {/* Success Stories Page */}
         <Route path="/success-stories" element={<SuccessStoriesPage />} />
+        <Route path="/success_stories" element={<SuccessStoriesPage />} />
       </Routes>
     </BrowserRouter>
   );
