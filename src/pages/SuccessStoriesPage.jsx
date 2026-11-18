@@ -34,7 +34,15 @@ import {
   Package,
   Code2,
   Users,
-  Trophy
+  Trophy,
+  Plus,
+  Minus,
+  HelpCircle,
+  Landmark,
+  CalendarDays,
+  Rocket,
+  Heart,
+  Eye
 } from 'lucide-react';
 
 import { Header } from '../components/Header';
@@ -60,6 +68,16 @@ import {
 
 import '../styles/index.css';
 import '../styles/successStories.css';
+import {
+  BeforeAfterSlider,
+  BusinessGrowthJourney,
+  InDepthCaseStudies,
+  IndiaSuccessMap,
+  ClientSuccessSpotlight,
+  IndustrySuccessFilter
+} from '../components/SuccessStoriesFeatures';
+import '../styles/successStoriesFeatures.css';
+
 
 // Google Multicolour G Icon
 const GoogleGIcon = ({ size = 20, className = '' }) => (
@@ -130,12 +148,22 @@ export default function SuccessStoriesPage() {
   const featuredVideoRef = useRef(null);
   const playlistScrollRef = useRef(null);
 
-  // Active Case Study Tab
-  const [activeCaseIndex, setActiveCaseIndex] = useState(0);
-
   // Success Record Filter & Expansion
   const [recordFilter, setRecordFilter] = useState('all');
   const [isRecordsExpanded, setIsRecordsExpanded] = useState(false);
+
+  // City Filter state for "Find a Success Story Like Yours" triggered from IndiaSuccessMap
+  const [activeCityFilter, setActiveCityFilter] = useState(null);
+
+  const handleCityExploreFromMap = (cityId) => {
+    setActiveCityFilter(cityId);
+    setTimeout(() => {
+      const target = document.getElementById('find-success-story');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 60);
+  };
 
   // FAQ Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
@@ -423,7 +451,6 @@ export default function SuccessStoriesPage() {
   };
 
   const activeVideo = CLIENT_VIDEOS[activeVideoIndex] || CLIENT_VIDEOS[0];
-  const activeCase = FEATURED_CASE_STUDIES[activeCaseIndex] || FEATURED_CASE_STUDIES[0];
 
   const filteredRecords = recordFilter === 'all'
     ? SUCCESS_RECORDS
@@ -670,6 +697,9 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
+        {/* FEATURE 1: Before Growthora vs After Growthora */}
+        <BeforeAfterSlider onConsultClick={() => setIsConsultationOpen(true)} />
+
         {/* 5. Client Video Testimonials ("Watch Real Founders Share Their Journey.") */}
         <section id="video-testimonials" className="ss-theatre-section" aria-labelledby="theatre-title">
           <div className="ss-container">
@@ -783,122 +813,17 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
+        {/* FEATURE 2: Interactive Business Growth Journey */}
+        <BusinessGrowthJourney onConsultClick={() => setIsConsultationOpen(true)} />
+
         {/* 6. Featured Case Studies ("Behind Every Success, There's a Strategy.") */}
-        <section id="featured-cases" className="ss-cases-section" aria-labelledby="cases-title">
-          <div className="ss-container">
-            <div className="ss-sec-head center">
-              <span className="ss-kicker">
-                <span className="ss-kicker-dot"></span>
-                In-Depth Advisory Case Studies
-              </span>
-              <h2 id="cases-title" className="ss-sec-title">
-                Behind Every Success, <em>There&rsquo;s a Strategy.</em>
-              </h2>
-              <p className="ss-sec-desc">
-                From initial diagnostic eligibility to money in the bank. Explore how structured compliance and financial advisory enabled real growth for these businesses.
-              </p>
-            </div>
+        <InDepthCaseStudies onOpenModal={(caseItem) => setSelectedCaseModal(caseItem)} />
 
-            {/* Case Selector Tabs */}
-            <div className="ss-case-tabs-nav" role="tablist">
-              {FEATURED_CASE_STUDIES.map((c, i) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === activeCaseIndex}
-                  className={`ss-case-tab-btn ${i === activeCaseIndex ? 'active' : ''}`}
-                  onClick={() => setActiveCaseIndex(i)}
-                >
-                  {c.company} ({c.amount})
-                </button>
-              ))}
-            </div>
-
-            {/* Main Interactive Case Showcase */}
-            <div className="ss-case-showcase">
-              <div className="ss-case-grid-inner">
-                {/* Left Information */}
-                <div>
-                  <div className="ss-case-chips">
-                    {activeCase.chips.map((chip, i) => (
-                      <span key={`chip-${i}`} className="ss-case-chip">{chip}</span>
-                    ))}
-                  </div>
-
-                  <div className="ss-case-heading-group">
-                    <h3>{activeCase.company}</h3>
-                    <span className="ss-case-scheme-badge">{activeCase.scheme}</span>
-                  </div>
-
-                  <div className="ss-case-narrative">
-                    <div className="ss-case-narrative-item">
-                      <strong>The Business Challenge:</strong> {activeCase.challenge}
-                    </div>
-                    <div className="ss-case-narrative-item">
-                      <strong>Growthora&rsquo;s Strategy:</strong> {activeCase.strategy}
-                    </div>
-                    <div className="ss-case-narrative-item">
-                      <strong>The Verified Outcome:</strong> {activeCase.outcome}
-                    </div>
-                  </div>
-
-                  <div className="ss-case-quote-box">
-                    <p>&ldquo;{activeCase.quote}&rdquo;</p>
-                    <span className="ss-case-founder">&mdash; {activeCase.founder}, {activeCase.founderRole}</span>
-                  </div>
-
-                  {/* Metrics */}
-                  <div className="ss-case-metrics-grid">
-                    {activeCase.metrics.map((m, idx) => (
-                      <div key={`m-${idx}`} className="ss-case-metric-box">
-                        <div className="ss-case-metric-val">{m.val}</div>
-                        <div className="ss-case-metric-label">{m.label}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div style={{ marginTop: '28px' }}>
-                    <button
-                      type="button"
-                      className="ss-btn-primary"
-                      onClick={() => setSelectedCaseModal(activeCase)}
-                    >
-                      <span>Read Full Success Story</span>
-                      <ArrowRight size={15} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Right Visual with Rotating Seal */}
-                <div className="ss-case-visual-side">
-                  <div className="ss-seal-badge" aria-hidden="true">
-                    <svg className="ss-seal-svg" viewBox="0 0 120 120">
-                      <defs>
-                        <path id="sealPathA" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0" />
-                      </defs>
-                      <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                      <circle cx="60" cy="60" r="35" fill="none" stroke="currentColor" strokeWidth="1" />
-                      <text fill="currentColor" fontFamily="DM Sans, sans-serif" fontSize="8.6" fontWeight="700" letterSpacing="2">
-                        <textPath href="#sealPathA" textLength="285" lengthAdjust="spacing">
-                          VERIFIED OUTCOME ✦ GROWTHORA ADVISORY ✦
-                        </textPath>
-                      </text>
-                    </svg>
-                    <div className="ss-seal-center">
-                      <span>{activeCase.sealText.split(' ')[0]}</span>
-                      <small>{activeCase.sealText.split(' ')[1] || 'VERIFIED'}</small>
-                    </div>
-                  </div>
-
-                  <div className="ss-case-visual-frame">
-                    <img src={activeCase.image} alt={activeCase.company} loading="lazy" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* FEATURE 4: Client Success Spotlight */}
+        <ClientSuccessSpotlight
+          onOpenVideo={(videoObj) => setSelectedVideoModal(videoObj)}
+          clientVideos={CLIENT_VIDEOS}
+        />
 
         {/* 7. Success Record (Client-by-Client Proof) — Two-Column Layout */}
         <section className="ss-record-section" aria-labelledby="record-title">
@@ -1078,6 +1003,22 @@ export default function SuccessStoriesPage() {
             </div>
           </div>
         </section>
+
+        {/* FEATURE 3: India's Success Map */}
+        <IndiaSuccessMap
+          onOpenVideo={(videoObj) => setSelectedVideoModal(videoObj)}
+          clientVideos={CLIENT_VIDEOS}
+          onExploreCity={handleCityExploreFromMap}
+        />
+
+        {/* FEATURE 5: Find a Success Story Like Yours (Industry & City Filter Grid) */}
+        <div id="find-success-story">
+          <IndustrySuccessFilter
+            onOpenVideo={(videoObj) => setSelectedVideoModal(videoObj)}
+            activeCityFilter={activeCityFilter}
+            onClearCityFilter={() => setActiveCityFilter(null)}
+          />
+        </div>
 
         {/* 8. Google Reviews Section (Soft Lavender Background - Master Asymmetric 1 + 2x2 Grid) */}
         <section className="ss-reviews-section" aria-labelledby="reviews-title">
@@ -1348,6 +1289,7 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
+
         {/* 10. How Every Story Begins (Four Steps Process & Eligibility Assessment Form) */}
         <section className="ss-process-section" id="how-every-story-begins" aria-labelledby="process-title">
           <div className="ss-container">
@@ -1389,36 +1331,89 @@ export default function SuccessStoriesPage() {
           </div>
         </section>
 
-        {/* 11. Frequently Asked Questions */}
+        {/* 11. Frequently Asked Questions — Premium Redesign */}
         <section className="ss-faq-section" aria-labelledby="faq-title">
           <div className="ss-container">
             <div className="ss-faq-grid">
-              <div className="ss-sec-head" style={{ marginBottom: 0 }}>
-                <span className="ss-kicker">
-                  <span className="ss-kicker-dot"></span>
-                  Clarity & Transparency
-                </span>
-                <h2 id="faq-title" className="ss-sec-title">
+              {/* Left Column — Header & CTA */}
+              <div className="ss-faq-left">
+                <div className="ss-faq-badge-wrap">
+                  <span className="ss-faq-badge">
+                    <span className="ss-faq-badge-dot">•</span>
+                    CLARITY &amp; TRANSPARENCY
+                    <span className="ss-faq-badge-dot">•</span>
+                  </span>
+                </div>
+
+                <h2 id="faq-title" className="ss-faq-heading">
                   What Founders <em>Ask Us</em> Most.
                 </h2>
-                <p className="ss-sec-desc">
+                
+                <div className="ss-faq-heading-underline-wrap" aria-hidden="true">
+                  <svg className="ss-faq-heading-underline-svg" viewBox="0 0 160 12" fill="none" preserveAspectRatio="none">
+                    <path d="M 3 8 C 45 3, 115 2, 157 9" stroke="#FF6500" strokeWidth="3.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+
+                <p className="ss-faq-desc">
                   Clear answers to key questions on collateral-free funding, registration timelines, and eligibility criteria.
                 </p>
-                <div style={{ marginTop: '28px' }}>
+
+                <div className="ss-faq-cta-wrap">
                   <button
                     type="button"
-                    className="ss-btn-primary"
+                    className="ss-faq-cta-btn"
                     onClick={() => setIsConsultationOpen(true)}
+                    aria-label="Talk to an Advisor"
                   >
                     <span>Talk to an Advisor</span>
-                    <ArrowRight size={15} />
+                    <ArrowRight size={16} />
                   </button>
+                </div>
+
+                {/* 3 Compact Trust Indicators */}
+                <div className="ss-faq-trust-card">
+                  <div className="ss-faq-trust-item">
+                    <div className="ss-faq-trust-icon-box" aria-hidden="true">
+                      <Headphones size={18} />
+                    </div>
+                    <span className="ss-faq-trust-label">Expert<br />Guidance</span>
+                  </div>
+
+                  <div className="ss-faq-trust-divider" aria-hidden="true" />
+
+                  <div className="ss-faq-trust-item">
+                    <div className="ss-faq-trust-icon-box" aria-hidden="true">
+                      <Layers size={18} />
+                    </div>
+                    <span className="ss-faq-trust-label">Transparent<br />Process</span>
+                  </div>
+
+                  <div className="ss-faq-trust-divider" aria-hidden="true" />
+
+                  <div className="ss-faq-trust-item">
+                    <div className="ss-faq-trust-icon-box" aria-hidden="true">
+                      <Handshake size={18} />
+                    </div>
+                    <span className="ss-faq-trust-label">Personalized<br />Support</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="ss-faq-list">
+              {/* Right Column — Accordion */}
+              <div className="ss-faq-list" role="region" aria-label="Frequently Asked Questions Accordion">
                 {FAQS.map((faq, idx) => {
                   const isOpen = openFaqIndex === idx;
+                  const faqIcons = [
+                    TrendingUp,
+                    Landmark,
+                    Coins,
+                    CalendarDays,
+                    Building2,
+                    Rocket
+                  ];
+                  const IconComponent = faqIcons[idx] || Sparkles;
+
                   return (
                     <div key={`faq-${idx}`} className={`ss-faq-item ${isOpen ? 'open' : ''}`}>
                       <button
@@ -1426,21 +1421,51 @@ export default function SuccessStoriesPage() {
                         className="ss-faq-trigger"
                         onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
                         aria-expanded={isOpen}
+                        aria-controls={`faq-answer-${idx}`}
+                        id={`faq-question-${idx}`}
                       >
+                        <div className="ss-faq-q-icon" aria-hidden="true">
+                          <IconComponent size={18} />
+                        </div>
                         <h4>{faq.q}</h4>
-                        <div className="ss-faq-icon">
-                          <ChevronDown size={18} />
+                        <div className="ss-faq-icon" aria-hidden="true">
+                          {isOpen ? <Minus size={15} strokeWidth={2.5} /> : <Plus size={15} strokeWidth={2.5} />}
                         </div>
                       </button>
-                      {isOpen && (
-                        <div className="ss-faq-body">
-                          {faq.a}
-                        </div>
-                      )}
+                      <div
+                        id={`faq-answer-${idx}`}
+                        role="region"
+                        aria-labelledby={`faq-question-${idx}`}
+                        className="ss-faq-body"
+                      >
+                        <div className="ss-faq-body-inner">{faq.a}</div>
+                      </div>
                     </div>
                   );
                 })}
               </div>
+            </div>
+
+            {/* Bottom Full-Width CTA Strip */}
+            <div className="ss-faq-bottom-cta">
+              <div className="ss-faq-bottom-left">
+                <div className="ss-faq-bottom-icon-bubble" aria-hidden="true">
+                  <HelpCircle size={22} />
+                </div>
+                <div className="ss-faq-bottom-text">
+                  <span>Still Have Questions? Let's Find the Right Funding Solution for </span>
+                  <em>Your Business.</em>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="ss-faq-bottom-btn"
+                onClick={() => setIsConsultationOpen(true)}
+                aria-label="Speak With Our Experts"
+              >
+                <span>Speak With Our Experts</span>
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
         </section>

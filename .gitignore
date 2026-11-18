@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 .env
 debug-final-tts.mp3
+scratch/
 
 public/Raj Shekhar Testimonial reel.mp4

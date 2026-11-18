@@ -170,7 +170,7 @@ export const FEATURED_CASE_STUDIES = [
     location: 'Coimbatore, Tamil Nadu',
     industry: 'Textiles & Garment Manufacturing',
     amount: '₹40 Lakh',
-    amountLabel: 'Collateral-Free Working Capital',
+    amountLabel: 'Working Capital',
     scheme: 'CGTMSE (Credit Guarantee Fund Trust)',
     sealText: 'CGTMSE SANCTIONED',
     chips: ['Textiles', 'CGTMSE Loan', 'Coimbatore'],
@@ -178,6 +178,9 @@ export const FEATURED_CASE_STUDIES = [
     challenge: 'Sudden export order surge required ₹40 lakh in working capital for high-grade yarn procurement. Traditional commercial banks demanded physical collateral property, which was already tied up in existing production units.',
     strategy: 'Growthora financial consultants evaluated the balance sheet, formulated a Detailed Project Report (DPR), mapped the unit under the CGTMSE guarantee scheme in 7 days, and managed end-to-end bank documentation.',
     outcome: '₹40 Lakh working capital sanctioned and disbursed in under 60 days, enabling timely export fulfillment and doubling seasonal revenue.',
+    shortChallenge: 'Working capital shortage for a growing textile business.',
+    shortStrategy: 'CGTMSE scheme mapping, DPR preparation, and banking coordination.',
+    shortOutcome: '₹40 Lakh working capital sanctioned and disbursed.',
     quote: 'Growthora mapped us to CGTMSE in a week and handled every filing. We had ₹40 lakh in collateral-free working capital inside two months.',
     founder: 'Priya Raghavan',
     founderRole: 'Founder, Meridian Textiles',
@@ -186,7 +189,7 @@ export const FEATURED_CASE_STUDIES = [
       { label: 'Business Growth', val: '2.8x' },
       { label: 'Ongoing Support', val: '2 Years' }
     ],
-    image: '/industries/textile.jpg'
+    image: '/images/case-studies/meridian_textiles.webp'
   },
   {
     id: 'forge-robotics',
@@ -194,14 +197,17 @@ export const FEATURED_CASE_STUDIES = [
     location: 'Ahmedabad, Gujarat',
     industry: 'DeepTech & Industrial Robotics',
     amount: '₹50 Lakh',
-    amountLabel: 'Startup India Grants & Funding',
+    amountLabel: 'Institutional Grants',
     scheme: 'Startup India & DPIIT Seed Funding',
-    sealText: 'GRANTS FUNDED',
+    sealText: 'DPIIT RECOGNIZED',
     chips: ['DeepTech', 'Startup India', 'Ahmedabad'],
     summary: 'Funding for Forge Robotics after structured Startup India DPIIT recognition and government grant assessment.',
     challenge: 'High upfront prototyping and sensor development costs. The startup lacked formal regulatory certification required to access state innovation funds and central government incubation grants.',
     strategy: 'Structured legal incorporation, accelerated Udyam registration, and prepared a bulletproof DPIIT Startup India application that received approval on first submission, unlocking eligibility for non-dilutive grants.',
     outcome: '₹50 Lakh in institutional funding and innovation grants secured without diluting founder equity, accelerating automated assembly line testing.',
+    shortChallenge: 'High prototyping costs and unverified statutory startup registrations.',
+    shortStrategy: 'Structured Udyam, incorporation, and DPIIT Seed Fund application.',
+    shortOutcome: '₹50 Lakh non-dilutive government grants secured successfully.',
     quote: 'Udyam, GST, and Startup India recognition, done correctly, the first time. The assessment told us exactly which grants we qualified for.',
     founder: 'Arjun Mehta',
     founderRole: 'Co-founder, Forge Robotics',
@@ -210,7 +216,7 @@ export const FEATURED_CASE_STUDIES = [
       { label: 'Valuation Growth', val: '3.5x' },
       { label: 'Ongoing Support', val: '1.5 Years' }
     ],
-    image: '/industries/deep_tech_ai.jpg'
+    image: '/images/case-studies/forge_robotics.webp'
   },
   {
     id: 'techmudra',
@@ -218,7 +224,7 @@ export const FEATURED_CASE_STUDIES = [
     location: 'Jaipur, Rajasthan',
     industry: 'Enterprise Software & IT Services',
     amount: 'Sanctioned',
-    amountLabel: 'Subsidy & Scaling Capital',
+    amountLabel: 'Subsidy & Scaling',
     scheme: 'State IT Industrial Policy & Capital Subsidy',
     sealText: 'SUBSIDY APPROVED',
     chips: ['IT & SaaS', 'Capital Subsidy', 'Jaipur'],
@@ -226,6 +232,9 @@ export const FEATURED_CASE_STUDIES = [
     challenge: 'Rapid workforce expansion required modernized cloud servers and data infrastructure. High interest rates on private loans threatened cash flow stability.',
     strategy: 'Leveraged government MSME capital subsidy provisions for digital technology enterprises, filed complete project documentation, and represented the case at the state promotion board.',
     outcome: 'Subsidized loan clearance and interest subvention benefits approved, reducing effective capital borrowing costs by over 45%.',
+    shortChallenge: 'High capital expenditure for modern IT infrastructure and cloud servers.',
+    shortStrategy: 'MSME capital subsidy filing and interest subvention mapping.',
+    shortOutcome: '45% borrowing cost reduction and sanctioned scaling subsidy.',
     quote: 'Growthora\'s team is highly professional and helped us in every step. Their support in getting funding and subsidy sanction was outstanding.',
     founder: 'Rajat Agarwal',
     founderRole: 'CEO, TechMudra Solutions',
@@ -234,7 +243,7 @@ export const FEATURED_CASE_STUDIES = [
       { label: 'Team Expansion', val: '3x Growth' },
       { label: 'Compliance Status', val: '100% Cleared' }
     ],
-    image: '/industries/information_technology.jpg'
+    image: '/images/case-studies/techmudra_solutions.webp'
   },
   {
     id: 'healthplus',
@@ -250,6 +259,9 @@ export const FEATURED_CASE_STUDIES = [
     challenge: 'Urgent compliance clearance needed within 96 hours to meet government tender eligibility criteria for hospital supplies.',
     strategy: 'Mobilized chartered accountants and legal specialists to audit documentation, file expedited registrations, and produce certified eligibility reports.',
     outcome: 'Full MSME certificate issued, scheme dossier submitted, and tender bid cleared within 3 business days.',
+    shortChallenge: 'Urgent 96-hour compliance clearance needed for hospital supplies tender.',
+    shortStrategy: 'Chartered accountants document audit, expedited filing, and dossier clearance.',
+    shortOutcome: '100% tender qualification and statutory clearance in under 3 days.',
     quote: 'We received our MSME registration and scheme eligibility report within 3 days. Very reliable, responsive and transparent advisory team.',
     founder: 'Meera Iyer',
     founderRole: 'Founder, HealthPlus Solutions',
@@ -258,7 +270,7 @@ export const FEATURED_CASE_STUDIES = [
       { label: 'Tender Eligibility', val: '100% Qualified' },
       { label: 'Compliance Score', val: 'Flawless' }
     ],
-    image: '/services/legal_compliance.jpg'
+    image: '/images/case-studies/healthplus_solutions.webp'
   }
 ];
 
@@ -598,7 +610,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'mfg',
     name: 'Manufacturing',
     count: '30+ Success Stories',
-    image: '/images/industries/manufacturing.jpg',
+    image: '/images/industries/manufacturing.webp',
     desc: 'Heavy machinery, fabrication, textiles, auto-components & precision tools.',
     iconId: 'factory',
     accent: 'purple'
@@ -607,7 +619,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'serv',
     name: 'Services',
     count: '48+ Success Stories',
-    image: '/images/industries/services.jpg',
+    image: '/images/industries/services.webp',
     desc: 'IT, digital marketing, corporate consulting, logistics & healthcare.',
     iconId: 'laptop',
     accent: 'orange'
@@ -616,7 +628,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'const',
     name: 'Construction',
     count: '25+ Success Stories',
-    image: '/images/industries/construction.jpg',
+    image: '/images/industries/construction.webp',
     desc: 'Infrastructure development, real estate, materials supply & building tech.',
     iconId: 'hardhat',
     accent: 'purple'
@@ -625,7 +637,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'trade',
     name: 'Trading',
     count: '30+ Success Stories',
-    image: '/images/industries/trading.jpg',
+    image: '/images/industries/trading.webp',
     desc: 'Wholesale, retail distribution, import\u2013export & B2B merchant operations.',
     iconId: 'package',
     accent: 'orange'
@@ -634,7 +646,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'agri',
     name: 'Agriculture',
     count: '28+ Success Stories',
-    image: '/images/industries/agriculture.jpg',
+    image: '/images/industries/agriculture.webp',
     desc: 'Agro-processing, cold storage, organic farming & farm-to-table supply chains.',
     iconId: 'sprout',
     accent: 'purple'
@@ -643,7 +655,7 @@ export const INDUSTRIES_EMPOWERED = [
     id: 'tech',
     name: 'Technology',
     count: '35+ Success Stories',
-    image: '/images/industries/technology.jpg',
+    image: '/images/industries/technology.webp',
     desc: 'SaaS, robotics, AI automation, IoT hardware & fintech platforms.',
     iconId: 'code',
     accent: 'orange'
