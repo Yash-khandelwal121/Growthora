@@ -33,6 +33,7 @@ import PopupPage from './pages/PopupPage';
 import BusinessSuchna from './pages/BusinessSuchna';
 import Service2 from './pages/Service2';
 import SuccessStoriesPage from './pages/SuccessStoriesPage';
+import ContactPage from './pages/ContactPage';
 
 import './styles/index.css';
 import './styles/animations.css';
@@ -131,6 +132,10 @@ export function App() {
         {/* Success Stories Page */}
         <Route path="/success-stories" element={<SuccessStoriesPage />} />
         <Route path="/success_stories" element={<SuccessStoriesPage />} />
+
+        {/* Contact Us Page */}
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/contact-us" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>
   );

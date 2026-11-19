@@ -1,0 +1,2357 @@
+/* ==========================================================================
+   GROWTHORA CONTACT US PAGE — REDESIGNED PREMIUM LIGHT ORANGE STYLESHEET
+   Design Tokens:
+   --page-bg: #FFFAF6;
+   --card-bg: #FFFFFF;
+   --left-card-bg: #FFF0E4;
+   --right-card-bg: #FFF5EC;
+   --primary-orange: #FF6A00;
+   --secondary-orange: #FFB77D;
+   --deep-purple: #350B46;
+   --border-orange: #FFD8BE;
+   --body-text: #33283A;
+   ========================================================================== */
+
+:root {
+  --page-bg: #FFFAF6;
+  --card-bg: #FFFFFF;
+  --left-card-bg: #FFF0E4;
+  --right-card-bg: #FFF5EC;
+  --primary-orange: #FF6A00;
+  --secondary-orange: #FFB77D;
+  --deep-purple: #350B46;
+  --border-orange: #FFD8BE;
+  --body-text: #33283A;
+}
+
+.cp-page-root {
+  min-height: 100vh;
+  background-color: var(--page-bg);
+  color: var(--body-text);
+  font-family: var(--font-body, 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  position: relative;
+  overflow-x: clip;
+  width: 100%;
+}
+
+.cp-container {
+  width: min(100% - 48px, 1440px);
+  margin-inline: auto;
+  position: relative;
+}
+
+/* ==========================================================================
+   1. PREMIUM HERO BANNER — THREE-SECTION CURVED LAYOUT (25% / 50% / 25%)
+   Target desktop height: 520–560px at 1440px viewport width
+   ========================================================================== */
+.cp-hero-section {
+  padding: 20px 0 16px;
+  background: var(--page-bg);
+  position: relative;
+  overflow: visible;
+}
+
+.cp-hero-section .cp-container {
+  width: min(100% - 40px, 1600px);
+  max-width: 1600px;
+}
+
+/* ── Outer Banner Shell ── */
+.cp-hero-banner-outer {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 18px 50px rgba(53, 10, 70, 0.09),
+    0 4px 18px rgba(255, 101, 0, 0.05);
+  border: 1.5px solid rgba(255, 122, 32, 0.42);
+  background: #FFF9F5;
+}
+
+/* ── Three-Column Grid: 25% / 50% / 25% ── */
+.cp-hero-banner-grid {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  min-height: 520px;
+  width: 100%;
+  position: relative;
+}
+
+/* =============================================
+   LEFT SECTION — REAL CORPORATE OFFICE PHOTOGRAPH
+   ============================================= */
+.cp-hero-left {
+  position: relative;
+  overflow: hidden;
+  background: #1A0423;
+  z-index: 1;
+}
+
+.cp-left-photo-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cp-left-office-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 64%;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cp-hero-left:hover .cp-left-office-img {
+  transform: scale(1.03);
+}
+
+.cp-left-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(26, 4, 35, 0.04) 0%, rgba(26, 4, 35, 0.22) 80%, rgba(255, 249, 245, 0.75) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(26, 4, 35, 0.3) 100%);
+  pointer-events: none;
+}
+
+.cp-left-bottom-accent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 38px;
+  pointer-events: none;
+  z-index: 2;
+  line-height: 0;
+}
+
+.cp-left-bottom-accent svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =============================================
+   CENTER SECTION — BRANDING & EDITORIAL
+   Balanced vertical flow fitting 520–560px
+   ============================================= */
+.cp-hero-center {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(155deg, #FFF9F5 0%, #FFF0E4 45%, #FFE4CF 100%);
+  padding: 26px 38px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Smooth organic curved transition extending over the photo */
+.cp-center-left-curve {
+  position: absolute;
+  top: 0;
+  left: -59px;
+  width: 60px;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cp-center-left-curve svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ambient warm radial glow behind content */
+.cp-center-glow {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(255, 170, 66, 0.20) 0%, rgba(255, 101, 0, 0.04) 55%, transparent 80%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 1. Official Company Logo */
+.cp-center-logo-box {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.cp-center-logo {
+  width: clamp(160px, 13vw, 195px);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(53, 10, 70, 0.05));
+}
+
+/* 2. Eyebrow Badge */
+.cp-center-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #FFE8D6, #FFF3EA);
+  border: 1px solid #FFC8A2;
+  color: #350A46;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.06);
+}
+
+.cp-center-badge svg {
+  color: #FF6500;
+}
+
+/* 3. Main Editorial Headline */
+.cp-center-heading {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(32px, 3.1vw, 48px);
+  font-weight: 800;
+  color: #350A46;
+  line-height: 1.12;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.cp-heading-highlight-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.cp-heading-orange {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-weight: 800;
+  color: #FF6500;
+}
+
+.cp-heading-underline {
+  position: absolute;
+  left: -2%;
+  bottom: -4px;
+  width: 104%;
+  height: 12px;
+  pointer-events: none;
+}
+
+/* 4. Description */
+.cp-center-desc {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(13.5px, 1.05vw, 15.5px);
+  line-height: 1.52;
+  color: #4A3655;
+  margin: 0 0 16px 0;
+  max-width: 520px;
+  font-weight: 450;
+  text-align: center;
+}
+
+/* 5. Contact Details Row */
+.cp-center-contacts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid #FFD4B8;
+  border-radius: 50px;
+  padding: 6px 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 15px rgba(53, 10, 70, 0.04);
+}
+
+.cp-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease;
+}
+
+.cp-contact-item:hover {
+  transform: translateY(-2px);
+}
+
+.cp-contact-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.cp-contact-item:hover .cp-contact-icon {
+  transform: scale(1.08);
+}
+
+.cp-contact-icon.orange {
+  background: #FFEAD8;
+  color: #FF6500;
+}
+
+.cp-contact-icon.green {
+  background: #E6F7ED;
+  color: #128C7E;
+}
+
+.cp-contact-icon.peach {
+  background: #FFF1E6;
+  color: #E65100;
+}
+
+.cp-contact-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cp-contact-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: #8C7B88;
+  line-height: 1.15;
+}
+
+.cp-contact-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: #350A46;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.cp-contact-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(53, 10, 70, 0.1);
+  flex-shrink: 0;
+}
+
+/* 6. Consultation CTA Button */
+.cp-center-cta-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.cp-hero-cta-btn {
+  background: linear-gradient(90deg, #FF6500 0%, #4A0C58 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  padding: 13px 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 14.5px;
+  font-weight: 700;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(255, 101, 0, 0.28);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+.cp-hero-cta-btn:hover {
+  box-shadow: 0 10px 28px rgba(255, 101, 0, 0.38);
+}
+
+.cp-cta-cal {
+  color: #FFE0C0;
+}
+
+.cp-cta-arrow {
+  color: #FFE0C0;
+  transition: transform 0.3s ease;
+}
+
+.cp-hero-cta-btn:hover .cp-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* =============================================
+   RIGHT SECTION — PURPLE CONTACT JOURNEY PANEL (25%)
+   Even distribution matching 520–560px banner height
+   ============================================= */
+.cp-hero-right {
+  position: relative;
+  background: linear-gradient(160deg, #350A46 0%, #4A0E52 55%, #57134F 100%);
+  display: flex;
+  align-items: stretch;
+  overflow: visible;
+  z-index: 4;
+}
+
+/* Glowing orange curved edge overlapping the center card */
+.cp-right-curve-edge {
+  position: absolute;
+  top: 0;
+  left: -59px;
+  width: 60px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(-4px 0 12px rgba(255, 101, 0, 0.28));
+}
+
+.cp-right-curve-edge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cp-right-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 28px 22px 28px 32px;
+  box-sizing: border-box;
+}
+
+.cp-journey-steps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 0;
+}
+
+.cp-journey-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: default;
+  padding: 6px 0;
+}
+
+.cp-journey-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 122, 32, 0.65);
+  background: rgba(255, 101, 0, 0.12);
+  color: #FFAA42;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18), inset 0 1px 3px rgba(255, 122, 32, 0.22);
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.cp-journey-step:hover .cp-journey-icon {
+  transform: scale(1.08);
+  border-color: #FFAA42;
+  background: rgba(255, 101, 0, 0.22);
+}
+
+.cp-journey-text {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.32;
+  letter-spacing: -0.005em;
+}
+
+.cp-journey-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.09);
+  margin-left: 64px;
+  width: calc(100% - 64px);
+}
+
+/* ==========================================================================
+   3. REDESIGNED MAIN CONTACT SECTION — BALANCED THREE CARDS (22% / 56% / 22%)
+   ========================================================================== */
+.cp-main-contact-section {
+  padding: 56px 0 64px;
+  position: relative;
+}
+
+.cp-three-col-grid {
+  display: grid;
+  grid-template-columns: 22fr 56fr 22fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* ---------- LEFT CARD: WHY GROWTHORA? (PREMIUM REDESIGNED) ---------- */
+.cp-why-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF8F3 35%, #FFF0E5 100%);
+  border: 1.5px solid #FFD8BA;
+  border-radius: 28px;
+  padding: 28px 18px 0;
+  color: var(--body-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(255, 101, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cp-why-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 46px rgba(255, 101, 0, 0.12);
+}
+
+/* Decorative Top-Right Corner Swoop */
+.cp-why-top-swoop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 95px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cp-why-content-top {
+  position: relative;
+  z-index: 2;
+}
+
+/* Heading */
+.cp-why-header-wrap {
+  margin-bottom: 20px;
+}
+
+.cp-why-heading {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.cp-why-title-why {
+  font-size: 28px;
+  font-weight: 800;
+  color: #350B43;
+  letter-spacing: -0.01em;
+}
+
+.cp-why-title-brand {
+  position: relative;
+  display: inline-block;
+}
+
+.cp-why-title-brand em {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 29px;
+  font-weight: 800;
+  font-style: italic;
+  color: #FF6500;
+  letter-spacing: -0.01em;
+}
+
+.cp-why-underline-svg {
+  display: block;
+  width: 140px;
+  height: 12px;
+  margin-top: 2px;
+}
+
+/* Four Feature Cards Stack */
+.cp-why-features-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cp-why-feature-card {
+  background: #FFFFFF;
+  border: 1.5px solid #FFE4D0;
+  border-radius: 20px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  box-shadow: 0 4px 16px rgba(255, 101, 0, 0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.cp-why-feature-card:hover {
+  transform: translateY(-2px);
+  border-color: #FFB36B;
+  box-shadow: 0 8px 22px rgba(255, 101, 0, 0.11);
+}
+
+/* Icon Box */
+.cp-why-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #FFF0E5;
+  border: 1px solid #FFD8BA;
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cp-why-feature-card:hover .cp-why-icon-box {
+  background: #FFE5D0;
+  transform: scale(1.05);
+}
+
+/* Thin Orange Divider */
+.cp-why-card-divider {
+  width: 1px;
+  height: 34px;
+  background: #FFD8BA;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+/* Card Text */
+.cp-why-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-why-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #350B43;
+  margin: 0 0 2px 0;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.cp-why-card-desc {
+  font-size: 11px;
+  font-weight: 400;
+  color: #6E5D72;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Mountain Growth Container */
+.cp-mountain-svg-container {
+  width: calc(100% + 36px);
+  margin-left: -18px;
+  margin-right: -18px;
+  margin-top: 16px;
+  margin-bottom: 0;
+  line-height: 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+}
+
+.cp-mountain-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cp-milestone-node {
+  transition: transform 0.2s ease;
+}
+
+.cp-milestone-node:hover {
+  transform: scale(1.15);
+}
+
+/* ---------- CENTER CARD: FORM (STATE 1) & SUCCESS MAILBOX (STATE 2) ---------- */
+.cp-form-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-orange);
+  border-radius: 26px;
+  box-shadow: 0 14px 44px rgba(53, 11, 70, 0.05);
+  padding: 34px 38px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* STATE 1: Form Wrapper */
+.cp-state1-form-wrapper {
+  width: 100%;
+}
+
+.cp-form-eyebrow-wrap {
+  margin-bottom: 6px;
+}
+
+.cp-form-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-orange);
+  letter-spacing: 1.6px;
+}
+
+.cp-form-heading {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--deep-purple);
+  margin: 0 0 6px 0;
+  line-height: 1.24;
+}
+
+.cp-form-heading em {
+  font-style: normal;
+  color: var(--primary-orange);
+}
+
+.cp-form-desc {
+  font-size: 13px;
+  color: #7B6E7E;
+  margin: 0 0 22px 0;
+  line-height: 1.5;
+}
+
+.cp-submit-error-banner {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+  color: #E11D48;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.cp-full-contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-form-row {
+  margin-bottom: 14px;
+}
+
+.cp-form-row.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cp-form-row.full-width {
+  width: 100%;
+}
+
+.cp-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--deep-purple);
+  margin-bottom: 6px;
+}
+
+.req-star {
+  color: var(--primary-orange);
+}
+
+.cp-optional-tag {
+  font-size: 11px;
+  color: #8C7B88;
+  font-weight: 500;
+}
+
+.cp-field-error {
+  color: #E11D48;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.cp-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cp-input-icon {
+  position: absolute;
+  left: 14px;
+  color: #9D8D9E;
+  pointer-events: none;
+}
+
+.cp-text-input {
+  width: 100%;
+  height: 48px;
+  background: #FFFDFB;
+  border: 1.5px solid var(--border-orange);
+  border-radius: 12px;
+  padding: 0 14px 0 40px;
+  font-size: 13.5px;
+  color: var(--deep-purple);
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cp-text-input:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3.5px rgba(255, 106, 0, 0.14);
+}
+
+/* Phone input with Indian Flag Prefix */
+.cp-phone-wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background: #FFFDFB;
+  border: 1.5px solid var(--border-orange);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cp-phone-wrap:focus-within {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3.5px rgba(255, 106, 0, 0.14);
+}
+
+.cp-phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF5EE;
+  padding: 0 12px;
+  height: 100%;
+  border-right: 1.5px solid var(--border-orange);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--deep-purple);
+  user-select: none;
+}
+
+.cp-flag-svg {
+  width: 18px;
+  height: 13px;
+  border-radius: 2px;
+}
+
+.cp-flag-chevron {
+  color: #9D8D9E;
+}
+
+.cp-phone-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0 14px;
+  font-size: 13.5px;
+  color: var(--deep-purple);
+  font-family: inherit;
+  outline: none;
+}
+
+/* Select Dropdown */
+.cp-select-input {
+  width: 100%;
+  height: 48px;
+  background: #FFFDFB;
+  border: 1.5px solid var(--border-orange);
+  border-radius: 12px;
+  padding: 0 36px 0 40px;
+  font-size: 13.5px;
+  color: var(--deep-purple);
+  font-family: inherit;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cp-select-input:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3.5px rgba(255, 106, 0, 0.14);
+}
+
+.cp-select-chevron {
+  position: absolute;
+  right: 14px;
+  color: #9D8D9E;
+  pointer-events: none;
+}
+
+/* Textarea */
+.cp-textarea-wrap {
+  position: relative;
+  display: flex;
+}
+
+.cp-textarea-icon {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  color: #9D8D9E;
+  pointer-events: none;
+}
+
+.cp-textarea-input {
+  width: 100%;
+  background: #FFFDFB;
+  border: 1.5px solid var(--border-orange);
+  border-radius: 12px;
+  padding: 12px 14px 12px 40px;
+  font-size: 13.5px;
+  color: var(--deep-purple);
+  font-family: inherit;
+  resize: vertical;
+  min-height: 76px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.cp-textarea-input:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3.5px rgba(255, 106, 0, 0.14);
+}
+
+/* Consent Checkbox */
+.cp-consent-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 18px 0;
+  cursor: pointer;
+}
+
+.cp-checkbox-custom {
+  width: 19px;
+  height: 19px;
+  border-radius: 5px;
+  border: 1.5px solid #FFAB85;
+  background: #FFFDFB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+}
+
+.cp-checkbox-custom.checked {
+  background: var(--primary-orange);
+  border-color: var(--primary-orange);
+}
+
+.cp-consent-text {
+  font-size: 12.5px;
+  color: #5B4D5D;
+  line-height: 1.4;
+  user-select: none;
+}
+
+.cp-consent-error {
+  color: #E11D48;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: -10px;
+  margin-bottom: 12px;
+}
+
+/* Premium Orange Submit Button */
+.cp-submit-btn-premium {
+  background: linear-gradient(100deg, #FF8A00 0%, #FF5A00 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  height: 50px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(255, 106, 0, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cp-submit-btn-premium:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 106, 0, 0.42);
+}
+
+.cp-submit-btn-premium:hover:not(:disabled) .cp-submit-arrow {
+  transform: translateX(4px);
+}
+
+.cp-submit-btn-premium:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cp-submit-arrow {
+  transition: transform 0.25s ease;
+}
+
+/* ==========================================================================
+   STATE 2: SUCCESS MAILBOX ANIMATION & CONFIRMATION
+   ========================================================================== */
+.cp-state2-success-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.cp-s2-confirmation-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Glowing Green Checkmark with Radiating Sparkles */
+.cp-s2-check-wrap {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 16px;
+}
+
+.cp-s2-check-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ECFDF5;
+  border: 2.5px solid #34D399;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.35);
+}
+
+.cp-s2-check-svg {
+  color: #10B981;
+}
+
+.cp-s2-radiant-dot {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cp-s2-radiant-dot.d1 { top: -4px; left: 16px; width: 6px; height: 6px; background: #FFB77D; }
+.cp-s2-radiant-dot.d2 { top: -2px; right: 14px; width: 5px; height: 5px; background: #34D399; }
+.cp-s2-radiant-dot.d3 { bottom: 2px; left: -2px; width: 4px; height: 4px; background: #FF6A00; }
+.cp-s2-radiant-dot.d4 { bottom: 6px; right: 2px; width: 5px; height: 5px; background: #34D399; }
+
+.cp-s2-title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--deep-purple);
+  line-height: 1.25;
+  margin: 0 0 8px 0;
+}
+
+.cp-s2-desc {
+  font-size: 14px;
+  color: #6E5D72;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+  max-width: 320px;
+}
+
+.cp-s2-send-another-btn {
+  background: var(--left-card-bg);
+  border: 1.5px solid var(--border-orange);
+  color: var(--primary-orange);
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cp-s2-send-another-btn:hover {
+  background: #FFE5D2;
+  border-color: var(--primary-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 106, 0, 0.16);
+}
+
+/* Right: 3D Mailbox Stage */
+.cp-s2-mailbox-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-s2-mailbox-stage {
+  position: relative;
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-s2-mailbox-ambient-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 106, 0, 0.12) 0%, transparent 70%);
+  top: 40px;
+  left: 55px;
+  pointer-events: none;
+}
+
+.cp-s2-mailbox-svg {
+  width: 100%;
+  height: auto;
+  max-height: 290px;
+  display: block;
+  overflow: visible;
+}
+
+/* Flying Cream Envelope */
+.cp-s2-flying-envelope {
+  position: absolute;
+  top: 90px;
+  left: 90px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cp-s2-envelope-card {
+  position: relative;
+  width: 72px;
+  height: 48px;
+  filter: drop-shadow(0 8px 18px rgba(255, 106, 0, 0.35));
+}
+
+.cp-s2-envelope-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cp-s2-motion-trail {
+  position: absolute;
+  left: -20px;
+  top: 14px;
+  pointer-events: none;
+}
+
+.cp-s2-trail-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--primary-orange);
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.6);
+}
+
+.cp-s2-trail-dot.d-1 { width: 7px; height: 7px; left: -12px; top: 0; opacity: 0.8; }
+.cp-s2-trail-dot.d-2 { width: 5px; height: 5px; left: -24px; top: 4px; opacity: 0.6; }
+.cp-s2-trail-dot.d-3 { width: 3px; height: 3px; left: -32px; top: 8px; opacity: 0.4; }
+
+.cp-s2-trail-star {
+  position: absolute;
+  color: #FFA136;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.cp-s2-trail-star.s-1 { left: -8px; top: -8px; }
+.cp-s2-trail-star.s-2 { left: -18px; top: 12px; font-size: 8px; }
+
+/* Burst Confirmation Sparkles */
+.cp-s2-burst-sparkles {
+  position: absolute;
+  top: 65px;
+  left: 80px;
+  width: 150px;
+  height: 110px;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.cp-s2-sparkle {
+  position: absolute;
+  color: var(--primary-orange);
+  line-height: 1;
+  animation: cpS2Sparkle 1s ease-out infinite alternate;
+}
+
+.cp-s2-sparkle.sp-1 { top: 8px; left: 24px; font-size: 16px; color: #FF782B; }
+.cp-s2-sparkle.sp-2 { top: 4px; right: 28px; font-size: 13px; color: #FFB77D; }
+.cp-s2-sparkle.sp-3 { bottom: 22px; left: 14px; font-size: 14px; color: #FFA64D; }
+.cp-s2-sparkle.sp-4 { top: 38px; left: 60px; font-size: 18px; color: #FF6A00; }
+
+@keyframes cpS2Sparkle {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+  100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+}
+
+/* ---------- RIGHT CARD: YOUR GROWTH, OUR SUPPORT (PREMIUM REDESIGNED) ---------- */
+.cp-support-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF8F2 35%, #FFE9D6 100%);
+  border: 1.5px solid #FFD8BA;
+  border-radius: 28px;
+  padding: 28px 18px 0;
+  color: var(--body-text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(255, 107, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cp-support-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 46px rgba(255, 107, 0, 0.12);
+}
+
+/* Decorative Top-Right Corner Swoop */
+.cp-support-top-swoop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 95px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cp-support-content-top {
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Area: Heading & Subtitle + 3D Target */
+.cp-support-header-area {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cp-support-title-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-support-heading {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  margin: 0 0 6px 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.cp-support-title-line1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #350B48;
+  letter-spacing: -0.01em;
+}
+
+.cp-support-title-brand {
+  position: relative;
+  display: inline-block;
+}
+
+.cp-support-title-brand em {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 29px;
+  font-weight: 800;
+  font-style: italic;
+  color: #FF6B00;
+  letter-spacing: -0.01em;
+}
+
+.cp-support-underline-svg {
+  display: block;
+  width: 140px;
+  height: 12px;
+  margin-top: 2px;
+}
+
+.cp-support-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #5A4260;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Top 3D Target Element */
+.cp-target-visual-wrap {
+  width: 78px;
+  height: 74px;
+  flex-shrink: 0;
+  margin-top: -6px;
+  margin-right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-target-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Four Feature / Statistic Cards Stack */
+.cp-support-features-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cp-support-feature-card {
+  background: #FFFFFF;
+  border: 1.5px solid #FFE4D0;
+  border-radius: 20px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(255, 107, 0, 0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.cp-support-feature-card:hover {
+  transform: translateY(-2px);
+  border-color: #FFB36B;
+  box-shadow: 0 8px 22px rgba(255, 107, 0, 0.11);
+}
+
+/* Icon Box */
+.cp-support-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #FFF0E5;
+  border: 1px solid #FFD8BA;
+  color: #FF6B00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cp-support-feature-card:hover .cp-support-icon-box {
+  background: #FFE5D0;
+  transform: scale(1.05);
+}
+
+/* Thin Orange Divider */
+.cp-support-card-divider {
+  width: 1px;
+  height: 34px;
+  background: #FFD8BA;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+/* Card Text */
+.cp-support-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-support-card-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #350B48;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.cp-support-card-desc {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6E5D72;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Right Badge / Decoration Graphics */
+.cp-support-right-badge {
+  background: #FFF0E5;
+  border: 1px solid #FFD8BA;
+  color: #FF6B00;
+  border-radius: 999px;
+  padding: 4px 9px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.cp-support-right-graphic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cp-support-right-graphic.google-rating-graphic {
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cp-google-g-svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.cp-google-stars {
+  font-size: 9px;
+  color: #FFB800;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* Bottom Growth Chart Container */
+.cp-growth-chart-wrap {
+  width: calc(100% + 36px);
+  margin-left: -18px;
+  margin-right: -18px;
+  margin-top: 16px;
+  margin-bottom: 0;
+  line-height: 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+}
+
+.cp-growth-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   5. REDESIGNED OUR OFFICES ACROSS INDIA SECTION
+   ========================================================================== */
+.cp-offices-section {
+  padding: 64px 0 0;
+  background-color: #FFF8F3;
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-offices-three-col-layout {
+  display: grid;
+  grid-template-columns: 38% 10% 52%;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 4;
+}
+
+/* Left Column: Our Presence */
+.cp-offices-presence-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+/* Decorative India Map Watermark */
+.cp-india-map-watermark-wrap {
+  position: absolute;
+  right: -40px;
+  top: 48%;
+  transform: translateY(-50%);
+  width: 340px;
+  height: 380px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.cp-india-map-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 14px rgba(255, 101, 0, 0.08));
+}
+
+.cp-map-city-pin {
+  cursor: default;
+}
+
+.cp-map-pin-pulse {
+  fill: #FF6500;
+  opacity: 0.3;
+  animation: cpMapPinPulse 2.8s infinite ease-out;
+  transform-origin: center;
+}
+
+@keyframes cpMapPinPulse {
+  0% {
+    r: 6px;
+    opacity: 0.7;
+  }
+  60% {
+    r: 16px;
+    opacity: 0.15;
+  }
+  100% {
+    r: 20px;
+    opacity: 0;
+  }
+}
+
+.cp-presence-badge-wrap {
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.cp-presence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFEFE6;
+  border: 1.5px solid #FFD0B6;
+  color: #FF6500;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 5px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.06);
+  text-transform: uppercase;
+}
+
+.cp-presence-badge-icon {
+  color: #FF6500;
+}
+
+.cp-offices-title {
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+  font-size: clamp(34px, 3.8vw, 48px);
+  font-weight: 800;
+  color: #350B43;
+  line-height: 1.15;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.015em;
+  position: relative;
+  z-index: 2;
+}
+
+.cp-offices-highlight-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.cp-offices-highlight-wrap em {
+  font-style: italic;
+  color: #FF6500;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+}
+
+.cp-offices-heading-underline {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 10px;
+  pointer-events: none;
+}
+
+.cp-offices-desc {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: #6E5D72;
+  margin: 0 0 32px 0;
+  max-width: 440px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 3 Benefits with Circular Icons */
+.cp-presence-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  z-index: 2;
+}
+
+.cp-presence-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.25s ease;
+}
+
+.cp-presence-benefit-item:hover {
+  transform: translateX(4px);
+}
+
+.cp-presence-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #FFEFE6;
+  border: 1.5px solid #FFD0B6;
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.06);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cp-presence-benefit-item:hover .cp-presence-icon-box {
+  transform: scale(1.08);
+  background: #FFE5D2;
+  box-shadow: 0 4px 14px rgba(255, 101, 0, 0.18);
+}
+
+.cp-presence-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-presence-benefit-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #350B43;
+  margin: 0 0 3px 0;
+  line-height: 1.3;
+}
+
+.cp-presence-benefit-sub {
+  font-size: 13px;
+  color: #6E5D72;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Center Column: Flowing Vertical S-Curve Ribbon with 4 Badges */
+.cp-offices-ribbon-col {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-ribbon-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.cp-ribbon-badge {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #FFC5A1;
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 14px rgba(255, 101, 0, 0.22);
+  z-index: 5;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cp-ribbon-badge:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 6px 18px rgba(255, 101, 0, 0.35);
+}
+
+.cp-ribbon-badge.badge-1 {
+  top: 17%;
+  left: 64%;
+}
+
+.cp-ribbon-badge.badge-2 {
+  top: 36%;
+  left: 66%;
+}
+
+.cp-ribbon-badge.badge-3 {
+  top: 55%;
+  left: 66%;
+}
+
+.cp-ribbon-badge.badge-4 {
+  top: 74%;
+  left: 42%;
+}
+
+/* Right Column: 5 Horizontal Pill-Shaped Office Cards */
+.cp-offices-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.cp-office-pill-card {
+  background: #FFFFFF;
+  border: 1.5px solid #FFDFCC;
+  border-radius: 9999px;
+  padding: 9px 20px 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 18px rgba(255, 101, 0, 0.05);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.cp-office-pill-card.first-card {
+  border-color: #FFCBA8;
+}
+
+.cp-office-pill-card.first-card .cp-office-arrow-btn {
+  background: #FF6500;
+  color: #FFFFFF;
+  border-color: #FF6500;
+  box-shadow: 0 3px 10px rgba(255, 101, 0, 0.35);
+}
+
+.cp-office-pill-card:hover {
+  transform: translateY(-4px);
+  border-color: #FF6500;
+  box-shadow: 0 12px 30px rgba(255, 101, 0, 0.16);
+}
+
+.cp-office-pill-card:hover .cp-office-photo {
+  transform: scale(1.05);
+}
+
+.cp-office-pill-card:hover .cp-office-arrow-btn {
+  background: #FF6500;
+  color: #FFFFFF;
+  border-color: #FF6500;
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(255, 101, 0, 0.4);
+}
+
+.cp-office-photo-pill-wrap {
+  width: 108px;
+  height: 68px;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #FFF0E4;
+  box-shadow: 0 2px 8px rgba(53, 11, 70, 0.08);
+  line-height: 0;
+}
+
+.cp-office-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 300ms ease;
+}
+
+.cp-office-info-block {
+  flex: 1;
+  min-width: 0;
+}
+
+.cp-office-name-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #350B43;
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+}
+
+.cp-office-location-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cp-office-map-pin {
+  color: #FF6500;
+  flex-shrink: 0;
+}
+
+.cp-office-addr-text {
+  font-size: 12.5px;
+  color: #5A4A5D;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.cp-office-arrow-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #FFF0E6;
+  border: 1px solid #FFD9C4;
+  color: #FF6500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 300ms ease;
+}
+
+/* Bottom Decorative Transitions */
+.cp-offices-bottom-decoration {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+  margin-top: 36px;
+}
+
+.cp-offices-skyline-svg {
+  width: 100%;
+  height: auto;
+  max-height: 110px;
+  display: block;
+}
+
+.cp-offices-wave-svg.orange-wave {
+  width: 100%;
+  height: auto;
+  max-height: 70px;
+  display: block;
+  margin-top: -38px;
+  position: relative;
+  z-index: 2;
+}
+
+.cp-offices-wave-svg.purple-wave {
+  width: 100%;
+  height: auto;
+  max-height: 45px;
+  display: block;
+  margin-top: -18px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Responsive System for Offices */
+@media (max-width: 1280px) {
+  .cp-offices-three-col-layout {
+    grid-template-columns: 38% 8% 54%;
+    gap: 14px;
+  }
+
+  .cp-office-photo-pill-wrap {
+    width: 95px;
+    height: 62px;
+  }
+
+  .cp-office-name-text {
+    font-size: 16px;
+  }
+
+  .cp-office-addr-text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cp-offices-ribbon-col {
+    display: none;
+  }
+
+  .cp-offices-three-col-layout {
+    grid-template-columns: 1fr 1.35fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cp-offices-section {
+    padding: 48px 0 0;
+  }
+
+  .cp-offices-three-col-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .cp-offices-presence-col {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cp-india-map-watermark-wrap {
+    right: 0;
+    width: 280px;
+    height: 320px;
+    opacity: 0.6;
+  }
+
+  .cp-offices-cards-stack {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cp-office-pill-card {
+    border-radius: 32px;
+    padding: 8px 14px 8px 10px;
+    gap: 12px;
+  }
+
+  .cp-office-photo-pill-wrap {
+    width: 76px;
+    height: 56px;
+  }
+
+  .cp-office-name-text {
+    font-size: 15px;
+  }
+
+  .cp-office-addr-text {
+    font-size: 11.5px;
+  }
+
+  .cp-offices-skyline-svg {
+    max-height: 65px;
+  }
+
+  .cp-offices-wave-svg.orange-wave {
+    max-height: 45px;
+    margin-top: -24px;
+  }
+
+  .cp-offices-wave-svg.purple-wave {
+    max-height: 30px;
+    margin-top: -12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cp-office-pill-card {
+    border-radius: 20px;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .cp-office-circle-photo-wrap {
+    width: 54px;
+    height: 54px;
+  }
+
+  .cp-office-name-text {
+    font-size: 15px;
+  }
+
+  .cp-office-addr-text {
+    font-size: 11.5px;
+  }
+
+  .cp-office-arrow-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ==========================================================================
+   7. FULL RESPONSIVE SYSTEM
+   ========================================================================== */
+@media (max-width: 1280px) {
+  .cp-three-col-grid {
+    grid-template-columns: 24fr 52fr 24fr;
+    gap: 18px;
+  }
+
+  .cp-form-card {
+    padding: 28px 24px;
+  }
+}
+
+/* ── Responsive: Laptop (1024–1439px) ── */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .cp-hero-banner-grid {
+    grid-template-columns: 24% 50% 26%;
+    min-height: 500px;
+  }
+
+  .cp-hero-center {
+    padding: 24px 28px 20px;
+  }
+  .cp-center-logo-box {
+    margin-bottom: 6px;
+  }
+  .cp-center-badge {
+    margin-bottom: 8px;
+  }
+  .cp-center-heading {
+    margin-bottom: 8px;
+  }
+  .cp-center-desc {
+    margin-bottom: 14px;
+  }
+  .cp-center-contacts {
+    margin-bottom: 14px;
+  }
+
+  .cp-center-heading {
+    font-size: clamp(30px, 2.8vw, 42px);
+  }
+
+  .cp-center-logo {
+    width: clamp(150px, 13vw, 190px);
+  }
+
+  .cp-center-desc {
+    font-size: 14px;
+    max-width: 440px;
+  }
+
+  .cp-center-contacts {
+    gap: 12px;
+    padding: 7px 18px;
+  }
+
+  .cp-contact-value {
+    font-size: 12.5px;
+  }
+
+  .cp-contact-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cp-right-content {
+    padding: 28px 18px 28px 28px;
+  }
+
+  .cp-journey-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  .cp-journey-text {
+    font-size: 14px;
+  }
+
+  .cp-hero-cta-btn {
+    padding: 13px 28px;
+    font-size: 14px;
+  }
+}
+
+/* ── Responsive: Tablet (768–1023px) ── */
+@media (max-width: 1023px) {
+  .cp-hero-banner-grid {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .cp-hero-left {
+    display: none;
+  }
+
+  .cp-center-left-curve {
+    display: none;
+  }
+
+  .cp-hero-center {
+    padding: 32px 24px 26px;
+  }
+  .cp-center-logo-box {
+    margin-bottom: 8px;
+  }
+  .cp-center-badge {
+    margin-bottom: 8px;
+  }
+  .cp-center-heading {
+    margin-bottom: 10px;
+  }
+  .cp-center-desc {
+    margin-bottom: 14px;
+  }
+  .cp-center-contacts {
+    margin-bottom: 16px;
+  }
+
+  .cp-center-heading {
+    font-size: 34px;
+  }
+
+  .cp-hero-right {
+    border-top: 2px solid rgba(255, 122, 32, 0.5);
+  }
+
+  .cp-right-curve-edge {
+    display: none;
+  }
+
+  .cp-right-content {
+    padding: 30px 24px;
+  }
+
+  .cp-journey-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .cp-journey-divider {
+    display: none;
+  }
+
+  .cp-journey-step {
+    padding: 8px 0;
+  }
+
+  /* Card stacking below hero */
+  .cp-three-col-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .cp-form-card {
+    order: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cp-why-card {
+    order: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cp-support-card {
+    order: 3;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ── Responsive: Mobile (≤768px) ── */
+@media (max-width: 768px) {
+  .cp-hero-section {
+    padding: 16px 0 12px;
+  }
+
+  .cp-hero-section .cp-container {
+    width: min(100% - 24px, 600px);
+  }
+
+  .cp-hero-center {
+    padding: 28px 18px 24px;
+  }
+
+  .cp-center-heading {
+    font-size: 28px;
+  }
+
+  .cp-center-desc {
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+
+  .cp-center-logo {
+    width: 150px;
+  }
+
+  .cp-center-contacts {
+    flex-direction: column;
+    border-radius: 18px;
+    padding: 14px 18px;
+    width: 100%;
+    max-width: 320px;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .cp-contact-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .cp-contact-item {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .cp-hero-cta-btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    padding: 15px 24px;
+  }
+
+  .cp-right-content {
+    padding: 24px 18px;
+  }
+
+  .cp-journey-steps {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cp-journey-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  .cp-form-card {
+    padding: 24px 18px;
+  }
+
+  .cp-form-row.two-col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cp-state2-success-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .cp-s2-confirmation-col {
+    align-items: center;
+    text-align: center;
+  }
+
+  .cp-why-card {
+    padding: 24px 16px 0;
+  }
+
+  .cp-mountain-svg-container {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .cp-support-card {
+    padding: 24px 16px 0;
+  }
+
+  .cp-growth-chart-wrap {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+
+/* ── Responsive: Small Mobile (≤420px) ── */
+@media (max-width: 420px) {
+  .cp-center-heading {
+    font-size: 24px;
+  }
+
+  .cp-center-logo {
+    width: 130px;
+  }
+
+  .cp-center-badge {
+    font-size: 10px;
+    padding: 5px 14px;
+  }
+
+  .cp-journey-text {
+    font-size: 13.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

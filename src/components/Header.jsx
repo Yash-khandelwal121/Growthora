@@ -121,6 +121,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
     }
   };
 
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    if (location.pathname === '/contact') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/contact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleEligibilityClick = (e) => {
     e.preventDefault();
     if (location.pathname === '/eligibility') {
@@ -263,6 +273,14 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
           >
             Blog
             {location.pathname === '/blog' && <span className="active-dot" />}
+          </a>
+          <a 
+            href="/contact" 
+            className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+            onClick={handleContactClick}
+          >
+            Contact Us
+            {location.pathname === '/contact' && <span className="active-dot" />}
           </a>
           <a 
             href="/eligibility" 
@@ -525,6 +543,16 @@ export const Header = ({ onOpenConsultation, onOpenAskGrowthora }) => {
             }}
           >
             Blog
+          </a>
+          <a 
+            href="/contact" 
+            className={`mobile-nav-link ${location.pathname === '/contact' ? 'active' : ''}`} 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handleContactClick(e);
+            }}
+          >
+            Contact Us
           </a>
           <a 
             href="/eligibility" 
